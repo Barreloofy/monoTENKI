@@ -12,6 +12,20 @@ struct Condition: Decodable {
 }
 
 
+struct CurrentWeather {
+    let location: String
+    let info: Current
+    
+    init(
+        location: String = "",
+        info: Current = Current(tempC: 0.0, tempF: 0.0, condition: Condition(text: ""))
+    ) {
+        self.location = location
+        self.info = info
+    }
+}
+
+
 struct Weather: Decodable {
     let location: Location
     let current: Current
