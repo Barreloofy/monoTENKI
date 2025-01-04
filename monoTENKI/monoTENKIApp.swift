@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct monoTENKIApp: App {
+    @StateObject private var unitData = UnitData()
     var body: some Scene {
         WindowGroup {
             WeatherView()
+                .environmentObject(unitData)
         }
     }
 }

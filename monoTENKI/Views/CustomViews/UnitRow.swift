@@ -11,7 +11,7 @@ struct UnitRow: View {
     let unitType: UnitType
     let unitSymbol: String
     @State private var selected = false
-    @StateObject private var unitData = UnitData()
+    @EnvironmentObject private var unitData: UnitData
     
     enum UnitType: String {
         case temperature
@@ -94,9 +94,17 @@ struct UnitRow: View {
                 unitData.clock = selected == false ? .H24 : .H12
             }
         }
+        .onAppear {
+            if unitType == .temperature {
+                selected = unitData.temperature == .celsius ? false : true
+            } else if unitType == .clock {
+                selected = unitData.clock == .H24 ? false : true
+            }
+        }
     }
 }
 
 #Preview {
     UnitRow(unitType: .temperature, unitSymbol: "\u{00B0}")
+        .environmentObject(UnitData())
 }

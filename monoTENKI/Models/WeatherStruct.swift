@@ -60,7 +60,8 @@ struct ForecastDay: Decodable {
 }
 
 
-struct Day: Decodable {
+struct Day: Decodable, Identifiable {
+    let id = UUID()
     let maxtempC: Double
     let maxtempF: Double
     let mintempC: Double

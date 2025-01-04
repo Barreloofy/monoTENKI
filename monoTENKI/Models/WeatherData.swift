@@ -24,7 +24,7 @@ final class WeatherData: ObservableObject {
             let weatherData = try await APIClient.fetch(service: .weather, forType: Weather.self, query)
             currentWeather = CurrentWeather(location: weatherData.location.name, info: weatherData.current)
             hourForecast = weatherData.forecast.forecastDays.first?.hours ?? []
-            weatherData.forecast.forecastDays.forEach {
+            weatherData.forecast.forecastDays.dropFirst().forEach {
                 dayForecast.append($0.day)
             }
         }
