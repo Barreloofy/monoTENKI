@@ -9,7 +9,27 @@ import SwiftUI
 
 struct SettingsView: View {
     var body: some View {
-        Text("Hello, World!")
+        VStack {
+            ZStack {
+                Text("Settings")
+                HStack {
+                    Spacer()
+                    Text("X")
+                }
+            }
+            HStack {
+                Text("UNITS")
+                Spacer()
+            }
+            .font(.system(.headline, design: .serif, weight: .bold))
+            UnitRow(unitType: .temperature, unitSymbol: "\u{00B0}")
+            UnitRow(unitType: .clock)
+            Spacer()
+        }
+        .font(.system(.title, design: .serif, weight: .bold))
+        .foregroundStyle(.white)
+        .padding()
+        .background(.black)
     }
 }
 

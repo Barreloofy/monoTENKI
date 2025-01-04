@@ -14,6 +14,8 @@ struct SearchTextField: ViewModifier {
         content
             .foregroundStyle(.white)
             .tint(.white)
+            .textInputAutocapitalization(.words)
+            .autocorrectionDisabled()
             .overlay(alignment: .leading) {
                 if text.isEmpty {
                     Text("SEARCH...")

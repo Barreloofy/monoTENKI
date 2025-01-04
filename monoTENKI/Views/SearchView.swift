@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchView: View {
     @Environment(\.dismiss) private var dismiss
     @FocusState private var textFieldIsFocused: Bool
+    @State private var results = [Location]()
     @State private var text = ""
     
     var body: some View {
@@ -29,11 +30,16 @@ struct SearchView: View {
                 .focused($textFieldIsFocused)
                 .font(.system(.title, design: .rounded, weight: .bold))
             ScrollView {
-                ForEach(0..<10) { _ in
+                ForEach(results) { result in
                     HStack {
-                        Text("Hello, World!")
+                        Text(result.name)
+                            .layoutPriority(1)
+                        Text(result.country)
                         Spacer()
                     }
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
+                    .truncationMode(.tail)
                 }
             }
         }
@@ -41,6 +47,15 @@ struct SearchView: View {
         .foregroundStyle(.white)
         .padding()
         .background(.black)
+        .onChange(of: text) {
+            fetchLocations(text)
+        }
+    }
+    
+    private func fetchLocations(_ query: String) {
+        Task {
+            results = try await APIClient.fetch(service: .location, forType: [Location].self, query)
+        }
     }
 }
 
