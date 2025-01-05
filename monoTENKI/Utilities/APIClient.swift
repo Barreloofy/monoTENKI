@@ -9,7 +9,7 @@ import Foundation
 import OSLog
 
 struct APIClient {
-    private static let logger = Logger(subsystem: "com.monoTENKI.APIClient", category: "Error")
+    static let logger = Logger(subsystem: "com.monoTENKI.APIClient", category: "Error")
     private static let baseURL = URL(string: "https://api.weatherapi.com/v1/")!
     private static var apiKey: String {
         return Bundle.main.object(forInfoDictionaryKey: "WeatherAPI.comAPIKey") as! String
@@ -43,9 +43,11 @@ struct APIClient {
     static func fetch<T: Decodable>(service: Service, forType type: T.Type, _ query: String) async throws -> T {
         let url = try buildURL(service, query)
         let (data, _) = try await URLSession.shared.data(from: url)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        decoder.dateDecodingStrategy = .secondsSince1970
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
         return try decoder.decode(T.self, from: data)
     }
 }

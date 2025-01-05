@@ -14,14 +14,13 @@ struct Condition: Decodable {
 
 struct CurrentWeather {
     let location: String
-    let info: Current
+    let tempC: Double
+    let condition: String
     
-    init(
-        location: String = "",
-        info: Current = Current(tempC: 0.0, tempF: 0.0, condition: Condition(text: ""))
-    ) {
+    init(location: String = "", tempC: Double = 0.0, condition: String = "") {
         self.location = location
-        self.info = info
+        self.tempC = tempC
+        self.condition = condition
     }
 }
 
@@ -35,7 +34,6 @@ struct Weather: Decodable {
 
 struct Current: Decodable {
     let tempC: Double
-    let tempF: Double
     let condition: Condition
 }
 
@@ -49,7 +47,8 @@ struct Forecast: Decodable {
 }
 
 
-struct ForecastDay: Decodable {
+struct ForecastDay: Decodable, Identifiable {
+    let id = UUID()
     let day: Day
     let hours: [Hour]
     
@@ -63,23 +62,26 @@ struct ForecastDay: Decodable {
 struct Day: Decodable, Identifiable {
     let id = UUID()
     let maxtempC: Double
-    let maxtempF: Double
     let mintempC: Double
-    let mintempF: Double
     let avgtempC: Double
-    let avgtempF: Double
     let condition: Condition
+    
+    enum CodingKeys: CodingKey {
+        case maxtempC
+        case mintempC
+        case avgtempC
+        case condition
+    }
 }
 
 
 struct Hour: Decodable {
     let date: Date
     let tempC: Double
-    let tempF: Double
     let condition: Condition
     
     enum CodingKeys: String, CodingKey {
-        case date = "timeEpoch"
-        case tempC, tempF, condition
+        case date = "time"
+        case tempC, condition
     }
 }

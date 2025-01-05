@@ -28,6 +28,6 @@ struct ForecastView: View {
 }
 
 #Preview {
-    ForecastView(day: Day(maxtempC: 0.0, maxtempF: 0.0, mintempC: 0.0, mintempF: 0.0, avgtempC: 0.0, avgtempF: 0.0, condition: Condition(text: "")))
+    ForecastView(day: Day(maxtempC: 0.0, mintempC: 0.0, avgtempC: 0.0, condition: Condition(text: "")))
         .environmentObject(UnitData())
 }

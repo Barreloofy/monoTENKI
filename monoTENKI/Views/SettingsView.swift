@@ -27,7 +27,6 @@ struct SettingsView: View {
             }
             .font(.system(.headline, design: .serif, weight: .bold))
             UnitRow(unitType: .temperature, unitSymbol: "\u{00B0}")
-            UnitRow(unitType: .clock)
             Spacer()
         }
         .font(.system(.title, design: .serif, weight: .bold))

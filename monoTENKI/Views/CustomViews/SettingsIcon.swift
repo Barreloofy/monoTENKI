@@ -20,7 +20,7 @@ struct SettingsIcon: View {
     
     var body: some View {
         Circumrhombus()
-            .stroke()
+            .stroke(lineWidth: 2)
             .contentShape(Circumrhombus())
             .foregroundStyle(style)
             .frame(width: width, height: height)

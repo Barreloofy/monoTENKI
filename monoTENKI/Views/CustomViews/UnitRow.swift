@@ -15,7 +15,6 @@ struct UnitRow: View {
     
     enum UnitType: String {
         case temperature
-        case clock
     }
     
     init(unitType: UnitType, unitSymbol: String = "") {
@@ -24,27 +23,15 @@ struct UnitRow: View {
     }
     
     private var typeName: String {
-        return unitType == .temperature
-        ?
-        UnitType.temperature.rawValue
-        :
-        UnitType.clock.rawValue
+        return unitType.rawValue
     }
     
     private var firstUnit: String {
-        if unitType == .temperature {
-            return "C"
-        } else {
-            return "24H"
-        }
+        return "C"
     }
     
     private var secondUnit: String {
-        if unitType == .temperature {
-            return "F"
-        } else {
-            return "12H"
-        }
+        return "F"
     }
     
     var body: some View {
@@ -90,17 +77,12 @@ struct UnitRow: View {
         .onChange(of: selected) {
             if unitType == .temperature {
                 unitData.temperature = selected == false ? .celsius : .fahrenheit
-            } else if unitType == .clock {
-                unitData.clock = selected == false ? .H24 : .H12
             }
         }
         .onAppear {
             if unitType == .temperature {
                 selected = unitData.temperature == .celsius ? false : true
-            } else if unitType == .clock {
-                selected = unitData.clock == .H24 ? false : true
-            }
-        }
+            }        }
     }
 }
 

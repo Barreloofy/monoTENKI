@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SearchView: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var weatherData: WeatherData
     @FocusState private var textFieldIsFocused: Bool
     @State private var results = [Location]()
     @State private var text = ""
@@ -40,6 +41,10 @@ struct SearchView: View {
                     .lineLimit(1)
                     .minimumScaleFactor(0.8)
                     .truncationMode(.tail)
+                    .onTapGesture {
+                        weatherData.currentLocation = result.name
+                        dismiss()
+                    }
                 }
             }
         }
@@ -54,7 +59,11 @@ struct SearchView: View {
     
     private func fetchLocations(_ query: String) {
         Task {
-            results = try await APIClient.fetch(service: .location, forType: [Location].self, query)
+            do {
+                results = try await APIClient.fetch(service: .location, forType: [Location].self, query)
+            } catch {
+                print(error)
+            }
         }
     }
 }
