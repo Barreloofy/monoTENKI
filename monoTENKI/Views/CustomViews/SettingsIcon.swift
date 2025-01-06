@@ -12,7 +12,7 @@ struct SettingsIcon: View {
     let height: CGFloat
     let style: Color
     
-    init(width: CGFloat = 100, height: CGFloat = 100, style: Color = .white) {
+    init(width: CGFloat = 50, height: CGFloat = 50, style: Color = .white) {
         self.width = width
         self.height = height
         self.style = style

@@ -19,13 +19,14 @@ struct WeatherView: View {
                 VStack {
                     HStack {
                         Spacer()
-                        SettingsIcon(width: 50, height: 50)
-                            .sheet(isPresented: $showSettings) {
-                                SettingsView()
-                            }
-                            .onTapGesture {
-                                showSettings = true
-                            }
+                        Button {
+                            showSettings = true
+                        } label: {
+                            SettingsIcon()
+                        }
+                        .sheet(isPresented: $showSettings) {
+                            SettingsView()
+                        }
                     }
                     CurrentWeatherView(currentWeather: weatherData.currentWeather, unit: unitData.temperature)
                     HStack {
@@ -44,10 +45,10 @@ struct WeatherView: View {
         .foregroundStyle(.white)
         .background(.black)
         .onAppear {
-            weatherData.fetchWeather(weatherData.currentLocation)
+            weatherData.fetchWeather()
         }
         .onChange(of: weatherData.currentLocation) {
-            weatherData.fetchWeather(weatherData.currentLocation)
+            weatherData.fetchWeather()
         }
         .environmentObject(weatherData)
     }
@@ -56,4 +57,5 @@ struct WeatherView: View {
 #Preview {
     WeatherView()
         .environmentObject(UnitData())
+        .environmentObject(WeatherData())
 }

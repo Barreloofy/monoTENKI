@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ForecastView: View {
     @EnvironmentObject private var unitData: UnitData
+    
     let day: Day
     var body: some View {
         VStack {
@@ -16,12 +17,10 @@ struct ForecastView: View {
             Image(systemName: getWeatherIcon(for: day.condition.text, isDay: false))
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .padding()
                 .fontWeight(.regular)
-            HStack {
-                Text("L: \(presentTemperature(unitData.temperature, day.mintempC))")
-                Text("H: \(presentTemperature(unitData.temperature, day.maxtempC))")
-            }
+                .padding()
+            temperatureExtremesView(mintemp: day.mintempC, maxtemp: day.maxtempC)
+            .font(.system(.headline, design: .serif, weight: .bold))
         }
         .font(.system(.title3, design: .serif, weight: .bold))
     }

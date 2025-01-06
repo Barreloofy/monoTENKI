@@ -16,11 +16,13 @@ struct CurrentWeather {
     let location: String
     let tempC: Double
     let condition: String
+    let day: Day
     
-    init(location: String = "", tempC: Double = 0.0, condition: String = "") {
+    init(location: String = "", tempC: Double = 0.0, condition: String = "", day: Day = Day()) {
         self.location = location
         self.tempC = tempC
         self.condition = condition
+        self.day = day
     }
 }
 
@@ -65,6 +67,13 @@ struct Day: Decodable, Identifiable {
     let mintempC: Double
     let avgtempC: Double
     let condition: Condition
+    
+    init(maxtempC: Double = 0.0, mintempC: Double = 0.0, avgtempC: Double = 0.0, condition: Condition = Condition(text: "")) {
+        self.maxtempC = maxtempC
+        self.mintempC = mintempC
+        self.avgtempC = avgtempC
+        self.condition = condition
+    }
     
     enum CodingKeys: CodingKey {
         case maxtempC

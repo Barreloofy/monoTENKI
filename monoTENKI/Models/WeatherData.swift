@@ -13,7 +13,7 @@ final class WeatherData: ObservableObject {
     @Published var currentWeather: CurrentWeather
     @Published var hourForecast: [Hour]
     @Published var dayForecast: [Day]
-    @AppStorage("location") var currentLocation = ""
+    @AppStorage("location") var currentLocation = "Saint Petersburg"
     
     init() {
         currentWeather = CurrentWeather()
@@ -21,11 +21,13 @@ final class WeatherData: ObservableObject {
         dayForecast = []
     }
     
-    func fetchWeather(_ query: String) {
+    func fetchWeather() {
         Task {
             do {
-                let weatherData = try await APIClient.fetch(service: .weather, forType: Weather.self, query)
-                currentWeather = CurrentWeather(location: weatherData.location.name, tempC: weatherData.current.tempC, condition: weatherData.current.condition.text)
+                hourForecast = []
+                dayForecast = []
+                let weatherData = try await APIClient.fetch(service: .weather, forType: Weather.self, currentLocation)
+                currentWeather = CurrentWeather(location: weatherData.location.name, tempC: weatherData.current.tempC, condition: weatherData.current.condition.text, day: weatherData.forecast.forecastDays.first!.day)
                 let time = weatherData.location.time
                 let timeIn12H = time!.addingTimeInterval(43200)
                 for forecast in weatherData.forecast.forecastDays {
