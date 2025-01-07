@@ -8,8 +8,16 @@
 import SwiftUI
 
 struct HourForecastView: View {
-    let hourForecast: [Hour]
-    let unit: UnitData.TemperatureUnits
+    @EnvironmentObject private var weatherData: WeatherData
+    @EnvironmentObject private var unitData: UnitData
+    
+    private var hourForecast: [Hour] {
+        return weatherData.hourForecast
+    }
+    
+    private var unit: UnitData.TemperatureUnits {
+        return unitData.temperature
+    }
     
     var body: some View {
         HStack {
@@ -23,7 +31,7 @@ struct HourForecastView: View {
                     Text(hour.date.formatted(date: .omitted, time: .shortened))
                     Spacer()
                 }
-                Image(systemName: getWeatherIcon(for: hour.condition.text, isDay: false))
+                Image(systemName: getWeatherIcon(for: hour.condition.text, isDay: weatherData.isDay))
                     .fontWeight(.regular)
                 HStack {
                     Spacer()

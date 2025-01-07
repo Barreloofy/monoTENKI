@@ -11,22 +11,24 @@ struct ForecastView: View {
     @EnvironmentObject private var unitData: UnitData
     
     let day: Day
+    let isDay: Bool
     var body: some View {
         VStack {
             Text(presentTemperature(unitData.temperature, day.avgtempC))
-            Image(systemName: getWeatherIcon(for: day.condition.text, isDay: false))
+            temperatureExtremesView(mintemp: day.mintempC, maxtemp: day.maxtempC)
+                .font(.system(.headline, design: .serif, weight: .bold))
+            Image(systemName: getWeatherIcon(for: day.condition.text, isDay: isDay))
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .fontWeight(.regular)
+                .shadow(color: .white, radius: 10, x: 5, y: 5)
                 .padding()
-            temperatureExtremesView(mintemp: day.mintempC, maxtemp: day.maxtempC)
-            .font(.system(.headline, design: .serif, weight: .bold))
         }
         .font(.system(.title3, design: .serif, weight: .bold))
     }
 }
 
 #Preview {
-    ForecastView(day: Day(maxtempC: 0.0, mintempC: 0.0, avgtempC: 0.0, condition: Condition(text: "")))
+    ForecastView(day: Day(maxtempC: 0.0, mintempC: 0.0, avgtempC: 0.0, condition: Condition(text: "")), isDay: true)
         .environmentObject(UnitData())
 }

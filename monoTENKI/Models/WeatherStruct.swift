@@ -37,11 +37,19 @@ struct Weather: Decodable {
 struct Current: Decodable {
     let tempC: Double
     let condition: Condition
+    
+    var conditionText: String {
+        return condition.text
+    }
 }
 
 
 struct Forecast: Decodable {
     let forecastDays: [ForecastDay]
+    
+    var today: Day {
+        return forecastDays.first!.day
+    }
     
     enum CodingKeys: String, CodingKey {
         case forecastDays = "forecastday"
@@ -88,6 +96,10 @@ struct Hour: Decodable {
     let date: Date
     let tempC: Double
     let condition: Condition
+    
+    var conditionText: String {
+        return condition.text
+    }
     
     enum CodingKeys: String, CodingKey {
         case date = "time"

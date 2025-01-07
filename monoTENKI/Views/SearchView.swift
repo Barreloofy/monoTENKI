@@ -13,6 +13,7 @@ struct SearchView: View {
     @FocusState private var textFieldIsFocused: Bool
     @State private var results = [Location]()
     @State private var text = ""
+    private var locationManager = LocationManager()
     
     var body: some View {
         VStack {
@@ -30,6 +31,15 @@ struct SearchView: View {
                 .searchTextField(text, _textFieldIsFocused)
                 .focused($textFieldIsFocused)
                 .font(.system(.title, design: .rounded, weight: .bold))
+            HStack {
+                Button {
+                    fetchCurrentLocation()
+                } label: {
+                    Label("CURRENT LOCATION", systemImage: "location.fill")
+                }
+                Spacer()
+            }
+            .font(.system(.title3, design: .serif, weight: .bold))
             ScrollView {
                 ForEach(results) { result in
                     HStack {
@@ -66,8 +76,24 @@ struct SearchView: View {
             }
         }
     }
+    
+    private func fetchCurrentLocation() {
+        Task {
+            do {
+                guard let query = locationManager.stringLocation else { return }
+                print(query)
+                let results = try await APIClient.fetch(service: .location, forType: [Location].self, query)
+                guard let firstResult = results.first else { return }
+                weatherData.currentLocation = firstResult.name
+                dismiss()
+            } catch {
+                print(error)
+            }
+        }
+    }
 }
 
 #Preview {
     SearchView()
+        .environmentObject(WeatherData())
 }

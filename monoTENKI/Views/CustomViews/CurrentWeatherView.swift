@@ -8,10 +8,18 @@
 import SwiftUI
 
 struct CurrentWeatherView: View {
-    let currentWeather: CurrentWeather
-    let unit: UnitData.TemperatureUnits
+    @EnvironmentObject private var weatherData: WeatherData
+    @EnvironmentObject private var unitData: UnitData
     @State private var showSearch = false
     @State private var showSettings = false
+    
+    private var currentWeather: CurrentWeather {
+        return weatherData.currentWeather
+    }
+    
+    private var unit: UnitData.TemperatureUnits {
+        return unitData.temperature
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -31,10 +39,11 @@ struct CurrentWeatherView: View {
                 Text(presentTemperature(unit, currentWeather.tempC))
                 temperatureExtremesView(mintemp: currentWeather.day.mintempC, maxtemp: currentWeather.day.maxtempC)
                     .font(.system(.title3, design: .serif, weight: .bold))
-                Image(systemName: getWeatherIcon(for: currentWeather.condition, isDay: false))
+                Image(systemName: getWeatherIcon(for: currentWeather.condition, isDay: weatherData.isDay))
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .fontWeight(.regular)
+                    .shadow(color: .white, radius: 10, x: 5, y: 5)
                     .padding()
                 Text(currentWeather.condition)
                     .font(.system(.title, design: .serif, weight: .bold))

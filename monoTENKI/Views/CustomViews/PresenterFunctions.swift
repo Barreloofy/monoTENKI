@@ -30,11 +30,11 @@ func getWeatherIcon(for condition: String, isDay: Bool) -> String {
             return "cloud.fog.fill"
         case "light drizzle" ,"patchy rain possible", "patchy rain nearby","light rain", "moderate rain at times", "moderate rain", "heavy rain at times", "heavy rain":
             return "cloud.rain.fill"
-        case "patchy snow possible", "light snow", "patchy light snow", "moderate snow", "patchy heavy snow", "heavy snow":
+        case "patchy snow possible", "light snow", "patchy light snow", "patchy moderate snow", "moderate snow", "patchy heavy snow", "heavy snow":
             return "cloud.snow.fill"
         case "patchy sleet possible", "light sleet", "moderate sleet", "light sleet showers", "moderate sleet showers":
             return "cloud.sleet.fill"
-        case "patchy freezing drizzle possible", "light freezing rain", "moderate or heavy freezing rain":
+        case "patchy freezing drizzle possible", "heavy freezing drizzle", "light freezing rain", "moderate or heavy freezing rain":
             return "cloud.hail.fill"
         case "thundery outbreaks possible", "patchy light rain with thunder", "moderate or heavy rain with thunder", "patchy light snow with thunder", "moderate or heavy snow with thunder":
             return "cloud.bolt.rain.fill"
@@ -42,7 +42,7 @@ func getWeatherIcon(for condition: String, isDay: Bool) -> String {
             return "cloud.snow.blizzard.fill"
         case "freezing fog":
             return "cloud.fog.fill"
-        case "torrential rain shower", "moderate or heavy rain shower":
+        case "torrential rain shower", "moderate or heavy rain shower", "light rain shower":
             return "cloud.rain.fill"
         case "light snow showers", "moderate or heavy snow showers":
             return "cloud.snow.fill"
