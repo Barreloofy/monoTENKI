@@ -8,16 +8,23 @@
 import SwiftUI
 
 struct AlertView: View {
+    @Binding var show: Bool
+    let title: String
+    let message: String
+    let actionMessage: String
     
     var body: some View {
         VStack {
-            Text("Error")
-            Text("An Error occurred while perfoming action")
+            Text(title)
+            Text(message)
+            Text(actionMessage)
             Divider()
                 .frame(height: 2)
                 .background(.white)
             HStack {
-                Button {} label: {
+                Button {
+                    show = false
+                } label: {
                     Text("Okay")
                 }
             }
@@ -32,5 +39,5 @@ struct AlertView: View {
 }
 
 #Preview {
-    AlertView()
+    AlertView(show: .constant(true), title: "Error", message: "An Error occurred", actionMessage: "TAP TO RETRY")
 }

@@ -21,14 +21,14 @@ struct HourForecastView: View {
     
     var body: some View {
         HStack {
-            Text("FORECAST 12")
+            Text("FORECAST 12H")
                 .font(.system(.title3, design: .rounded, weight: .bold))
             Spacer()
         }
-        ForEach(hourForecast, id: \.date) { hour in
+        ForEach(hourForecast, id: \.time) { hour in
             ZStack {
                 HStack {
-                    Text(hour.date.formatted(date: .omitted, time: .shortened))
+                    Text(hour.time.formatted(date: .omitted, time: .shortened))
                     Spacer()
                 }
                 Image(systemName: getWeatherIcon(for: hour.condition.text, isDay: weatherData.isDay))

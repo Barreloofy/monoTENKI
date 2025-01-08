@@ -7,23 +7,42 @@
 
 import Foundation
 
-struct Condition: Decodable {
-    let text: String
-}
-
-
+// MARK: - Interal Structs
 struct CurrentWeather {
     let location: String
     let tempC: Double
     let condition: String
-    let day: Day
+    let day: FutureDay
     
-    init(location: String = "", tempC: Double = 0.0, condition: String = "", day: Day = Day()) {
+    init(location: String = "", tempC: Double = 0.0, condition: String = "", day: FutureDay = FutureDay()) {
         self.location = location
         self.tempC = tempC
         self.condition = condition
         self.day = day
     }
+}
+
+
+struct FutureDay: Identifiable {
+    let id = UUID()
+    let date: Date
+    let maxtempC: Double
+    let mintempC: Double
+    let avgtempC: Double
+    let condition: String
+    
+    init(date: Date = Date(), maxtempC: Double = 0.0, mintempC: Double = 0.0, avgtempC: Double = 0.0, condition: String = "Clear") {
+        self.date = date
+        self.maxtempC = maxtempC
+        self.mintempC = mintempC
+        self.avgtempC = avgtempC
+        self.condition = condition
+    }
+}
+
+// MARK: - Decodable Structs
+struct Condition: Decodable {
+    let text: String
 }
 
 
@@ -47,8 +66,8 @@ struct Current: Decodable {
 struct Forecast: Decodable {
     let forecastDays: [ForecastDay]
     
-    var today: Day {
-        return forecastDays.first!.day
+    var today: FutureDay {
+        return FutureDay(maxtempC: forecastDays.first!.day.maxtempC, mintempC: forecastDays.first!.day.mintempC)
     }
     
     enum CodingKeys: String, CodingKey {
@@ -57,52 +76,32 @@ struct Forecast: Decodable {
 }
 
 
-struct ForecastDay: Decodable, Identifiable {
-    let id = UUID()
+struct ForecastDay: Decodable {
+    let date: Date
     let day: Day
     let hours: [Hour]
     
     enum CodingKeys: String, CodingKey {
-        case day
+        case date, day
         case hours = "hour"
     }
 }
 
 
-struct Day: Decodable, Identifiable {
-    let id = UUID()
+struct Day: Decodable {
     let maxtempC: Double
     let mintempC: Double
     let avgtempC: Double
     let condition: Condition
-    
-    init(maxtempC: Double = 0.0, mintempC: Double = 0.0, avgtempC: Double = 0.0, condition: Condition = Condition(text: "")) {
-        self.maxtempC = maxtempC
-        self.mintempC = mintempC
-        self.avgtempC = avgtempC
-        self.condition = condition
-    }
-    
-    enum CodingKeys: CodingKey {
-        case maxtempC
-        case mintempC
-        case avgtempC
-        case condition
-    }
 }
 
 
 struct Hour: Decodable {
-    let date: Date
+    let time: Date
     let tempC: Double
     let condition: Condition
     
     var conditionText: String {
         return condition.text
-    }
-    
-    enum CodingKeys: String, CodingKey {
-        case date = "time"
-        case tempC, condition
     }
 }

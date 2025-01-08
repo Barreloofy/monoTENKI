@@ -12,7 +12,7 @@ import SwiftUI
 final class WeatherData: ObservableObject {
     @Published var currentWeather: CurrentWeather
     @Published var hourForecast: [Hour]
-    @Published var dayForecast: [Day]
+    @Published var dayForecast: [FutureDay]
     @AppStorage("location") var currentLocation = "Saint Petersburg"
     private(set) var isDay: Bool
     
@@ -23,12 +23,12 @@ final class WeatherData: ObservableObject {
         isDay = true
     }
     
-    func fetchWeather() {
+    func fetchWeather(_ completionHandler: @escaping (Error?) -> Void) {
         Task {
             do {
                 var currentWeather: CurrentWeather
                 var hourForecast = [Hour]()
-                var dayForecast = [Day]()
+                var dayForecast = [FutureDay]()
                 
                 let weatherData = try await APIClient.fetch(service: .weather, forType: Weather.self, currentLocation)
                 currentWeather = CurrentWeather(
@@ -41,12 +41,20 @@ final class WeatherData: ObservableObject {
                 let time = weatherData.location.time!
                 let timeIn12H = time.addingTimeInterval(43200)
                 for forecast in weatherData.forecast.forecastDays {
-                    if forecast.id != weatherData.forecast.forecastDays.first?.id {
-                        dayForecast.append(forecast.day)
+                    if forecast.date != weatherData.forecast.forecastDays.first?.date {
+                        dayForecast.append(
+                            FutureDay(
+                                date: forecast.date,
+                                maxtempC: forecast.day.maxtempC,
+                                mintempC: forecast.day.mintempC,
+                                avgtempC: forecast.day.avgtempC,
+                                condition: forecast.day.condition.text
+                            )
+                        )
                     }
                     for hour in forecast.hours {
                         guard hourForecast.count < 12 else { break }
-                        if hour.date > time && hour.date < timeIn12H {
+                        if hour.time > time && hour.time < timeIn12H {
                             hourForecast.append(hour)
                         }
                     }
@@ -57,8 +65,9 @@ final class WeatherData: ObservableObject {
                 self.currentWeather = currentWeather
                 self.hourForecast = hourForecast
                 self.dayForecast = dayForecast
+                completionHandler(nil)
             } catch {
-                print(error)
+                completionHandler(error)
             }
         }
     }

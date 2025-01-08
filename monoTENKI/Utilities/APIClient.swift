@@ -17,9 +17,18 @@ struct APIClient {
     
     private init() {}
     
-    private enum APIError: String, Error {
-        case urlError = "Error, invalid URL"
-        case typeError = "Error, provided type for 'T' is not Weather or [Location] type"
+    private enum APIError: Error, LocalizedError {
+        case urlError
+        case typeError
+        
+        var localizedDescription: String {
+            switch self {
+                case .urlError:
+                    return "Error, invalid URL"
+                case .typeError:
+                    return "Error, provided type for 'T' is not Weather or [Location] type"
+            }
+        }
     }
     
     enum Service: String {
@@ -29,12 +38,12 @@ struct APIClient {
     
     static private func buildURL(_ service: Service, _ query: String) throws -> URL {
         guard var components = URLComponents(url: baseURL.appendingPathComponent(service.rawValue), resolvingAgainstBaseURL: false) else {
-            logger.error("\(APIError.urlError.rawValue)")
+            logger.error("\(APIError.urlError)")
             throw APIError.urlError
         }
         components.queryItems = [URLQueryItem(name: "key", value: apiKey), URLQueryItem(name: "q", value: query), URLQueryItem(name: "days", value: "3")]
         guard let url = components.url else {
-            logger.error("\(APIError.urlError.rawValue)")
+            logger.error("\(APIError.urlError)")
             throw APIError.urlError
         }
         return url
@@ -43,11 +52,25 @@ struct APIClient {
     static func fetch<T: Decodable>(service: Service, forType type: T.Type, _ query: String) async throws -> T {
         let url = try buildURL(service, query)
         let (data, _) = try await URLSession.shared.data(from: url)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        decoder.dateDecodingStrategy = .custom { decoder in
+            let container = try decoder.singleValueContainer()
+            let stringDate = try container.decode(String.self)
+            let dateFormatter = DateFormatter()
+            
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+            if let date = dateFormatter.date(from: stringDate) {
+                return date
+            }
+            
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            if let date = dateFormatter.date(from: stringDate) {
+                return date
+            }
+            
+            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Date string does not match format expected by formatter")
+        }
         return try decoder.decode(T.self, from: data)
     }
 }

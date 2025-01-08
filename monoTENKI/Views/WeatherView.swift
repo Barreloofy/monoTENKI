@@ -11,51 +11,53 @@ struct WeatherView: View {
     @EnvironmentObject private var unitData: UnitData
     @StateObject private var weatherData = WeatherData()
     @State private var showSettings = false
-    @State private var showAlert = false
+    @State private var isError = false
     
     var body: some View {
-        ZStack {
-            Color.black.opacity(0.98)
-                .ignoresSafeArea()
-            VStack {
-                Spacer()
-                ScrollView {
-                    VStack {
-                        HStack {
+        Group {
+            if isError {
+                ErrorView(isError: $isError)
+            } else {
+                VStack {
+                    Spacer()
+                    ScrollView {
+                        VStack {
+                            HStack {
+                                Spacer()
+                                Button {
+                                    showSettings = true
+                                } label: {
+                                    SettingsIcon()
+                                }
+                                .sheet(isPresented: $showSettings) {
+                                    SettingsView()
+                                }
+                            }
+                            CurrentWeatherView()
+                            HStack(alignment: .top) {
+                                ForEach(weatherData.dayForecast) { day in
+                                    ForecastView(day: day, isDay: weatherData.isDay)
+                                }
+                            }
+                            .padding()
+                            HourForecastView()
                             Spacer()
-                            Button {
-                                showSettings = true
-                            } label: {
-                                SettingsIcon()
-                            }
-                            .sheet(isPresented: $showSettings) {
-                                SettingsView()
-                            }
-                        }
-                        CurrentWeatherView()
-                        HStack {
-                            ForEach(weatherData.dayForecast) { day in
-                                ForecastView(day: day, isDay: weatherData.isDay)
-                            }
                         }
                         .padding()
-                        HourForecastView()
-                        Spacer()
                     }
-                    .padding()
+                    Spacer()
                 }
-                Spacer()
-            }
-            .foregroundStyle(.white)
-            .onChange(of: weatherData.currentLocation, initial: true) {
-                weatherData.fetchWeather()
-            }
-            .environmentObject(weatherData)
-            .blur(radius: showAlert ? 5 : 0)
-            if showAlert {
-                AlertView()
+                .foregroundStyle(.white)
+                .background(.black.opacity(0.98))
+                .onChange(of: weatherData.currentLocation, initial: true) {
+                    weatherData.fetchWeather() { error in
+                        guard let _ = error else { return }
+                        isError = true
+                    }
+                }
             }
         }
+        .environmentObject(weatherData)
     }
 }
 

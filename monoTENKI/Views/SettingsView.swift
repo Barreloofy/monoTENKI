@@ -39,4 +39,5 @@ struct SettingsView: View {
 
 #Preview {
     SettingsView()
+        .environmentObject(UnitData())
 }
