@@ -23,7 +23,7 @@ final class WeatherData: ObservableObject {
         isDay = true
     }
     
-    func fetchWeather(_ completionHandler: @escaping (Error?) -> Void) {
+    func fetchWeather(_ completionHandler: @escaping (Result<Void, Error>) -> Void) {
         Task {
             do {
                 var currentWeather: CurrentWeather
@@ -65,9 +65,9 @@ final class WeatherData: ObservableObject {
                 self.currentWeather = currentWeather
                 self.hourForecast = hourForecast
                 self.dayForecast = dayForecast
-                completionHandler(nil)
+                completionHandler(.success(()))
             } catch {
-                completionHandler(error)
+                completionHandler(.failure(error))
             }
         }
     }

@@ -13,18 +13,19 @@ struct ErrorView: View {
     
     var body: some View {
         ZStack {
-            Color.black.ignoresSafeArea()
+            Color(.black).ignoresSafeArea()
             VStack {
                 VStack {
                     Text("UH, SOMETHING WENT WRONG")
                         .padding(.bottom)
                     Button {
-                        weatherData.fetchWeather() { error in
-                            guard error == nil else {
-                                print(error!)
-                                return
+                        weatherData.fetchWeather() { result in
+                            switch result {
+                                case .success():
+                                    isError = false
+                                case .failure(_):
+                                    return
                             }
-                            isError = false
                         }
                     } label: {
                         Text("TAP TO RETRY")
@@ -47,4 +48,9 @@ struct ErrorView: View {
             .foregroundStyle(.white)
         }
     }
+}
+
+#Preview {
+    ErrorView(isError: .constant(true))
+        .environmentObject(WeatherData())
 }

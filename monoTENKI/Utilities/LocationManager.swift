@@ -8,9 +8,9 @@
 import Foundation
 import CoreLocation
 
-final class LocationManager: NSObject, CLLocationManagerDelegate {
+final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
     private var locationManager = CLLocationManager()
-    private var currentLocation: CLLocationCoordinate2D?
+    @Published var currentLocation: CLLocationCoordinate2D?
     
     var stringLocation: String? {
         guard let latitude = currentLocation?.latitude, let longitude = currentLocation?.longitude else { return nil }
@@ -20,10 +20,13 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
     override init() {
         super.init()
         locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.distanceFilter = 1000
+    }
+    
+    func requestAuthorization() {
+        locationManager.requestWhenInUseAuthorization()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -35,5 +38,14 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
         if status == .authorizedWhenInUse || status == .authorizedAlways {
             locationManager.startUpdatingLocation()
         }
+    }
+}
+
+extension CLLocationCoordinate2D: @retroactive Equatable {
+    public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+        if lhs.latitude != rhs.latitude && lhs.longitude != rhs.longitude {
+            return false
+        }
+        return true
     }
 }

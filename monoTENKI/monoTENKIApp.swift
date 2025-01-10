@@ -12,7 +12,7 @@ struct monoTENKIApp: App {
     @StateObject private var unitData = UnitData()
     var body: some Scene {
         WindowGroup {
-            WeatherView()
+            EntryView()
                 .environmentObject(unitData)
         }
     }

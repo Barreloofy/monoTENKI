@@ -11,8 +11,8 @@ struct SearchView: View {
     @EnvironmentObject private var weatherData: WeatherData
     @Environment(\.dismiss) private var dismiss
     @FocusState private var textFieldIsFocused: Bool
-    @State private var results = [Location]()
     @State private var text = ""
+    @State private var locations = [Location]()
     @State private var showAlert = false
     private var locationManager = LocationManager()
     
@@ -42,18 +42,18 @@ struct SearchView: View {
                 }
                 .font(.system(.title3, design: .serif, weight: .bold))
                 ScrollView {
-                    ForEach(results) { result in
+                    ForEach(locations) { location in
                         HStack {
-                            Text(result.name)
+                            Text(location.name)
                                 .layoutPriority(1)
-                            Text(result.country)
+                            Text(location.country)
                             Spacer()
                         }
                         .lineLimit(1)
                         .minimumScaleFactor(0.8)
                         .truncationMode(.tail)
                         .onTapGesture {
-                            weatherData.currentLocation = result.name
+                            weatherData.currentLocation = location.name
                             dismiss()
                         }
                     }
@@ -64,7 +64,7 @@ struct SearchView: View {
             .padding()
             .background(.black)
             .onChange(of: text) {
-                fetchLocations(text)
+                fetchLocations()
             }
             .blur(radius: showAlert ? 5 : 0)
             if showAlert {
@@ -73,10 +73,10 @@ struct SearchView: View {
         }
     }
     
-    private func fetchLocations(_ query: String) {
+    private func fetchLocations() {
         Task {
             do {
-                results = try await APIClient.fetch(service: .location, forType: [Location].self, query)
+                locations = try await APIClient.fetch(service: .location, forType: [Location].self, text)
             } catch {
                 showAlert = true
             }
@@ -87,7 +87,6 @@ struct SearchView: View {
         Task {
             do {
                 guard let query = locationManager.stringLocation else { return }
-                print(query)
                 let results = try await APIClient.fetch(service: .location, forType: [Location].self, query)
                 guard let firstResult = results.first else { return }
                 weatherData.currentLocation = firstResult.name
