@@ -14,7 +14,7 @@ struct SearchView: View {
     @State private var text = ""
     @State private var locations = [Location]()
     @State private var showAlert = false
-    private var locationManager = LocationManager()
+    private var locationManager = LocationManager.shared
     
     var body: some View {
         ZStack {
@@ -54,6 +54,7 @@ struct SearchView: View {
                         .truncationMode(.tail)
                         .onTapGesture {
                             weatherData.currentLocation = location.name
+                            locationManager.trackLocation = false
                             dismiss()
                         }
                     }
@@ -76,6 +77,7 @@ struct SearchView: View {
     private func fetchLocations() {
         Task {
             do {
+                guard !text.isEmpty else { return }
                 locations = try await APIClient.fetch(service: .location, forType: [Location].self, text)
             } catch {
                 showAlert = true
@@ -86,10 +88,11 @@ struct SearchView: View {
     private func fetchCurrentLocation() {
         Task {
             do {
-                guard let query = locationManager.stringLocation else { return }
+                guard let query = locationManager.stringLocation else { throw LocationManager.LocationError.managerError }
                 let results = try await APIClient.fetch(service: .location, forType: [Location].self, query)
-                guard let firstResult = results.first else { return }
+                guard let firstResult = results.first else { throw LocationManager.LocationError.locationNil }
                 weatherData.currentLocation = firstResult.name
+                locationManager.trackLocation = true
                 dismiss()
             } catch {
                 showAlert = true

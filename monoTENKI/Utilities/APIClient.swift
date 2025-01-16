@@ -38,12 +38,12 @@ struct APIClient {
     
     static private func buildURL(_ service: Service, _ query: String) throws -> URL {
         guard var components = URLComponents(url: baseURL.appendingPathComponent(service.rawValue), resolvingAgainstBaseURL: false) else {
-            logger.error("\(APIError.urlError)")
+            logger.error("\(APIError.urlError.localizedDescription)")
             throw APIError.urlError
         }
         components.queryItems = [URLQueryItem(name: "key", value: apiKey), URLQueryItem(name: "q", value: query), URLQueryItem(name: "days", value: "3")]
         guard let url = components.url else {
-            logger.error("\(APIError.urlError)")
+            logger.error("\(APIError.urlError.localizedDescription)")
             throw APIError.urlError
         }
         return url

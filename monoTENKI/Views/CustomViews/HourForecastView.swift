@@ -22,13 +22,13 @@ struct HourForecastView: View {
     var body: some View {
         HStack {
             Text("FORECAST 12H")
-                .font(.system(.title3, design: .rounded, weight: .bold))
+                .font(.system(.title3, design: .monospaced, weight: .bold))
             Spacer()
         }
         ForEach(hourForecast, id: \.time) { hour in
             ZStack {
                 HStack {
-                    Text(hour.time.formatted(date: .omitted, time: .shortened))
+                    Text(presentTime(for: hour.time))
                     Spacer()
                 }
                 Image(systemName: getWeatherIcon(for: hour.condition.text, isDay: weatherData.isDay))
@@ -38,7 +38,7 @@ struct HourForecastView: View {
                     Text(presentTemperature(unit, hour.tempC))
                 }
             }
-            .font(.system(.title, design: .serif, weight: .bold))
+            .font(.system(.title, design: .monospaced, weight: .bold))
         }
     }
 }

@@ -16,7 +16,7 @@ struct ErrorView: View {
             Color(.black).ignoresSafeArea()
             VStack {
                 VStack {
-                    Text("UH, SOMETHING WENT WRONG")
+                    Text("UH OH, SOMETHING WENT WRONG")
                         .padding(.bottom)
                     Button {
                         weatherData.fetchWeather() { result in

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EntryView: View {
     @StateObject private var weatherData = WeatherData()
+    @StateObject private var locationManager = LocationManager.shared
     @AppStorage("isfirstlaunch") private var isFirstLaunch = true
     @State private var isError = false
     @State private var isLoading = true
@@ -37,7 +38,26 @@ struct EntryView: View {
                 }
             }
         }
+        .onChange(of: locationManager.currentLocation) {
+            updateWeatherToLocation()
+        }
         .environmentObject(weatherData)
+    }
+    
+    private func updateWeatherToLocation() {
+        guard locationManager.trackLocation else { return }
+        Task {
+            do {
+                guard let newCoordinates = locationManager.stringLocation else { throw LocationManager.LocationError.managerError }
+                guard let newLocation = try await APIClient.fetch(service: .location, forType: [Location].self, newCoordinates).first else {
+                    throw LocationManager.LocationError.locationNil
+                }
+                weatherData.currentLocation = newLocation.name
+            } catch {
+                locationManager.locationLogger.error("\(error.localizedDescription)")
+                isError = true
+            }
+        }
     }
 }
 

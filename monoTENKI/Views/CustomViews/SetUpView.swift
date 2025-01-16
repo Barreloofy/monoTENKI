@@ -71,7 +71,7 @@ struct GuidView: View {
 struct GuideView2: View {
     @EnvironmentObject private var weatherData: WeatherData
     @Binding var selection: Int
-    @StateObject private var locationManager = LocationManager()
+    @StateObject private var locationManager = LocationManager.shared
     
     var body: some View {
         ZStack {
@@ -112,13 +112,13 @@ struct GuideView2: View {
     private func setToCurrentLocation() {
         Task {
             do {
-                guard let query = locationManager.stringLocation else { throw NSError(domain: "Location nil", code: 1) }
+                guard let query = locationManager.stringLocation else { throw LocationManager.LocationError.managerError }
                 let results = try await APIClient.fetch(service: .location, forType: [Location].self, query)
-                guard let firstResult = results.first else { throw NSError(domain: "Location nil", code: 1) }
+                guard let firstResult = results.first else { throw LocationManager.LocationError.locationNil }
                 weatherData.currentLocation = firstResult.name
                 selection += 2
             } catch {
-                setUpLogger.error("\(error)")
+                setUpLogger.error("\(error.localizedDescription)")
             }
         }
     }
@@ -171,7 +171,7 @@ struct GuideView3: View {
             do {
                 locations = try await APIClient.fetch(service: .location, forType: [Location].self, text)
             } catch {
-                setUpLogger.error("\(error)")
+                setUpLogger.error("\(error.localizedDescription)")
             }
         }
     }

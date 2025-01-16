@@ -17,6 +17,12 @@ func presentTemperature(_ unit: UnitData.TemperatureUnits, _ tempCDouble: Double
     }
 }
 
+func presentTime(for time: Date) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "h:mm"
+    return dateFormatter.string(from: time)
+}
+
 func getWeatherIcon(for condition: String, isDay: Bool) -> String {
     let condition = condition.trimmingCharacters(in: .whitespaces).lowercased()
     switch condition {

@@ -46,9 +46,3 @@ struct WeatherView: View {
         .background(.black.opacity(0.98))
     }
 }
-
-#Preview {
-    WeatherView()
-        .environmentObject(UnitData())
-        .environmentObject(WeatherData())
-}

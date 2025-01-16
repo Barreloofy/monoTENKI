@@ -47,6 +47,9 @@ struct CurrentWeatherView: View {
                     .padding()
                 Text(currentWeather.condition)
                     .font(.system(.title, design: .serif, weight: .bold))
+                    .multilineTextAlignment(.center)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.8)
             }
             .font(.system(.largeTitle, design: .serif, weight: .bold))
             .frame(width: screenWidth * 0.66)
