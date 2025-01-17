@@ -8,8 +8,10 @@
 import Foundation
 import OSLog
 
+fileprivate let logger = Logger(subsystem: "com.monoTENKI.APIClient", category: "Error")
+
+
 struct APIClient {
-    static let logger = Logger(subsystem: "com.monoTENKI.APIClient", category: "Error")
     private static let baseURL = URL(string: "https://api.weatherapi.com/v1/")!
     private static var apiKey: String {
         return Bundle.main.object(forInfoDictionaryKey: "WeatherAPI.comAPIKey") as! String
@@ -38,12 +40,12 @@ struct APIClient {
     
     static private func buildURL(_ service: Service, _ query: String) throws -> URL {
         guard var components = URLComponents(url: baseURL.appendingPathComponent(service.rawValue), resolvingAgainstBaseURL: false) else {
-            logger.error("\(APIError.urlError.localizedDescription)")
+            logger.error("\(APIError.urlError)")
             throw APIError.urlError
         }
         components.queryItems = [URLQueryItem(name: "key", value: apiKey), URLQueryItem(name: "q", value: query), URLQueryItem(name: "days", value: "3")]
         guard let url = components.url else {
-            logger.error("\(APIError.urlError.localizedDescription)")
+            logger.error("\(APIError.urlError)")
             throw APIError.urlError
         }
         return url

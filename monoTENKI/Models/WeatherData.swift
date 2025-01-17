@@ -7,7 +7,9 @@
 
 import Foundation
 import SwiftUI
+import OSLog
 
+fileprivate let logger = Logger(subsystem: "com.monoTENKI.WeatherData", category: "Error")
 @MainActor
 final class WeatherData: ObservableObject {
     @Published var currentWeather: CurrentWeather
@@ -35,7 +37,8 @@ final class WeatherData: ObservableObject {
                     location: weatherData.location.name,
                     tempC: weatherData.current.tempC,
                     condition: weatherData.current.conditionText,
-                    day: weatherData.forecast.today
+                    day: weatherData.forecast.today,
+                    details: weatherData.current.weatherDetails
                 )
                 
                 let time = weatherData.location.time!
@@ -68,6 +71,7 @@ final class WeatherData: ObservableObject {
                 completionHandler(.success(()))
             } catch {
                 completionHandler(.failure(error))
+                logger.error("\(error)")
             }
         }
     }

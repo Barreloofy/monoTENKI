@@ -34,6 +34,13 @@ struct WeatherView: View {
                             ForecastView(day: day, isDay: weatherData.isDay)
                         }
                     }
+                    .padding(5)
+                    .background {
+                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                            .fill(.black.opacity(0.96))
+                            .stroke(.white, lineWidth: 2)
+                            .shadow(color: .white, radius: 5)
+                    }
                     .padding()
                     HourForecastView()
                     Spacer()

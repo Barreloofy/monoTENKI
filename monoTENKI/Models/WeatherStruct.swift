@@ -13,12 +13,30 @@ struct CurrentWeather {
     let tempC: Double
     let condition: String
     let day: FutureDay
+    let details: CurrentWeatherDetails
     
-    init(location: String = "", tempC: Double = 0.0, condition: String = "", day: FutureDay = FutureDay()) {
+    init(location: String = "", tempC: Double = 0.0, condition: String = "", day: FutureDay = FutureDay(), details: CurrentWeatherDetails = CurrentWeatherDetails()) {
         self.location = location
         self.tempC = tempC
         self.condition = condition
         self.day = day
+        self.details = details
+    }
+}
+
+
+struct CurrentWeatherDetails {
+    //let feelslikeC: Double
+    let windDirection: String
+    let windSpeedKph: Double
+    let windGustKph: Double
+    //let precipitationMm: Double
+    //let humidity: Int
+    
+    init(windDirection: String = "", windSpeedKph: Double = 0.0, windGustKph: Double = 0.0) {
+        self.windDirection = windDirection
+        self.windSpeedKph = windSpeedKph
+        self.windGustKph = windGustKph
     }
 }
 
@@ -56,9 +74,27 @@ struct Weather: Decodable {
 struct Current: Decodable {
     let tempC: Double
     let condition: Condition
+    let windDirection: String
+    let windSpeedKph: Double
+    let windGustKph: Double
+    
+    enum CodingKeys: String, CodingKey {
+        case tempC, condition
+        case windDirection = "windDir"
+        case windSpeedKph = "windKph"
+        case windGustKph = "gustKph"
+    }
     
     var conditionText: String {
         return condition.text
+    }
+    
+    var weatherDetails: CurrentWeatherDetails {
+        return CurrentWeatherDetails(
+            windDirection: windDirection,
+            windSpeedKph: windSpeedKph,
+            windGustKph: windGustKph
+        )
     }
 }
 

@@ -16,21 +16,33 @@ struct SettingsView: View {
                 Text("Settings")
                 HStack {
                     Spacer()
-                    Text("X")
-                        .onTapGesture {
-                            dismiss()
-                        }
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("X")
+                    }
                 }
             }
-            HStack {
-                Text("UNITS")
-                Spacer()
-            }
-            .font(.system(.headline, design: .serif, weight: .bold))
+            .font(.system(.title, design: .serif, weight: .bold))
+            
+            HStackText(orientation: .left, "UNITS")
+                .font(.system(.headline, design: .serif, weight: .bold))
+            
             UnitRow(unitType: .temperature, unitSymbol: "\u{00B0}")
+            
+            HStackText(orientation: .left, "TIPS")
+                .font(.system(.headline, design: .serif, weight: .bold))
+                .padding(.top, 20)
+            
+            HStackText(orientation: .left, "Pressing on the weather icon displays additional weather details.")
+                .font(.system(.footnote, design: .serif, weight: .bold))
+                .padding(.vertical, 5)
+            
+            HStackText(orientation: .left, "Pressing on the current location's name opens the search page.")
+                .font(.system(.footnote, design: .serif, weight: .bold))
+            
             Spacer()
         }
-        .font(.system(.title, design: .serif, weight: .bold))
         .foregroundStyle(.white)
         .padding()
         .background(.black)

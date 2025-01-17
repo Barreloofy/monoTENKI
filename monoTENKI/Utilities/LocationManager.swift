@@ -64,7 +64,6 @@ final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObje
         queue.sync {
             if status == .authorizedWhenInUse || status == .authorizedAlways {
                 locationManager.startUpdatingLocation()
-                _trackLocation = true
             }
         }
     }

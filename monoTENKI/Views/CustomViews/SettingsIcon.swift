@@ -21,8 +21,8 @@ struct SettingsIcon: View {
     var body: some View {
         Circumrhombus()
             .stroke(lineWidth: 2)
+            .fill(style)
             .contentShape(Circumrhombus())
-            .foregroundStyle(style)
             .frame(width: width, height: height)
     }
     

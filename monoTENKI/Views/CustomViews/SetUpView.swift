@@ -44,7 +44,7 @@ struct GuidView: View {
             VStack {
                 Text("Greetings fellow weather watcher!")
                 Text("first let's setup a few things")
-                Text("before occupying ourselves with the more interesting thing in life")
+                Text("before occupying ourselves with the more interesting things in life")
                 Text("The Weather!")
                     .padding(.bottom)
                 Button {
@@ -116,9 +116,10 @@ struct GuideView2: View {
                 let results = try await APIClient.fetch(service: .location, forType: [Location].self, query)
                 guard let firstResult = results.first else { throw LocationManager.LocationError.locationNil }
                 weatherData.currentLocation = firstResult.name
+                locationManager.trackLocation = true
                 selection += 2
             } catch {
-                setUpLogger.error("\(error.localizedDescription)")
+                setUpLogger.error("\(error)")
             }
         }
     }
@@ -171,7 +172,7 @@ struct GuideView3: View {
             do {
                 locations = try await APIClient.fetch(service: .location, forType: [Location].self, text)
             } catch {
-                setUpLogger.error("\(error.localizedDescription)")
+                setUpLogger.error("\(error)")
             }
         }
     }
@@ -186,14 +187,14 @@ struct GuideView4: View {
         ZStack {
             Color(.black).opacity(0.98).ignoresSafeArea()
             VStack {
-                Text("One more thing, please tell us")
-                Text("your preference: American or Rest of the world?")
+                Text("One more thing, please choose")
+                Text("your preferred weather unit:")
                 HStack {
                     Button {
-                        unitData.temperature = .fahrenheit
+                        unitData.temperature = .celsius
                         isFirstLaunch = false
                     } label: {
-                        Text("Fahrenheit")
+                        Text("Celsius")
                             .padding(5)
                             .foregroundStyle(.black)
                             .background(.white)
@@ -201,10 +202,10 @@ struct GuideView4: View {
                     }
                     .padding()
                     Button {
-                        unitData.temperature = .celsius
+                        unitData.temperature = .fahrenheit
                         isFirstLaunch = false
                     } label: {
-                        Text("Celsius")
+                        Text("Fahrenheit")
                             .padding(5)
                             .foregroundStyle(.black)
                             .background(.white)

@@ -21,9 +21,7 @@ struct EntryView: View {
             } else if isError {
                 ErrorView(isError: $isError)
             } else if isLoading {
-                ZStack {
-                    Color(.black).ignoresSafeArea()
-                }
+                Color(.black).ignoresSafeArea()
             } else {
                 WeatherView()
             }
@@ -48,13 +46,14 @@ struct EntryView: View {
         guard locationManager.trackLocation else { return }
         Task {
             do {
-                guard let newCoordinates = locationManager.stringLocation else { throw LocationManager.LocationError.managerError }
+                guard let newCoordinates = locationManager.stringLocation else { throw LocationManager.LocationError.managerError
+                }
                 guard let newLocation = try await APIClient.fetch(service: .location, forType: [Location].self, newCoordinates).first else {
                     throw LocationManager.LocationError.locationNil
                 }
                 weatherData.currentLocation = newLocation.name
             } catch {
-                locationManager.locationLogger.error("\(error.localizedDescription)")
+                locationManager.locationLogger.error("\(error)")
                 isError = true
             }
         }

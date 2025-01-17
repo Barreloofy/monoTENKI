@@ -10,7 +10,7 @@ import SwiftUI
 struct UnitRow: View {
     let unitType: UnitType
     let unitSymbol: String
-    @State private var selected = false
+    @State private var selected = true
     @EnvironmentObject private var unitData: UnitData
     
     enum UnitType: String {
@@ -42,33 +42,23 @@ struct UnitRow: View {
             }
             HStack {
                 Text(firstUnit + unitSymbol)
-                    .foregroundStyle(selected == false ? .white : .gray)
+                    .foregroundStyle(selected ? .white : .gray)
                     .overlay(alignment: .bottom) {
-                        selected == false
-                        ?
-                        Rectangle()
-                            .frame(height: 2)
-                        :
-                        nil
+                        isSelected(defaultValue: true)
                     }
                     .onTapGesture {
-                        selected = false
+                        selected = true
                     }
             }
             HStack {
                 Spacer()
                 Text(secondUnit + unitSymbol)
-                    .foregroundStyle(selected == true ? .white : .gray)
+                    .foregroundStyle(selected == false ? .white : .gray)
                     .overlay(alignment: .bottom) {
-                        selected == true
-                        ?
-                        Rectangle()
-                            .frame(height: 2)
-                        :
-                        nil
+                        isSelected(defaultValue: false)
                     }
                     .onTapGesture {
-                        selected = true
+                        selected = false
                     }
             }
         }
@@ -76,13 +66,18 @@ struct UnitRow: View {
         .padding(.vertical, 5)
         .onChange(of: selected) {
             if unitType == .temperature {
-                unitData.temperature = selected == false ? .celsius : .fahrenheit
+                unitData.temperature = selected ? .celsius : .fahrenheit
             }
         }
         .onAppear {
             if unitType == .temperature {
-                selected = unitData.temperature == .celsius ? false : true
+                selected = unitData.temperature == .celsius ? true : false
             }        }
+    }
+    
+    private func isSelected(defaultValue: Bool) -> some View {
+        guard defaultValue else { return selected == false ? Rectangle().frame(height: 2) : nil }
+        return selected ? Rectangle().frame(height: 2) : nil
     }
 }
 

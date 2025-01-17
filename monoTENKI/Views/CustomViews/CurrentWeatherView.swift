@@ -11,7 +11,7 @@ struct CurrentWeatherView: View {
     @EnvironmentObject private var weatherData: WeatherData
     @EnvironmentObject private var unitData: UnitData
     @State private var showSearch = false
-    @State private var showSettings = false
+    @State private var showDetails = false
     
     private var currentWeather: CurrentWeather {
         return weatherData.currentWeather
@@ -23,28 +23,41 @@ struct CurrentWeatherView: View {
     
     var body: some View {
         GeometryReader { geometry in
+            
             let screenWidth = geometry.size.width
             let screenHeight = geometry.size.height
+            
             VStack {
                 Text(currentWeather.location)
                     .lineLimit(1)
                     .minimumScaleFactor(0.8)
-                    .multilineTextAlignment(.center)
                     .onTapGesture {
                         showSearch = true
                     }
                     .sheet(isPresented: $showSearch) {
                         SearchView()
                     }
+                
                 Text(presentTemperature(unit, currentWeather.tempC))
-                temperatureExtremesView(mintemp: currentWeather.day.mintempC, maxtemp: currentWeather.day.maxtempC)
+                
+                TemperatureExtremesView(for: currentWeather.day)
                     .font(.system(.title3, design: .serif, weight: .bold))
-                Image(systemName: getWeatherIcon(for: currentWeather.condition, isDay: weatherData.isDay))
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .fontWeight(.regular)
-                    .shadow(color: .white, radius: 10, x: 5, y: 5)
-                    .padding()
+                
+                Group {
+                    if showDetails {
+                        WeatherDetailView(currentWeather.details)
+                            .onTapGesture {
+                                showDetails = false
+                            }
+                    } else {
+                        WeatherConditionView(condition: currentWeather.condition, isDay: weatherData.isDay)
+                            .onTapGesture {
+                                showDetails = true
+                            }
+                    }
+                }
+                .frame(maxHeight: .infinity)
+                
                 Text(currentWeather.condition)
                     .font(.system(.title, design: .serif, weight: .bold))
                     .multilineTextAlignment(.center)
@@ -52,9 +65,15 @@ struct CurrentWeatherView: View {
                     .minimumScaleFactor(0.8)
             }
             .font(.system(.largeTitle, design: .serif, weight: .bold))
-            .frame(width: screenWidth * 0.66)
+            .frame(width: screenWidth * 0.666)
             .position(CGPoint(x: screenWidth / 2, y: screenHeight / 2))
         }
-        .aspectRatio(contentMode: .fit)
+        .scaledToFit()
     }
+}
+
+#Preview {
+    CurrentWeatherView()
+        .environmentObject(WeatherData())
+        .environmentObject(UnitData())
 }

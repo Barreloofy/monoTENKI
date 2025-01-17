@@ -21,11 +21,11 @@ struct ForecastView: View {
     var body: some View {
         VStack {
             Text(presentTemperature(unitData.temperature, day.avgtempC))
-            temperatureExtremesView(mintemp: day.mintempC, maxtemp: day.maxtempC)
+            TemperatureExtremesView(for: day)
                 .font(.system(.headline, design: .serif, weight: .bold))
             Image(systemName: getWeatherIcon(for: day.condition, isDay: isDay))
                 .resizable()
-                .aspectRatio(contentMode: .fit)
+                .scaledToFit()
                 .fontWeight(.regular)
                 .shadow(color: .white, radius: 10, x: 5, y: 5)
                 .padding()
