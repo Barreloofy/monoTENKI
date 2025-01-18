@@ -8,42 +8,23 @@
 import SwiftUI
 
 struct HStackText: View {
-    let orientation: Orientation
+    let alignment: HorizontalAlignment
     let text: String
     
-    init(orientation: Orientation, _ text: String) {
-        self.orientation = orientation
+    init(orientation: HorizontalAlignment, _ text: String) {
         self.text = text
-    }
-    
-    enum Orientation {
-        case left
-        case right
-    }
-    
-    private func makeBody(_ text: String, _ orientation: Orientation) -> some View {
-        if orientation == .left {
-            return AnyView(
-                HStack {
-                    Text(text)
-                    Spacer()
-                }
-            )
-        } else {
-            return AnyView(
-                HStack {
-                    Spacer()
-                    Text(text)
-                }
-            )
-        }
+        self.alignment = orientation
     }
     
     var body: some View {
-        makeBody(text, orientation)
+        HStack {
+            if alignment == .leading {
+                Text(text)
+                Spacer()
+            } else {
+                Spacer()
+                Text(text)
+            }
+        }
     }
-}
-
-#Preview {
-    HStackText(orientation: .right, "Hello, World!")
 }

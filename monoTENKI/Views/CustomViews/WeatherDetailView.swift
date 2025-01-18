@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct WeatherDetailView: View {
+    @EnvironmentObject private var unitData: UnitData
     let details: CurrentWeatherDetails
     
     init(_ details: CurrentWeatherDetails) {
@@ -16,7 +17,7 @@ struct WeatherDetailView: View {
     
     var body: some View {
         TabView {
-            WindDetailsView(details: details)
+            WindDetailsView(details: details, unit: unitData.speed)
                 .tag(0)
         }
         .tabViewStyle(.page)
@@ -29,6 +30,7 @@ struct WeatherDetailView: View {
 
 struct WindDetailsView: View {
     let details: CurrentWeatherDetails
+    let unit: UnitData.SpeedUnits
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -44,7 +46,7 @@ struct WindDetailsView: View {
             HStack {
                 Text("WIND SPEED")
                 Spacer()
-                Text("\(Int(details.windSpeedKph)) KM/H")
+                Text(presentSpeed(unit, details.windSpeedKph))
             }
             .overlay(alignment: .bottom) {
                 Rectangle()
@@ -53,7 +55,7 @@ struct WindDetailsView: View {
             HStack {
                 Text("WIND GUST")
                 Spacer()
-                Text("\(Int(details.windGustKph)) KM/H")
+                Text(presentSpeed(unit, details.windGustKph))
             }
             .overlay(alignment: .bottom) {
                 Rectangle()

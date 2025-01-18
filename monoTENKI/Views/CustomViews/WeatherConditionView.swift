@@ -17,7 +17,7 @@ struct WeatherConditionView: View {
             .scaledToFit()
             .fontWeight(.regular)
             .shadow(color: .white, radius: 10, x: 5, y: 5)
-            .padding()
+            .padding(25)
     }
 }
 

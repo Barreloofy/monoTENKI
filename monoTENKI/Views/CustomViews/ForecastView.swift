@@ -23,12 +23,7 @@ struct ForecastView: View {
             Text(presentTemperature(unitData.temperature, day.avgtempC))
             TemperatureExtremesView(for: day)
                 .font(.system(.headline, design: .serif, weight: .bold))
-            Image(systemName: getWeatherIcon(for: day.condition, isDay: isDay))
-                .resizable()
-                .scaledToFit()
-                .fontWeight(.regular)
-                .shadow(color: .white, radius: 10, x: 5, y: 5)
-                .padding()
+            WeatherConditionView(condition: day.condition, isDay: isDay)
             Spacer()
             Text(weekday)
         }

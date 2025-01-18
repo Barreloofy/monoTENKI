@@ -15,6 +15,7 @@ struct UnitRow: View {
     
     enum UnitType: String {
         case temperature
+        case speed
     }
     
     init(unitType: UnitType, unitSymbol: String = "") {
@@ -27,11 +28,11 @@ struct UnitRow: View {
     }
     
     private var firstUnit: String {
-        return "C"
+        return unitType == .temperature ? "C" : "KM/H"
     }
     
     private var secondUnit: String {
-        return "F"
+        return unitType == .temperature ? "F" : "MI/H"
     }
     
     var body: some View {
@@ -65,14 +66,21 @@ struct UnitRow: View {
         .font(.system(.body, design: .serif, weight: .bold))
         .padding(.vertical, 5)
         .onChange(of: selected) {
-            if unitType == .temperature {
-                unitData.temperature = selected ? .celsius : .fahrenheit
+            switch unitType {
+                case .temperature:
+                    unitData.temperature = selected ? .celsius : .fahrenheit
+                case .speed:
+                    unitData.speed = selected ? .kilometersPerHour : .milesPerHour
             }
         }
         .onAppear {
-            if unitType == .temperature {
-                selected = unitData.temperature == .celsius ? true : false
-            }        }
+            switch unitType {
+                case .temperature:
+                    selected = unitData.temperature == .celsius ? true : false
+                case .speed:
+                    selected = unitData.speed == .kilometersPerHour ? true : false
+            }
+        }
     }
     
     private func isSelected(defaultValue: Bool) -> some View {

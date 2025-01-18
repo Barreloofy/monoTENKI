@@ -17,6 +17,15 @@ func presentTemperature(_ unit: UnitData.TemperatureUnits, _ tempCDouble: Double
     }
 }
 
+func presentSpeed(_ unit: UnitData.SpeedUnits, _ speedKphDouble: Double) -> String {
+    if unit == .kilometersPerHour {
+        return String(Int(speedKphDouble)) + " " + "KM/H"
+    } else {
+        let speedMphInt = Int(speedKphDouble / 1.609344)
+        return String(speedMphInt) + " " + "MP/H"
+    }
+}
+
 func presentTime(for time: Date) -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "h:mm"

@@ -26,6 +26,9 @@ struct EntryView: View {
                 WeatherView()
             }
         }
+        .onAppear {
+            print(locationManager.trackLocation)
+        }
         .onChange(of: weatherData.currentLocation, initial: true) {
             weatherData.fetchWeather() { result in
                 switch result {

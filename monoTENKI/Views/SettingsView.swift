@@ -25,20 +25,22 @@ struct SettingsView: View {
             }
             .font(.system(.title, design: .serif, weight: .bold))
             
-            HStackText(orientation: .left, "UNITS")
+            HStackText(orientation: .leading, "UNITS")
                 .font(.system(.headline, design: .serif, weight: .bold))
             
             UnitRow(unitType: .temperature, unitSymbol: "\u{00B0}")
             
-            HStackText(orientation: .left, "TIPS")
+            UnitRow(unitType: .speed)
+            
+            HStackText(orientation: .leading, "TIPS")
                 .font(.system(.headline, design: .serif, weight: .bold))
                 .padding(.top, 20)
             
-            HStackText(orientation: .left, "Pressing on the weather icon displays additional weather details.")
+            HStackText(orientation: .leading, "Pressing on the weather icon displays additional weather details.")
                 .font(.system(.footnote, design: .serif, weight: .bold))
                 .padding(.vertical, 5)
             
-            HStackText(orientation: .left, "Pressing on the current location's name opens the search page.")
+            HStackText(orientation: .leading, "Pressing on the current location's name opens the search page.")
                 .font(.system(.footnote, design: .serif, weight: .bold))
             
             Spacer()

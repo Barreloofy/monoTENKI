@@ -16,7 +16,11 @@ final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObje
     let locationLogger = Logger(subsystem: "com.monoTENKI.location", category: "Error")
     
     private let locationManager = CLLocationManager()
-    private var _trackLocation = false
+    private var _trackLocation = UserDefaults.standard.bool(forKey: "tracklocation") {
+        didSet {
+            UserDefaults.standard.set(_trackLocation, forKey: "tracklocation")
+        }
+    }
     @Published var currentLocation: CLLocationCoordinate2D?
     
     private override init() {
