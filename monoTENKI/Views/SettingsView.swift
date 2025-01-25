@@ -28,9 +28,11 @@ struct SettingsView: View {
             HStackText(orientation: .leading, "UNITS")
                 .font(.system(.headline, design: .serif, weight: .bold))
             
-            UnitRow(unitType: .temperature, unitSymbol: "\u{00B0}")
+            UnitRow(unitType: UnitData.TemperatureUnits.self, unitSymbol: "\u{00B0}")
             
-            UnitRow(unitType: .speed)
+            UnitRow(unitType: UnitData.SpeedUnits.self)
+            
+            UnitRow(unitType: UnitData.MeasurementUnits.self)
             
             HStackText(orientation: .leading, "TIPS")
                 .font(.system(.headline, design: .serif, weight: .bold))

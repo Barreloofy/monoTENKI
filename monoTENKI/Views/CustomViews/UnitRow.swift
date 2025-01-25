@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct UnitRow: View {
-    let unitType: UnitType
+struct UnitRow<U: Unit>: View {
+    let unitType: U.Type
     let unitSymbol: String
     @State private var selected = true
     @EnvironmentObject private var unitData: UnitData
@@ -18,27 +18,23 @@ struct UnitRow: View {
         case speed
     }
     
-    init(unitType: UnitType, unitSymbol: String = "") {
+    init(unitType: U.Type, unitSymbol: String = "") {
         self.unitType = unitType
         self.unitSymbol = unitSymbol
     }
     
-    private var typeName: String {
-        return unitType.rawValue
-    }
-    
     private var firstUnit: String {
-        return unitType == .temperature ? "C" : "KM/H"
+        return unitType.defaultValue.rawValue
     }
     
     private var secondUnit: String {
-        return unitType == .temperature ? "F" : "MI/H"
+        return unitType.optionalValue.rawValue
     }
     
     var body: some View {
         ZStack {
             HStack {
-                Text(typeName + ":")
+                Text(unitType.key + ":")
                 Spacer()
             }
             HStack {
@@ -66,19 +62,28 @@ struct UnitRow: View {
         .font(.system(.body, design: .serif, weight: .bold))
         .padding(.vertical, 5)
         .onChange(of: selected) {
+            
             switch unitType {
-                case .temperature:
+                case is UnitData.TemperatureUnits.Type:
                     unitData.temperature = selected ? .celsius : .fahrenheit
-                case .speed:
+                case is UnitData.SpeedUnits.Type:
                     unitData.speed = selected ? .kilometersPerHour : .milesPerHour
+                case is UnitData.MeasurementUnits.Type:
+                    unitData.measurement = selected ? .millimeter : .inch
+                default:
+                    fatalError("unknown type \(unitType)")
             }
         }
         .onAppear {
             switch unitType {
-                case .temperature:
-                    selected = unitData.temperature == .celsius ? true : false
-                case .speed:
-                    selected = unitData.speed == .kilometersPerHour ? true : false
+                case is UnitData.TemperatureUnits.Type:
+                    selected = unitData.temperature == .defaultValue ? true : false
+                case is UnitData.SpeedUnits.Type:
+                    selected = unitData.speed == .defaultValue ? true : false
+                case is UnitData.MeasurementUnits.Type:
+                    selected = unitData.measurement == .defaultValue ? true : false
+                default:
+                    fatalError("unknown type \(unitType)")
             }
         }
     }
@@ -90,6 +95,6 @@ struct UnitRow: View {
 }
 
 #Preview {
-    UnitRow(unitType: .temperature, unitSymbol: "\u{00B0}")
+    UnitRow(unitType: UnitData.TemperatureUnits.self, unitSymbol: "\u{00B0}")
         .environmentObject(UnitData())
 }

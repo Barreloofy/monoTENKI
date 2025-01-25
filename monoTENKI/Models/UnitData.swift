@@ -9,36 +9,78 @@ import Foundation
 
 @MainActor
 final class UnitData: ObservableObject {
-    @Published var temperature: TemperatureUnits = UserDefaults.standard.temperatureUnits(forKey: "temperature") {
+    @Published var temperature: TemperatureUnits = UserDefaults.standard.unit(forKey: "temperature", defaultValue: .celsius) {
         didSet {
             UserDefaults.standard.set(temperature.rawValue, forKey: "temperature")
         }
     }
-    @Published var speed: SpeedUnits = UserDefaults.standard.speedUnits(for: "speed") {
+    @Published var speed: SpeedUnits = UserDefaults.standard.unit(forKey: "speed", defaultValue: .kilometersPerHour) {
         didSet {
             UserDefaults.standard.set(speed.rawValue, forKey: "speed")
         }
     }
-    
-    enum TemperatureUnits: String {
-        case celsius
-        case fahrenheit
+    @Published var measurement: MeasurementUnits = UserDefaults.standard.unit(forKey: "measurement", defaultValue: .millimeter) {
+        didSet {
+            UserDefaults.standard.set(measurement.rawValue, forKey: "measurement")
+        }
     }
     
-    enum SpeedUnits: String {
-        case milesPerHour
-        case kilometersPerHour
+    enum TemperatureUnits: String, Unit {
+        case celsius = "C"
+        case fahrenheit = "F"
+        
+        static var key: String {
+            return "temperature"
+        }
+        static var defaultValue: UnitData.TemperatureUnits {
+            return .celsius
+        }
+        static var optionalValue: UnitData.TemperatureUnits {
+            return .fahrenheit
+        }
+    }
+    
+    enum SpeedUnits: String, Unit {
+        case milesPerHour = "MP/H"
+        case kilometersPerHour = "KM/H"
+        
+        static var key: String {
+            return "speed"
+        }
+        static var defaultValue: UnitData.SpeedUnits {
+            return .kilometersPerHour
+        }
+        static var optionalValue: UnitData.SpeedUnits {
+            return .milesPerHour
+        }
+    }
+    
+    enum MeasurementUnits: String, Unit {
+        case millimeter = "MM"
+        case inch = "IN"
+        
+        static var key: String {
+            return "measurement"
+        }
+        static var defaultValue: UnitData.MeasurementUnits {
+            return .millimeter
+        }
+        static var optionalValue: UnitData.MeasurementUnits {
+            return .inch
+        }
     }
 }
 
 extension UserDefaults {
-    func temperatureUnits(forKey key: String) -> UnitData.TemperatureUnits {
-        guard let rawValue = self.string(forKey: "temperature") else { return .celsius }
-        return rawValue == UnitData.TemperatureUnits.celsius.rawValue ? .celsius : .fahrenheit
+    func unit<T: RawRepresentable>(forKey key: String, defaultValue: T) -> T where T.RawValue == String {
+        guard let rawValue = self.string(forKey: key) else { return defaultValue }
+        guard let enumValue = T(rawValue: rawValue) else { return defaultValue }
+        return enumValue
     }
-    
-    func speedUnits(for key: String) -> UnitData.SpeedUnits {
-        guard let rawValue = self.string(forKey: "speed") else { return .kilometersPerHour }
-        return rawValue == UnitData.SpeedUnits.kilometersPerHour.rawValue ? .kilometersPerHour : .milesPerHour
-    }
+}
+
+protocol Unit: RawRepresentable where RawValue == String {
+    static var key: String { get }
+    static var defaultValue: Self { get }
+    static var optionalValue: Self { get }
 }

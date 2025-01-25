@@ -19,6 +19,8 @@ struct WeatherDetailView: View {
         TabView {
             WindDetailsView(details: details, unit: unitData.speed)
                 .tag(0)
+            FeelsDetailView(details: details, units: (temperature: unitData.temperature, measurement: unitData.measurement))
+                .tag(1)
         }
         .tabViewStyle(.page)
         .font(.system(.title3, design: .serif, weight: .bold))
@@ -34,33 +36,23 @@ struct WindDetailsView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
-                Text("WIND DIRECTION")
-                Spacer()
-                Text("\(details.windDirection)")
-            }
-            .overlay(alignment: .bottom) {
-                Rectangle()
-                    .frame(height: 2)
-            }
-            HStack {
-                Text("WIND SPEED")
-                Spacer()
-                Text(presentSpeed(unit, details.windSpeedKph))
-            }
-            .overlay(alignment: .bottom) {
-                Rectangle()
-                    .frame(height: 2)
-            }
-            HStack {
-                Text("WIND GUST")
-                Spacer()
-                Text(presentSpeed(unit, details.windGustKph))
-            }
-            .overlay(alignment: .bottom) {
-                Rectangle()
-                    .frame(height: 2)
-            }
+            DetailRowView(title: "WIND DIRECTION", value: details.windDirection)
+            DetailRowView(title: "WIND SPEED", value: presentSpeed(unit, details.windSpeedKph))
+            DetailRowView(title: "WIND GUST", value: presentSpeed(unit, details.windGustKph))
+        }
+        .padding(.bottom, 10)
+    }
+}
+
+struct FeelsDetailView: View {
+    let details: CurrentWeatherDetails
+    let units: (temperature: UnitData.TemperatureUnits, measurement: UnitData.MeasurementUnits)
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            DetailRowView(title: "PRECIPITATION", value: presentMeasurement(units.measurement, details.precipitationMm))
+            DetailRowView(title: "HUMIDITY", value: "\(details.humidity) %")
+            DetailRowView(title: "WIND CHILL", value: presentTemperature(units.temperature, details.windchillC))
         }
         .padding(.bottom, 10)
     }

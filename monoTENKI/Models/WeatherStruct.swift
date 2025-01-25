@@ -26,17 +26,20 @@ struct CurrentWeather {
 
 
 struct CurrentWeatherDetails {
-    //let feelslikeC: Double
     let windDirection: String
     let windSpeedKph: Double
     let windGustKph: Double
-    //let precipitationMm: Double
-    //let humidity: Int
+    let windchillC: Double
+    let precipitationMm: Double
+    let humidity: Int
     
-    init(windDirection: String = "", windSpeedKph: Double = 0.0, windGustKph: Double = 0.0) {
+    init(windDirection: String = "", windSpeedKph: Double = 0.0, windGustKph: Double = 0.0, windchillC: Double = 0.0, precipitationMm: Double = 0.0, humidity: Int = 0) {
         self.windDirection = windDirection
         self.windSpeedKph = windSpeedKph
         self.windGustKph = windGustKph
+        self.windchillC = windchillC
+        self.precipitationMm = precipitationMm
+        self.humidity = humidity
     }
 }
 
@@ -73,16 +76,21 @@ struct Weather: Decodable {
 
 struct Current: Decodable {
     let tempC: Double
+    let windchillC: Double
     let condition: Condition
     let windDirection: String
     let windSpeedKph: Double
     let windGustKph: Double
+    let precipitationMm: Double
+    let humidity: Int
     
     enum CodingKeys: String, CodingKey {
-        case tempC, condition
+        case tempC, condition, humidity
+        case windchillC = "windchillC"
         case windDirection = "windDir"
         case windSpeedKph = "windKph"
         case windGustKph = "gustKph"
+        case precipitationMm = "precipMm"
     }
     
     var conditionText: String {
@@ -93,7 +101,10 @@ struct Current: Decodable {
         return CurrentWeatherDetails(
             windDirection: windDirection,
             windSpeedKph: windSpeedKph,
-            windGustKph: windGustKph
+            windGustKph: windGustKph,
+            windchillC: windchillC,
+            precipitationMm: precipitationMm,
+            humidity: humidity
         )
     }
 }

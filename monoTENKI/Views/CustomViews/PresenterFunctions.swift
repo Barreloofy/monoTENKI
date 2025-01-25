@@ -26,6 +26,15 @@ func presentSpeed(_ unit: UnitData.SpeedUnits, _ speedKphDouble: Double) -> Stri
     }
 }
 
+func presentMeasurement(_ unit: UnitData.MeasurementUnits, _ measurementMmDouble: Double) -> String {
+    if unit == .millimeter {
+        return String(format: "%.2f",measurementMmDouble) + " " + "MM"
+    } else {
+        let measurementInDouble = measurementMmDouble * 0.0393700787
+        return String(format: "%.2f", measurementInDouble) + " " + "IN"
+    }
+}
+
 func presentTime(for time: Date) -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "h:mm"
