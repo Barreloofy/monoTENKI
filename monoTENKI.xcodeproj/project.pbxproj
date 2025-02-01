@@ -24,6 +24,7 @@
 		29886E5F2D299E97002B1C6F /* ForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29886E5E2D299E97002B1C6F /* ForecastView.swift */; };
 		299B17CC2D2C518F006210E1 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299B17CB2D2C518F006210E1 /* LocationManager.swift */; };
 		299B17CE2D2C93EC006210E1 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299B17CD2D2C93EC006210E1 /* AlertView.swift */; };
+		29A6F8982D4D1F7300701B96 /* LocationHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6F8972D4D1F7300701B96 /* LocationHistoryView.swift */; };
 		29B4C6F82D2B27A7007177FC /* CurrentWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B4C6F72D2B27A7007177FC /* CurrentWeatherView.swift */; };
 		29B4C6FA2D2B2C1D007177FC /* HourForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B4C6F92D2B2C1D007177FC /* HourForecastView.swift */; };
 		29D9FCFA2D24A7C4005AE4FC /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 29D9FCF92D24A7C4005AE4FC /* .gitignore */; };
@@ -57,6 +58,7 @@
 		29886E5E2D299E97002B1C6F /* ForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastView.swift; sourceTree = "<group>"; };
 		299B17CB2D2C518F006210E1 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		299B17CD2D2C93EC006210E1 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		29A6F8972D4D1F7300701B96 /* LocationHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHistoryView.swift; sourceTree = "<group>"; };
 		29B4C6F72D2B27A7007177FC /* CurrentWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherView.swift; sourceTree = "<group>"; };
 		29B4C6F92D2B2C1D007177FC /* HourForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourForecastView.swift; sourceTree = "<group>"; };
 		29D9FCE82D24A57F005AE4FC /* monoTENKI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = monoTENKI.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,6 +183,7 @@
 				2961D9082D3ACE5C00283438 /* WeatherConditionView.swift */,
 				2961D90A2D3AEEF700283438 /* HStackText.swift */,
 				298391BE2D458B6300471FE2 /* DetailRowView.swift */,
+				29A6F8972D4D1F7300701B96 /* LocationHistoryView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				294CA4122D2EBBC900990912 /* SetUpView.swift in Sources */,
 				2951485D2D284ED900814FEB /* UnitRow.swift in Sources */,
 				29D9FD0D2D24CF68005AE4FC /* WeatherView.swift in Sources */,
+				29A6F8982D4D1F7300701B96 /* LocationHistoryView.swift in Sources */,
 				29FC92C42D270D600031D383 /* WeatherData.swift in Sources */,
 				294E30552D2B163B00E42DCB /* PresenterFunctions.swift in Sources */,
 				292E98372D25A53500F04CA7 /* LocationStruct.swift in Sources */,
