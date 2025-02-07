@@ -10,10 +10,11 @@ import CoreLocation
 import OSLog
 
 final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
+    static let locationLogger = Logger(subsystem: "com.monoTENKI.location", category: "Error")
+    
+    
     private let queue = DispatchQueue(label: "com.monoTENKI.LocationManagerSerial")
     nonisolated(unsafe) static let shared = LocationManager()
-    
-    let locationLogger = Logger(subsystem: "com.monoTENKI.location", category: "Error")
     
     private let locationManager = CLLocationManager()
     private var _trackLocation = UserDefaults.standard.bool(forKey: "tracklocation") {
@@ -26,9 +27,9 @@ final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObje
     private override init() {
         super.init()
         locationManager.delegate = self
-        locationManager.startUpdatingLocation()
-        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.distanceFilter = 1000
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.startUpdatingLocation()
     }
     
     var trackLocation: Bool {
@@ -59,8 +60,8 @@ final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObje
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         queue.sync {
-            guard let location = locations.last else { return }
-            currentLocation = location.coordinate
+            guard let currentLocation = locations.last?.coordinate else { return }
+            self.currentLocation = currentLocation
         }
     }
     
@@ -91,9 +92,6 @@ extension LocationManager {
 
 extension CLLocationCoordinate2D: @retroactive Equatable {
     public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
-        if lhs.latitude != rhs.latitude && lhs.longitude != rhs.longitude {
-            return false
-        }
-        return true
+        return lhs.latitude != rhs.latitude && lhs.longitude != rhs.longitude ? false : true
     }
 }

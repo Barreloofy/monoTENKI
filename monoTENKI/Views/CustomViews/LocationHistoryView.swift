@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct LocationHistoryView: View {
+    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var weatherData: WeatherData
+    @ObservedObject private var locationManager: LocationManager = LocationManager.shared
     @Binding var locationHistory: [String]
     @Binding var editing: Bool
     
@@ -34,6 +37,12 @@ struct LocationHistoryView: View {
                             }
                         default:
                             Text(location)
+                                .onTapGesture {
+                                    weatherData.currentLocation = location
+                                    locationManager.trackLocation = false
+                                    locationHistory.swapAt(0, locationHistory.firstIndex(of: location)!)
+                                    dismiss()
+                                }
                     }
                 }
             }

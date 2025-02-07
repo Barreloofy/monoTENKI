@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct EntryView: View {
+    @StateObject private var unitData = UnitData()
     @StateObject private var weatherData = WeatherData()
-    @StateObject private var locationManager = LocationManager.shared
+    @ObservedObject private var locationManager = LocationManager.shared
     @AppStorage("isfirstlaunch") private var isFirstLaunch = true
-    @State private var isError = false
     @State private var isLoading = true
+    @State private var isError = false
     
     var body: some View {
         Group {
@@ -39,6 +40,7 @@ struct EntryView: View {
         .onChange(of: locationManager.currentLocation) {
             updateWeatherToLocation()
         }
+        .environmentObject(unitData)
         .environmentObject(weatherData)
     }
     
@@ -46,14 +48,15 @@ struct EntryView: View {
         guard locationManager.trackLocation else { return }
         Task {
             do {
-                guard let newCoordinates = locationManager.stringLocation else { throw LocationManager.LocationError.managerError
+                guard let newCoordinates = locationManager.stringLocation else {
+                    throw LocationManager.LocationError.managerError
                 }
                 guard let newLocation = try await APIClient.fetch(service: .location, forType: [Location].self, newCoordinates).first else {
                     throw LocationManager.LocationError.locationNil
                 }
                 weatherData.currentLocation = newLocation.name
             } catch {
-                locationManager.locationLogger.error("\(error)")
+                LocationManager.locationLogger.error("\(error)")
                 isError = true
             }
         }
@@ -62,5 +65,4 @@ struct EntryView: View {
 
 #Preview {
     EntryView()
-        .environmentObject(UnitData())
 }

@@ -156,8 +156,8 @@ private extension SearchView {
     }
     
     func updateLocationHistory(with input: String) {
-        for index in locationHistory.indices {
-            guard input == locationHistory[index] else { continue }
+        for (index, location) in locationHistory.enumerated() {
+            guard input == location else { continue }
             locationHistory.swapAt(0, index)
             save()
             return

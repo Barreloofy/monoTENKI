@@ -12,100 +12,73 @@ fileprivate let setUpLogger = Logger(subsystem: "com.monoTENKI.SetUp", category:
 
 
 struct SetUpView: View {
+    @EnvironmentObject private var unitData: UnitData
+    @EnvironmentObject private var weatherData: WeatherData
+    @ObservedObject var locationManager: LocationManager = LocationManager.shared
+    @AppStorage("isfirstlaunch") var isFirstLaunch: Bool = true
     @State private var selection: Int = 0
     
     var body: some View {
         TabView(selection: $selection) {
-            GuidView(selection: $selection)
-                .tag(0)
-            GuideView2(selection: $selection)
-                .tag(1)
-            GuideView3(selection: $selection)
-                .tag(2)
-            GuideView4()
-                .tag(3)
-        }
-    }
-}
-
-#Preview {
-    SetUpView()
-        .environmentObject(UnitData())
-        .environmentObject(WeatherData())
-}
-
-
-struct GuidView: View {
-    @Binding var selection: Int
-    
-    var body: some View {
-        ZStack {
-            Color(.black).opacity(0.98).ignoresSafeArea()
-            VStack {
-                Text("Greetings fellow weather watcher!")
-                Text("first let's setup a few things")
-                Text("before occupying ourselves with the more interesting things in life")
-                Text("The Weather!")
-                    .padding(.bottom)
+            GuideView {
+                Text("Greetings fellow weather watcher! first let's setup a few things before occupying ourselves with the more interesting things in life The Weather!")
+            } content: {
                 Button {
-                    guard selection < 2 else { return }
                     selection += 1
                 } label: {
                     Text("Get started")
-                        .padding(5)
-                        .foregroundStyle(.black)
-                        .background(.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
+                .buttonStyle(.monoBordered)
             }
-            .font(.system(.title2, design: .serif, weight: .bold))
-            .foregroundStyle(.white)
-            .multilineTextAlignment(.center)
-            .padding(.bottom, 175)
-            .padding(.horizontal)
-        }
-    }
-}
-
-
-struct GuideView2: View {
-    @EnvironmentObject private var weatherData: WeatherData
-    @Binding var selection: Int
-    @StateObject private var locationManager = LocationManager.shared
-    
-    var body: some View {
-        ZStack {
-            Color(.black).opacity(0.98).ignoresSafeArea()
-            VStack {
-                Text("Grant localtion access to")
-                Text("get the most accurate weather")
+            .tag(0)
+            
+            GuideView {
+                Text("Grant localtion access to\n get the most accurate weather\n")
+            } content: {
                 Button {
                     locationManager.requestAuthorization()
                 } label: {
                     Text("Grand permission")
-                        .padding(5)
-                        .foregroundStyle(.black)
-                        .background(.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
+                .buttonStyle(.monoBordered)
                 Button {
                     selection += 1
                 } label: {
                     Text("No, thank you!")
-                        .padding(5)
-                        .foregroundStyle(.black)
-                        .background(.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                }
+                .buttonStyle(.monoBordered)
+                .onChange(of: locationManager.currentLocation) {
+                    setToCurrentLocation()
                 }
             }
-            .font(.system(.title2, design: .serif, weight: .bold))
-            .foregroundStyle(.white)
-            .multilineTextAlignment(.center)
-            .padding(.bottom, 175)
-            .padding(.horizontal)
-        }
-        .onChange(of: locationManager.currentLocation) {
-            setToCurrentLocation()
+            .tag(1)
+            
+            SetUpSearchView(selection: $selection)
+                .tag(2)
+            
+            GuideView {
+                Text("One more thing, please choose\n your preferred weather unit:\n")
+            } content: {
+                Button {
+                    unitData.temperature = .celsius
+                    unitData.speed = .kilometersPerHour
+                    unitData.measurement = .millimeter
+                    isFirstLaunch = false
+                } label: {
+                    Text("Metric")
+                }
+                .buttonStyle(.monoBordered)
+                Button {
+                    unitData.temperature = .fahrenheit
+                    unitData.speed = .milesPerHour
+                    unitData.measurement = .inch
+                    isFirstLaunch = false
+                } label: {
+                    Text("Imperial")
+                }
+                .buttonStyle(.monoBordered)
+            }
+            .tag(3)
         }
     }
     
@@ -126,7 +99,34 @@ struct GuideView2: View {
 }
 
 
-struct GuideView3: View {
+struct GuideView<TextContent: View, ActionContent: View>: View {
+    let text: () -> TextContent
+    let content: () -> ActionContent
+    
+    init(@ViewBuilder textContent: @escaping () -> TextContent, @ViewBuilder content: @escaping () -> ActionContent) {
+        self.text = textContent
+        self.content = content
+    }
+    
+    var body: some View {
+        ZStack {
+            Color(.black).opacity(0.98).ignoresSafeArea()
+            VStack {
+                text()
+                    .padding(.bottom)
+                content()
+            }
+            .font(.system(.title2, design: .serif, weight: .bold))
+            .foregroundStyle(.white)
+            .multilineTextAlignment(.center)
+            .padding(.bottom, 175)
+            .padding(.horizontal)
+        }
+    }
+}
+
+
+struct SetUpSearchView: View {
     @EnvironmentObject private var weatherData: WeatherData
     @Binding var selection: Int
     @FocusState private var isFocused: Bool
@@ -174,51 +174,6 @@ struct GuideView3: View {
             } catch {
                 setUpLogger.error("\(error)")
             }
-        }
-    }
-}
-
-
-struct GuideView4: View {
-    @EnvironmentObject private var unitData: UnitData
-    @AppStorage("isfirstlaunch") var isFirstLaunch = true
-    
-    var body: some View {
-        ZStack {
-            Color(.black).opacity(0.98).ignoresSafeArea()
-            VStack {
-                Text("One more thing, please choose")
-                Text("your preferred weather unit:")
-                HStack {
-                    Button {
-                        unitData.temperature = .celsius
-                        isFirstLaunch = false
-                    } label: {
-                        Text("Celsius")
-                            .padding(5)
-                            .foregroundStyle(.black)
-                            .background(.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                    }
-                    .padding()
-                    Button {
-                        unitData.temperature = .fahrenheit
-                        isFirstLaunch = false
-                    } label: {
-                        Text("Fahrenheit")
-                            .padding(5)
-                            .foregroundStyle(.black)
-                            .background(.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                    }
-                    .padding()
-                }
-            }
-            .font(.system(.title2, design: .serif, weight: .bold))
-            .foregroundStyle(.white)
-            .multilineTextAlignment(.center)
-            .padding(.bottom, 175)
-            .padding(.horizontal)
         }
     }
 }
