@@ -1,5 +1,5 @@
 //
-//  HStackText.swift
+//  HStackContent.swift
 //  monoTENKI
 //
 //  Created by Barreloofy on 1/17/25 at 9:03 PM.
@@ -7,23 +7,23 @@
 
 import SwiftUI
 
-struct HStackText: View {
+struct HStackContent<Content: View>: View {
     let alignment: HorizontalAlignment
-    let text: String
+    var content: () -> Content
     
-    init(orientation: HorizontalAlignment, _ text: String) {
-        self.text = text
+    init(orientation: HorizontalAlignment, _ content: @escaping () -> Content) {
         self.alignment = orientation
+        self.content = content
     }
     
     var body: some View {
         HStack {
             if alignment == .leading {
-                Text(text)
+                content()
                 Spacer()
             } else {
                 Spacer()
-                Text(text)
+                content()
             }
         }
     }

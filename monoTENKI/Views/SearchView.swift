@@ -12,7 +12,7 @@ struct SearchView: View {
     @Environment(\.dismiss) private var dismiss
     @FocusState private var textFieldIsFocused: Bool
     @State private var text = ""
-    @State private var locationHistory = [String]()
+    @State private var locationHistory = [LocationIdentity]()
     @State private var locations = [Location]()
     @State private var editing = false
     @State private var showAlert = false
@@ -21,69 +21,7 @@ struct SearchView: View {
     var body: some View {
         ZStack {
             VStack {
-                
-                ZStack {
-                    HStack {
-                        Text(editing ? "Done" : "Edit")
-                            .onTapGesture {
-                                editing.toggle()
-                            }
-                        Spacer()
-                    }
-                    Text("Location")
-                    HStack {
-                        Spacer()
-                        Button {
-                            dismiss()
-                        } label: {
-                            Text("X")
-                        }
-                    }
-                }
-                
-                TextField("", text: $text)
-                    .searchTextField(text, _textFieldIsFocused)
-                    .focused($textFieldIsFocused)
-                    .font(.system(.title, design: .rounded, weight: .bold))
-                
-                HStack {
-                    Label("CURRENT LOCATION", systemImage: "location.fill")
-                        .onTapGesture {
-                            fetchCurrentLocation()
-                        }
-                    Spacer()
-                }
-                .font(.system(.title3, design: .serif, weight: .bold))
-                
-                Group {
-                    switch text.isEmpty {
-                        case true:
-                            LocationHistoryView($locationHistory, $editing)
-                        default:
-                            ScrollView {
-                                ForEach(locations) { location in
-                                    HStack {
-                                        Text(location.name)
-                                            .layoutPriority(1)
-                                        Text(location.country)
-                                        Spacer()
-                                    }
-                                    .lineLimit(1)
-                                    .minimumScaleFactor(0.8)
-                                    .truncationMode(.tail)
-                                    .onTapGesture {
-                                        weatherData.currentLocation = location.name
-                                        locationManager.trackLocation = false
-                                        updateLocationHistory(
-                                            with: "\(location.name) \(location.country)"
-                                        )
-                                        dismiss()
-                                    }
-                                }
-                            }
-                    }
-                }
-                
+                ContentView
             }
             .font(.system(.title, design: .serif, weight: .bold))
             .foregroundStyle(.white)
@@ -98,13 +36,68 @@ struct SearchView: View {
             .onChange(of: locationHistory) {
                 save()
             }
-            
             .blur(radius: showAlert ? 5 : 0)
             if showAlert {
                 AlertView(show: $showAlert, title: "UH, OH", message: "SOMETHING WENT WRONG", actionMessage: "TAP TO RETRY")
             }
         }
     }
+    
+    @ViewBuilder private var ContentView: some View {
+        ZStack {
+            HStackContent(orientation: .leading) {
+                Button {
+                    editing.toggle()
+                } label: {
+                    Text("Edit")
+                }
+            }
+            Text("Location")
+            HStackContent(orientation: .trailing) {
+                Button {
+                    dismiss()
+                } label: {
+                    Text("X")
+                }
+            }
+        }
+        
+        TextField("", text: $text)
+            .searchTextField(text, _textFieldIsFocused)
+            .focused($textFieldIsFocused)
+            .disabled(showAlert ? true : false)
+        
+        HStackContent(orientation: .leading) {
+            Button {
+                fetchCurrentLocation()
+            } label: {
+                Label("CURRENT LOCATION", systemImage: "location.fill")
+            }
+        }
+        .font(.system(.title2, design: .serif, weight: .bold))
+        
+        LocationList
+    }
+    
+    @ViewBuilder private var LocationList: some View {
+        if text.isEmpty {
+            LocationHistoryView($locationHistory, $editing)
+        }
+        else {
+            ScrollView {
+                ForEach(locations) { location in
+                    SearchItemView(location: LocationIdentity(name: location.name, country: location.country))
+                        .onTapGesture {
+                            weatherData.currentLocation = location.name
+                            locationManager.trackLocation = false
+                            updateLocationHistory(with: LocationIdentity(name: location.name, country: location.country))
+                            dismiss()
+                        }
+                }
+            }
+        }
+    }
+    
     
     private func fetchLocations() {
         Task {
@@ -152,10 +145,10 @@ private extension SearchView {
     func load() {
         guard FileManager.default.isReadableFile(atPath: locationHistoryFile.path()) else { return }
         let data = try! Data(contentsOf: locationHistoryFile)
-        locationHistory = try! JSONDecoder().decode([String].self, from: data)
+        locationHistory = try! JSONDecoder().decode([LocationIdentity].self, from: data)
     }
     
-    func updateLocationHistory(with input: String) {
+    func updateLocationHistory(with input: LocationIdentity) {
         for (index, location) in locationHistory.enumerated() {
             guard input == location else { continue }
             locationHistory.swapAt(0, index)

@@ -18,3 +18,9 @@ struct Location: Decodable, Identifiable {
         case id, name, country
     }
 }
+
+
+struct LocationIdentity: Codable, Equatable {
+    let name: String
+    let country: String
+}

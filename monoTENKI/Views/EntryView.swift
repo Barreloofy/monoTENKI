@@ -19,11 +19,14 @@ struct EntryView: View {
         Group {
             if isFirstLaunch {
                 SetUpView()
-            } else if isError {
+            }
+            else if isError {
                 ErrorView(isError: $isError)
-            } else if isLoading {
+            }
+            else if isLoading {
                 Color(.black).ignoresSafeArea()
-            } else {
+            }
+            else {
                 WeatherView()
             }
         }
