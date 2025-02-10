@@ -14,6 +14,8 @@ struct MonoBordered: ButtonStyle {
             .foregroundStyle(.black)
             .background(.white)
             .clipShape(RoundedRectangle(cornerRadius: 10))
+            .scaleEffect(configuration.isPressed ? 1.25 : 1.0)
+            .animation(.snappy, value: configuration.isPressed)
     }
 }
 

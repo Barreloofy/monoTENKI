@@ -33,36 +33,17 @@ struct UnitRow<U: Unit>: View {
     
     var body: some View {
         ZStack {
-            HStack {
+            HStackContent(orientation: .leading) {
                 Text(unitType.key + ":")
-                Spacer()
             }
-            HStack {
-                Text(firstUnit + unitSymbol)
-                    .foregroundStyle(selected ? .white : .gray)
-                    .overlay(alignment: .bottom) {
-                        isSelected(defaultValue: true)
-                    }
-                    .onTapGesture {
-                        selected = true
-                    }
-            }
-            HStack {
-                Spacer()
-                Text(secondUnit + unitSymbol)
-                    .foregroundStyle(selected == false ? .white : .gray)
-                    .overlay(alignment: .bottom) {
-                        isSelected(defaultValue: false)
-                    }
-                    .onTapGesture {
-                        selected = false
-                    }
+            UnitItem(text: firstUnit + unitSymbol, isOn: $selected, reversed: false)
+            HStackContent(orientation: .trailing) {
+                UnitItem(text: secondUnit + unitSymbol, isOn: $selected, reversed: true)
             }
         }
         .font(.system(.body, design: .serif, weight: .bold))
         .padding(.vertical, 5)
         .onChange(of: selected) {
-            
             switch unitType {
                 case is UnitData.TemperatureUnits.Type:
                     unitData.temperature = selected ? .celsius : .fahrenheit
@@ -87,10 +68,36 @@ struct UnitRow<U: Unit>: View {
             }
         }
     }
+}
+
+
+struct UnitItem: View {
+    let text: String
+    @Binding var isOn: Bool
+    let reversed: Bool
     
-    private func isSelected(defaultValue: Bool) -> some View {
-        guard defaultValue else { return selected == false ? Rectangle().frame(height: 2) : nil }
-        return selected ? Rectangle().frame(height: 2) : nil
+    var isSelected: Bool {
+        if reversed {
+            return isOn ? false : true
+        }
+        else {
+            return isOn ? true : false
+        }
+    }
+    
+    var body: some View {
+        Text(text)
+            .foregroundStyle(isSelected ? .white : .gray)
+            .overlay(alignment: .bottom) {
+                Spacer()
+                isSelected ?
+                Rectangle().frame(height: 2)
+                :
+                nil
+            }
+            .onTapGesture {
+                isOn = reversed ? false : true
+            }
     }
 }
 

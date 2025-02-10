@@ -1,5 +1,5 @@
 //
-//  WeatherConditionView.swift
+//  WeatherConditionIconView.swift
 //  monoTENKI
 //
 //  Created by Barreloofy on 1/17/25 at 6:43 PM.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WeatherConditionView: View {
+struct WeatherConditionIconView: View {
     let condition: String
     let isDay: Bool
     
@@ -22,5 +22,5 @@ struct WeatherConditionView: View {
 }
 
 #Preview {
-    WeatherConditionView(condition: "Clear", isDay: true)
+    WeatherConditionIconView(condition: "Clear", isDay: true)
 }

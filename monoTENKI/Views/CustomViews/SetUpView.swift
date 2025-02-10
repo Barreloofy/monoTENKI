@@ -31,7 +31,6 @@ struct SetUpView: View {
                 .buttonStyle(.monoBordered)
             }
             .tag(0)
-            
             GuideView {
                 Text("Grant localtion access to\n get the most accurate weather\n")
             } content: {
@@ -52,10 +51,8 @@ struct SetUpView: View {
                 }
             }
             .tag(1)
-            
             SetUpSearchView(selection: $selection)
                 .tag(2)
-            
             GuideView {
                 Text("One more thing, please choose\n your preferred weather unit:\n")
             } content: {
@@ -142,19 +139,11 @@ struct SetUpSearchView: View {
                 .font(.system(.title, design: .rounded, weight: .bold))
             ScrollView {
                 ForEach(locations) { location in
-                    HStack {
-                        Text(location.name)
-                            .layoutPriority(1)
-                        Text(location.country)
-                        Spacer()
-                    }
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.8)
-                    .truncationMode(.tail)
-                    .onTapGesture {
-                        weatherData.currentLocation = location.name
-                        selection += 1
-                    }
+                    SearchItemView(location: LocationIdentity(name: location.name, country: location.country))
+                        .onTapGesture {
+                            weatherData.currentLocation = location.name
+                            selection += 1
+                        }
                 }
             }
         }
@@ -176,4 +165,8 @@ struct SetUpSearchView: View {
             }
         }
     }
+}
+
+#Preview {
+    SetUpView()
 }

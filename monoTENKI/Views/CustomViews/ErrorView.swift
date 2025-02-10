@@ -12,53 +12,45 @@ struct ErrorView: View {
     @Binding var isError: Bool
     
     var body: some View {
-        ZStack {
-            Color(.black).ignoresSafeArea()
-            VStack {
-                
-                Text("UH OH, SOMETHING WENT WRONG")
-                    .padding(.bottom, 5)
-                
-                Button {
-                    weatherData.fetchWeather() { result in
-                        guard case .success() = result else { return }
-                        isError = false
-                    }
-                } label: {
-                    Text("TAP TO RETRY")
+        VStack {
+            Text("UH OH, SOMETHING WENT WRONG")
+                .padding(.bottom, 5)
+            Button {
+                weatherData.fetchWeather() { result in
+                    guard case .success() = result else { return }
+                    isError = false
                 }
-                .buttonStyle(.monoBordered)
-                .padding(.bottom)
-                ErrorImage(systemName: "cloud.fill", 100)
-                ErrorImage(systemName: "minus", 150)
-                Spacer()
+            } label: {
+                Text("TAP TO RETRY")
             }
-            .font(.system(.title3, design: .serif, weight: .bold))
-            .foregroundStyle(.white)
-            .padding(.top, 50)
+            .buttonStyle(.monoBordered)
+            .padding(.bottom)
+            errorImage
+            Spacer()
+        }
+        .font(.system(.title3, design: .serif, weight: .bold))
+        .foregroundStyle(.white)
+        .padding(.top, 50)
+        .background(Color(.black).ignoresSafeArea())
+    }
+    
+    @ViewBuilder var errorImage: some View {
+        GeometryReader { geometry in
+            Image(systemName: "cloud.fill")
+                .resizable()
+                .scaledToFit()
+                .fontWeight(.regular)
+                .frame(width: geometry.size.width * 0.50)
+                .position(x: geometry.size.width / 2, y: geometry.size.height * 0.10)
+            Image(systemName: "minus")
+                .resizable()
+                .scaledToFit()
+                .fontWeight(.regular)
+                .frame(width: geometry.size.width * 0.50)
+                .position(x: geometry.size.width / 2, y: geometry.size.height * 0.25)
         }
     }
 }
-
-
-struct ErrorImage: View {
-    let systemName: String
-    let horizontalPadding: CGFloat
-    
-    init(systemName: String, _ horizontalPadding: CGFloat) {
-        self.systemName = systemName
-        self.horizontalPadding = horizontalPadding
-    }
-    
-    var body: some View {
-        Image(systemName: systemName)
-            .resizable()
-            .scaledToFit()
-            .fontWeight(.regular)
-            .padding(.horizontal, horizontalPadding)
-    }
-}
-
 
 #Preview {
     ErrorView(isError: .constant(true))

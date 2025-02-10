@@ -11,7 +11,7 @@ struct HStackContent<Content: View>: View {
     let alignment: HorizontalAlignment
     var content: () -> Content
     
-    init(orientation: HorizontalAlignment, _ content: @escaping () -> Content) {
+    init(orientation: HorizontalAlignment, @ViewBuilder _ content: @escaping () -> Content) {
         self.alignment = orientation
         self.content = content
     }

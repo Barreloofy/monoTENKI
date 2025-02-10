@@ -38,7 +38,12 @@ struct SearchView: View {
             }
             .blur(radius: showAlert ? 5 : 0)
             if showAlert {
-                AlertView(show: $showAlert, title: "UH, OH", message: "SOMETHING WENT WRONG", actionMessage: "TAP TO RETRY")
+                AlertView(
+                    isPresented: $showAlert,
+                    title: "UH, OH",
+                    message: "SOMETHING WENT WRONG",
+                    actionMessage: "TAP TO RETRY"
+                )
             }
         }
     }
@@ -61,12 +66,10 @@ struct SearchView: View {
                 }
             }
         }
-        
         TextField("", text: $text)
             .searchTextField(text, _textFieldIsFocused)
             .focused($textFieldIsFocused)
             .disabled(showAlert ? true : false)
-        
         HStackContent(orientation: .leading) {
             Button {
                 fetchCurrentLocation()
@@ -75,7 +78,6 @@ struct SearchView: View {
             }
         }
         .font(.system(.title2, design: .serif, weight: .bold))
-        
         LocationList
     }
     

@@ -23,10 +23,8 @@ struct CurrentWeatherView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            
             let screenWidth = geometry.size.width
             let screenHeight = geometry.size.height
-            
             VStack {
                 Text(currentWeather.location)
                     .lineLimit(1)
@@ -37,27 +35,24 @@ struct CurrentWeatherView: View {
                     .sheet(isPresented: $showSearch) {
                         SearchView()
                     }
-                
                 Text(presentTemperature(unit, currentWeather.tempC))
-                
                 TemperatureExtremesView(for: currentWeather.day)
                     .font(.system(.title3, design: .serif, weight: .bold))
-                
                 Group {
                     if showDetails {
                         WeatherDetailView(currentWeather.details)
                             .onTapGesture {
                                 showDetails = false
                             }
-                    } else {
-                        WeatherConditionView(condition: currentWeather.condition, isDay: weatherData.isDay)
+                    }
+                    else {
+                        WeatherConditionIconView(condition: currentWeather.condition, isDay: weatherData.isDay)
                             .onTapGesture {
                                 showDetails = true
                             }
                     }
                 }
                 .frame(maxHeight: .infinity)
-                
                 Text(currentWeather.condition)
                     .font(.system(.title, design: .serif, weight: .bold))
                     .multilineTextAlignment(.center)
