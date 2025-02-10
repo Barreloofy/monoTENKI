@@ -114,7 +114,13 @@ struct Forecast: Decodable {
     let forecastDays: [ForecastDay]
     
     var today: FutureDay {
-        return FutureDay(maxtempC: forecastDays.first!.day.maxtempC, mintempC: forecastDays.first!.day.mintempC)
+        return FutureDay(
+            date: forecastDays.first!.date,
+            maxtempC: forecastDays.first!.day.maxtempC,
+            mintempC: forecastDays.first!.day.mintempC,
+            avgtempC: forecastDays.first!.day.avgtempC,
+            condition: forecastDays.first!.day.condition.text
+        )
     }
     
     enum CodingKeys: String, CodingKey {

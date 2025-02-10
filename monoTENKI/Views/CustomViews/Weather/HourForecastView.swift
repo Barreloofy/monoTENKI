@@ -35,7 +35,7 @@ struct HourForecastView: View {
                 HStackContent(orientation: .leading) {
                     Text(presentTime(for: hour.time))
                 }
-                Image(systemName: presentIcon(for: hour.condition.text, isDay: hour.time.determineIsDay()))
+                Image(systemName: presentIcon(for: hour.condition.text, isDay: determineIsDay(hour.time)))
                     .fontWeight(.regular)
                 HStackContent(orientation: .trailing) {
                     Text(presentTemperature(unit, hour.tempC))
@@ -43,12 +43,5 @@ struct HourForecastView: View {
             }
             .font(.system(.title, design: .monospaced, weight: .bold))
         }
-    }
-}
-
-extension Date {
-    func determineIsDay() -> Bool {
-        let currentHour = Calendar.current.component(.hour, from: self)
-        return currentHour >= 6 && currentHour < 18
     }
 }

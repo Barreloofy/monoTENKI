@@ -40,13 +40,24 @@ func presentMeasurement(_ unit: UnitData.MeasurementUnits, _ measurementMmDouble
 func presentTime(for time: Date) -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "h:mm"
-    return dateFormatter.string(from: time)
+    dateFormatter.timeZone = TimeZone(identifier: "UTC")
+    let outTime = dateFormatter.string(from: time)
+    return outTime
 }
 
 func presentWeekday(_ date: Date) -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "EEEE"
     return dateFormatter.string(from: date)
+}
+
+func determineIsDay(_ time: Date) -> Bool {
+    let dateFormatter = DateFormatter()
+    dateFormatter.timeZone = TimeZone(identifier: "UTC")
+    dateFormatter.dateFormat = "HH"
+    let hourString = dateFormatter.string(from: time)
+    guard let hourInt = Int(hourString) else { return true }
+    return hourInt > 6 && hourInt < 18
 }
 
 func presentIcon(for condition: String, isDay: Bool) -> String {

@@ -16,13 +16,11 @@ final class WeatherData: ObservableObject {
     @Published var hourForecast: [Hour]
     @Published var dayForecast: [FutureDay]
     @AppStorage("location") var currentLocation = "Saint Petersburg"
-    private(set) var isDay: Bool
     
     init() {
         currentWeather = CurrentWeather()
         hourForecast = []
         dayForecast = []
-        isDay = true
     }
     
     func fetchWeather(_ completionHandler: @escaping (Result<Void, Error>) -> Void) {
@@ -40,7 +38,6 @@ final class WeatherData: ObservableObject {
                     day: weatherData.forecast.today,
                     details: weatherData.current.weatherDetails
                 )
-                
                 let time = weatherData.location.time!
                 let timeIn12H = time.addingTimeInterval(43200)
                 for forecast in weatherData.forecast.forecastDays {
@@ -63,8 +60,6 @@ final class WeatherData: ObservableObject {
                     }
                 }
                 
-                let currentHour = Calendar.current.component(.hour, from: time)
-                self.isDay = currentHour >= 6 && currentHour < 18
                 self.currentWeather = currentWeather
                 self.hourForecast = hourForecast
                 self.dayForecast = dayForecast

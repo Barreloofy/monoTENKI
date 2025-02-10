@@ -46,7 +46,7 @@ struct CurrentWeatherView: View {
                             }
                     }
                     else {
-                        WeatherConditionIconView(condition: currentWeather.condition, isDay: weatherData.isDay)
+                        WeatherConditionIconView(condition: currentWeather.condition, isDay: determineIsDay(currentWeather.day.date))
                             .onTapGesture {
                                 showDetails = true
                             }
