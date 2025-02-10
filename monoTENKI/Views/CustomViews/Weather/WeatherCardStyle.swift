@@ -10,12 +10,14 @@ import SwiftUI
 struct WeatherCardStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
+            .padding()
             .background {
                 RoundedRectangle(cornerRadius: 10)
                     .fill(.black.opacity(0.96))
                     .stroke(.white, lineWidth: 2)
                     .shadow(color: .white, radius: 5)
             }
+            .padding()
     }
 }
 

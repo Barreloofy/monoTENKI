@@ -56,23 +56,24 @@ struct APIClient {
         let (data, _) = try await URLSession.shared.data(from: url)
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        decoder.dateDecodingStrategy = .custom { decoder in
-            let container = try decoder.singleValueContainer()
-            let stringDate = try container.decode(String.self)
-            let dateFormatter = DateFormatter()
-            
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-            if let date = dateFormatter.date(from: stringDate) {
-                return date
-            }
-            
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            if let date = dateFormatter.date(from: stringDate) {
-                return date
-            }
-            
-            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Date string does not match format expected by formatter")
-        }
+        /*
+           
+           decoder.dateDecodingStrategy = .custom { decoder in
+               let container = try decoder.singleValueContainer()
+               let stringDate = try container.decode(String.self)
+               let dateFormatter = DateFormatter()
+               dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+               if let date = dateFormatter.date(from: stringDate) {
+                   return date
+               }
+               dateFormatter.dateFormat = "yyyy-MM-dd"
+               if let date = dateFormatter.date(from: stringDate) {
+                   return date
+               }
+               throw DecodingError.dataCorruptedError(in: container, debugDescription: "Date string does not match format expected by formatter")
+           }
+         
+          */
         return try decoder.decode(T.self, from: data)
     }
 }

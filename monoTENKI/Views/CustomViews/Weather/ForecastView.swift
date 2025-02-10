@@ -9,29 +9,31 @@ import SwiftUI
 
 struct ForecastView: View {
     @EnvironmentObject private var unitData: UnitData
-    let day: FutureDay
-    let isDay: Bool
-    
-    private var weekday: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        return dateFormatter.string(from: day.date)
-    }
+    @EnvironmentObject private var weatherData: WeatherData
     
     var body: some View {
+        HStack(alignment: .top) {
+            ForEach(weatherData.dayForecast) { day in
+                forecastDay(day)
+            }
+        }
+    }
+    
+    @ViewBuilder func forecastDay(_ day: FutureDay) -> some View {
         VStack {
             Text(presentTemperature(unitData.temperature, day.avgtempC))
             TemperatureExtremesView(for: day)
                 .font(.system(.headline, design: .serif, weight: .bold))
-            WeatherConditionIconView(condition: day.condition, isDay: isDay)
+            WeatherConditionIconView(condition: day.condition, isDay: true)
             Spacer()
-            Text(weekday)
+            Text(presentWeekday(day.date))
         }
         .font(.system(.title3, design: .serif, weight: .bold))
     }
 }
 
 #Preview {
-    ForecastView(day: FutureDay(), isDay: true)
+    ForecastView()
         .environmentObject(UnitData())
+        .environmentObject(WeatherData())
 }

@@ -25,22 +25,30 @@ struct HourForecastView: View {
                 Text("FORECAST 12H")
                     .font(.system(.title3, design: .monospaced, weight: .bold))
             }
-            ForEach(hourForecast, id: \.time) { hour in
-                ZStack {
-                    HStackContent(orientation: .leading) {
-                        Text(presentTime(for: hour.time))
-                    }
-                    Image(systemName: getWeatherIcon(for: hour.condition.text, isDay: weatherData.isDay))
-                        .fontWeight(.regular)
-                    HStackContent(orientation: .trailing) {
-                        Text(presentTemperature(unit, hour.tempC))
-                    }
-                }
-                .font(.system(.title, design: .monospaced, weight: .bold))
-            }
+            ForecastList
         }
-        .padding()
-        .weatherCardStyle()
-        .padding()
+    }
+    
+    @ViewBuilder var ForecastList: some View {
+        ForEach(hourForecast, id: \.time) { hour in
+            ZStack {
+                HStackContent(orientation: .leading) {
+                    Text(presentTime(for: hour.time))
+                }
+                Image(systemName: presentIcon(for: hour.condition.text, isDay: hour.time.determineIsDay()))
+                    .fontWeight(.regular)
+                HStackContent(orientation: .trailing) {
+                    Text(presentTemperature(unit, hour.tempC))
+                }
+            }
+            .font(.system(.title, design: .monospaced, weight: .bold))
+        }
+    }
+}
+
+extension Date {
+    func determineIsDay() -> Bool {
+        let currentHour = Calendar.current.component(.hour, from: self)
+        return currentHour >= 6 && currentHour < 18
     }
 }

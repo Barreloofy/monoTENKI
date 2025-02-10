@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - Data conversion functions used throughout the app
+
 func presentTemperature(_ unit: UnitData.TemperatureUnits, _ tempCDouble: Double) -> String {
     let degreeSymbol = "\u{00B0}"
     if unit == .celsius {
@@ -41,7 +43,13 @@ func presentTime(for time: Date) -> String {
     return dateFormatter.string(from: time)
 }
 
-func getWeatherIcon(for condition: String, isDay: Bool) -> String {
+func presentWeekday(_ date: Date) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "EEEE"
+    return dateFormatter.string(from: date)
+}
+
+func presentIcon(for condition: String, isDay: Bool) -> String {
     let condition = condition.trimmingCharacters(in: .whitespaces).lowercased()
     switch condition {
         case "sunny", "clear":
@@ -52,7 +60,7 @@ func getWeatherIcon(for condition: String, isDay: Bool) -> String {
             return "cloud.fill"
         case "mist", "fog":
             return "cloud.fog.fill"
-        case "light drizzle" ,"patchy rain possible", "patchy rain nearby","light rain", "moderate rain at times", "moderate rain", "heavy rain at times", "heavy rain":
+        case "light drizzle", "patchy light rain", "patchy rain possible", "patchy rain nearby","light rain", "moderate rain at times", "moderate rain", "heavy rain at times", "heavy rain":
             return "cloud.rain.fill"
         case "patchy snow possible", "light snow", "patchy light snow", "patchy moderate snow", "moderate snow", "patchy heavy snow", "heavy snow":
             return "cloud.snow.fill"

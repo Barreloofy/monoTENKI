@@ -40,7 +40,7 @@ struct CurrentWeatherView: View {
                     .font(.system(.title3, design: .serif, weight: .bold))
                 Group {
                     if showDetails {
-                        WeatherDetailView(currentWeather.details)
+                        WeatherDetailView()
                             .onTapGesture {
                                 showDetails = false
                             }

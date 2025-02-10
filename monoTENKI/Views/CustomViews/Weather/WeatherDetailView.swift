@@ -9,17 +9,17 @@ import SwiftUI
 
 struct WeatherDetailView: View {
     @EnvironmentObject private var unitData: UnitData
-    let details: CurrentWeatherDetails
+    @EnvironmentObject private var weatherData: WeatherData
     
-    init(_ details: CurrentWeatherDetails) {
-        self.details = details
+    var details: CurrentWeatherDetails {
+        weatherData.currentWeather.details
     }
     
     var body: some View {
         TabView {
-            windDetails
+            WindDetails
                 .tag(0)
-            feelsDetails
+            FeelsDetails
                 .tag(1)
         }
         .tabViewStyle(.page)
@@ -28,27 +28,40 @@ struct WeatherDetailView: View {
         .minimumScaleFactor(0.8)
     }
     
-    @ViewBuilder var windDetails: some View {
+    @ViewBuilder var WindDetails: some View {
         VStack(alignment: .leading) {
-            DetailRowView(title: "WIND DIRECTION", value: details.windDirection)
-            DetailRowView(title: "WIND SPEED", value: presentSpeed(unitData.speed, details.windSpeedKph))
-            DetailRowView(title: "WIND GUST", value: presentSpeed(unitData.speed, details.windGustKph))
+            DetailRow(title: "WIND DIRECTION", value: details.windDirection)
+            DetailRow(title: "WIND SPEED", value: presentSpeed(unitData.speed, details.windSpeedKph))
+            DetailRow(title: "WIND GUST", value: presentSpeed(unitData.speed, details.windGustKph))
         }
         .padding(.bottom, 10)
     }
     
-    @ViewBuilder var feelsDetails: some View {
+    @ViewBuilder var FeelsDetails: some View {
         VStack(alignment: .leading) {
-            DetailRowView(title: "PRECIPITATION", value: presentMeasurement(unitData.measurement, details.precipitationMm))
-            DetailRowView(title: "HUMIDITY", value: "\(details.humidity) %")
-            DetailRowView(title: "WIND CHILL", value: presentTemperature(unitData.temperature, details.windchillC))
+            DetailRow(title: "PRECIPITATION", value: presentMeasurement(unitData.measurement, details.precipitationMm))
+            DetailRow(title: "HUMIDITY", value: "\(details.humidity) %")
+            DetailRow(title: "WIND CHILL", value: presentTemperature(unitData.temperature, details.windchillC))
         }
         .padding(.bottom, 10)
+    }
+    
+    @ViewBuilder func DetailRow(title: String, value: String) -> some View {
+        HStack {
+            Text(title)
+            Spacer()
+            Text(value)
+        }
+        .overlay(alignment: .bottom) {
+            Rectangle()
+                .frame(height: 2)
+        }
     }
 }
 
 
 #Preview {
-    WeatherDetailView(CurrentWeatherDetails(windDirection: "NS", windSpeedKph: 25, windGustKph: 50, windchillC: 4.0, precipitationMm: 1.5, humidity: 80))
+    WeatherDetailView()
         .environmentObject(UnitData())
+        .environmentObject(WeatherData())
 }

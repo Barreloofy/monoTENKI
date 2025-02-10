@@ -12,7 +12,7 @@ struct WeatherConditionIconView: View {
     let isDay: Bool
     
     var body: some View {
-        Image(systemName: getWeatherIcon(for: condition, isDay: isDay))
+        Image(systemName: presentIcon(for: condition, isDay: isDay))
             .resizable()
             .scaledToFit()
             .fontWeight(.regular)
