@@ -19,7 +19,7 @@ struct ForecastView: View {
         }
     }
     
-    @ViewBuilder func forecastDay(_ day: FutureDay) -> some View {
+    @ViewBuilder private func forecastDay(_ day: FutureDay) -> some View {
         VStack {
             Text(presentTemperature(unitData.temperature, day.avgtempC))
             TemperatureExtremesView(for: day)

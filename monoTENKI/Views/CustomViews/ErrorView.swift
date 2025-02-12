@@ -34,7 +34,7 @@ struct ErrorView: View {
         .background(Color(.black).ignoresSafeArea())
     }
     
-    @ViewBuilder var errorImage: some View {
+    @ViewBuilder private var errorImage: some View {
         GeometryReader { geometry in
             Image(systemName: "cloud.fill")
                 .resizable()

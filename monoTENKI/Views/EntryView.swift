@@ -31,7 +31,9 @@ struct EntryView: View {
             }
         }
         .onChange(of: weatherData.currentLocation, initial: true) {
+            guard weatherData.currentLocation != "" else { return }
             weatherData.fetchWeather() { result in
+                print("Called")
                 switch result {
                     case .success():
                         isLoading = false
@@ -41,13 +43,13 @@ struct EntryView: View {
             }
         }
         .onChange(of: locationManager.currentLocation) {
-            updateWeatherToLocation()
+            updateWeatherForLocation()
         }
         .environmentObject(unitData)
         .environmentObject(weatherData)
     }
     
-    private func updateWeatherToLocation() {
+    private func updateWeatherForLocation() {
         guard locationManager.trackLocation else { return }
         Task {
             do {

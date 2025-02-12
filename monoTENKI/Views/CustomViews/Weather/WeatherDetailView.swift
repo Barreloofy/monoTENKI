@@ -28,7 +28,7 @@ struct WeatherDetailView: View {
         .minimumScaleFactor(0.8)
     }
     
-    @ViewBuilder var WindDetails: some View {
+    @ViewBuilder private var WindDetails: some View {
         VStack(alignment: .leading) {
             DetailRow(title: "WIND DIRECTION", value: details.windDirection)
             DetailRow(title: "WIND SPEED", value: presentSpeed(unitData.speed, details.windSpeedKph))
@@ -37,7 +37,7 @@ struct WeatherDetailView: View {
         .padding(.bottom, 10)
     }
     
-    @ViewBuilder var FeelsDetails: some View {
+    @ViewBuilder private var FeelsDetails: some View {
         VStack(alignment: .leading) {
             DetailRow(title: "PRECIPITATION", value: presentMeasurement(unitData.measurement, details.precipitationMm))
             DetailRow(title: "HUMIDITY", value: "\(details.humidity) %")
@@ -46,7 +46,7 @@ struct WeatherDetailView: View {
         .padding(.bottom, 10)
     }
     
-    @ViewBuilder func DetailRow(title: String, value: String) -> some View {
+    @ViewBuilder private func DetailRow(title: String, value: String) -> some View {
         HStack {
             Text(title)
             Spacer()

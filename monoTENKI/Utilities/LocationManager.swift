@@ -52,6 +52,7 @@ final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObje
         }
     }
     
+    
     func requestAuthorization() {
         queue.sync {
             locationManager.requestWhenInUseAuthorization()

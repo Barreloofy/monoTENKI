@@ -52,7 +52,7 @@ struct SetUpView: View {
             }
             .tag(1)
             SetUpSearchView(selection: $selection)
-                .tag(2)
+            .tag(2)
             GuideView {
                 Text("One more thing, please choose\n your preferred weather unit:\n")
             } content: {

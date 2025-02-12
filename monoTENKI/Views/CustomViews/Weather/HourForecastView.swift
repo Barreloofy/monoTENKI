@@ -29,7 +29,7 @@ struct HourForecastView: View {
         }
     }
     
-    @ViewBuilder var ForecastList: some View {
+    @ViewBuilder private var ForecastList: some View {
         ForEach(hourForecast, id: \.time) { hour in
             ZStack {
                 HStackContent(orientation: .leading) {

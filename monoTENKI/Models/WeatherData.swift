@@ -15,7 +15,7 @@ final class WeatherData: ObservableObject {
     @Published var currentWeather: CurrentWeather
     @Published var hourForecast: [Hour]
     @Published var dayForecast: [FutureDay]
-    @AppStorage("location") var currentLocation = "Saint Petersburg"
+    @AppStorage("location") var currentLocation = ""
     
     init() {
         currentWeather = CurrentWeather()
