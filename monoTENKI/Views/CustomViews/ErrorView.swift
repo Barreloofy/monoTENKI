@@ -10,6 +10,7 @@ import SwiftUI
 struct ErrorView: View {
     @EnvironmentObject private var weatherData: WeatherData
     @Binding var isError: Bool
+    @Binding var isLoading: Bool
     
     var body: some View {
         VStack {
@@ -18,7 +19,9 @@ struct ErrorView: View {
             Button {
                 weatherData.fetchWeather() { result in
                     guard case .success() = result else { return }
+                    isLoading = false
                     isError = false
+                    
                 }
             } label: {
                 Text("TAP TO RETRY")
@@ -53,6 +56,6 @@ struct ErrorView: View {
 }
 
 #Preview {
-    ErrorView(isError: .constant(true))
+    ErrorView(isError: .constant(true), isLoading: .constant(false))
         .environmentObject(WeatherData())
 }

@@ -12,43 +12,55 @@ struct SettingsView: View {
     
     var body: some View {
         VStack {
-            ZStack {
-                Text("Settings")
-                HStackContent(orientation: .trailing) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("X")
-                    }
-                }
-            }
-            .font(.system(.title, design: .serif, weight: .bold))
-            HStackContent(orientation: .leading) {
-                Text("UNITS")
-                    .font(.system(.headline, design: .serif, weight: .bold))
-            }
-            UnitRow(unitType: UnitData.TemperatureUnits.self, unitSymbol: "\u{00B0}")
-            UnitRow(unitType: UnitData.SpeedUnits.self)
-            UnitRow(unitType: UnitData.MeasurementUnits.self)
-            HStackContent(orientation: .leading) {
-                Text("TIPS")
-                    .font(.system(.headline, design: .serif, weight: .bold))
-                    .padding(.top, 20)
-            }
-            HStackContent(orientation: .leading) {
-                Text("Pressing on the weather icon displays additional weather details.")
-                    .font(.system(.footnote, design: .serif, weight: .bold))
-                    .padding(.vertical, 5)
-            }
-            HStackContent(orientation: .leading) {
-                Text("Pressing on the current location's name opens the search page.")
-                    .font(.system(.footnote, design: .serif, weight: .bold))
-            }
+            NavigationBar
+            UnitBlock
+            TipsBlock
             Spacer()
         }
         .foregroundStyle(.white)
         .padding()
         .background(.black)
+    }
+    
+    @ViewBuilder private var NavigationBar: some View {
+        ZStack {
+            Text("Settings")
+            HStackContent(orientation: .trailing) {
+                Button {
+                    dismiss()
+                } label: {
+                    Text("X")
+                }
+            }
+        }
+        .font(.system(.title, design: .serif, weight: .bold))
+    }
+    
+    @ViewBuilder private var UnitBlock: some View {
+        HStackContent(orientation: .leading) {
+            Text("UNITS")
+                .font(.system(.headline, design: .serif, weight: .bold))
+        }
+        UnitRow(unitType: UnitData.TemperatureUnits.self, unitSymbol: "\u{00B0}")
+        UnitRow(unitType: UnitData.SpeedUnits.self)
+        UnitRow(unitType: UnitData.MeasurementUnits.self)
+        HStackContent(orientation: .leading) {
+            Text("TIPS")
+                .font(.system(.headline, design: .serif, weight: .bold))
+                .padding(.top, 20)
+        }
+    }
+    
+    @ViewBuilder private var TipsBlock: some View {
+        HStackContent(orientation: .leading) {
+            Text("Pressing on the weather icon displays additional weather details.")
+                .font(.system(.footnote, design: .serif, weight: .bold))
+                .padding(.vertical, 5)
+        }
+        HStackContent(orientation: .leading) {
+            Text("Pressing on the current location's name opens the search page.")
+                .font(.system(.footnote, design: .serif, weight: .bold))
+        }
     }
 }
 

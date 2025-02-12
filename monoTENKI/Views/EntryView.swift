@@ -21,7 +21,7 @@ struct EntryView: View {
                 SetUpView()
             }
             else if isError {
-                ErrorView(isError: $isError)
+                ErrorView(isError: $isError, isLoading: $isLoading)
             }
             else if isLoading {
                 Color(.black).ignoresSafeArea()
@@ -31,9 +31,7 @@ struct EntryView: View {
             }
         }
         .onChange(of: weatherData.currentLocation, initial: true) {
-            guard weatherData.currentLocation != "" else { return }
             weatherData.fetchWeather() { result in
-                print("Called")
                 switch result {
                     case .success():
                         isLoading = false

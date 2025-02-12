@@ -24,6 +24,7 @@ final class WeatherData: ObservableObject {
     }
     
     func fetchWeather(_ completionHandler: @escaping (Result<Void, Error>) -> Void) {
+        guard !currentLocation.isEmpty else { return }
         Task {
             do {
                 var currentWeather: CurrentWeather

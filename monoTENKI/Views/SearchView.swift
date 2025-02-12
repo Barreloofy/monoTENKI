@@ -15,40 +15,36 @@ struct SearchView: View {
     @State private var locationHistory = [LocationIdentity]()
     @State private var locations = [Location]()
     @State private var editing = false
-    @State private var showAlert = false
+    @State private var showError = false
+    @State private var noPermission = false
     private var locationManager = LocationManager.shared
     
     var body: some View {
-        ZStack {
-            VStack {
-                ContentView
+        VStack {
+            NavigationBar
+            InputBlock
+            ContentView
+            Spacer()
+        }
+        .font(.system(.title, design: .serif, weight: .bold))
+        .foregroundStyle(.white)
+        .padding()
+        .background(.black)
+        .onAppear {
+            load()
+        }
+        .onChange(of: text) {
+            if noPermission {
+                noPermission = false
             }
-            .font(.system(.title, design: .serif, weight: .bold))
-            .foregroundStyle(.white)
-            .padding()
-            .background(.black)
-            .onAppear {
-                load()
-            }
-            .onChange(of: text) {
-                fetchLocations()
-            }
-            .onChange(of: locationHistory) {
-                save()
-            }
-            .blur(radius: showAlert ? 5 : 0)
-            if showAlert {
-                AlertView(
-                    isPresented: $showAlert,
-                    title: "UH, OH",
-                    message: "SOMETHING WENT WRONG",
-                    actionMessage: "TAP TO RETRY"
-                )
-            }
+            fetchLocations()
+        }
+        .onChange(of: locationHistory) {
+            save()
         }
     }
     
-    @ViewBuilder private var ContentView: some View {
+    @ViewBuilder private var NavigationBar: some View {
         ZStack {
             HStackContent(orientation: .leading) {
                 Button {
@@ -66,10 +62,12 @@ struct SearchView: View {
                 }
             }
         }
+    }
+    
+    @ViewBuilder private var InputBlock: some View {
         TextField("", text: $text)
             .searchTextField(text, _textFieldIsFocused)
             .focused($textFieldIsFocused)
-            .disabled(showAlert ? true : false)
         HStackContent(orientation: .leading) {
             Button {
                 fetchCurrentLocation()
@@ -78,23 +76,32 @@ struct SearchView: View {
             }
         }
         .font(.system(.title2, design: .serif, weight: .bold))
-        LocationList
     }
     
-    @ViewBuilder private var LocationList: some View {
-        if text.isEmpty {
-            LocationHistoryView($locationHistory, $editing)
+    @ViewBuilder private var ContentView: some View {
+        if showError || noPermission {
+            if showError {
+                SearchErrorView("UH OH, SOMETHING WENT WRONG", true) { fetchLocations() }
+            }
+            else {
+                SearchErrorView("monoTENKI DOSEN'T HAVE PERMISSION TO USE YOUR LOCATION", false)
+            }
         }
         else {
-            ScrollView {
-                ForEach(locations) { location in
-                    SearchItemView(location: LocationIdentity(name: location.name, country: location.country))
-                        .onTapGesture {
-                            weatherData.currentLocation = location.name
-                            locationManager.trackLocation = false
-                            updateLocationHistory(with: LocationIdentity(name: location.name, country: location.country))
-                            dismiss()
-                        }
+            if text.isEmpty {
+                LocationHistoryView($locationHistory, $editing)
+            }
+            else {
+                ScrollView {
+                    ForEach(locations) { location in
+                        SearchItemView(location: LocationIdentity(name: location.name, country: location.country))
+                            .onTapGesture {
+                                weatherData.currentLocation = location.name
+                                locationManager.trackLocation = false
+                                updateLocationHistory(with: LocationIdentity(name: location.name, country: location.country))
+                                dismiss()
+                            }
+                    }
                 }
             }
         }
@@ -106,13 +113,15 @@ struct SearchView: View {
             do {
                 guard !text.isEmpty else { return }
                 locations = try await APIClient.fetch(service: .location, forType: [Location].self, text)
+                showError = false
             } catch {
-                showAlert = true
+                showError = true
             }
         }
     }
     
     private func fetchCurrentLocation() {
+        guard locationManager.currentLocation != nil else { noPermission = true; return }
         Task {
             do {
                 guard let query = locationManager.stringLocation else { throw LocationManager.LocationError.managerError }
@@ -122,11 +131,12 @@ struct SearchView: View {
                 locationManager.trackLocation = true
                 dismiss()
             } catch {
-                showAlert = true
+                showError = true
             }
         }
     }
 }
+
 
 private extension SearchView {
     var documentsURL: URL {
@@ -161,6 +171,7 @@ private extension SearchView {
         save()
     }
 }
+
 
 #Preview {
     SearchView()
