@@ -1,4 +1,7 @@
-## Installation
+<img align="right" height="225" src="https://github.com/Barreloofy/monoTENKI/blob/main/monoTENKIPhoto.png"  />
+
+<h3 align="left">Installation</h3>
+
  1. Download zip or clone (git clone https://github.com/Barreloofy/monoTENKI.git) 
  
  2. Open project in Xcode 
