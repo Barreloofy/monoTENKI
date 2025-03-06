@@ -34,6 +34,7 @@ struct CurrentWeatherView: View {
                     }
                     .sheet(isPresented: $showSearch) {
                         SearchView()
+                            .presentationBackground(.black)
                     }
                 Text(presentTemperature(unit, currentWeather.tempC))
                 TemperatureExtremesView(for: currentWeather.day)

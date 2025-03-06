@@ -13,15 +13,22 @@ struct WeatherView: View {
     @State private var showSettings = false
     
     var body: some View {
-        VStack {
-            Spacer()
-            ScrollView {
-                ContentView
+        ZStack {
+          /*
+             Temporary fix for view rendering out of sync glitch until Apple reolves the issue.
+             See here for more details: https://stackoverflow.com/questions/79441756/swiftui-sheet-causing-white-flickering-of-background
+             */
+            Color(.black).opacity(0.98).padding(-1).ignoresSafeArea()
+            VStack {
+                Spacer()
+                ScrollView {
+                    ContentView
+                }
+                .scrollIndicators(.hidden)
+                Spacer()
             }
-            Spacer()
+            .foregroundStyle(.white)
         }
-        .foregroundStyle(.white)
-        .background(.black.opacity(0.98))
     }
     
     @ViewBuilder private var ContentView: some View {
@@ -34,6 +41,7 @@ struct WeatherView: View {
                 }
                 .sheet(isPresented: $showSettings) {
                     SettingsView()
+                        .presentationBackground(.black)
                 }
             }
             CurrentWeatherView()

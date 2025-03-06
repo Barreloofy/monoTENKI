@@ -79,7 +79,7 @@ func presentIcon(for condition: String, isDay: Bool) -> String {
             return "cloud.sleet.fill"
         case "patchy freezing drizzle possible", "heavy freezing drizzle", "light freezing rain", "moderate or heavy freezing rain":
             return "cloud.hail.fill"
-        case "thundery outbreaks possible", "patchy light rain with thunder", "moderate or heavy rain with thunder", "patchy light snow with thunder", "moderate or heavy snow with thunder":
+        case "thundery outbreaks possible", "thundery outbreaks in nearby", "patchy light rain with thunder", "moderate or heavy rain with thunder", "patchy light snow with thunder", "moderate or heavy snow with thunder":
             return "cloud.bolt.rain.fill"
         case "blowing snow", "blizzard":
             return "cloud.snow.blizzard.fill"

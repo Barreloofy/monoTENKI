@@ -77,6 +77,11 @@ struct SetUpView: View {
             }
             .tag(3)
         }
+        .background(.black).opacity(0.98).padding(-1).ignoresSafeArea()
+        /*
+            Temporary fix for view rendering out of sync glitch until Apple reolves the issue.
+            See here for more details: https://stackoverflow.com/questions/79441756/swiftui-sheet-causing-white-flickering-of-background
+          */
     }
     
     private func setToCurrentLocation() {
