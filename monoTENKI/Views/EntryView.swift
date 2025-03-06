@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EntryView: View {
+    @Environment(\.scenePhase) private var scenePhase
     @StateObject private var unitData = UnitData()
     @StateObject private var weatherData = WeatherData()
     @ObservedObject private var locationManager = LocationManager.shared
@@ -28,6 +29,17 @@ struct EntryView: View {
             }
             else {
                 WeatherView()
+            }
+        }
+        .onChange(of: scenePhase) {
+            guard scenePhase == .active else { return }
+            weatherData.fetchWeather() { result in
+                switch result {
+                    case .success():
+                        return
+                    case .failure(_):
+                        isError = true
+                }
             }
         }
         .onChange(of: weatherData.currentLocation, initial: true) {
