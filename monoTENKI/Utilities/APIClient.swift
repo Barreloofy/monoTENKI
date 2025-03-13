@@ -8,8 +8,7 @@
 import Foundation
 import OSLog
 
-fileprivate let logger = Logger(subsystem: "com.monoTENKI.APIClient", category: "Error")
-
+private let logger = Logger(subsystem: "com.monoTENKI.APIClient", category: "Error")
 
 struct APIClient {
     private static let baseURL = URL(string: "https://api.weatherapi.com/v1/")!
@@ -23,12 +22,12 @@ struct APIClient {
         case urlError
         case typeError
         
-        var localizedDescription: String {
+        var errorDescription: String? {
             switch self {
-                case .urlError:
-                    return "Error, invalid URL"
-                case .typeError:
-                    return "Error, provided type for 'T' is not Weather or [Location] type"
+            case .urlError:
+              return "Error, invalid URL"
+            case .typeError:
+              return "Error, provided type for 'T' is not Weather or [Location] type"
             }
         }
     }
@@ -51,7 +50,7 @@ struct APIClient {
         return url
     }
     
-    static func fetch<T: Decodable>(service: Service, forType type: T.Type, _ query: String) async throws -> T {
+    static func fetch<T: Decodable>(service: Service, forType type: T.Type, query: String) async throws -> T {
         let url = try buildURL(service, query)
         let (data, _) = try await URLSession.shared.data(from: url)
         let decoder = JSONDecoder()

@@ -7,6 +7,20 @@
 
 import Foundation
 
+protocol Unit: RawRepresentable where RawValue == String {
+    static var key: String { get }
+    static var defaultValue: Self { get }
+    static var optionalValue: Self { get }
+}
+
+extension UserDefaults {
+    func unit<T: RawRepresentable>(forKey key: String, defaultValue: T) -> T where T.RawValue == String {
+        guard let rawValue = self.string(forKey: key) else { return defaultValue }
+        guard let enumValue = T(rawValue: rawValue) else { return defaultValue }
+        return enumValue
+    }
+}
+
 @MainActor
 final class UnitData: ObservableObject {
     @Published var temperature: TemperatureUnits = UserDefaults.standard.unit(forKey: "temperature", defaultValue: .celsius) {
@@ -14,16 +28,19 @@ final class UnitData: ObservableObject {
             UserDefaults.standard.set(temperature.rawValue, forKey: "temperature")
         }
     }
+    
     @Published var speed: SpeedUnits = UserDefaults.standard.unit(forKey: "speed", defaultValue: .kilometersPerHour) {
         didSet {
             UserDefaults.standard.set(speed.rawValue, forKey: "speed")
         }
     }
+    
     @Published var measurement: MeasurementUnits = UserDefaults.standard.unit(forKey: "measurement", defaultValue: .millimeter) {
         didSet {
             UserDefaults.standard.set(measurement.rawValue, forKey: "measurement")
         }
     }
+    
     
     enum TemperatureUnits: String, Unit {
         case celsius = "C"
@@ -40,6 +57,7 @@ final class UnitData: ObservableObject {
         }
     }
     
+    
     enum SpeedUnits: String, Unit {
         case milesPerHour = "MP/H"
         case kilometersPerHour = "KM/H"
@@ -55,6 +73,7 @@ final class UnitData: ObservableObject {
         }
     }
     
+    
     enum MeasurementUnits: String, Unit {
         case millimeter = "MM"
         case inch = "IN"
@@ -69,18 +88,16 @@ final class UnitData: ObservableObject {
             return .inch
         }
     }
-}
-
-extension UserDefaults {
-    func unit<T: RawRepresentable>(forKey key: String, defaultValue: T) -> T where T.RawValue == String {
-        guard let rawValue = self.string(forKey: key) else { return defaultValue }
-        guard let enumValue = T(rawValue: rawValue) else { return defaultValue }
-        return enumValue
+    
+    func setToMetric() {
+        temperature = .celsius
+        speed = .kilometersPerHour
+        measurement = .millimeter
     }
-}
-
-protocol Unit: RawRepresentable where RawValue == String {
-    static var key: String { get }
-    static var defaultValue: Self { get }
-    static var optionalValue: Self { get }
+    
+    func setToImperial() {
+        temperature = .fahrenheit
+        speed = .milesPerHour
+        measurement = .inch
+    }
 }

@@ -6,71 +6,75 @@
 //
 
 import SwiftUI
+import OSLog
+
+private let logger = Logger(subsystem: "com.monoTENKI.SearchView", category: "Error")
 
 struct SearchView: View {
     @EnvironmentObject private var weatherData: WeatherData
     @Environment(\.dismiss) private var dismiss
     @FocusState private var textFieldIsFocused: Bool
-    @State private var text = ""
-    @State private var locationHistory = [LocationIdentity]()
     @State private var locations = [Location]()
+    @State private var locationHistory = [LocationKey]()
+    @State private var text = ""
     @State private var editing = false
-    @State private var showError = false
+    @State private var searchError = false
     @State private var noPermission = false
     private var locationManager = LocationManager.shared
     
     var body: some View {
         VStack {
-            NavigationBar
-            InputBlock
-            ContentView
+            navigationBar
+            
+            inputBlock
+            
+            contentView
+            
             Spacer()
         }
         .font(.system(.title, design: .serif, weight: .bold))
         .foregroundStyle(.white)
         .padding()
         .background(.black)
-        .onAppear {
-            load()
-        }
+        .onAppear { retrieve() }
+        .onChange(of: locationHistory) { store() }
         .onChange(of: text) {
             if noPermission {
                 noPermission = false
+            } else {
+                fetchLocations()
             }
-            fetchLocations()
-        }
-        .onChange(of: locationHistory) {
-            save()
         }
     }
     
-    @ViewBuilder private var NavigationBar: some View {
+    
+    @ViewBuilder private var navigationBar: some View {
         ZStack {
             HStackContent(orientation: .leading) {
-                Button {
+                Button("Edit") {
                     editing.toggle()
-                } label: {
-                    Text("Edit")
                 }
             }
+            
             Text("Location")
+            
             HStackContent(orientation: .trailing) {
-                Button {
+                Button("X") {
                     dismiss()
-                } label: {
-                    Text("X")
                 }
             }
         }
     }
     
-    @ViewBuilder private var InputBlock: some View {
+    
+    @ViewBuilder private var inputBlock: some View {
         TextField("", text: $text)
             .searchTextField(text, _textFieldIsFocused)
             .focused($textFieldIsFocused)
+        
         HStackContent(orientation: .leading) {
             Button {
-                fetchCurrentLocation()
+                setWeatherToCurrentLocation()
             } label: {
                 Label("CURRENT LOCATION", systemImage: "location.fill")
             }
@@ -78,30 +82,40 @@ struct SearchView: View {
         .font(.system(.title2, design: .serif, weight: .bold))
     }
     
-    @ViewBuilder private var ContentView: some View {
-        if showError || noPermission {
-            if showError {
-                SearchErrorView("UH OH, SOMETHING WENT WRONG", true) { fetchLocations() }
-            }
-            else {
-                SearchErrorView("monoTENKI DOSEN'T HAVE PERMISSION TO USE YOUR LOCATION", false)
-            }
+    
+    @ViewBuilder private var contentView: some View {
+        if searchError || noPermission {
+            showSearchError
+        } else {
+            locationList
         }
-        else {
-            if text.isEmpty {
-                LocationHistoryView($locationHistory, $editing)
-            }
-            else {
-                ScrollView {
-                    ForEach(locations) { location in
-                        SearchItemView(location: LocationIdentity(name: location.name, country: location.country))
-                            .onTapGesture {
-                                weatherData.currentLocation = location.name
-                                locationManager.trackLocation = false
-                                updateLocationHistory(with: LocationIdentity(name: location.name, country: location.country))
-                                dismiss()
-                            }
-                    }
+    }
+    
+    
+    @ViewBuilder private var showSearchError: some View {
+        if searchError {
+            SearchErrorView("UH OH, SOMETHING WENT WRONG", true) { fetchLocations() }
+        } else {
+            SearchErrorView("monoTENKI DOSEN'T HAVE PERMISSION TO USE YOUR LOCATION", false)
+        }
+    }
+    
+    
+    @ViewBuilder private var locationList: some View {
+        if text.isEmpty {
+            LocationHistoryView($locationHistory, $editing)
+        } else {
+            ScrollView {
+                ForEach(locations) { location in
+                    let locationKey = LocationKey(name: location.name, country: location.country)
+                    
+                    SearchItemView(location: locationKey)
+                        .onTapGesture {
+                            weatherData.currentLocation = location.name
+                            locationManager.trackLocation = false
+                            dismiss()
+                            updateLocationHistory(with: locationKey)
+                        }
                 }
             }
         }
@@ -109,29 +123,30 @@ struct SearchView: View {
     
     
     private func fetchLocations() {
+        guard !text.isEmpty else { return }
+        
         Task {
             do {
-                guard !text.isEmpty else { return }
-                locations = try await APIClient.fetch(service: .location, forType: [Location].self, text)
-                showError = false
+                locations = try await APIClient.fetch(service: .location, forType: [Location].self, query: text)
+                searchError = false
             } catch {
-                showError = true
+                searchError = true
             }
         }
     }
     
-    private func fetchCurrentLocation() {
-        guard locationManager.currentLocation != nil else { noPermission = true; return }
+    private func setWeatherToCurrentLocation() {
+        guard locationManager.currentLocation != nil else {
+            noPermission = true
+            return
+        }
+        
         Task {
             do {
-                guard let query = locationManager.stringLocation else { throw LocationManager.LocationError.managerError }
-                let results = try await APIClient.fetch(service: .location, forType: [Location].self, query)
-                guard let firstResult = results.first else { throw LocationManager.LocationError.locationNil }
-                weatherData.currentLocation = firstResult.name
-                locationManager.trackLocation = true
+                try await weatherData.setWeatherToCurrentLocation()
                 dismiss()
             } catch {
-                showError = true
+                searchError = true
             }
         }
     }
@@ -139,36 +154,50 @@ struct SearchView: View {
 
 
 private extension SearchView {
-    var documentsURL: URL {
-        let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        return documents.appending(path: "locationHistory")
+    var fileManager: FileManager {
+        FileManager.default
     }
+    
     var locationHistoryFile: URL {
-        return documentsURL.appending(path: "history")
+        let documents = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+        return documents.appending(path: "history")
     }
     
-    
-    func save() {
-        try? FileManager.default.createDirectory(at: documentsURL, withIntermediateDirectories: false)
-        let data = try! JSONEncoder().encode(locationHistory)
-        try! data.write(to: locationHistoryFile)
+    func store() {
+        do {
+            let data = try JSONEncoder().encode(locationHistory)
+            try data.write(to: locationHistoryFile)
+        } catch {
+            logger.error("\(error)")
+        }
     }
     
-    func load() {
-        guard FileManager.default.isReadableFile(atPath: locationHistoryFile.path()) else { return }
-        let data = try! Data(contentsOf: locationHistoryFile)
-        locationHistory = try! JSONDecoder().decode([LocationIdentity].self, from: data)
+    func retrieve() {
+        do {
+            guard fileManager.isReadableFile(atPath: locationHistoryFile.path()) else { return }
+            
+            let data = try Data(contentsOf: locationHistoryFile)
+            locationHistory = try JSONDecoder().decode([LocationKey].self, from: data)
+        } catch {
+            logger.error("\(error)")
+        }
     }
     
-    func updateLocationHistory(with input: LocationIdentity) {
+    func updateLocationHistory(with key: LocationKey) {
         for (index, location) in locationHistory.enumerated() {
-            guard input == location else { continue }
-            locationHistory.swapAt(0, index)
-            save()
+            guard key == location else { continue }
+            
+            locationHistory.remove(at: index)
+            locationHistory.insert(location, at: 0)
+            
+            store()
+            
             return
         }
-        locationHistory.insert(input, at: 0)
-        save()
+        
+        locationHistory.insert(key, at: 0)
+        
+        store()
     }
 }
 

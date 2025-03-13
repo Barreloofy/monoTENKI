@@ -9,53 +9,55 @@ import SwiftUI
 
 struct ErrorView: View {
     @EnvironmentObject private var weatherData: WeatherData
-    @Binding var isError: Bool
-    @Binding var isLoading: Bool
+    @Binding var state: ViewState
     
     var body: some View {
         VStack {
             Text("UH OH, SOMETHING WENT WRONG")
                 .padding(.bottom, 5)
-            Button {
-                weatherData.fetchWeather() { result in
-                    guard case .success() = result else { return }
-                    isLoading = false
-                    isError = false
-                    
-                }
-            } label: {
-                Text("TAP TO RETRY")
-            }
-            .buttonStyle(.monoBordered)
-            .padding(.bottom)
+            
+            Button("TAP TO RETRY") { retryButtonAction() }
+                .buttonStyle(.monoBordered)
+                .padding(.bottom)
+            
             errorImage
+            
             Spacer()
         }
         .font(.system(.title3, design: .serif, weight: .bold))
         .foregroundStyle(.white)
         .padding(.top, 50)
-        .background(Color(.black).ignoresSafeArea())
+        .background(Color(.black).opacity(0.98).ignoresSafeArea())
     }
     
-    @ViewBuilder private var errorImage: some View {
-        GeometryReader { geometry in
-            Image(systemName: "cloud.fill")
-                .resizable()
-                .scaledToFit()
-                .fontWeight(.regular)
-                .frame(width: geometry.size.width * 0.50)
-                .position(x: geometry.size.width / 2, y: geometry.size.height * 0.10)
-            Image(systemName: "minus")
-                .resizable()
-                .scaledToFit()
-                .fontWeight(.regular)
-                .frame(width: geometry.size.width * 0.50)
-                .position(x: geometry.size.width / 2, y: geometry.size.height * 0.25)
+    private var errorImage: some View {
+        GeometryReader { proxy in
+            let imageWidth = proxy.size.width / 2
+            let height = proxy.size.height
+            
+            imageModifier(systemName: "cloud.fill", position: CGPoint(x: imageWidth, y: height * 0.10))
+            imageModifier(systemName: "minus", position: CGPoint(x: imageWidth, y: height * 0.25))
+        }
+    }
+    
+    private func imageModifier(systemName: String, position: CGPoint) -> some View {
+        Image(systemName: systemName)
+            .resizable()
+            .scaledToFit()
+            .fontWeight(.regular)
+            .frame(width: position.x)
+            .position(position)
+    }
+    
+    private func retryButtonAction() {
+        Task {
+            guard (try? await weatherData.fetchWeather()) != nil else { return }
+            state = .loaded
         }
     }
 }
 
 #Preview {
-    ErrorView(isError: .constant(true), isLoading: .constant(false))
+    ErrorView(state: .constant(.error))
         .environmentObject(WeatherData())
 }

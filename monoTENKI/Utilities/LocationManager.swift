@@ -12,7 +12,6 @@ import OSLog
 final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
     static let locationLogger = Logger(subsystem: "com.monoTENKI.location", category: "Error")
     
-    
     private let queue = DispatchQueue(label: "com.monoTENKI.LocationManagerSerial")
     nonisolated(unsafe) static let shared = LocationManager()
     
@@ -38,21 +37,23 @@ final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObje
                 return _trackLocation
             }
         }
+        
         set {
             queue.sync {
-                LocationManager.shared._trackLocation = newValue
+                _trackLocation = newValue
             }
         }
     }
     
-    var stringLocation: String? {
+    var stringLocation: String {
         queue.sync {
-            guard let latitude = currentLocation?.latitude, let longitude = currentLocation?.longitude else { return nil }
+            guard let latitude = currentLocation?.latitude, let longitude = currentLocation?.longitude else { return "" }
             return "\(latitude) \(longitude)"
         }
     }
-    
-    
+}
+
+extension LocationManager {
     func requestAuthorization() {
         queue.sync {
             locationManager.requestWhenInUseAuthorization()
@@ -80,12 +81,12 @@ extension LocationManager {
         case managerError
         case locationNil
         
-        var localizedDescription: String {
+        var errorDescription: String? {
             switch self {
-                case .managerError:
-                    return "Error: member of LocationManager instance returned nil"
-                case .locationNil:
-                    return "Error: found unexpectedly nil in Array"
+            case .managerError:
+              return "Error: member of LocationManager instance returned nil"
+            case .locationNil:
+              return "Error: found unexpectedly nil in Array"
             }
         }
     }

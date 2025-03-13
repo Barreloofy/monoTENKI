@@ -45,26 +45,26 @@ struct UnitRow<U: Unit>: View {
         .padding(.vertical, 5)
         .onChange(of: selected) {
             switch unitType {
-                case is UnitData.TemperatureUnits.Type:
-                    unitData.temperature = selected ? .celsius : .fahrenheit
-                case is UnitData.SpeedUnits.Type:
-                    unitData.speed = selected ? .kilometersPerHour : .milesPerHour
-                case is UnitData.MeasurementUnits.Type:
-                    unitData.measurement = selected ? .millimeter : .inch
-                default:
-                    fatalError("unknown type \(unitType)")
+            case is UnitData.TemperatureUnits.Type:
+              unitData.temperature = selected ? .celsius : .fahrenheit
+            case is UnitData.SpeedUnits.Type:
+              unitData.speed = selected ? .kilometersPerHour : .milesPerHour
+            case is UnitData.MeasurementUnits.Type:
+              unitData.measurement = selected ? .millimeter : .inch
+            default:
+              fatalError("unknown type \(unitType)")
             }
         }
         .onAppear {
             switch unitType {
-                case is UnitData.TemperatureUnits.Type:
-                    selected = unitData.temperature == .defaultValue ? true : false
-                case is UnitData.SpeedUnits.Type:
-                    selected = unitData.speed == .defaultValue ? true : false
-                case is UnitData.MeasurementUnits.Type:
-                    selected = unitData.measurement == .defaultValue ? true : false
-                default:
-                    fatalError("unknown type \(unitType)")
+            case is UnitData.TemperatureUnits.Type:
+              selected = unitData.temperature == .defaultValue ? true : false
+            case is UnitData.SpeedUnits.Type:
+              selected = unitData.speed == .defaultValue ? true : false
+            case is UnitData.MeasurementUnits.Type:
+              selected = unitData.measurement == .defaultValue ? true : false
+            default:
+              fatalError("unknown type \(unitType)")
             }
         }
     }

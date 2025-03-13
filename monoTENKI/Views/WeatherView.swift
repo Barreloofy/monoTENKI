@@ -19,17 +19,21 @@ struct WeatherView: View {
              See here for more details: https://stackoverflow.com/questions/79441756/swiftui-sheet-causing-white-flickering-of-background
              */
             Color(.black).opacity(0.98).padding(-1).ignoresSafeArea()
+            
             VStack {
                 Spacer()
+                
                 ScrollView {
                     ContentView
                 }
                 .scrollIndicators(.hidden)
+                
                 Spacer()
             }
             .foregroundStyle(.white)
         }
     }
+    
     
     @ViewBuilder private var ContentView: some View {
         VStack {
@@ -44,11 +48,15 @@ struct WeatherView: View {
                         .presentationBackground(.black)
                 }
             }
+            
             CurrentWeatherView()
+            
             ForecastView()
                 .weatherCardStyle()
+            
             HourForecastView()
                 .weatherCardStyle()
+            
             Spacer()
         }
         .padding()

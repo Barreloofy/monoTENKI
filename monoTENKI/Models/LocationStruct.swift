@@ -8,19 +8,19 @@
 import Foundation
 
 struct Location: Decodable, Identifiable {
-    let id: UUID = UUID()
+    let id = UUID()
     let name: String
     let country: String
     let time: Date?
     
     enum CodingKeys: String, CodingKey {
-        case time = "localtime"
         case name, country
+        case time = "localtime"
     }
 }
 
 
-struct LocationIdentity: Codable, Equatable {
+struct LocationKey: Codable, Equatable {
     let name: String
     let country: String
 }

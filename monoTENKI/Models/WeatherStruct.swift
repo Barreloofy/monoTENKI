@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - Interal Structs
+// MARK: - Interal Structs. Used throughout the app for diffrent views
 struct CurrentWeather {
     let location: String
     let tempC: Double
@@ -15,7 +15,13 @@ struct CurrentWeather {
     let day: FutureDay
     let details: CurrentWeatherDetails
     
-    init(location: String = "", tempC: Double = 0.0, condition: String = "", day: FutureDay = FutureDay(), details: CurrentWeatherDetails = CurrentWeatherDetails()) {
+    init(
+        location: String = "",
+        tempC: Double = 0.0,
+        condition: String = "",
+        day: FutureDay = FutureDay(),
+        details: CurrentWeatherDetails = CurrentWeatherDetails()
+    ) {
         self.location = location
         self.tempC = tempC
         self.condition = condition
@@ -33,7 +39,14 @@ struct CurrentWeatherDetails {
     let precipitationMm: Double
     let humidity: Int
     
-    init(windDirection: String = "", windSpeedKph: Double = 0.0, windGustKph: Double = 0.0, windchillC: Double = 0.0, precipitationMm: Double = 0.0, humidity: Int = 0) {
+    init(
+        windDirection: String = "",
+        windSpeedKph: Double = 0.0,
+        windGustKph: Double = 0.0,
+        windchillC: Double = 0.0,
+        precipitationMm: Double = 0.0,
+        humidity: Int = 0
+    ) {
         self.windDirection = windDirection
         self.windSpeedKph = windSpeedKph
         self.windGustKph = windGustKph
@@ -52,7 +65,13 @@ struct FutureDay: Identifiable {
     let avgtempC: Double
     let condition: String
     
-    init(date: Date = Date(), maxtempC: Double = 0.0, mintempC: Double = 0.0, avgtempC: Double = 0.0, condition: String = "Clear") {
+    init(
+        date: Date = Date(),
+        maxtempC: Double = 0.0,
+        mintempC: Double = 0.0,
+        avgtempC: Double = 0.0,
+        condition: String = "Clear"
+    ) {
         self.date = date
         self.maxtempC = maxtempC
         self.mintempC = mintempC
@@ -61,7 +80,7 @@ struct FutureDay: Identifiable {
     }
 }
 
-// MARK: - Decodable Structs
+// MARK: - Decodable Structs. Used to decode the API response into Swift Data.
 struct Condition: Decodable {
     let text: String
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchItemView: View {
-    let location: LocationIdentity
+    let location: LocationKey
     
     var body: some View {
         HStack {

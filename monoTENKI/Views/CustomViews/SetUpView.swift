@@ -8,70 +8,58 @@
 import SwiftUI
 import OSLog
 
-fileprivate let setUpLogger = Logger(subsystem: "com.monoTENKI.SetUp", category: "Error")
-
+private let logger = Logger(subsystem: "com.monoTENKI.SetUp", category: "Error")
 
 struct SetUpView: View {
-    @EnvironmentObject private var unitData: UnitData
     @EnvironmentObject private var weatherData: WeatherData
-    @ObservedObject var locationManager: LocationManager = LocationManager.shared
-    @AppStorage("isfirstlaunch") var isFirstLaunch: Bool = true
-    @State private var selection: Int = 0
+    @EnvironmentObject private var unitData: UnitData
+    @ObservedObject private var locationManager = LocationManager.shared
+    @State private var selection = 0
+    @Binding var isFirstLaunch: Bool
     
     var body: some View {
         TabView(selection: $selection) {
             GuideView {
-                Text("Greetings fellow weather watcher! first let's setup a few things before occupying ourselves with the more interesting things in life The Weather!")
+                Text(DesignSystem.AppText.SetupText.greetingsText)
             } content: {
-                Button {
+                Button(DesignSystem.AppText.SetupText.greetingsButton) {
                     selection += 1
-                } label: {
-                    Text("Get started")
                 }
                 .buttonStyle(.monoBordered)
             }
             .tag(0)
+            
             GuideView {
-                Text("Grant localtion access to\n get the most accurate weather\n")
+                Text(DesignSystem.AppText.SetupText.permissionText)
             } content: {
-                Button {
+                Button(DesignSystem.AppText.SetupText.permissionButtonGrand) {
                     locationManager.requestAuthorization()
-                } label: {
-                    Text("Grand permission")
                 }
                 .buttonStyle(.monoBordered)
-                Button {
+                .onChange(of: locationManager.currentLocation) { setWeatherToCurrentLocation() }
+                
+                Button(DesignSystem.AppText.SetupText.permissionButtonDeny) {
                     selection += 1
-                } label: {
-                    Text("No, thank you!")
                 }
                 .buttonStyle(.monoBordered)
-                .onChange(of: locationManager.currentLocation) {
-                    setToCurrentLocation()
-                }
             }
             .tag(1)
+            
             SetUpSearchView(selection: $selection)
-                .tag(2)
+            .tag(2)
+            
             GuideView {
-                Text("One more thing, please choose\n your preferred weather unit:\n")
+                Text(DesignSystem.AppText.SetupText.unitText)
             } content: {
-                Button {
-                    unitData.temperature = .celsius
-                    unitData.speed = .kilometersPerHour
-                    unitData.measurement = .millimeter
+                Button(DesignSystem.AppText.SetupText.unitButtonMetric) {
+                    unitData.setToMetric()
                     isFirstLaunch = false
-                } label: {
-                    Text("Metric")
                 }
                 .buttonStyle(.monoBordered)
-                Button {
-                    unitData.temperature = .fahrenheit
-                    unitData.speed = .milesPerHour
-                    unitData.measurement = .inch
+                
+                Button(DesignSystem.AppText.SetupText.unitButtonImperial) {
+                    unitData.setToImperial()
                     isFirstLaunch = false
-                } label: {
-                    Text("Imperial")
                 }
                 .buttonStyle(.monoBordered)
             }
@@ -79,44 +67,40 @@ struct SetUpView: View {
         }
         .background(.black).opacity(0.98).padding(-1).ignoresSafeArea()
         /*
-            Temporary fix for view rendering out of sync glitch until Apple reolves the issue.
+            Temporary fix for view rendering out of sync glitch until Apple resolves the issue.
             See here for more details: https://stackoverflow.com/questions/79441756/swiftui-sheet-causing-white-flickering-of-background
           */
     }
     
-    private func setToCurrentLocation() {
+    private func setWeatherToCurrentLocation() {
         Task {
             do {
-                guard let query = locationManager.stringLocation else { throw LocationManager.LocationError.managerError }
-                let results = try await APIClient.fetch(service: .location, forType: [Location].self, query)
-                guard let firstResult = results.first else { throw LocationManager.LocationError.locationNil }
-                weatherData.currentLocation = firstResult.name
-                locationManager.trackLocation = true
+                try await weatherData.setWeatherToCurrentLocation()
                 selection += 2
             } catch {
-                setUpLogger.error("\(error)")
+                logger.error("\(error)")
             }
         }
     }
 }
 
 
-struct GuideView<TextContent: View, ActionContent: View>: View {
-    let text: () -> TextContent
-    let content: () -> ActionContent
+private struct GuideView<TextContent: View, ActionContent: View>: View {
+    let text: TextContent
+    let content: ActionContent
     
-    init(@ViewBuilder textContent: @escaping () -> TextContent, @ViewBuilder content: @escaping () -> ActionContent) {
-        self.text = textContent
-        self.content = content
+    init(@ViewBuilder textContent: () -> TextContent, @ViewBuilder content: () -> ActionContent) {
+        self.text = textContent()
+        self.content = content()
     }
     
     var body: some View {
         ZStack {
             Color(.black).opacity(0.98).ignoresSafeArea()
             VStack {
-                text()
-                    .padding(.bottom)
-                content()
+                text
+                .padding(.bottom)
+                content
             }
             .font(.system(.title2, design: .serif, weight: .bold))
             .foregroundStyle(.white)
@@ -128,23 +112,25 @@ struct GuideView<TextContent: View, ActionContent: View>: View {
 }
 
 
-struct SetUpSearchView: View {
+private struct SetUpSearchView: View {
     @EnvironmentObject private var weatherData: WeatherData
-    @Binding var selection: Int
-    @FocusState private var isFocused: Bool
-    @State private var text = ""
     @State private var locations = [Location]()
+    @State private var text = ""
+    @FocusState private var isFocused: Bool
+    @Binding var selection: Int
     
     var body: some View {
         VStack {
             Text("Location")
+            
             TextField("", text: $text)
                 .searchTextField(text, _isFocused)
                 .focused($isFocused)
                 .font(.system(.title, design: .rounded, weight: .bold))
+            
             ScrollView {
                 ForEach(locations) { location in
-                    SearchItemView(location: LocationIdentity(name: location.name, country: location.country))
+                    SearchItemView(location: LocationKey(name: location.name, country: location.country))
                         .onTapGesture {
                             weatherData.currentLocation = location.name
                             selection += 1
@@ -164,14 +150,10 @@ struct SetUpSearchView: View {
     private func fetchLocations() {
         Task {
             do {
-                locations = try await APIClient.fetch(service: .location, forType: [Location].self, text)
+                locations = try await APIClient.fetch(service: .location, forType: [Location].self, query: text)
             } catch {
-                setUpLogger.error("\(error)")
+                logger.error("\(error)")
             }
         }
     }
-}
-
-#Preview {
-    SetUpView()
 }
