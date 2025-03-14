@@ -8,15 +8,10 @@
 import SwiftUI
 
 struct UnitRow<U: Unit>: View {
-    let unitType: U.Type
-    let unitSymbol: String
-    @State private var selected = true
     @EnvironmentObject private var unitData: UnitData
-    
-    enum UnitType: String {
-        case temperature
-        case speed
-    }
+    @State private var selected = true
+    private let unitType: U.Type
+    private let unitSymbol: String
     
     init(unitType: U.Type, unitSymbol: String = "") {
         self.unitType = unitType
@@ -36,7 +31,9 @@ struct UnitRow<U: Unit>: View {
             HStackContent(orientation: .leading) {
                 Text(unitType.key + ":")
             }
+            
             UnitItem(text: firstUnit + unitSymbol, isOn: $selected, reversed: false)
+            
             HStackContent(orientation: .trailing) {
                 UnitItem(text: secondUnit + unitSymbol, isOn: $selected, reversed: true)
             }
@@ -71,12 +68,12 @@ struct UnitRow<U: Unit>: View {
 }
 
 
-struct UnitItem: View {
+private struct UnitItem: View {
     let text: String
     @Binding var isOn: Bool
     let reversed: Bool
     
-    var isSelected: Bool {
+    private var isSelected: Bool {
         if reversed {
             return isOn ? false : true
         }
@@ -89,11 +86,7 @@ struct UnitItem: View {
         Text(text)
             .foregroundStyle(isSelected ? .white : .gray)
             .overlay(alignment: .bottom) {
-                Spacer()
-                isSelected ?
-                Rectangle().frame(height: 2)
-                :
-                nil
+                isSelected ? Rectangle().frame(height: 2) : nil
             }
             .onTapGesture {
                 isOn = reversed ? false : true

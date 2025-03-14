@@ -47,7 +47,9 @@ final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObje
     
     var stringLocation: String {
         queue.sync {
-            guard let latitude = currentLocation?.latitude, let longitude = currentLocation?.longitude else { return "" }
+            guard let latitude = currentLocation?.latitude,
+                 let longitude = currentLocation?.longitude else { return "" }
+            
             return "\(latitude) \(longitude)"
         }
     }

@@ -15,6 +15,7 @@ enum ViewState {
 
 
 struct ViewManager: View {
+    @Environment(\.scenePhase) private var scenePhase
     @EnvironmentObject private var weatherData: WeatherData
     @EnvironmentObject private var unitData: UnitData
     @ObservedObject private var locationManager = LocationManager.shared
@@ -29,6 +30,16 @@ struct ViewManager: View {
               WeatherView()
             case .error:
               ErrorView(state: $state)
+            }
+        }
+        .onChange(of: scenePhase) {
+            guard scenePhase == .active else { return }
+            Task {
+                do {
+                    try await weatherData.fetchWeather()
+                } catch {
+                    state = .error
+                }
             }
         }
         .onChange(of: weatherData.currentLocation, initial: true) {
