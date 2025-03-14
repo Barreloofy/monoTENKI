@@ -28,13 +28,13 @@ struct UnitRow<U: Unit>: View {
     
     var body: some View {
         ZStack {
-            HStackContent(orientation: .leading) {
+            AlignedHStack(alignment: .leading) {
                 Text(unitType.key + ":")
             }
             
             UnitItem(text: firstUnit + unitSymbol, isOn: $selected, reversed: false)
             
-            HStackContent(orientation: .trailing) {
+            AlignedHStack(alignment: .trailing) {
                 UnitItem(text: secondUnit + unitSymbol, isOn: $selected, reversed: true)
             }
         }
@@ -64,33 +64,6 @@ struct UnitRow<U: Unit>: View {
               fatalError("unknown type \(unitType)")
             }
         }
-    }
-}
-
-
-private struct UnitItem: View {
-    let text: String
-    @Binding var isOn: Bool
-    let reversed: Bool
-    
-    private var isSelected: Bool {
-        if reversed {
-            return isOn ? false : true
-        }
-        else {
-            return isOn ? true : false
-        }
-    }
-    
-    var body: some View {
-        Text(text)
-            .foregroundStyle(isSelected ? .white : .gray)
-            .overlay(alignment: .bottom) {
-                isSelected ? Rectangle().frame(height: 2) : nil
-            }
-            .onTapGesture {
-                isOn = reversed ? false : true
-            }
     }
 }
 

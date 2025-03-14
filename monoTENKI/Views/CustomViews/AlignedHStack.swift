@@ -7,23 +7,18 @@
 
 import SwiftUI
 
-struct HStackContent<Content: View>: View {
+struct AlignedHStack<Content: View>: View {
     let alignment: HorizontalAlignment
-    var content: () -> Content
-    
-    init(orientation: HorizontalAlignment, @ViewBuilder _ content: @escaping () -> Content) {
-        self.alignment = orientation
-        self.content = content
-    }
+    @ViewBuilder var content: Content
     
     var body: some View {
         HStack {
             if alignment == .leading {
-                content()
+                content
                 Spacer()
             } else {
                 Spacer()
-                content()
+                content
             }
         }
     }

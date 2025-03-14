@@ -6,9 +6,6 @@
 //
 
 import Foundation
-import OSLog
-
-private let logger = Logger(subsystem: "com.monoTENKI.WeatherData", category: "Error")
 
 @MainActor
 final class WeatherData: ObservableObject {
@@ -31,56 +28,51 @@ final class WeatherData: ObservableObject {
     }
     
     func fetchWeather() async throws {
-        do {
-            guard !currentLocation.isEmpty else { return }
-            
-            var currentWeather: CurrentWeather
-            var hourForecast = [Hour]()
-            var dayForecast = [FutureDay]()
-            
-            let weatherData = try await APIClient.fetch(
-                service: .weather,
-                forType: Weather.self,
-                query: currentLocation
-            )
-            
-            currentWeather = CurrentWeather(
-                location: weatherData.location.name,
-                tempC: weatherData.current.tempC,
-                condition: weatherData.current.conditionText,
-                day: weatherData.forecast.today,
-                details: weatherData.current.weatherDetails
-            )
-            
-            let localTime = weatherData.location.time
-            let twelveHoursInSeconds = Double(43200)
-            let timeIn12Hours = localTime!.addingTimeInterval(twelveHoursInSeconds)
-            
-            for forecast in weatherData.forecast.forecastDays {
-                if forecast.date != weatherData.forecast.forecastDays.first?.date {
-                    dayForecast.append(FutureDay(
-                        date: forecast.date,
-                        maxtempC: forecast.day.maxtempC,
-                        mintempC: forecast.day.mintempC,
-                        avgtempC: forecast.day.avgtempC,
-                        condition: forecast.day.condition.text
-                    ))
-                }
-                
-                for hour in forecast.hours {
-                    guard hourForecast.count < 12 else { break }
-                    
-                    if hour.time > localTime! && hour.time < timeIn12Hours { hourForecast.append(hour) }
-                }
+        guard !currentLocation.isEmpty else { return }
+        
+        var currentWeather: CurrentWeather
+        var hourForecast = [Hour]()
+        var dayForecast = [FutureDay]()
+        
+        let weatherData = try await APIClient.fetch(
+            service: .weather,
+            forType: Weather.self,
+            query: currentLocation
+        )
+        
+        currentWeather = CurrentWeather(
+            location: weatherData.location.name,
+            tempC: weatherData.current.tempC,
+            condition: weatherData.current.conditionText,
+            day: weatherData.forecast.today,
+            details: weatherData.current.weatherDetails
+        )
+        
+        let localTime = weatherData.location.time
+        let twelveHoursInSeconds = Double(43200)
+        let timeIn12Hours = localTime!.addingTimeInterval(twelveHoursInSeconds)
+        
+        for forecast in weatherData.forecast.forecastDays {
+            if forecast.date != weatherData.forecast.forecastDays.first?.date {
+                dayForecast.append(FutureDay(
+                    date: forecast.date,
+                    maxtempC: forecast.day.maxtempC,
+                    mintempC: forecast.day.mintempC,
+                    avgtempC: forecast.day.avgtempC,
+                    condition: forecast.day.condition.text
+                ))
             }
             
-            self.currentWeather = currentWeather
-            self.hourForecast = hourForecast
-            self.dayForecast = dayForecast
-        } catch {
-            logger.error("\(error)")
-            throw error
+            for hour in forecast.hours {
+                guard hourForecast.count < 12 else { break }
+                
+                if hour.time > localTime! && hour.time < timeIn12Hours { hourForecast.append(hour) }
+            }
         }
+        
+        self.currentWeather = currentWeather
+        self.hourForecast = hourForecast
+        self.dayForecast = dayForecast
     }
     
     func setWeatherToCurrentLocation() async throws {
@@ -90,7 +82,7 @@ final class WeatherData: ObservableObject {
             service: .location,
             forType: [Location].self,
             query: query).first else {
-            throw LocationManager.LocationError.locationNil
+            throw LocationError.unavailableLocation
         }
         
         currentLocation = firstLocation.name

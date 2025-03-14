@@ -21,10 +21,11 @@ struct HourForecastView: View {
     
     var body: some View {
         VStack {
-            HStackContent(orientation: .leading) {
+            AlignedHStack(alignment: .leading) {
                 Text("FORECAST 12H")
                     .font(.system(.title3, design: .monospaced, weight: .bold))
             }
+            
             ForecastList
         }
     }
@@ -32,13 +33,17 @@ struct HourForecastView: View {
     @ViewBuilder private var ForecastList: some View {
         ForEach(hourForecast, id: \.time) { hour in
             ZStack {
-                HStackContent(orientation: .leading) {
+                AlignedHStack(alignment: .leading) {
                     Text(presentTime(for: hour.time))
                 }
-                Image(systemName: presentIcon(for: hour.condition.text, isDay: determineIsDay(hour.time)))
+                
+                Image(systemName: presentIcon(
+                    for: hour.condition.text,
+                    isDay: determineIsDay(for: hour.time)))
                     .fontWeight(.regular)
-                HStackContent(orientation: .trailing) {
-                    Text(presentTemperature(unit, hour.tempC))
+                
+                AlignedHStack(alignment: .trailing) {
+                    Text(presentTemperature(for: unit, with: hour.tempC))
                 }
             }
             .font(.system(.title, design: .monospaced, weight: .bold))

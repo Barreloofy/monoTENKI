@@ -29,7 +29,7 @@ struct ViewManager: View {
             case .loaded:
               WeatherView()
             case .error:
-              ErrorView(state: $state)
+              FetchError(state: $state)
             }
         }
         .onChange(of: scenePhase) {

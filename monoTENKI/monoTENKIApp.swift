@@ -16,7 +16,7 @@ struct monoTENKIApp: App {
     var body: some Scene {
         WindowGroup {
             if isFirstLaunch {
-                SetUpView(isFirstLaunch: $isFirstLaunch)
+                SetupView(isFirstLaunch: $isFirstLaunch)
             } else {
                 ViewManager()
             }

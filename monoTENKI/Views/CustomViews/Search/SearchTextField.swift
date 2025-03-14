@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct SearchTextField: ViewModifier {
-    var text: String
+struct SearchTextField: View {
+    @Binding var text: String
     @FocusState var focus: Bool
     
-    func body(content: Content) -> some View {
-        content
+    var body: some View {
+        TextField("", text: $text)
             .foregroundStyle(.white)
             .tint(.white)
             .font(.system(.title, design: .rounded, weight: .bold))
@@ -23,16 +23,18 @@ struct SearchTextField: ViewModifier {
                     Text("SEARCH...")
                         .foregroundStyle(.white)
                         .font(.system(.title, design: .rounded, weight: .bold))
-                        .onTapGesture {
-                            focus = true
-                        }
+                        .onTapGesture { focus = true }
                 }
             }
     }
 }
 
-extension View where Self == TextField<Text> {
-    func searchTextField(_ text: String, _ focus: FocusState<Bool>) -> some View {
-        self.modifier(SearchTextField(text: text, focus: focus))
-    }
-}
+/*
+ 
+ extension View where Self == TextField<Text> {
+     func searchTextField(text: String, focus: FocusState<Bool>) -> some View {
+         self.modifier(SearchTextField(text: text, focus: focus))
+     }
+ }
+ 
+ */

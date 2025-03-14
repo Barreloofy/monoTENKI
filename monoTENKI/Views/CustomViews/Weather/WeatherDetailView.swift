@@ -11,15 +11,16 @@ struct WeatherDetailView: View {
     @EnvironmentObject private var unitData: UnitData
     @EnvironmentObject private var weatherData: WeatherData
     
-    var details: CurrentWeatherDetails {
+    private var details: CurrentWeatherDetails {
         weatherData.currentWeather.details
     }
     
     var body: some View {
         TabView {
-            WindDetails
+            windBlock
                 .tag(0)
-            FeelsDetails
+            
+            feelsBlock
                 .tag(1)
         }
         .tabViewStyle(.page)
@@ -28,28 +29,45 @@ struct WeatherDetailView: View {
         .minimumScaleFactor(0.8)
     }
     
-    @ViewBuilder private var WindDetails: some View {
+    
+    @ViewBuilder private var windBlock: some View {
         VStack(alignment: .leading) {
-            DetailRow(title: "WIND DIRECTION", value: details.windDirection)
-            DetailRow(title: "WIND SPEED", value: presentSpeed(unitData.speed, details.windSpeedKph))
-            DetailRow(title: "WIND GUST", value: presentSpeed(unitData.speed, details.windGustKph))
+            createDetailBlock(title: "WIND DIRECTION", value: details.windDirection)
+            
+            createDetailBlock(
+                title: "WIND SPEED",
+                value: presentSpeed(for: unitData.speed, with: details.windSpeedKph))
+            
+            createDetailBlock(
+                title: "WIND GUST",
+                value: presentSpeed(for: unitData.speed, with: details.windGustKph))
         }
         .padding(.bottom, 10)
     }
     
-    @ViewBuilder private var FeelsDetails: some View {
+    
+    @ViewBuilder private var feelsBlock: some View {
         VStack(alignment: .leading) {
-            DetailRow(title: "PRECIPITATION", value: presentMeasurement(unitData.measurement, details.precipitationMm))
-            DetailRow(title: "HUMIDITY", value: "\(details.humidity) %")
-            DetailRow(title: "WIND CHILL", value: presentTemperature(unitData.temperature, details.windchillC))
+            createDetailBlock(
+                title: "PRECIPITATION",
+                value: presentMeasurement(for: unitData.measurement, with: details.precipitationMm))
+            
+            createDetailBlock(title: "HUMIDITY", value: "\(details.humidity) %")
+            
+            createDetailBlock(
+                title: "WIND CHILL",
+                value: presentTemperature(for: unitData.temperature, with: details.windchillC))
         }
         .padding(.bottom, 10)
     }
     
-    @ViewBuilder private func DetailRow(title: String, value: String) -> some View {
+    
+    @ViewBuilder private func createDetailBlock(title: String, value: String) -> some View {
         HStack {
             Text(title)
+            
             Spacer()
+            
             Text(value)
         }
         .overlay(alignment: .bottom) {

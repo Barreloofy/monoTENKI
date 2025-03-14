@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Data conversion functions used throughout the app
 
-func presentTemperature(_ unit: UnitData.TemperatureUnits, _ tempCDouble: Double) -> String {
+func presentTemperature(for unit: UnitData.TemperatureUnits, with tempCDouble: Double) -> String {
     let degreeSymbol = "\u{00B0}"
     
     if unit == .celsius {
@@ -20,7 +20,7 @@ func presentTemperature(_ unit: UnitData.TemperatureUnits, _ tempCDouble: Double
     }
 }
 
-func presentSpeed(_ unit: UnitData.SpeedUnits, _ speedKphDouble: Double) -> String {
+func presentSpeed(for unit: UnitData.SpeedUnits, with speedKphDouble: Double) -> String {
     if unit == .kilometersPerHour {
         return String(Int(speedKphDouble)) + " " + "KM/H"
     } else {
@@ -29,7 +29,7 @@ func presentSpeed(_ unit: UnitData.SpeedUnits, _ speedKphDouble: Double) -> Stri
     }
 }
 
-func presentMeasurement(_ unit: UnitData.MeasurementUnits, _ measurementMmDouble: Double) -> String {
+func presentMeasurement(for unit: UnitData.MeasurementUnits, with measurementMmDouble: Double) -> String {
     if unit == .millimeter {
         return String(format: "%.2f",measurementMmDouble) + " " + "MM"
     } else {
@@ -48,22 +48,19 @@ func presentTime(for time: Date) -> String {
     return outTime
 }
 
-func presentWeekday(_ date: Date) -> String {
+func presentWeekday(for date: Date) -> String {
     let dateFormatter = DateFormatter()
-    
     dateFormatter.dateFormat = "EEEE"
-    
     return dateFormatter.string(from: date)
 }
 
-func determineIsDay(_ time: Date) -> Bool {
+func determineIsDay(for time: Date) -> Bool {
     let dateFormatter = DateFormatter()
     
     dateFormatter.timeZone = TimeZone(identifier: "UTC")
     dateFormatter.dateFormat = "HH"
     
     let hourString = dateFormatter.string(from: time)
-    
     guard let hourInt = Int(hourString) else { return true }
     
     return hourInt > 6 && hourInt < 18

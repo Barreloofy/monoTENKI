@@ -7,11 +7,9 @@
 
 import Foundation
 import CoreLocation
-import OSLog
+import os
 
 final class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
-    static let locationLogger = Logger(subsystem: "com.monoTENKI.location", category: "Error")
-    
     private let queue = DispatchQueue(label: "com.monoTENKI.LocationManagerSerial")
     nonisolated(unsafe) static let shared = LocationManager()
     
@@ -73,22 +71,6 @@ extension LocationManager {
         queue.sync {
             if status == .authorizedWhenInUse || status == .authorizedAlways {
                 locationManager.startUpdatingLocation()
-            }
-        }
-    }
-}
-
-extension LocationManager {
-    enum LocationError: Error, LocalizedError {
-        case managerError
-        case locationNil
-        
-        var errorDescription: String? {
-            switch self {
-            case .managerError:
-              return "Error: member of LocationManager instance returned nil"
-            case .locationNil:
-              return "Error: found unexpectedly nil in Array"
             }
         }
     }

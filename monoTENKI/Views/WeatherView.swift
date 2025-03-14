@@ -8,36 +8,37 @@
 import SwiftUI
 
 struct WeatherView: View {
-    @EnvironmentObject private var unitData: UnitData
     @EnvironmentObject private var weatherData: WeatherData
+    @EnvironmentObject private var unitData: UnitData
     @State private var showSettings = false
     
     var body: some View {
-        ZStack {
-          /*
-             Temporary fix for view rendering out of sync glitch until Apple reolves the issue.
-             See here for more details: https://stackoverflow.com/questions/79441756/swiftui-sheet-causing-white-flickering-of-background
-             */
-            Color(.black).opacity(0.98).padding(-1).ignoresSafeArea()
+        VStack {
+            Spacer()
             
-            VStack {
-                Spacer()
-                
-                ScrollView {
-                    ContentView
-                }
-                .scrollIndicators(.hidden)
-                
-                Spacer()
+            ScrollView {
+                contentBlock
             }
-            .foregroundStyle(.white)
+            .scrollIndicators(.hidden)
+            
+            Spacer()
         }
+        .foregroundStyle(.white)
+        .background(Color(.black)
+            .opacity(0.98)
+            .padding(-1)
+            .ignoresSafeArea()
+        )
+        /*
+            Temporary fix for view rendering out of sync glitch until Apple resolves the issue.
+            See here for more details: https://stackoverflow.com/questions/79441756/swiftui-sheet-causing-white-flickering-of-background
+          */
     }
     
     
-    @ViewBuilder private var ContentView: some View {
+    @ViewBuilder private var contentBlock: some View {
         VStack {
-            HStackContent(orientation: .trailing) {
+            AlignedHStack(alignment: .trailing) {
                 Button {
                     showSettings = true
                 } label: {
@@ -56,8 +57,6 @@ struct WeatherView: View {
             
             HourForecastView()
                 .weatherCardStyle()
-            
-            Spacer()
         }
         .padding()
     }

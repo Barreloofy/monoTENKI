@@ -10,24 +10,26 @@ import SwiftUI
 struct LocationHistoryView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var weatherData: WeatherData
-    @ObservedObject private var locationManager: LocationManager = LocationManager.shared
-    @Binding var locationHistory: [LocationKey]
-    @Binding var editing: Bool
+    @ObservedObject private var locationManager: LocationManager
+    @Binding private var locationHistory: [LocationKey]
+    @Binding private var editing: Bool
     
-    init(_ locationHistory: Binding<[LocationKey]>, _ editing: Binding<Bool>) {
+    init(locationHistory: Binding<[LocationKey]>, isEditing: Binding<Bool>) {
         self._locationHistory = locationHistory
-        self._editing = editing
+        self._editing = isEditing
+        self.locationManager = LocationManager.shared
     }
     
     var body: some View {
         ScrollView {
             ForEach(locationHistory.indices, id: \.self) { index in
-                itemContent(editing, locationHistory[index])
+                createHistoryBlock(for: locationHistory[index])
             }
         }
     }
     
-    @ViewBuilder private func itemContent(_ editing: Bool, _ location: LocationKey) -> some View {
+    
+    @ViewBuilder private func createHistoryBlock(for location: LocationKey) -> some View {
         HStack {
             if editing {
                 Button {
@@ -36,10 +38,10 @@ struct LocationHistoryView: View {
                     Image(systemName: "trash")
                         .fontWeight(.regular)
                 }
-                SearchItemView(location: location)
-            }
-            else {
-                SearchItemView(location: location)
+                
+                SearchItem(location: location)
+            } else {
+                SearchItem(location: location)
                     .onTapGesture {
                         weatherData.currentLocation = location.name
                         locationManager.trackLocation = false

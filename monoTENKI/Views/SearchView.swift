@@ -6,9 +6,7 @@
 //
 
 import SwiftUI
-import OSLog
-
-private let logger = Logger(subsystem: "com.monoTENKI.SearchView", category: "Error")
+import os
 
 struct SearchView: View {
     @EnvironmentObject private var weatherData: WeatherData
@@ -24,11 +22,11 @@ struct SearchView: View {
     
     var body: some View {
         VStack {
-            navigationBar
+            navigationBlock
             
-            inputBlock
+            searchBlock
             
-            contentView
+            resultBlock
             
             Spacer()
         }
@@ -48,9 +46,9 @@ struct SearchView: View {
     }
     
     
-    @ViewBuilder private var navigationBar: some View {
+    @ViewBuilder private var navigationBlock: some View {
         ZStack {
-            HStackContent(orientation: .leading) {
+            AlignedHStack(alignment: .leading) {
                 Button("Edit") {
                     editing.toggle()
                 }
@@ -58,7 +56,7 @@ struct SearchView: View {
             
             Text("Location")
             
-            HStackContent(orientation: .trailing) {
+            AlignedHStack(alignment: .trailing) {
                 Button("X") {
                     dismiss()
                 }
@@ -67,12 +65,12 @@ struct SearchView: View {
     }
     
     
-    @ViewBuilder private var inputBlock: some View {
-        TextField("", text: $text)
-            .searchTextField(text, _textFieldIsFocused)
+    @ViewBuilder private var searchBlock: some View {
+        
+        SearchTextField(text: $text, focus: _textFieldIsFocused)
             .focused($textFieldIsFocused)
         
-        HStackContent(orientation: .leading) {
+        AlignedHStack(alignment: .leading) {
             Button {
                 setWeatherToCurrentLocation()
             } label: {
@@ -83,33 +81,33 @@ struct SearchView: View {
     }
     
     
-    @ViewBuilder private var contentView: some View {
+    @ViewBuilder private var resultBlock: some View {
         if searchError || noPermission {
-            showSearchError
+            resultError
         } else {
-            locationList
+            resultList
         }
     }
     
     
-    @ViewBuilder private var showSearchError: some View {
+    @ViewBuilder private var resultError: some View {
         if searchError {
-            SearchErrorView("UH OH, SOMETHING WENT WRONG", true) { fetchLocations() }
+            SearchErrorView(text: "UH OH, SOMETHING WENT WRONG") { fetchLocations() }
         } else {
-            SearchErrorView("monoTENKI DOSEN'T HAVE PERMISSION TO USE YOUR LOCATION", false)
+            SearchErrorView(text: "monoTENKI DOSEN'T HAVE PERMISSION TO USE YOUR LOCATION")
         }
     }
     
     
-    @ViewBuilder private var locationList: some View {
+    @ViewBuilder private var resultList: some View {
         if text.isEmpty {
-            LocationHistoryView($locationHistory, $editing)
+            LocationHistoryView(locationHistory: $locationHistory, isEditing: $editing)
         } else {
             ScrollView {
                 ForEach(locations) { location in
                     let locationKey = LocationKey(name: location.name, country: location.country)
                     
-                    SearchItemView(location: locationKey)
+                    SearchItem(location: locationKey)
                         .onTapGesture {
                             weatherData.currentLocation = location.name
                             locationManager.trackLocation = false
@@ -168,7 +166,7 @@ private extension SearchView {
             let data = try JSONEncoder().encode(locationHistory)
             try data.write(to: locationHistoryFile)
         } catch {
-            logger.error("\(error)")
+            Logger.filesystem.error("\(error)")
         }
     }
     
@@ -179,7 +177,7 @@ private extension SearchView {
             let data = try Data(contentsOf: locationHistoryFile)
             locationHistory = try JSONDecoder().decode([LocationKey].self, from: data)
         } catch {
-            logger.error("\(error)")
+            Logger.filesystem.error("\(error)")
         }
     }
     

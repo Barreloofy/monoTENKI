@@ -12,11 +12,11 @@ struct SettingsView: View {
     
     var body: some View {
         VStack {
-            NavigationBar
+            navigationBlock
             
-            UnitBlock
+            unitBlock
             
-            TipsBlock
+            tipsBlock
             
             Spacer()
         }
@@ -26,11 +26,11 @@ struct SettingsView: View {
     }
     
     
-    @ViewBuilder private var NavigationBar: some View {
+    @ViewBuilder private var navigationBlock: some View {
         ZStack {
             Text("Settings")
             
-            HStackContent(orientation: .trailing) {
+            AlignedHStack(alignment: .trailing) {
                 Button("X") {
                     dismiss()
                 }
@@ -40,8 +40,8 @@ struct SettingsView: View {
     }
     
     
-    @ViewBuilder private var UnitBlock: some View {
-        HStackContent(orientation: .leading) {
+    @ViewBuilder private var unitBlock: some View {
+        AlignedHStack(alignment: .leading) {
             Text("UNITS")
                 .font(.system(.headline, design: .serif, weight: .bold))
         }
@@ -52,7 +52,7 @@ struct SettingsView: View {
         
         UnitRow(unitType: UnitData.MeasurementUnits.self)
         
-        HStackContent(orientation: .leading) {
+        AlignedHStack(alignment: .leading) {
             Text("TIPS")
                 .font(.system(.headline, design: .serif, weight: .bold))
                 .padding(.top, 20)
@@ -60,13 +60,13 @@ struct SettingsView: View {
     }
     
     
-    @ViewBuilder private var TipsBlock: some View {
-        HStackContent(orientation: .leading) {
+    @ViewBuilder private var tipsBlock: some View {
+        AlignedHStack(alignment: .leading) {
             Text("Pressing on the weather icon displays additional weather details.")
                 .tipsStyle()
         }
         
-        HStackContent(orientation: .leading) {
+        AlignedHStack(alignment: .leading) {
             Text("Pressing on the current location's name opens the search page.")
                 .tipsStyle()
         }

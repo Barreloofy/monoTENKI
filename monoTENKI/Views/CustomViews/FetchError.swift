@@ -1,5 +1,5 @@
 //
-//  ErrorView.swift
+//  FetchError.swift
 //  monoTENKI
 //
 //  Created by Barreloofy on 1/8/25 at 1:48 AM.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ErrorView: View {
+struct FetchError: View {
     @EnvironmentObject private var weatherData: WeatherData
     @Binding var state: ViewState
     
@@ -35,8 +35,13 @@ struct ErrorView: View {
             let imageWidth = proxy.size.width / 2
             let height = proxy.size.height
             
-            imageModifier(systemName: "cloud.fill", position: CGPoint(x: imageWidth, y: height * 0.10))
-            imageModifier(systemName: "minus", position: CGPoint(x: imageWidth, y: height * 0.25))
+            imageModifier(
+                systemName: "cloud.fill",
+                position: CGPoint(x: imageWidth, y: height * 0.10))
+            
+            imageModifier(
+                systemName: "minus",
+                position: CGPoint(x: imageWidth, y: height * 0.25))
         }
     }
     
@@ -58,6 +63,6 @@ struct ErrorView: View {
 }
 
 #Preview {
-    ErrorView(state: .constant(.error))
+    FetchError(state: .constant(.error))
         .environmentObject(WeatherData())
 }

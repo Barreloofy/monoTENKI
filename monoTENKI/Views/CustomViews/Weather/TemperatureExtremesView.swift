@@ -17,8 +17,8 @@ struct TemperatureExtremesView: View {
     
     var body: some View {
         HStack {
-            Text("L: \(presentTemperature(unitData.temperature, day.mintempC))")
-            Text("H: \(presentTemperature(unitData.temperature, day.maxtempC))")
+            Text("L: \(presentTemperature(for: unitData.temperature, with: day.mintempC))")
+            Text("H: \(presentTemperature(for: unitData.temperature, with: day.maxtempC))")
         }
     }
 }
