@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct ConditionIconView: View {
-    let condition: String
-    let isDay: Bool
-    
-    var body: some View {
-        Image(systemName: presentIcon(for: condition, isDay: isDay))
-            .resizable()
-            .scaledToFit()
-            .fontWeight(.regular)
-            .shadow(color: .white, radius: 10, x: 5, y: 5)
-            .padding(25)
-    }
+  let condition: String
+  let isDay: Bool
+
+  var body: some View {
+    Image(systemName: presentIcon(for: condition, isDay: isDay))
+      .resizable()
+      .scaledToFit()
+      .fontWeight(.regular)
+      .shadow(color: .white, radius: 10, x: 5, y: 5)
+      .padding(25)
+  }
 }

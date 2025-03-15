@@ -36,7 +36,7 @@
 		29B4C6FA2D2B2C1D007177FC /* HourForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B4C6F92D2B2C1D007177FC /* HourForecastView.swift */; };
 		29CC9A9B2D5CD6C1004D7711 /* SearchErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CC9A9A2D5CD6A8004D7711 /* SearchErrorView.swift */; };
 		29D9FCFA2D24A7C4005AE4FC /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 29D9FCF92D24A7C4005AE4FC /* .gitignore */; };
-		29D9FD052D24A894005AE4FC /* monoTENKIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D9FD022D24A894005AE4FC /* monoTENKIApp.swift */; };
+		29D9FD052D24A894005AE4FC /* MonoTENKIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D9FD022D24A894005AE4FC /* MonoTENKIApp.swift */; };
 		29D9FD062D24A895005AE4FC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29D9FCFD2D24A894005AE4FC /* Preview Assets.xcassets */; };
 		29D9FD072D24A895005AE4FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29D9FCFF2D24A894005AE4FC /* Assets.xcassets */; };
 		29D9FD0D2D24CF68005AE4FC /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D9FD0C2D24CF68005AE4FC /* WeatherView.swift */; };
@@ -81,7 +81,7 @@
 		29D9FCF92D24A7C4005AE4FC /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		29D9FCFD2D24A894005AE4FC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		29D9FCFF2D24A894005AE4FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		29D9FD022D24A894005AE4FC /* monoTENKIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = monoTENKIApp.swift; sourceTree = "<group>"; };
+		29D9FD022D24A894005AE4FC /* MonoTENKIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonoTENKIApp.swift; sourceTree = "<group>"; };
 		29D9FD0C2D24CF68005AE4FC /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 		29E85F4D2D309F5C0090D0C0 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		29F065E02D2F18BA006B702D /* ViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewManager.swift; sourceTree = "<group>"; };
@@ -106,9 +106,10 @@
 			isa = PBXGroup;
 			children = (
 				2975062B2D84647D00E3EDB7 /* Logger.swift */,
+				2975062D2D847A9700E3EDB7 /* Error.swift */,
 				292E98392D25C1C000F04CA7 /* APIClient.swift */,
 				299B17CB2D2C518F006210E1 /* LocationManager.swift */,
-				2975062D2D847A9700E3EDB7 /* Error.swift */,
+				292EB0842D837187008C8066 /* DesignSystem.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -185,7 +186,7 @@
 		29D9FD032D24A894005AE4FC /* monoTENKI */ = {
 			isa = PBXGroup;
 			children = (
-				29D9FD022D24A894005AE4FC /* monoTENKIApp.swift */,
+				29D9FD022D24A894005AE4FC /* MonoTENKIApp.swift */,
 				29D9FD0B2D24CBF1005AE4FC /* Views */,
 				29D9FD0A2D24CBC7005AE4FC /* Models */,
 				292E98382D25C19A00F04CA7 /* Utilities */,
@@ -207,7 +208,6 @@
 		29D9FD0A2D24CBC7005AE4FC /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				292EB0842D837187008C8066 /* DesignSystem.swift */,
 				292E98342D25A52100F04CA7 /* WeatherStruct.swift */,
 				292E98362D25A53500F04CA7 /* LocationStruct.swift */,
 				29FC92C32D270D600031D383 /* WeatherData.swift */,
@@ -290,6 +290,8 @@
 			);
 			mainGroup = 29D9FCDF2D24A57F005AE4FC;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 29D9FCE92D24A57F005AE4FC /* Products */;
 			projectDirPath = "";
@@ -321,7 +323,7 @@
 			files = (
 				2961D9072D3AB27500283438 /* WeatherDetailView.swift in Sources */,
 				2975062C2D84648100E3EDB7 /* Logger.swift in Sources */,
-				29D9FD052D24A894005AE4FC /* monoTENKIApp.swift in Sources */,
+				29D9FD052D24A894005AE4FC /* MonoTENKIApp.swift in Sources */,
 				2950334B2D2B691B006816AF /* TemperatureExtremesView.swift in Sources */,
 				2937F7322D5938B400B74760 /* WeatherCardStyle.swift in Sources */,
 				2961D90B2D3AEEF700283438 /* AlignedHStack.swift in Sources */,

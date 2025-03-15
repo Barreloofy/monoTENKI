@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct SearchItem: View {
-    let location: LocationKey
-    
-    var body: some View {
-        HStack {
-            Text(location.name)
-                .layoutPriority(1)
-            
-            Text(location.country)
-            
-            Spacer()
-        }
-        .lineLimit(1)
-        .minimumScaleFactor(0.8)
-        .truncationMode(.tail)
+  let location: Location
+
+  var body: some View {
+    HStack {
+      Text(location.name)
+        .layoutPriority(1)
+
+      Text(location.country)
+
+      Spacer()
     }
+    .lineLimit(1)
+    .minimumScaleFactor(0.8)
+    .truncationMode(.tail)
+  }
 }

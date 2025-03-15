@@ -8,10 +8,10 @@
 import Foundation
 
 enum PathError: Error {
-    case malformedURL(String = "")
+  case malformedURL(String = "")
 }
 
 
 enum LocationError: Error {
-    case unavailableLocation
+  case unavailableLocation
 }

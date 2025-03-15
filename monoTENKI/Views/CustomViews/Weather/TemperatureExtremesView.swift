@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct TemperatureExtremesView: View {
-    @EnvironmentObject private var unitData: UnitData
-    let day: FutureDay
-    
-    init(for day: FutureDay) {
-        self.day = day
+  @EnvironmentObject private var unitData: UnitData
+  let day: FutureDay
+
+  init(for day: FutureDay) {
+    self.day = day
+  }
+
+  var body: some View {
+    HStack {
+      Text("L: \(presentTemperature(for: unitData.temperature, with: day.mintempC))")
+      Text("H: \(presentTemperature(for: unitData.temperature, with: day.maxtempC))")
     }
-    
-    var body: some View {
-        HStack {
-            Text("L: \(presentTemperature(for: unitData.temperature, with: day.mintempC))")
-            Text("H: \(presentTemperature(for: unitData.temperature, with: day.maxtempC))")
-        }
-    }
+  }
 }

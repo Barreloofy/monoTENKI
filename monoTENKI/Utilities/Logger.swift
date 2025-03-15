@@ -9,9 +9,9 @@ import Foundation
 import os
 
 extension Logger {
-    static private let subsystem = Bundle.main.bundleIdentifier!
-    
-    static let networking = Logger(subsystem: subsystem, category: "networking")
-    
-    static let filesystem = Logger(subsystem: subsystem, category: "filesystem")
+  static private let subsystem = Bundle.main.bundleIdentifier!
+
+  static let networking = Logger(subsystem: subsystem, category: "networking")
+
+  static let filesystem = Logger(subsystem: subsystem, category: "filesystem")
 }
