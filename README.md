@@ -51,4 +51,4 @@
        text
 
  
- The project was build with Swift 6 on Xcode 16.2
+ The project was build with Swift 6 on Xcode 16.2 with a custom pattern, not MVVM, that is akin to Apples MV pattern
