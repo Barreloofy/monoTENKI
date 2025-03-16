@@ -18,7 +18,7 @@ struct MonoTENKIApp: App {
       if isFirstLaunch {
         SetupView(isFirstLaunch: $isFirstLaunch)
       } else {
-        ViewManager()
+        ViewStateManager()
       }
     }
     .environmentObject(weatherData)

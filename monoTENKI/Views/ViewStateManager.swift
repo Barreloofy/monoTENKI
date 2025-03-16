@@ -14,7 +14,7 @@ enum ViewState {
 }
 
 
-struct ViewManager: View {
+struct ViewStateManager: View {
   @Environment(\.scenePhase) private var scenePhase
   @EnvironmentObject private var weatherData: WeatherData
   @EnvironmentObject private var unitData: UnitData
@@ -34,37 +34,35 @@ struct ViewManager: View {
     }
     .onChange(of: scenePhase) {
       guard scenePhase == .active else { return }
-      Task {
-        do {
-          try await weatherData.fetchWeather()
-        } catch {
-          state = .error
-        }
+      handleChange {
+        try await weatherData.fetchWeather()
       }
     }
     .onChange(of: weatherData.currentLocation, initial: true) {
-      Task {
-        do {
-          try await weatherData.fetchWeather()
-          state = .loaded
-        } catch {
-          state = .error
-        }
+      handleChange {
+        try await weatherData.fetchWeather()
+        state = .loaded
       }
     }
     .onChange(of: locationManager.currentLocation) {
       guard locationManager.trackLocation else { return }
-      Task {
-        do {
-          try await weatherData.setWeatherToCurrentLocation()
-        } catch {
-          state = .error
-        }
+      handleChange {
+        try await weatherData.setWeatherToCurrentLocation()
       }
     }
   }
 
   private var loadingView: some View {
     Color(.black).ignoresSafeArea()
+  }
+
+  private func handleChange(_ action: @escaping () async throws -> Void) {
+    Task {
+      do {
+        try await action()
+      } catch {
+        state = .error
+      }
+    }
   }
 }
