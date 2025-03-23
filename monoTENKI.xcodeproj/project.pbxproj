@@ -1,0 +1,739 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2947E0BB2D88EC1000746BA4 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2947E0BA2D88EC0C00746BA4 /* Location.swift */; };
+		296094EE2D89ADD800B326DF /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296094ED2D89AD3D00B326DF /* HTTPClient.swift */; };
+		296094F32D89DA7400B326DF /* WeatherAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296094F22D89DA5E00B326DF /* WeatherAPI.swift */; };
+		2964DCA02D8B4E53009C259B /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2964DC9F2D8B4E35009C259B /* LocationModel.swift */; };
+		296550902D888F960073D3E9 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2965508F2D888F960073D3E9 /* Weather.swift */; };
+		2970EF512D8AFEFB00068106 /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2970EF502D8AFEF200068106 /* CurrentWeather.swift */; };
+		2970EF532D8B08B700068106 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2970EF522D8B08A400068106 /* WeatherModel.swift */; };
+		29C485DF2D8EE5A2007C4A56 /* TemperatureFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C485DE2D8EE570007C4A56 /* TemperatureFormatter.swift */; };
+		29D151702D904F7600A851E9 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D1516F2D904F6300A851E9 /* LocationManager.swift */; };
+		29D151722D90730100A851E9 /* MeasurementSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D151712D9072D200A851E9 /* MeasurementSystem.swift */; };
+		29ECB3AF2D8A2D01001922EA /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 29ECB3AE2D8A2D01001922EA /* Config.xcconfig */; };
+		29ECB3B62D8A417F001922EA /* URLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29ECB3B52D8A415D001922EA /* URLProvider.swift */; };
+		29FF918E2D875F3100B9DAD3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29FF91882D875F3100B9DAD3 /* Preview Assets.xcassets */; };
+		29FF918F2D875F3100B9DAD3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29FF918A2D875F3100B9DAD3 /* Assets.xcassets */; };
+		29FF91902D875F3100B9DAD3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FF918B2D875F3100B9DAD3 /* ContentView.swift */; };
+		29FF91912D875F3100B9DAD3 /* monoTENKIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FF918C2D875F3100B9DAD3 /* monoTENKIApp.swift */; };
+		29FF91952D875F6400B9DAD3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 29FF91942D875F6400B9DAD3 /* .gitignore */; };
+		29FF91962D875F6400B9DAD3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 29FF91942D875F6400B9DAD3 /* .gitignore */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		29FF916C2D875E9500B9DAD3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29FF91532D875E9400B9DAD3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 29FF915A2D875E9400B9DAD3;
+			remoteInfo = monoTENKI;
+		};
+		29FF91762D875E9500B9DAD3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29FF91532D875E9400B9DAD3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 29FF915A2D875E9400B9DAD3;
+			remoteInfo = monoTENKI;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2947E0BA2D88EC0C00746BA4 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		296094ED2D89AD3D00B326DF /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		296094F22D89DA5E00B326DF /* WeatherAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPI.swift; sourceTree = "<group>"; };
+		2964DC9F2D8B4E35009C259B /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
+		2965508F2D888F960073D3E9 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		2970EF502D8AFEF200068106 /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
+		2970EF522D8B08A400068106 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
+		29C485DE2D8EE570007C4A56 /* TemperatureFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureFormatter.swift; sourceTree = "<group>"; };
+		29D1516F2D904F6300A851E9 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		29D151712D9072D200A851E9 /* MeasurementSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementSystem.swift; sourceTree = "<group>"; };
+		29ECB3AE2D8A2D01001922EA /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		29ECB3B02D8A2E0C001922EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		29ECB3B52D8A415D001922EA /* URLProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProvider.swift; sourceTree = "<group>"; };
+		29FF915B2D875E9400B9DAD3 /* monoTENKI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = monoTENKI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		29FF916B2D875E9500B9DAD3 /* monoTENKITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = monoTENKITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		29FF91752D875E9500B9DAD3 /* monoTENKIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = monoTENKIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		29FF91882D875F3100B9DAD3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		29FF918A2D875F3100B9DAD3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		29FF918B2D875F3100B9DAD3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		29FF918C2D875F3100B9DAD3 /* monoTENKIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = monoTENKIApp.swift; sourceTree = "<group>"; };
+		29FF91942D875F6400B9DAD3 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		29FF916E2D875E9500B9DAD3 /* monoTENKITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = monoTENKITests;
+			sourceTree = "<group>";
+		};
+		29FF91782D875E9500B9DAD3 /* monoTENKIUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = monoTENKIUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		29FF91582D875E9400B9DAD3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		29FF91682D875E9500B9DAD3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		29FF91722D875E9500B9DAD3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		296094EC2D89AD1F00B326DF /* NetworkLayer */ = {
+			isa = PBXGroup;
+			children = (
+				296094ED2D89AD3D00B326DF /* HTTPClient.swift */,
+				29ECB3B52D8A415D001922EA /* URLProvider.swift */,
+				296094F22D89DA5E00B326DF /* WeatherAPI.swift */,
+			);
+			path = NetworkLayer;
+			sourceTree = "<group>";
+		};
+		296550862D8886300073D3E9 /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				2965508A2D8887910073D3E9 /* View */,
+				296550892D8887850073D3E9 /* Model */,
+			);
+			path = Weather;
+			sourceTree = "<group>";
+		};
+		296550872D88863C0073D3E9 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				2965508E2D8887A80073D3E9 /* View */,
+				2965508D2D8887A40073D3E9 /* Model */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		296550882D8886440073D3E9 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				2965508C2D88879F0073D3E9 /* View */,
+				2965508B2D8887980073D3E9 /* Model */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		296550892D8887850073D3E9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2970EF522D8B08A400068106 /* WeatherModel.swift */,
+				2965508F2D888F960073D3E9 /* Weather.swift */,
+				2970EF502D8AFEF200068106 /* CurrentWeather.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2965508A2D8887910073D3E9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				29D151712D9072D200A851E9 /* MeasurementSystem.swift */,
+				29C485DE2D8EE570007C4A56 /* TemperatureFormatter.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2965508B2D8887980073D3E9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2965508C2D88879F0073D3E9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2965508D2D8887A40073D3E9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2964DC9F2D8B4E35009C259B /* LocationModel.swift */,
+				29D1516F2D904F6300A851E9 /* LocationManager.swift */,
+				2947E0BA2D88EC0C00746BA4 /* Location.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2965508E2D8887A80073D3E9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		29FF91522D875E9400B9DAD3 = {
+			isa = PBXGroup;
+			children = (
+				29FF91942D875F6400B9DAD3 /* .gitignore */,
+				29FF918D2D875F3100B9DAD3 /* monoTENKI */,
+				29FF916E2D875E9500B9DAD3 /* monoTENKITests */,
+				29FF91782D875E9500B9DAD3 /* monoTENKIUITests */,
+				29FF915C2D875E9400B9DAD3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		29FF915C2D875E9400B9DAD3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				29FF915B2D875E9400B9DAD3 /* monoTENKI.app */,
+				29FF916B2D875E9500B9DAD3 /* monoTENKITests.xctest */,
+				29FF91752D875E9500B9DAD3 /* monoTENKIUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29FF91892D875F3100B9DAD3 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				29FF91882D875F3100B9DAD3 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		29FF918D2D875F3100B9DAD3 /* monoTENKI */ = {
+			isa = PBXGroup;
+			children = (
+				29FF918C2D875F3100B9DAD3 /* monoTENKIApp.swift */,
+				296550862D8886300073D3E9 /* Weather */,
+				296550872D88863C0073D3E9 /* Search */,
+				296550882D8886440073D3E9 /* Settings */,
+				296094EC2D89AD1F00B326DF /* NetworkLayer */,
+				29FF918B2D875F3100B9DAD3 /* ContentView.swift */,
+				29FF91972D87612D00B9DAD3 /* Resources */,
+			);
+			path = monoTENKI;
+			sourceTree = "<group>";
+		};
+		29FF91972D87612D00B9DAD3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				29ECB3B02D8A2E0C001922EA /* Info.plist */,
+				29ECB3AE2D8A2D01001922EA /* Config.xcconfig */,
+				29FF918A2D875F3100B9DAD3 /* Assets.xcassets */,
+				29FF91892D875F3100B9DAD3 /* Preview Content */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		29FF915A2D875E9400B9DAD3 /* monoTENKI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 29FF917F2D875E9500B9DAD3 /* Build configuration list for PBXNativeTarget "monoTENKI" */;
+			buildPhases = (
+				29FF91572D875E9400B9DAD3 /* Sources */,
+				29FF91582D875E9400B9DAD3 /* Frameworks */,
+				29FF91592D875E9400B9DAD3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = monoTENKI;
+			packageProductDependencies = (
+			);
+			productName = monoTENKI;
+			productReference = 29FF915B2D875E9400B9DAD3 /* monoTENKI.app */;
+			productType = "com.apple.product-type.application";
+		};
+		29FF916A2D875E9500B9DAD3 /* monoTENKITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 29FF91822D875E9500B9DAD3 /* Build configuration list for PBXNativeTarget "monoTENKITests" */;
+			buildPhases = (
+				29FF91672D875E9500B9DAD3 /* Sources */,
+				29FF91682D875E9500B9DAD3 /* Frameworks */,
+				29FF91692D875E9500B9DAD3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				29FF916D2D875E9500B9DAD3 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				29FF916E2D875E9500B9DAD3 /* monoTENKITests */,
+			);
+			name = monoTENKITests;
+			packageProductDependencies = (
+			);
+			productName = monoTENKITests;
+			productReference = 29FF916B2D875E9500B9DAD3 /* monoTENKITests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		29FF91742D875E9500B9DAD3 /* monoTENKIUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 29FF91852D875E9500B9DAD3 /* Build configuration list for PBXNativeTarget "monoTENKIUITests" */;
+			buildPhases = (
+				29FF91712D875E9500B9DAD3 /* Sources */,
+				29FF91722D875E9500B9DAD3 /* Frameworks */,
+				29FF91732D875E9500B9DAD3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				29FF91772D875E9500B9DAD3 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				29FF91782D875E9500B9DAD3 /* monoTENKIUITests */,
+			);
+			name = monoTENKIUITests;
+			packageProductDependencies = (
+			);
+			productName = monoTENKIUITests;
+			productReference = 29FF91752D875E9500B9DAD3 /* monoTENKIUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29FF91532D875E9400B9DAD3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					29FF915A2D875E9400B9DAD3 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					29FF916A2D875E9500B9DAD3 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 29FF915A2D875E9400B9DAD3;
+					};
+					29FF91742D875E9500B9DAD3 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 29FF915A2D875E9400B9DAD3;
+					};
+				};
+			};
+			buildConfigurationList = 29FF91562D875E9400B9DAD3 /* Build configuration list for PBXProject "monoTENKI" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 29FF91522D875E9400B9DAD3;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 29FF915C2D875E9400B9DAD3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				29FF915A2D875E9400B9DAD3 /* monoTENKI */,
+				29FF916A2D875E9500B9DAD3 /* monoTENKITests */,
+				29FF91742D875E9500B9DAD3 /* monoTENKIUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		29FF91592D875E9400B9DAD3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29ECB3AF2D8A2D01001922EA /* Config.xcconfig in Resources */,
+				29FF918E2D875F3100B9DAD3 /* Preview Assets.xcassets in Resources */,
+				29FF91962D875F6400B9DAD3 /* .gitignore in Resources */,
+				29FF918F2D875F3100B9DAD3 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		29FF91692D875E9500B9DAD3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29FF91952D875F6400B9DAD3 /* .gitignore in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		29FF91732D875E9500B9DAD3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		29FF91572D875E9400B9DAD3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2970EF512D8AFEFB00068106 /* CurrentWeather.swift in Sources */,
+				29ECB3B62D8A417F001922EA /* URLProvider.swift in Sources */,
+				29FF91902D875F3100B9DAD3 /* ContentView.swift in Sources */,
+				296094EE2D89ADD800B326DF /* HTTPClient.swift in Sources */,
+				2970EF532D8B08B700068106 /* WeatherModel.swift in Sources */,
+				296550902D888F960073D3E9 /* Weather.swift in Sources */,
+				296094F32D89DA7400B326DF /* WeatherAPI.swift in Sources */,
+				29C485DF2D8EE5A2007C4A56 /* TemperatureFormatter.swift in Sources */,
+				29D151702D904F7600A851E9 /* LocationManager.swift in Sources */,
+				2947E0BB2D88EC1000746BA4 /* Location.swift in Sources */,
+				29D151722D90730100A851E9 /* MeasurementSystem.swift in Sources */,
+				2964DCA02D8B4E53009C259B /* LocationModel.swift in Sources */,
+				29FF91912D875F3100B9DAD3 /* monoTENKIApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		29FF91672D875E9500B9DAD3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		29FF91712D875E9500B9DAD3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		29FF916D2D875E9500B9DAD3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 29FF915A2D875E9400B9DAD3 /* monoTENKI */;
+			targetProxy = 29FF916C2D875E9500B9DAD3 /* PBXContainerItemProxy */;
+		};
+		29FF91772D875E9500B9DAD3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 29FF915A2D875E9400B9DAD3 /* monoTENKI */;
+			targetProxy = 29FF91762D875E9500B9DAD3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		29FF917D2D875E9500B9DAD3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 29ECB3AE2D8A2D01001922EA /* Config.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		29FF917E2D875E9500B9DAD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 29ECB3AE2D8A2D01001922EA /* Config.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 6.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		29FF91802D875E9500B9DAD3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"monoTENKI/Resources/Preview Content\"";
+				DEVELOPMENT_TEAM = H9V2P5AGD3;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = monoTENKI/Resources/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Barreloofy.monoTENKI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		29FF91812D875E9500B9DAD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"monoTENKI/Resources/Preview Content\"";
+				DEVELOPMENT_TEAM = H9V2P5AGD3;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = monoTENKI/Resources/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Barreloofy.monoTENKI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		29FF91832D875E9500B9DAD3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H9V2P5AGD3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Barreloofy.monoTENKITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/monoTENKI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/monoTENKI";
+			};
+			name = Debug;
+		};
+		29FF91842D875E9500B9DAD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H9V2P5AGD3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Barreloofy.monoTENKITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/monoTENKI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/monoTENKI";
+			};
+			name = Release;
+		};
+		29FF91862D875E9500B9DAD3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H9V2P5AGD3;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Barreloofy.monoTENKIUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = monoTENKI;
+			};
+			name = Debug;
+		};
+		29FF91872D875E9500B9DAD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H9V2P5AGD3;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Barreloofy.monoTENKIUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = monoTENKI;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		29FF91562D875E9400B9DAD3 /* Build configuration list for PBXProject "monoTENKI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				29FF917D2D875E9500B9DAD3 /* Debug */,
+				29FF917E2D875E9500B9DAD3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		29FF917F2D875E9500B9DAD3 /* Build configuration list for PBXNativeTarget "monoTENKI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				29FF91802D875E9500B9DAD3 /* Debug */,
+				29FF91812D875E9500B9DAD3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		29FF91822D875E9500B9DAD3 /* Build configuration list for PBXNativeTarget "monoTENKITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				29FF91832D875E9500B9DAD3 /* Debug */,
+				29FF91842D875E9500B9DAD3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		29FF91852D875E9500B9DAD3 /* Build configuration list for PBXNativeTarget "monoTENKIUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				29FF91862D875E9500B9DAD3 /* Debug */,
+				29FF91872D875E9500B9DAD3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29FF91532D875E9400B9DAD3 /* Project object */;
+}

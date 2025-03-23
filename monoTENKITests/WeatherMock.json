@@ -1,0 +1,209 @@
+{
+    "location": {
+        "name": "London",
+        "region": "City of London, Greater London",
+        "country": "United Kingdom",
+        "lat": 51.5171,
+        "lon": -0.1062,
+        "tz_id": "Europe/London",
+        "localtime_epoch": 1742251129,
+        "localtime": "2025-03-17 22:38"
+    },
+    "current": {
+        "temp_c": 4.2,
+        "condition": {
+            "text": "Partly cloudy"
+        },
+        "wind_kph": 13.3,
+        "wind_dir": "ENE",
+        "precip_mm": 0.0,
+        "humidity": 81,
+        "windchill_c": 1.0,
+        "gust_kph": 21.2
+    },
+    "forecast": {
+        "forecastday": [
+            {
+                "date": "2025-03-17",
+                "day": {
+                    "maxtemp_c": 7.7,
+                    "mintemp_c": 3.1,
+                    "avgtemp_c": 5.5,
+                    "condition": {
+                        "text": "Partly Cloudy "
+                    }
+                },
+                "hour": [
+                    {
+                        "time": "2025-03-17 00:00",
+                        "temp_c": 4.8,
+                        "condition": {
+                            "text": "Patchy rain nearby"
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 01:00",
+                        "temp_c": 4.7,
+                        "condition": {
+                            "text": "Overcast "
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 02:00",
+                        "temp_c": 4.7,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 03:00",
+                        "temp_c": 4.9,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 04:00",
+                        "temp_c": 4.0,
+                        "condition": {
+                            "text": "Clear "
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 05:00",
+                        "temp_c": 3.4,
+                        "condition": {
+                            "text": "Clear "
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 06:00",
+                        "temp_c": 3.1,
+                        "condition": {
+                            "text": "Clear "
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 07:00",
+                        "temp_c": 3.3,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 08:00",
+                        "temp_c": 4.7,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 09:00",
+                        "temp_c": 6.1,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 10:00",
+                        "temp_c": 6.9,
+                        "condition": {
+                            "text": "Cloudy "
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 11:00",
+                        "temp_c": 7.7,
+                        "condition": {
+                            "text": "Overcast "
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 12:00",
+                        "temp_c": 7.7,
+                        "condition": {
+                            "text": "Overcast "
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 13:00",
+                        "temp_c": 7.4,
+                        "condition": {
+                            "text": "Overcast "
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 14:00",
+                        "temp_c": 7.6,
+                        "condition": {
+                            "text": "Overcast "
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 15:00",
+                        "temp_c": 7.7,
+                        "condition": {
+                            "text": "Overcast "
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 16:00",
+                        "temp_c": 7.5,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 17:00",
+                        "temp_c": 6.7,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 18:00",
+                        "temp_c": 5.7,
+                        "condition": {
+                            "text": "Sunny"
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 19:00",
+                        "temp_c": 4.9,
+                        "condition": {
+                            "text": "Clear "
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 20:00",
+                        "temp_c": 4.5,
+                        "condition": {
+                            "text": "Clear "
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 21:00",
+                        "temp_c": 4.2,
+                        "condition": {
+                            "text": "Clear "
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 22:00",
+                        "temp_c": 4.2,
+                        "condition": {
+                            "text": "Partly cloudy"
+                        }
+                    },
+                    {
+                        "time": "2025-03-17 23:00",
+                        "temp_c": 4.6,
+                        "condition": {
+                            "text": "Clear "
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}
