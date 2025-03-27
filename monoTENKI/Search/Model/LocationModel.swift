@@ -6,77 +6,47 @@
 //
 
 import Foundation
-import os
+import CoreLocation
 /// Location aggregate model
 @MainActor
 @Observable
 class LocationModel {
-  var history: Locations
+  var location = ""
+  var trackLocation = false { didSet { trackLocationUpdate() } }
+
+  private var task: Task<Void, Error>?
 
   init() {
-    history = []
-    retrieve()
+    trackLocation = UserDefaults.standard.bool(forKey: "trackLocation")
   }
 
-  func getLocations(matching query: String) async throws -> Locations {
-    let httpClient = HTTPClient(urlProvider: WeatherAPI.search(query))
-    return try await httpClient.fetch()
-  }
-
-  func updateHistory(with location: Location) {
-    for (index, element) in history.enumerated() where element.id == location.id {
-      history.remove(at: index)
-      history.insert(element, at: 0)
-
-      return
+  private func trackLocationUpdate() {
+    if trackLocation {
+      startLocationTracking()
+    } else {
+      task?.cancel()
+      task = nil
     }
 
-    history.append(location)
+    UserDefaults.standard.set(trackLocation, forKey: "trackLocation")
   }
 
-  func removeHistory(location: Location) {
-    history.removeAll(where: { $0.id == location.id })
-  }
-}
+  private func startLocationTracking() {
+    guard task == nil else { return }
 
-// MARK: - Persistence
-extension LocationModel {
-  private var historyURL: URL {
-    let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    return documentsURL.appending(path: "history")
-  }
+    task = Task {
+      for try await update in CLLocationUpdate.liveUpdates() {
+        guard let newLocation = update.location else { continue }
 
-  private func store() {
-    do {
-      let data = try JSONEncoder().encode(history)
-      try data.write(to: historyURL)
-    } catch {
-      Logger.location.error("\(error)")
-    }
-  }
-
-  private func retrieve() {
-    do {
-      guard FileManager.default.isReadableFile(atPath: historyURL.path()) else {
-        throw Errors.fileNotReadable("In: func retrieve() -> Locations")
+        location = newLocation.coordinate.stringRepresentation
       }
-
-      let data = try Data(contentsOf: historyURL)
-      history = try JSONDecoder().decode(Locations.self, from: data)
-    } catch {
-      Logger.location.error("\(error)")
     }
   }
 }
 
-// MARK: - Errors
-extension LocationModel {
-  enum Errors: Error {
-    case fileNotReadable(String = "")
+// MARK: - Convenience property
+extension CLLocationCoordinate2D {
+  var stringRepresentation: String {
+    "\(latitude) \(longitude)"
   }
-}
-
-// MARK: - Logger for 'LocationModel'
-extension Logger {
-  static let location = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "LocationModel")
 }

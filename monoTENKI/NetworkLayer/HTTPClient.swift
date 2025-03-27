@@ -6,7 +6,7 @@
 //
 
 import Foundation
-/// Generic HTTPClient with decoding capability
+/// HTTPClient with custom decoding capability
 struct HTTPClient {
   let urlProvider: URLProvider
   let decoder: JSONDecoder
@@ -20,7 +20,7 @@ struct HTTPClient {
     let (data, response) = try await URLSession.shared.data(from: urlProvider.constructURL())
 
     guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-      throw Errors.badRequest("In: func fetch<T: Decodable>(from url: URL, with decoder: JSONDecoder) async throws -> T")
+      throw Errors.badRequest("In: func fetch<T: Decodable>() async throws -> T")
     }
 
     return try decoder.decode(T.self, from: data)

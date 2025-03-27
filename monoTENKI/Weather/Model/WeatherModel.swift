@@ -63,7 +63,7 @@ extension WeatherModel {
   }
 
   private func createHourForecast(from weather: Weather) -> Weather.Hours {
-    let twelveHoursinSeconds: TimeInterval = 43200
+    let twelveHoursinSeconds: TimeInterval = 43_200
     var hourForecast: Weather.Hours = []
 
     for day in weather.forecast.days {

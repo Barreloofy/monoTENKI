@@ -6,7 +6,7 @@
 //
 
 import Foundation
-/// The protocol used for constructing urls
+/// Protocol used for constructing urls
 protocol URLProvider {
   func constructURL() throws -> URL
 }

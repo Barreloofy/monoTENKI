@@ -7,27 +7,50 @@
 
 import XCTest
 @testable import monoTENKI
-import SwiftUICore
+import SwiftUI
 
 final class WeatherTests: XCTestCase {
 
+  @MainActor func testSearchModelupdateHistory() {
+    let model = SearchModel()
+
+    let historyItems = [
+      Location(id: 2801268, name: "London", country: "United Kingdom", latitude: 51.52, longitude: -0.11),
+      Location(id: 2145091, name: "Moscow", country: "Russia", latitude: 55.75, longitude: 37.62),
+      Location(id: 3125553, name: "Tokyo", country: "Japan", latitude: 35.69, longitude: 139.69),
+    ]
+
+    let correctHistoryItems = [
+      Location(id: 1284918, name: "Rome", country: "Italy", latitude: 41.9, longitude: 12.48),
+      Location(id: 2801268, name: "London", country: "United Kingdom", latitude: 51.52, longitude: -0.11),
+      Location(id: 2145091, name: "Moscow", country: "Russia", latitude: 55.75, longitude: 37.62),
+      Location(id: 3125553, name: "Tokyo", country: "Japan", latitude: 35.69, longitude: 139.69),
+    ]
+
+    let correctHistoryItemsWithUpdatedExisting = [
+      Location(id: 2145091, name: "Moscow", country: "Russia", latitude: 55.75, longitude: 37.62),
+      Location(id: 1284918, name: "Rome", country: "Italy", latitude: 41.9, longitude: 12.48),
+      Location(id: 2801268, name: "London", country: "United Kingdom", latitude: 51.52, longitude: -0.11),
+      Location(id: 3125553, name: "Tokyo", country: "Japan", latitude: 35.69, longitude: 139.69),
+    ]
+
+    model.addArraysToHistory(historyItems)
+
+    model.updateHistory(with: Location(id: 1284918, name: "Rome", country: "Italy", latitude: 41.9, longitude: 12.48))
+
+    XCTAssertEqual(model.history, correctHistoryItems)
+
+    model.updateHistory(with: Location(id: 2145091, name: "Moscow", country: "Russia", latitude: 55.75, longitude: 37.62))
+
+    XCTAssertEqual(model.history, correctHistoryItemsWithUpdatedExisting)
+  }
+
   func testWeatherModel() async {
-    @State var model = await WeatherModel()
+    let model = await WeatherModel()
 
     do {
       try await model.getWeather(for: "London")
       await print(model.currentWeather.temperatures.temperatureCelsius)
-    } catch {
-      XCTFail("\(error)")
-    }
-  }
-
-  func testLocationModel() async {
-    @State var model = await LocationModel()
-
-    do {
-      let data = try await model.getLocations(matching: "London")
-      print(data)
     } catch {
       XCTFail("\(error)")
     }

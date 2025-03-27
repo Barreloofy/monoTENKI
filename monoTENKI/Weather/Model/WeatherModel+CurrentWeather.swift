@@ -1,34 +1,37 @@
 //
-//  CurrentWeather.swift
+//  WeatherModel+CurrentWeather.swift
 //  monoTENKI
 //
 //  Created by Barreloofy on 3/19/25 at 2:32 PM.
 //
 
-/// The coalesced model used for the current weather
-struct CurrentWeather {
-  let location: String
-  let condition: String
-  let temperatures: Temperatures
-  let windDetails: WindDetails
-  let miscellaneous: Miscellaneous
+// MARK: - Compound model used as the 'currentWeather' type
+extension WeatherModel {
+  struct CurrentWeather {
+    let location: String
+    let condition: String
+    let temperatures: Temperatures
+    let windDetails: WindDetails
+    let miscellaneous: Miscellaneous
 
-  init(
-    location: String = "",
-    condition: String = "",
-    temperatures: Temperatures = Temperatures(),
-    windDetails: WindDetails = WindDetails(),
-    miscellaneous: Miscellaneous = Miscellaneous()) {
-    self.location = location
-    self.condition = condition
-    self.temperatures = temperatures
-    self.windDetails = windDetails
-    self.miscellaneous = miscellaneous
+    init(
+      location: String = "",
+      condition: String = "",
+      temperatures: Temperatures = Temperatures(),
+      windDetails: WindDetails = WindDetails(),
+      miscellaneous: Miscellaneous = Miscellaneous()) {
+      self.location = location
+      self.condition = condition
+      self.temperatures = temperatures
+      self.windDetails = windDetails
+      self.miscellaneous = miscellaneous
+    }
   }
 }
 
+
 // MARK: - Components
-extension CurrentWeather {
+extension WeatherModel.CurrentWeather {
   struct Temperatures {
     let temperatureCelsius: Double
     let temperatureCelsiusLow: Double
