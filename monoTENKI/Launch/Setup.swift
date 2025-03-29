@@ -18,6 +18,9 @@ struct Setup: View {
   var body: some View {
     ZStack {
       Color(.black)
+        .padding(-1)
+        .ignoresSafeArea()
+
       LocationPermission(permissionGranted: $permissionGranted)
         .sheet(isPresented: $showSearch) {
           Search { result in
@@ -28,16 +31,11 @@ struct Setup: View {
           .interactiveDismissDisabled()
         }
     }
-    .padding(-1)
-    .ignoresSafeArea()
     .onChange(of: permissionGranted) {
       switch permissionGranted {
-      case true?:
-        setupCompleted = true
-      case false?:
-        showSearch = true
-      case .none:
-        break
+      case true?: setupCompleted = true
+      case false?: showSearch = true
+      case .none: break
       }
     }
   }

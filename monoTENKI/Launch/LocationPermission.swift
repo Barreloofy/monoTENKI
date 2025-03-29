@@ -24,7 +24,7 @@ struct LocationPermission: View {
           .font(.title)
           .fontWeight(.bold)
 
-        Text("location is used to show you the most accurate weather!")
+        Text("location is used to show you the most accurate weather")
           .font(.footnote)
           .fontDesign(.monospaced)
           .multilineTextAlignment(.center)
@@ -38,12 +38,12 @@ struct LocationPermission: View {
           for try await diagnostic in session.diagnostics {
             guard !diagnostic.authorizationRequestInProgress else { continue }
 
-            switch diagnostic.authorizationDenied {
-            case true:
+            if diagnostic.authorizationDenied {
               permissionGranted = false
-            case false:
+            } else {
               permissionGranted = true
             }
+
             break
           }
         }

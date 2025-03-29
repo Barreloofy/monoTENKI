@@ -19,6 +19,7 @@ struct PermissionStyle: ButtonStyle {
           .stroke(lineWidth: 2.5)
           .foregroundStyle(.white.opacity(configuration.isPressed ? 0.5 : 1))
       }
+      .contentShape(Capsule())
   }
 }
 

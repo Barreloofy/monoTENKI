@@ -55,6 +55,7 @@ extension WeatherAPI: URLProvider {
     guard let url = components.url else {
       throw Errors.malformedURL("In: func constructURL() throws -> URL")
     }
+
     return url
   }
 }

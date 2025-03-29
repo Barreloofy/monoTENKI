@@ -14,7 +14,7 @@ class LocationModel {
   var location = ""
   var trackLocation = false { didSet { trackLocationUpdate() } }
 
-  private var task: Task<Void, Error>?
+  private var locationLoop: Task<Void, Error>?
 
   init() {
     trackLocation = UserDefaults.standard.bool(forKey: "trackLocation")
@@ -24,17 +24,17 @@ class LocationModel {
     if trackLocation {
       startLocationTracking()
     } else {
-      task?.cancel()
-      task = nil
+      locationLoop?.cancel()
+      locationLoop = nil
     }
 
     UserDefaults.standard.set(trackLocation, forKey: "trackLocation")
   }
 
   private func startLocationTracking() {
-    guard task == nil else { return }
+    guard locationLoop == nil else { return }
 
-    task = Task {
+    locationLoop = Task {
       for try await update in CLLocationUpdate.liveUpdates() {
         guard let newLocation = update.location else { continue }
 

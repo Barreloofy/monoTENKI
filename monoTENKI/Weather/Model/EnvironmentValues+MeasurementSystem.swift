@@ -12,7 +12,7 @@ extension EnvironmentValues {
 }
 
 
-enum MeasurementSystem {
+enum MeasurementSystem: String {
   case metric
-  case Imperial
+  case imperial
 }

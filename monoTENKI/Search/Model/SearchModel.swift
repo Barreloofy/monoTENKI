@@ -75,7 +75,7 @@ extension SearchModel {
 
 // MARK: - Logger for 'LocationModel'
 extension Logger {
-  static let search = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "SearchModel")
+  static fileprivate let search = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "SearchModel")
 }
 
 #if DEBUG

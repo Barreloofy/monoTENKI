@@ -23,11 +23,10 @@ struct Search: View {
       SearchTextField(text: $text)
 
       AlignedHStack(alignment: .leading) {
-        Button {
-          locationModel.trackLocation = true
-        } label: {
-          Label("CURRENT LOCATION", systemImage: "location.fill")
-        }
+        Button(
+          action: { locationModel.trackLocation = true },
+          label: { Label("CURRENT LOCATION", systemImage: "location.fill") }
+        )
       }
 
       switch error {
@@ -43,10 +42,10 @@ struct Search: View {
         .scrollIndicators(.never)
       case .search:
         Text("It seems an error occured, please check your internet connection")
-            .searchError()
+          .searchError()
       case .location:
         Text("It seems an error occured, please check if location service is enbaled and monoTENKI has permission")
-            .searchError()
+          .searchError()
       }
 
       Spacer()
@@ -57,6 +56,7 @@ struct Search: View {
     .padding()
     .onChange(of: text) {
       guard !text.isEmpty else { return }
+
       Task {
         do {
           try await searchModel.getLocations(matching: text)
