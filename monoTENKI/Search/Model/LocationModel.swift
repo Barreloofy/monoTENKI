@@ -11,12 +11,13 @@ import CoreLocation
 @MainActor
 @Observable
 class LocationModel {
-  var location = ""
+  var location = "" { didSet { UserDefaults.standard.set(location, forKey: "location") } }
   var trackLocation = false { didSet { trackLocationUpdate() } }
 
-  private var locationLoop: Task<Void, Error>?
+  private var locationStream: Task<Void, Error>?
 
   init() {
+    location = UserDefaults.standard.string(forKey: "location") ?? ""
     trackLocation = UserDefaults.standard.bool(forKey: "trackLocation")
   }
 
@@ -24,21 +25,37 @@ class LocationModel {
     if trackLocation {
       startLocationTracking()
     } else {
-      locationLoop?.cancel()
-      locationLoop = nil
+      locationStream?.cancel()
+      locationStream = nil
     }
 
     UserDefaults.standard.set(trackLocation, forKey: "trackLocation")
   }
 
   private func startLocationTracking() {
-    guard locationLoop == nil else { return }
+    guard locationStream == nil else { return }
 
-    locationLoop = Task {
-      for try await update in CLLocationUpdate.liveUpdates() {
-        guard let newLocation = update.location else { continue }
+    locationStream = Task {
+      var previousLocation: CLLocation?
+      let filterByDistance: (CLLocationUpdate) -> Bool = { update in
+        guard let location = update.location else { return false }
 
-        location = newLocation.coordinate.stringRepresentation
+        guard let unwrappedPreviousLocation = previousLocation else {
+          previousLocation = update.location
+          return true
+        }
+
+        if location.distance(from: unwrappedPreviousLocation) > 1_000 {
+          previousLocation = location
+          return true
+        } else {
+          return false
+        }
+      }
+
+      for try await update in CLLocationUpdate.liveUpdates().filter({ @MainActor in filterByDistance($0) }) {
+        print(update.location!.coordinate.stringRepresentation)
+        location = update.location!.coordinate.stringRepresentation
       }
     }
   }

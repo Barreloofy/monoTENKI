@@ -57,6 +57,7 @@ extension WeatherModel {
     return CurrentWeather(
       location: weather.location.name,
       condition: weather.current.condition.text,
+      isDay: weather.current.isDay,
       temperatures: temperatures,
       windDetails: windDetails,
       miscellaneous: miscellaneous)

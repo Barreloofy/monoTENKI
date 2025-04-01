@@ -39,6 +39,7 @@ extension Weather {
 
   struct Current: Decodable {
     let temperatureCelsius: Double
+    let isDay: Int
     let condition: Condition
     let precipitationMillimeter: Double
     let humidity: Int
@@ -49,6 +50,7 @@ extension Weather {
 
     init() {
       self.temperatureCelsius = 0.0
+      self.isDay = 1
       self.condition = Condition()
       self.precipitationMillimeter = 0.0
       self.humidity = 0
@@ -60,6 +62,7 @@ extension Weather {
 
     enum CodingKeys: String, CodingKey {
       case temperatureCelsius = "temp_c"
+      case isDay = "is_day"
       case condition
       case precipitationMillimeter = "precip_mm"
       case humidity = "humidity"
@@ -112,12 +115,20 @@ extension Weather {
     let maxTemperatureCelsius: Double
     let minTemperatureCelsius: Double
     let avgTemperatureCelsius: Double
+    let precipitationMillimeterTotal: Double
+    let snowCentimeterTotal: Double
+    let chanceOfRain: Int
+    let chanceOfSnow: Int
     let condition: Condition
 
     init() {
       self.maxTemperatureCelsius = 0.0
       self.minTemperatureCelsius = 0.0
       self.avgTemperatureCelsius = 0.0
+      self.precipitationMillimeterTotal = 0.0
+      self.snowCentimeterTotal = 0.0
+      self.chanceOfRain = 0
+      self.chanceOfSnow = 0
       self.condition = Condition()
     }
 
@@ -125,6 +136,10 @@ extension Weather {
       case maxTemperatureCelsius = "maxtemp_c"
       case minTemperatureCelsius = "mintemp_c"
       case avgTemperatureCelsius = "avgtemp_c"
+      case precipitationMillimeterTotal = "totalprecip_mm"
+      case snowCentimeterTotal = "totalsnow_cm"
+      case chanceOfRain = "daily_chance_of_rain"
+      case chanceOfSnow = "daily_chance_of_snow"
       case condition
     }
   }
@@ -134,12 +149,18 @@ extension Weather {
   struct Hour: Decodable {
     let time: Date
     let temperatureCelsius: Double
+    let isDay: Int
     let condition: Condition
+    let chanceOfRain: Int
+    let chanceOfSnow: Int
 
     enum CodingKeys: String, CodingKey {
       case time
       case temperatureCelsius = "temp_c"
+      case isDay = "is_day"
       case condition
+      case chanceOfRain = "chance_of_rain"
+      case chanceOfSnow = "chance_of_snow"
     }
   }
 }

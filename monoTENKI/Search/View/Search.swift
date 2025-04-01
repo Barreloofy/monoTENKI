@@ -6,9 +6,13 @@
 //
 
 import SwiftUI
+import CoreLocation
+import AsyncAlgorithms
 
 struct Search: View {
   @Environment(LocationModel.self) private var locationModel
+  @Environment(\.colorScheme) private var colorScheme
+  @Environment(\.dismiss) private var dismiss
 
   @State private var searchModel = SearchModel()
   @State private var text = ""
@@ -16,18 +20,28 @@ struct Search: View {
 
   @FocusState private var searchIsFocus: Bool
 
-  let action: (Location) -> Void
+  private let queryChannel = AsyncChannel<String>()
+  let onlySearch: Bool
 
   var body: some View {
     VStack {
       SearchTextField(text: $text)
-
-      AlignedHStack(alignment: .leading) {
-        Button(
-          action: { locationModel.trackLocation = true },
-          label: { Label("CURRENT LOCATION", systemImage: "location.fill") }
-        )
-      }
+        .task(id: text) {
+          guard !text.isEmpty else { return }
+          await queryChannel.send(text)
+        }
+        .task {
+          for await query in queryChannel.debounce(for: .seconds(0.25)) {
+            do {
+              try await searchModel.getLocations(matching: query)
+              error = .none
+            } catch {
+              self.error = .search
+            }
+          }
+        }
+      
+      locationButton
 
       switch error {
       case .none:
@@ -35,7 +49,11 @@ struct Search: View {
           ForEach(searchModel.results) { result in
             AlignedHStack(alignment: .leading) {
               Text(result.completeName)
-                .onTapGesture { action(result) }
+                .onTapGesture {
+                  locationModel.trackLocation = false
+                  locationModel.location = result.coordinates
+                  dismiss()
+                }
             }
           }
         }
@@ -50,22 +68,29 @@ struct Search: View {
 
       Spacer()
     }
-    .textCase(.uppercase)
     .font(.system(.title3, design: .monospaced, weight: .medium))
     .lineLimit(1)
     .padding()
-    .onChange(of: text) {
-      guard !text.isEmpty else { return }
+  }
 
-      Task {
-        do {
-          try await searchModel.getLocations(matching: text)
-          error = .none
-        } catch {
-          print(error)
-          self.error = .search
-        }
+
+  @ViewBuilder private var locationButton: some View {
+    if !onlySearch {
+      AlignedHStack(alignment: .leading) {
+        Button(
+          action: {
+            Task {
+              if await CLServiceSession.getAuthorization() {
+                locationModel.trackLocation = true
+                dismiss()
+              } else {
+                error = .location
+              }
+            }
+          },
+          label: { Label("CURRENT LOCATION", systemImage: "location.fill") })
       }
+      .tint(colorScheme.tint())
     }
   }
 }

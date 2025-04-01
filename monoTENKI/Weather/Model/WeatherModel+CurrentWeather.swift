@@ -10,6 +10,7 @@ extension WeatherModel {
   struct CurrentWeather {
     let location: String
     let condition: String
+    let isDay: Int
     let temperatures: Temperatures
     let windDetails: WindDetails
     let miscellaneous: Miscellaneous
@@ -17,11 +18,13 @@ extension WeatherModel {
     init(
       location: String = "",
       condition: String = "",
+      isDay: Int = 1,
       temperatures: Temperatures = Temperatures(),
       windDetails: WindDetails = WindDetails(),
       miscellaneous: Miscellaneous = Miscellaneous()) {
       self.location = location
       self.condition = condition
+      self.isDay = isDay
       self.temperatures = temperatures
       self.windDetails = windDetails
       self.miscellaneous = miscellaneous

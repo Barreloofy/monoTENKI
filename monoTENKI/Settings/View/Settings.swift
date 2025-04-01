@@ -7,11 +7,11 @@
 
 import SwiftUI
 import CoreLocation
-import os
 
 struct Settings: View {
-  @Environment(\.dismiss) private var dismiss
   @Environment(\.measurementSystem) private var measurementSystem
+  @Environment(\.colorScheme) private var colorScheme
+  @Environment(\.dismiss) private var dismiss
 
   @AppStorage("measurementSystem") private var measurementUsed = MeasurementSystem.metric
   @State private var noPermission = false
@@ -31,6 +31,7 @@ struct Settings: View {
             })
         }
       }
+      .tint(colorScheme.tint())
       .font(.system(.title, design: .monospaced, weight: .bold))
       .padding(.bottom, 50)
 
@@ -54,18 +55,7 @@ struct Settings: View {
     }
     .padding()
     .onAppear { measurementUsed = measurementSystem }
-    .task {
-      do {
-        let session = CLServiceSession(authorization: .whenInUse)
-
-        for try await diagnostic in session.diagnostics {
-          if diagnostic.authorizationDenied { noPermission = true }
-          return
-        }
-      } catch {
-        Logger.settings.error("\(error)")
-      }
-    }
+    .task { if await !CLServiceSession.getAuthorization() { noPermission = true } }
   }
 
 
@@ -81,9 +71,4 @@ struct Settings: View {
       .font(.system(.footnote, design: .monospaced, weight: .medium))
     }
   }
-}
-
-// MARK: - Logger for 'Settings'
-extension Logger {
-  static fileprivate let settings = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "Settings")
 }

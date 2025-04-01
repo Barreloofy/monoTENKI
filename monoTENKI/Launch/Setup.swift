@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Setup: View {
   @Environment(LocationModel.self) private var locationModel
+  @Environment(\.colorScheme) private var colorScheme
 
   @AppStorage("showSearch") private var showSearch = false
   @State private var permissionGranted: Bool?
@@ -16,27 +17,23 @@ struct Setup: View {
   @Binding var setupCompleted: Bool
 
   var body: some View {
-    ZStack {
-      Color(.black)
-        .padding(-1)
-        .ignoresSafeArea()
-
-      LocationPermission(permissionGranted: $permissionGranted)
-        .sheet(isPresented: $showSearch) {
-          Search { result in
-            locationModel.location = result.coordinates
-            setupCompleted = true
-          }
-          .presentationBackground(.black)
-          .interactiveDismissDisabled()
-        }
-    }
-    .onChange(of: permissionGranted) {
-      switch permissionGranted {
-      case true?: setupCompleted = true
-      case false?: showSearch = true
-      case .none: break
+    LocationPermission(permissionGranted: $permissionGranted)
+      .sheet(isPresented: $showSearch) {
+        Search(onlySearch: true)
+        .presentationBackground(colorScheme == .light ? .white : .black)
+        .interactiveDismissDisabled()
       }
-    }
+      .onChange(of: locationModel.location) { setupCompleted = true }
+      .onChange(of: permissionGranted) {
+        switch permissionGranted {
+        case true?:
+          setupCompleted = true
+          locationModel.trackLocation = true
+        case false?:
+          showSearch = true
+        case .none:
+          break
+        }
+      }
   }
 }

@@ -26,24 +26,23 @@ struct LocationPermission: View {
 
         Text("location is used to show you the most accurate weather")
           .font(.footnote)
-          .fontDesign(.monospaced)
+          .fontWeight(.medium)
           .multilineTextAlignment(.center)
       }
       .offset(y: -10)
 
       Button("Grand access") {
         Task {
-          let session = CLServiceSession(authorization: .whenInUse)
+          let ServiceStream = CLServiceSession(authorization: .whenInUse)
 
-          for try await diagnostic in session.diagnostics {
-            guard !diagnostic.authorizationRequestInProgress else { continue }
+          for try await diagnostic in ServiceStream.diagnostics where !diagnostic.authorizationRequestInProgress {
 
             if diagnostic.authorizationDenied {
               permissionGranted = false
             } else {
               permissionGranted = true
             }
-
+            
             break
           }
         }
@@ -51,8 +50,11 @@ struct LocationPermission: View {
       .buttonStyle(.permission)
       .offset(y: 150)
     }
-    .fontWeight(.medium)
-    .textCase(.uppercase)
+    .fontDesign(.monospaced)
     .padding(.horizontal, 25)
   }
+}
+
+#Preview {
+  LocationPermission(permissionGranted: .constant(false))
 }
