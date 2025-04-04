@@ -43,16 +43,36 @@ extension WeatherModel {
       temperatureCelsius: weather.current.temperatureCelsius,
       temperatureCelsiusLow: weather.forecast.days.first!.details.minTemperatureCelsius,
       temperatureCelsiusHigh: weather.forecast.days.first!.details.maxTemperatureCelsius,
-      windChillCelsius: weather.current.windChillCelsius)
+      feelsLikeCelsius: weather.current.feelsLikeCelsius)
 
     let windDetails = CurrentWeather.WindDetails(
       windDirection: weather.current.WindDirection,
       windSpeed: weather.current.windKilometrePerHour,
       windGust: weather.current.gustKilometrePerHour)
 
-    let miscellaneous = CurrentWeather.Miscellaneous(
-      precipitation: weather.current.precipitationMillimeter,
-      humidity: weather.current.humidity)
+    let totalDownfall = weather.forecast.days.first!.details.precipitationMillimeterTotal + weather.forecast.days.first!.details.snowCentimeterTotal
+
+    let rate = weather.current.precipitationMillimeter
+
+    let chance: Int
+
+    let type: String
+
+    if weather.forecast.days.first!.details.chanceOfRain > weather.forecast.days.first!.details.chanceOfSnow {
+      chance = weather.forecast.days.first!.details.chanceOfRain
+      type = "Rain"
+    } else {
+      chance = weather.forecast.days.first!.details.chanceOfSnow
+      type = "Snow"
+    }
+
+
+
+    let downfall = CurrentWeather.Downfall(
+      rate: rate,
+      chance: chance,
+      total: totalDownfall,
+      type: type)
 
     return CurrentWeather(
       location: weather.location.name,
@@ -60,7 +80,7 @@ extension WeatherModel {
       isDay: weather.current.isDay,
       temperatures: temperatures,
       windDetails: windDetails,
-      miscellaneous: miscellaneous)
+      downfall: downfall)
   }
 
   private func createHourForecast(from weather: Weather) -> Weather.Hours {
@@ -75,7 +95,6 @@ extension WeatherModel {
         guard hour.time > weather.location.time &&
              hour.time <= weather.location.time.addingTimeInterval(twelveHoursinSeconds)
         else { continue }
-
         hourForecast.append(hour)
       }
     }

@@ -13,7 +13,7 @@ struct MeasurementSystemCell: View {
 
   var body: some View {
     Text(measurement.rawValue)
-      .font(.system(.subheadline, design: .monospaced, weight: .medium))
+      .font(.subheadline)
       .overlay(alignment: .bottom) {
         if measurementSystem == measurement {
           Rectangle()

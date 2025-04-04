@@ -13,7 +13,7 @@ extension WeatherModel {
     let isDay: Int
     let temperatures: Temperatures
     let windDetails: WindDetails
-    let miscellaneous: Miscellaneous
+    let downfall: Downfall
 
     init(
       location: String = "",
@@ -21,13 +21,13 @@ extension WeatherModel {
       isDay: Int = 1,
       temperatures: Temperatures = Temperatures(),
       windDetails: WindDetails = WindDetails(),
-      miscellaneous: Miscellaneous = Miscellaneous()) {
+      downfall: Downfall = Downfall()) {
       self.location = location
       self.condition = condition
       self.isDay = isDay
       self.temperatures = temperatures
       self.windDetails = windDetails
-      self.miscellaneous = miscellaneous
+      self.downfall = downfall
     }
   }
 }
@@ -39,17 +39,17 @@ extension WeatherModel.CurrentWeather {
     let temperatureCelsius: Double
     let temperatureCelsiusLow: Double
     let temperatureCelsiusHigh: Double
-    let windChillCelsius: Double
+    let feelsLikeCelsius: Double
 
     init(
       temperatureCelsius: Double = 0.0,
       temperatureCelsiusLow: Double = 0.0,
       temperatureCelsiusHigh: Double = 0.0,
-      windChillCelsius: Double = 0.0) {
+      feelsLikeCelsius: Double = 0.0) {
       self.temperatureCelsius = temperatureCelsius
       self.temperatureCelsiusLow = temperatureCelsiusLow
       self.temperatureCelsiusHigh = temperatureCelsiusHigh
-      self.windChillCelsius = windChillCelsius
+      self.feelsLikeCelsius = feelsLikeCelsius
     }
   }
 
@@ -80,5 +80,24 @@ extension WeatherModel.CurrentWeather {
       self.precipitation = precipitation
       self.humidity = humidity
     }
+  }
+
+
+  struct Downfall {
+    let rate: Double
+    let chance: Int
+    let total: Double
+    let type: String
+
+    init(
+      rate: Double = 0.0,
+      chance: Int = 0,
+      total: Double = 0.0,
+      type: String = "") {
+        self.rate = rate
+        self.chance = chance
+        self.total = total
+        self.type = type
+      }
   }
 }

@@ -18,6 +18,11 @@ class SearchModel {
     retrieve()
   }
 
+  /// Returns the content of the 'history' property if condition is true otherwise the content of 'results' property 
+  func getContent(_ condition: Bool) -> Locations {
+    condition ? history : results
+  }
+
   func getLocations(matching query: String) async throws {
     let httpClient = HTTPClient(urlProvider: WeatherAPI.search(query))
     results = try await httpClient.fetch()
@@ -28,11 +33,16 @@ class SearchModel {
       history.remove(at: index)
       break
     }
+
     history.insert(location, at: 0)
+
+    store()
   }
 
   func removeHistory(location: Location) {
     history.removeAll { $0 == location }
+
+    store()
   }
 }
 

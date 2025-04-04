@@ -17,6 +17,7 @@ struct LocationPermission: View {
         Image(systemName: "location.fill")
           .resizable()
           .scaledToFit()
+          .fontWeight(.regular)
           .frame(width: 100)
           .offset(y: -25)
 
@@ -26,7 +27,6 @@ struct LocationPermission: View {
 
         Text("location is used to show you the most accurate weather")
           .font(.footnote)
-          .fontWeight(.medium)
           .multilineTextAlignment(.center)
       }
       .offset(y: -10)
@@ -50,11 +50,6 @@ struct LocationPermission: View {
       .buttonStyle(.permission)
       .offset(y: 150)
     }
-    .fontDesign(.monospaced)
     .padding(.horizontal, 25)
   }
-}
-
-#Preview {
-  LocationPermission(permissionGranted: .constant(false))
 }

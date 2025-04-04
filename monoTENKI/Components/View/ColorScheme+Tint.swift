@@ -6,9 +6,9 @@
 //
 
 import SwiftUI
-
+// MARK: - Convenience method for buttons
 extension ColorScheme {
   func tint() -> Color {
-    self == .light ? .black : .white
+    return self == .light ? .black : .white
   }
 }

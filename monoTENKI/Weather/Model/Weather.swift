@@ -43,7 +43,7 @@ extension Weather {
     let condition: Condition
     let precipitationMillimeter: Double
     let humidity: Int
-    let windChillCelsius: Double
+    let feelsLikeCelsius: Double
     let WindDirection: String
     let windKilometrePerHour: Double
     let gustKilometrePerHour: Double
@@ -54,7 +54,7 @@ extension Weather {
       self.condition = Condition()
       self.precipitationMillimeter = 0.0
       self.humidity = 0
-      self.windChillCelsius = 0.0
+      self.feelsLikeCelsius = 0.0
       self.WindDirection = ""
       self.windKilometrePerHour = 0.0
       self.gustKilometrePerHour = 0.0
@@ -66,7 +66,7 @@ extension Weather {
       case condition
       case precipitationMillimeter = "precip_mm"
       case humidity = "humidity"
-      case windChillCelsius = "windchill_c"
+      case feelsLikeCelsius = "feelslike_c"
       case WindDirection = "wind_dir"
       case windKilometrePerHour = "wind_kph"
       case gustKilometrePerHour = "gust_kph"

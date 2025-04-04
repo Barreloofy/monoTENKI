@@ -11,7 +11,7 @@ import AsyncAlgorithms
 
 struct Search: View {
   @Environment(LocationModel.self) private var locationModel
-  @Environment(\.colorScheme) private var colorScheme
+  @Environment(\.scenePhase) private var scenePhase
   @Environment(\.dismiss) private var dismiss
 
   @State private var searchModel = SearchModel()
@@ -30,7 +30,9 @@ struct Search: View {
           guard !text.isEmpty else { return }
           await queryChannel.send(text)
         }
-        .task {
+        .task(id: scenePhase) {
+          guard scenePhase == .active else { return }
+
           for await query in queryChannel.debounce(for: .seconds(0.25)) {
             do {
               try await searchModel.getLocations(matching: query)
@@ -40,18 +42,19 @@ struct Search: View {
             }
           }
         }
-      
+
       locationButton
 
       switch error {
       case .none:
         ScrollView {
-          ForEach(searchModel.results) { result in
+          ForEach(searchModel.getContent(text.isEmpty)) { result in
             AlignedHStack(alignment: .leading) {
               Text(result.completeName)
                 .onTapGesture {
                   locationModel.trackLocation = false
                   locationModel.location = result.coordinates
+                  searchModel.updateHistory(with: result)
                   dismiss()
                 }
             }
@@ -68,9 +71,9 @@ struct Search: View {
 
       Spacer()
     }
-    .font(.system(.title3, design: .monospaced, weight: .medium))
+    .font(.title3)
     .lineLimit(1)
-    .padding()
+    .padding(.horizontal)
   }
 
 
@@ -90,16 +93,7 @@ struct Search: View {
           },
           label: { Label("CURRENT LOCATION", systemImage: "location.fill") })
       }
-      .tint(colorScheme.tint())
+      .fontWeight(.regular)
     }
-  }
-}
-
-
-extension Search {
-  enum Errors {
-    case none
-    case search
-    case location
   }
 }

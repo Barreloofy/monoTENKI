@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		292C48E32D9E99B700A0909E /* TodayDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292C48E22D9E99B000A0909E /* TodayDetails.swift */; };
+		292C48E72D9F595C00A0909E /* FormatStyle+timeZoneNeutral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292C48E62D9F594B00A0909E /* FormatStyle+timeZoneNeutral.swift */; };
+		29336FB32D9D65330074DEDF /* Search+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29336FB22D9D65270074DEDF /* Search+Error.swift */; };
+		29336FD32D9D82390074DEDF /* HourForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29336FD22D9D82290074DEDF /* HourForecast.swift */; };
 		2934E3DC2D9ABAF300A229F4 /* Today.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2934E3DB2D9ABADA00A229F4 /* Today.swift */; };
 		2934E3DE2D9AD7CB00A229F4 /* String+PresentIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2934E3DD2D9AD79A00A229F4 /* String+PresentIcon.swift */; };
 		2934E3E02D9AF8C000A229F4 /* ColorScheme+Tint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2934E3DF2D9AF8B200A229F4 /* ColorScheme+Tint.swift */; };
@@ -18,6 +22,7 @@
 		296094F32D89DA7400B326DF /* WeatherAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296094F22D89DA5E00B326DF /* WeatherAPI.swift */; };
 		2964DCA02D8B4E53009C259B /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2964DC9F2D8B4E35009C259B /* LocationModel.swift */; };
 		296550902D888F960073D3E9 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2965508F2D888F960073D3E9 /* Weather.swift */; };
+		29674FE72DA08692004B94EE /* Double+LengthFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29674FE62DA085CB004B94EE /* Double+LengthFormatter.swift */; };
 		2970EF512D8AFEFB00068106 /* WeatherModel+CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2970EF502D8AFEF200068106 /* WeatherModel+CurrentWeather.swift */; };
 		2970EF532D8B08B700068106 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2970EF522D8B08A400068106 /* WeatherModel.swift */; };
 		297131D42D91788100316379 /* Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297131D32D91787900316379 /* Setup.swift */; };
@@ -61,6 +66,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		292C48E22D9E99B000A0909E /* TodayDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayDetails.swift; sourceTree = "<group>"; };
+		292C48E62D9F594B00A0909E /* FormatStyle+timeZoneNeutral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormatStyle+timeZoneNeutral.swift"; sourceTree = "<group>"; };
+		29336FB22D9D65270074DEDF /* Search+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Search+Error.swift"; sourceTree = "<group>"; };
+		29336FD22D9D82290074DEDF /* HourForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourForecast.swift; sourceTree = "<group>"; };
 		2934E3DB2D9ABADA00A229F4 /* Today.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Today.swift; sourceTree = "<group>"; };
 		2934E3DD2D9AD79A00A229F4 /* String+PresentIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+PresentIcon.swift"; sourceTree = "<group>"; };
 		2934E3DF2D9AF8B200A229F4 /* ColorScheme+Tint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorScheme+Tint.swift"; sourceTree = "<group>"; };
@@ -71,6 +80,7 @@
 		296094F22D89DA5E00B326DF /* WeatherAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPI.swift; sourceTree = "<group>"; };
 		2964DC9F2D8B4E35009C259B /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		2965508F2D888F960073D3E9 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		29674FE62DA085CB004B94EE /* Double+LengthFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+LengthFormatter.swift"; sourceTree = "<group>"; };
 		2970EF502D8AFEF200068106 /* WeatherModel+CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherModel+CurrentWeather.swift"; sourceTree = "<group>"; };
 		2970EF522D8B08A400068106 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 		297131D32D91787900316379 /* Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setup.swift; sourceTree = "<group>"; };
@@ -141,8 +151,9 @@
 		293AC4C12D9C197C007FCC76 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				29674FE62DA085CB004B94EE /* Double+LengthFormatter.swift */,
+				292C48E62D9F594B00A0909E /* FormatStyle+timeZoneNeutral.swift */,
 				2934E3DF2D9AF8B200A229F4 /* ColorScheme+Tint.swift */,
-				29C5305C2D972EA000159C2D /* Double+TemperatureFormatter.swift */,
 				29C5305B2D972EA000159C2D /* AlignedHStack.swift */,
 				29C5305D2D972EA000159C2D /* XIcon.swift */,
 			);
@@ -210,6 +221,9 @@
 			children = (
 				29947D4D2D99CFD1000E3CB5 /* WeatherView.swift */,
 				2934E3DB2D9ABADA00A229F4 /* Today.swift */,
+				29336FD22D9D82290074DEDF /* HourForecast.swift */,
+				292C48E22D9E99B000A0909E /* TodayDetails.swift */,
+				29C5305C2D972EA000159C2D /* Double+TemperatureFormatter.swift */,
 				2934E3DD2D9AD79A00A229F4 /* String+PresentIcon.swift */,
 			);
 			path = View;
@@ -244,10 +258,11 @@
 		2965508E2D8887A80073D3E9 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2934E3E32D9B2A9F00A229F4 /* SearchWeather.swift */,
 				2995AEB42D92C6670010744B /* Search.swift */,
+				29336FB22D9D65270074DEDF /* Search+Error.swift */,
 				2978ECB62D9578FF0005B536 /* SearchTextField.swift */,
 				2978ECBB2D95A9700005B536 /* SearchError.swift */,
+				2934E3E32D9B2A9F00A229F4 /* SearchWeather.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -476,8 +491,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29674FE72DA08692004B94EE /* Double+LengthFormatter.swift in Sources */,
 				2970EF512D8AFEFB00068106 /* WeatherModel+CurrentWeather.swift in Sources */,
+				29336FD32D9D82390074DEDF /* HourForecast.swift in Sources */,
 				2934E3E02D9AF8C000A229F4 /* ColorScheme+Tint.swift in Sources */,
+				292C48E72D9F595C00A0909E /* FormatStyle+timeZoneNeutral.swift in Sources */,
 				29ECB3B62D8A417F001922EA /* URLProvider.swift in Sources */,
 				296094EE2D89ADD800B326DF /* HTTPClient.swift in Sources */,
 				2970EF532D8B08B700068106 /* WeatherModel.swift in Sources */,
@@ -487,6 +505,7 @@
 				2934E3DC2D9ABAF300A229F4 /* Today.swift in Sources */,
 				293AC4C02D9C180F007FCC76 /* CLServiceSession+GetAuthorization.swift in Sources */,
 				2995AEB32D92C21B0010744B /* SearchModel.swift in Sources */,
+				292C48E32D9E99B700A0909E /* TodayDetails.swift in Sources */,
 				2934E3DE2D9AD7CB00A229F4 /* String+PresentIcon.swift in Sources */,
 				2947E0BB2D88EC1000746BA4 /* Location.swift in Sources */,
 				29C5304A2D9713E100159C2D /* MeasurementSystemCell.swift in Sources */,
@@ -504,6 +523,7 @@
 				2978ECBC2D95A98E0005B536 /* SearchError.swift in Sources */,
 				297131D42D91788100316379 /* Setup.swift in Sources */,
 				29D151742D90B20B00A851E9 /* LocationPermission.swift in Sources */,
+				29336FB32D9D65330074DEDF /* Search+Error.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -673,11 +693,12 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = monoTENKI/Resources/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "monoTENKI uses location to provide accurate weather information.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -705,11 +726,12 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = monoTENKI/Resources/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "monoTENKI uses location to provide accurate weather information.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

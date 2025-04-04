@@ -45,7 +45,7 @@ class LocationModel {
           return true
         }
 
-        if location.distance(from: unwrappedPreviousLocation) > 1_000 {
+        if location.distance(from: unwrappedPreviousLocation) > 100 {
           previousLocation = location
           return true
         } else {
@@ -54,8 +54,9 @@ class LocationModel {
       }
 
       for try await update in CLLocationUpdate.liveUpdates().filter({ @MainActor in filterByDistance($0) }) {
-        print(update.location!.coordinate.stringRepresentation)
-        location = update.location!.coordinate.stringRepresentation
+        guard let newLocation = update.location?.coordinate.stringRepresentation else { continue }
+
+        location = newLocation
       }
     }
   }

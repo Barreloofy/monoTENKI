@@ -10,7 +10,6 @@ import CoreLocation
 
 struct Settings: View {
   @Environment(\.measurementSystem) private var measurementSystem
-  @Environment(\.colorScheme) private var colorScheme
   @Environment(\.dismiss) private var dismiss
 
   @AppStorage("measurementSystem") private var measurementUsed = MeasurementSystem.metric
@@ -18,7 +17,6 @@ struct Settings: View {
 
   var body: some View {
     VStack {
-
       ZStack {
         Text("Settings")
         AlignedHStack(alignment: .trailing) {
@@ -31,13 +29,13 @@ struct Settings: View {
             })
         }
       }
-      .tint(colorScheme.tint())
-      .font(.system(.title, design: .monospaced, weight: .bold))
-      .padding(.bottom, 50)
+      .font(.title)
+      .fontWeight(.bold)
+      .padding(.vertical)
 
       ZStack {
         AlignedHStack(alignment: .leading) { Text("Measurement:") }
-          .font(.system(.headline, design: .monospaced, weight: .medium))
+          .font(.headline)
 
         MeasurementSystemCell(measurement: .metric)
           .onTapGesture { measurementUsed = .metric }
@@ -53,7 +51,7 @@ struct Settings: View {
 
       Spacer()
     }
-    .padding()
+    .padding(.horizontal)
     .onAppear { measurementUsed = measurementSystem }
     .task { if await !CLServiceSession.getAuthorization() { noPermission = true } }
   }
@@ -66,9 +64,10 @@ struct Settings: View {
           .multilineTextAlignment(.center)
         Link("Open Settings App", destination: URL(string: UIApplication.openSettingsURLString)!)
           .buttonStyle(.bordered)
-          .font(.system(.callout, design: .monospaced, weight: .bold))
+          .font(.callout)
+          .fontWeight(.bold)
       }
-      .font(.system(.footnote, design: .monospaced, weight: .medium))
+      .font(.footnote)
     }
   }
 }

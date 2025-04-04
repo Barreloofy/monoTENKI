@@ -10,7 +10,7 @@ import SwiftUI
 struct SearchError: ViewModifier {
   func body(content: Content) -> some View {
     content
-      .font(.system(.footnote, design: .monospaced, weight: .medium))
+      .font(.footnote)
       .multilineTextAlignment(.leading)
       .lineLimit(nil)
   }

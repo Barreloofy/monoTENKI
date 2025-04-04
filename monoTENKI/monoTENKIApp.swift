@@ -9,8 +9,6 @@ import SwiftUI
 
 @main
 struct monoTENKIApp: App {
-  @Environment(\.colorScheme) private var colorScheme
-
   @AppStorage("setupCompleted") private var setupCompleted = false
   @AppStorage("measurementSystem") private var measurementUsed = MeasurementSystem.metric
   @State private var locationModel = LocationModel()
@@ -19,12 +17,14 @@ struct monoTENKIApp: App {
     WindowGroup {
       if setupCompleted {
         WeatherView()
-          .tint(colorScheme.tint())
           .textCase(.uppercase)
+          .fontDesign(.monospaced)
+          .fontWeight(.medium)
       } else {
         Setup(setupCompleted: $setupCompleted)
-          .tint(colorScheme.tint())
           .textCase(.uppercase)
+          .fontDesign(.monospaced)
+          .fontWeight(.medium)
       }
     }
     .environment(locationModel)

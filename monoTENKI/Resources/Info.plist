@@ -4,7 +4,5 @@
 <dict>
 	<key>WeatherAPI.comAPIKey</key>
 	<string>$(API_KEY)</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>monoTENKI uses location to provide accurate weather information.</string>
 </dict>
 </plist>
