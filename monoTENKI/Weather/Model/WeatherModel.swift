@@ -39,39 +39,43 @@ class WeatherModel {
 // MARK: - Convert decoded JSON to convenience properties
 extension WeatherModel {
   private func createCurrentWeather(from weather: Weather) -> CurrentWeather {
+    let details = weather.forecast.days.first!.details
+
     let temperatures = CurrentWeather.Temperatures(
       temperatureCelsius: weather.current.temperatureCelsius,
-      temperatureCelsiusLow: weather.forecast.days.first!.details.minTemperatureCelsius,
-      temperatureCelsiusHigh: weather.forecast.days.first!.details.maxTemperatureCelsius,
-      feelsLikeCelsius: weather.current.feelsLikeCelsius)
+      temperatureCelsiusLow: details.minTemperatureCelsius,
+      temperatureCelsiusHigh: details.maxTemperatureCelsius,
+      feelsLikeCelsius: weather.current.feelsLikeCelsius,
+      humidity: weather.current.humidity)
 
     let windDetails = CurrentWeather.WindDetails(
       windDirection: weather.current.WindDirection,
       windSpeed: weather.current.windKilometrePerHour,
       windGust: weather.current.gustKilometrePerHour)
 
-    let totalDownfall = weather.forecast.days.first!.details.precipitationMillimeterTotal + weather.forecast.days.first!.details.snowCentimeterTotal
-
-    let rate = weather.current.precipitationMillimeter
-
+    let rate: Double
     let chance: Int
-
+    let total: Double
     let type: String
 
-    if weather.forecast.days.first!.details.chanceOfRain > weather.forecast.days.first!.details.chanceOfSnow {
-      chance = weather.forecast.days.first!.details.chanceOfRain
-      type = "Rain"
+    total = details.precipitationMillimeterTotal + (details.snowCentimeterTotal * 10)
+    rate = weather.current.precipitationMillimeter
+
+    if details.chanceOfRain > details.chanceOfSnow {
+      chance = details.chanceOfRain
+      type = "rain"
+    } else if details.chanceOfRain < details.chanceOfSnow {
+      chance = details.chanceOfSnow
+      type = "snow"
     } else {
-      chance = weather.forecast.days.first!.details.chanceOfSnow
-      type = "Snow"
+      chance = 0
+      type = "--"
     }
-
-
 
     let downfall = CurrentWeather.Downfall(
       rate: rate,
       chance: chance,
-      total: totalDownfall,
+      total: total,
       type: type)
 
     return CurrentWeather(

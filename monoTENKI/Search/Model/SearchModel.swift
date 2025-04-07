@@ -12,7 +12,7 @@ import os
 @Observable
 class SearchModel {
   private(set) var results: Locations = []
-  private(set) var history: Locations = []
+  var history: Locations = []
 
   init() {
     retrieve()

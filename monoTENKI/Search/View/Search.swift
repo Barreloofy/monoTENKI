@@ -48,25 +48,32 @@ struct Search: View {
       switch error {
       case .none:
         ScrollView {
-          ForEach(searchModel.getContent(text.isEmpty)) { result in
-            AlignedHStack(alignment: .leading) {
-              Text(result.completeName)
-                .onTapGesture {
-                  locationModel.trackLocation = false
-                  locationModel.location = result.coordinates
-                  searchModel.updateHistory(with: result)
-                  dismiss()
-                }
+          LazyVStack(spacing: 0) {
+            ForEach(searchModel.getContent(text.isEmpty)) { result in
+              SwipeableRow(
+                allowSwipe: text.isEmpty,
+                action: { searchModel.removeHistory(location: result) },
+                content: {
+                  AlignedHStack(alignment: .leading) {
+                    Text(result.completeName)
+                      .onTapGesture {
+                        locationModel.trackLocation = false
+                        locationModel.location = result.coordinates
+                        searchModel.updateHistory(with: result)
+                        dismiss()
+                      }
+                  }
+                })
             }
           }
         }
         .scrollIndicators(.never)
       case .search:
         Text("It seems an error occured, please check your internet connection")
-          .searchError()
+          .searchErrorStyle()
       case .location:
         Text("It seems an error occured, please check if location service is enbaled and monoTENKI has permission")
-          .searchError()
+          .searchErrorStyle()
       }
 
       Spacer()

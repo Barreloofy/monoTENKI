@@ -40,16 +40,19 @@ extension WeatherModel.CurrentWeather {
     let temperatureCelsiusLow: Double
     let temperatureCelsiusHigh: Double
     let feelsLikeCelsius: Double
+    let humidity: Int
 
     init(
       temperatureCelsius: Double = 0.0,
       temperatureCelsiusLow: Double = 0.0,
       temperatureCelsiusHigh: Double = 0.0,
-      feelsLikeCelsius: Double = 0.0) {
+      feelsLikeCelsius: Double = 0.0,
+      humidity: Int = 0) {
       self.temperatureCelsius = temperatureCelsius
       self.temperatureCelsiusLow = temperatureCelsiusLow
       self.temperatureCelsiusHigh = temperatureCelsiusHigh
       self.feelsLikeCelsius = feelsLikeCelsius
+      self.humidity = humidity
     }
   }
 

@@ -42,6 +42,11 @@ struct TodayDetails: View {
             Text("Low")
             Text(weatherDetails.temperatures.temperatureCelsiusLow.temperatureFormatter(measurementSystem))
           }
+
+          HStack {
+            Text("Humidity")
+            Text(weatherDetails.temperatures.humidity, format: .percent)
+          }
         }
         .offset(x: 10)
 
@@ -50,18 +55,18 @@ struct TodayDetails: View {
           .underline()
         VStack(alignment: .leading) {
           HStack {
-            Text("Rate")
-            Text(weatherDetails.downfall.rate.LengthFormatter(measurementSystem))
+            Text("Chance")
+            Text(weatherDetails.downfall.chance, format: .percent)
           }
 
           HStack {
-            Text("Chance")
-            Text(weatherDetails.downfall.chance.description)
+            Text("Rate")
+            Text(weatherDetails.downfall.rate.precipitationFormatter(measurementSystem))
           }
 
           HStack {
             Text("Total")
-            Text(weatherDetails.downfall.total.description)
+            Text(weatherDetails.downfall.total.precipitationFormatter(measurementSystem))
           }
 
           HStack {
@@ -82,12 +87,12 @@ struct TodayDetails: View {
 
           HStack {
             Text("Speed")
-            Text(weatherDetails.windDetails.windSpeed.description)
+            Text(weatherDetails.windDetails.windSpeed.SpeedFormatter(measurementSystem))
           }
 
           HStack {
             Text("Gust")
-            Text(weatherDetails.windDetails.windGust.description)
+            Text(weatherDetails.windDetails.windGust.SpeedFormatter(measurementSystem))
           }
         }
         .offset(x: 10)
@@ -102,13 +107,20 @@ struct TodayDetails: View {
 
 
 struct DetailsPage: ViewModifier {
+  @Environment(\.colorScheme) private var colorScheme
+
   @Binding var showDetails: Bool
   let weatherDetails: WeatherModel.CurrentWeather
 
   func body(content: Content) -> some View {
     content
       .overlay {
-        if showDetails { TodayDetails(showDetails: $showDetails, weatherDetails: weatherDetails) }
+        if showDetails {
+          ZStack {
+            Color(colorScheme == .light ? .white : .black).safeAreaPadding(.top, 50)
+            TodayDetails(showDetails: $showDetails, weatherDetails: weatherDetails)
+          }
+        }
       }
       .animation(.easeInOut.speed(0.5), value: showDetails)
   }
