@@ -6,93 +6,82 @@
 //
 
 import SwiftUI
-import os
 import AsyncAlgorithms
 
 struct WeatherView: View {
   @Environment(\.colorScheme) private var colorScheme
   @Environment(\.measurementSystem) private var measurementSystem
-  @Environment(LocationModel.self) private var locationModel
+  @Environment(LocationAggregate.self) private var locationAggregate
 
-  @State private var weatherModel = WeatherModel()
+  @State private var weatherAggregate = WeatherAggregate()
   @State private var showSettings = false
   @State private var showSearch = false
   @State private var showDetails = false
 
+  // MARK: - Produces an 'AsyncTimerSequence' event every 30 minutes
   private let updateTimer = AsyncTimerSequence(interval: Duration.seconds(1800), clock: .continuous)
 
   var body: some View {
-    VStack {
+    Group {
+      switch weatherAggregate.state {
+      case .loading:
+        colorScheme.background
+      case .loaded(let currentWeather, let hourForecast, let dayForecast):
+        VStack(spacing: 50) {
 
-      ZStack {
-        Button(
-          action: { showSearch = true },
-          label: {
-            Text(verbatim: weatherModel.currentWeather.location)
-          })
-        .sheet(isPresented: $showSearch) {
-          SearchWeather()
-            .presentationBackground(colorScheme == .light ? .white : .black)
-        }
-
-        AlignedHStack(alignment: .trailing) {
-          Button(
-            action: { showSettings = true },
-            label: {
-              Image(systemName: "gear")
-                .resizable()
-                .scaledToFit()
-                .fontWeight(.regular)
-                .frame(width: 25)
-            })
-          .sheet(isPresented: $showSettings) {
-            Settings()
-              .presentationBackground(colorScheme == .light ? .white : .black)
+          ZStack {
+            Button(
+              action: { showSearch = true },
+              label: { Text(currentWeather.location) })
+            .sheet(isPresented: $showSearch) {
+              SearchSheet()
+                .presentationBackground(colorScheme.background)
+            }
+            AlignedHStack(alignment: .trailing) {
+              Button(
+                action: { showSettings = true },
+                label: {
+                  Image(systemName: "gear")
+                    .styled(size: 25)
+                })
+              .sheet(isPresented: $showSettings) {
+                Settings()
+                  .presentationBackground(colorScheme.background)
+              }
+            }
           }
-        }
-      }
-      .padding(.top, 25)
-      .padding(.bottom, 50)
 
-      TabView {
-        ScrollView {
-          LazyVStack(spacing: 0) {
-            Today(weatherDetails: weatherModel.currentWeather)
-              .containerRelativeFrame(.vertical)
-              .onTapGesture { showDetails = true }
+          TabView {
+            ScrollView {
+              LazyVStack(spacing: 0) {
+                Today(weatherDetails: currentWeather)
+                  .containerRelativeFrame(.vertical)
+                  .onTapGesture { showDetails = true }
+                HourForecast(hours: hourForecast)
+                  .containerRelativeFrame(.vertical)
+              }
+              .fontWeight(.bold)
+            }
+            .scrollTargetBehavior(.paging)
+            .scrollIndicators(.never)
 
-            HourForecast(hours: weatherModel.hourForecast)
-              .containerRelativeFrame(.vertical)
+            Text("Forecast")
           }
-          .fontWeight(.bold)
+          .tabViewStyle(.page(indexDisplayMode: .never))
         }
-        .ignoresSafeArea()
-        .scrollTargetLayout()
-        .scrollTargetBehavior(.paging)
-        .scrollIndicators(.never)
-
-        Text("Forecast")
+        .todayDetailsPage(isPresented: $showDetails, weatherDetails: currentWeather)
+        .tint(colorScheme.foreground)
+        .padding()
+      case .error:
+        Text("Error")
       }
-      .tabViewStyle(.page(indexDisplayMode: .never))
     }
-    .tint(colorScheme.tint())
-    .padding(.horizontal)
-    .detailsPage(isPresented: $showDetails, weatherDetails: weatherModel.currentWeather)
-    .task(id: locationModel.location) {
-      do {
-        try await weatherModel.getWeather(for: locationModel.location)
-      } catch {
-        Logger().error("\(error.localizedDescription) In: task(id: locationModel.location)")
-      }
+    .task(id: locationAggregate.location) {
+      await weatherAggregate.getWeather(for: locationAggregate.location)
     }
     .task {
       for await _ in updateTimer.debounce(for: .seconds(1)) {
-        print("Update")
-        do {
-          try await weatherModel.getWeather(for: locationModel.location)
-        } catch {
-          Logger().error("\(error.localizedDescription) In: task(id: locationModel.location)")
-        }
+        await weatherAggregate.getWeather(for: locationAggregate.location)
       }
     }
   }

@@ -1,5 +1,5 @@
 //
-//  LocationModel.swift
+//  LocationAggregate.swift
 //  monoTENKI
 //
 //  Created by Barreloofy on 3/19/25 at 8:11 PM.
@@ -10,16 +10,15 @@ import CoreLocation
 /// Location aggregate model
 @MainActor
 @Observable
-class LocationModel {
-  var location = "" { didSet { UserDefaults.standard.set(location, forKey: "location") } }
-  var trackLocation = false { didSet { trackLocationUpdate() } }
+class LocationAggregate {
+  var location = UserDefaults.standard.string(forKey: "location") ?? "" {
+    didSet { UserDefaults.standard.set(location, forKey: "location") }
+  }
+  var trackLocation = UserDefaults.standard.bool(forKey: "trackLocation") {
+    didSet { trackLocationUpdate() }
+  }
 
   private var locationStream: Task<Void, Error>?
-
-  init() {
-    location = UserDefaults.standard.string(forKey: "location") ?? ""
-    trackLocation = UserDefaults.standard.bool(forKey: "trackLocation")
-  }
 
   private func trackLocationUpdate() {
     if trackLocation {

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Setup: View {
-  @Environment(LocationModel.self) private var locationModel
+  @Environment(LocationAggregate.self) private var locationAggregate
   @Environment(\.colorScheme) private var colorScheme
 
   @AppStorage("showSearch") private var showSearch = false
@@ -20,15 +20,16 @@ struct Setup: View {
     LocationPermission(permissionGranted: $permissionGranted)
       .sheet(isPresented: $showSearch) {
         Search(onlySearch: true)
-        .presentationBackground(colorScheme == .light ? .white : .black)
-        .interactiveDismissDisabled()
+          .padding()
+          .presentationBackground(colorScheme.background)
+          .interactiveDismissDisabled()
       }
-      .onChange(of: locationModel.location) { setupCompleted = true }
+      .onChange(of: locationAggregate.location) { setupCompleted = true }
       .onChange(of: permissionGranted) {
         switch permissionGranted {
         case true?:
           setupCompleted = true
-          locationModel.trackLocation = true
+          locationAggregate.trackLocation = true
         case false?:
           showSearch = true
         case .none:

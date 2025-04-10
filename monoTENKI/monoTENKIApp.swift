@@ -10,8 +10,8 @@ import SwiftUI
 @main
 struct monoTENKIApp: App {
   @AppStorage("setupCompleted") private var setupCompleted = false
-  @AppStorage("measurementSystem") private var measurementUsed = MeasurementSystem.metric
-  @State private var locationModel = LocationModel()
+  @AppStorage("measurementSystemUsed") private var measurementSystemUsed = MeasurementSystem.metric
+  @State private var locationAggregate = LocationAggregate()
 
   var body: some Scene {
     WindowGroup {
@@ -27,7 +27,7 @@ struct monoTENKIApp: App {
           .fontWeight(.medium)
       }
     }
-    .environment(locationModel)
-    .environment(\.measurementSystem, measurementUsed)
+    .environment(locationAggregate)
+    .environment(\.measurementSystem, measurementSystemUsed)
   }
 }

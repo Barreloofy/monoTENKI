@@ -10,7 +10,7 @@ import CoreLocation
 import AsyncAlgorithms
 
 struct Search: View {
-  @Environment(LocationModel.self) private var locationModel
+  @Environment(LocationAggregate.self) private var locationAggregate
   @Environment(\.scenePhase) private var scenePhase
   @Environment(\.dismiss) private var dismiss
 
@@ -57,8 +57,8 @@ struct Search: View {
                   AlignedHStack(alignment: .leading) {
                     Text(result.completeName)
                       .onTapGesture {
-                        locationModel.trackLocation = false
-                        locationModel.location = result.coordinates
+                        locationAggregate.trackLocation = false
+                        locationAggregate.location = result.coordinates
                         searchModel.updateHistory(with: result)
                         dismiss()
                       }
@@ -72,7 +72,7 @@ struct Search: View {
         Text("It seems an error occured, please check your internet connection")
           .searchErrorStyle()
       case .location:
-        Text("It seems an error occured, please check if location service is enbaled and monoTENKI has permission")
+        Text("It seems an error occured, please check if location service is enbaled and permission was granted")
           .searchErrorStyle()
       }
 
@@ -80,7 +80,6 @@ struct Search: View {
     }
     .font(.title3)
     .lineLimit(1)
-    .padding(.horizontal)
   }
 
 
@@ -91,7 +90,7 @@ struct Search: View {
           action: {
             Task {
               if await CLServiceSession.getAuthorization() {
-                locationModel.trackLocation = true
+                locationAggregate.trackLocation = true
                 dismiss()
               } else {
                 error = .location
@@ -102,5 +101,14 @@ struct Search: View {
       }
       .fontWeight(.regular)
     }
+  }
+}
+
+// MARK: - Error enum for Search view. Used to conditionally handle UI error presentation
+extension Search {
+  enum Errors {
+    case none
+    case search
+    case location
   }
 }

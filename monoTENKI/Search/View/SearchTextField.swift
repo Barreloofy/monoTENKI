@@ -15,7 +15,7 @@ struct SearchTextField: View {
     TextField("", text: $text)
       .textInputAutocapitalization(.characters)
       .focused($focus)
-      .background(alignment: .leading) {
+      .overlay(alignment: .leading) {
         if text.isEmpty {
           Text("SEARCH...")
             .onTapGesture { focus = true }

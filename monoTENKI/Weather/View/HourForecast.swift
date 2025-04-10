@@ -10,7 +10,7 @@ import SwiftUI
 struct HourForecast: View {
   @Environment(\.measurementSystem) private var measurementSystem
 
-  let hours: Weather.Hours
+  let hours: Hours
 
   var body: some View {
     List(hours, id: \.time) { hour in
@@ -19,11 +19,8 @@ struct HourForecast: View {
           Text(hour.time.formatted(.timeZoneNeutral))
         }
 
-        Image(systemName: hour.condition.text.presentIcon(isDay: hour.isDay))
-          .resizable()
-          .scaledToFit()
-          .fontWeight(.regular)
-          .frame(width: 30)
+        Image(systemName: hour.condition.presentIcon(isDay: hour.isDay))
+          .styled(size: 30)
 
         AlignedHStack(alignment: .trailing) {
           Text(hour.temperatureCelsius.temperatureFormatter(measurementSystem))

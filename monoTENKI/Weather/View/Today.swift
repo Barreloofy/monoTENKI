@@ -8,32 +8,26 @@
 import SwiftUI
 
 struct Today: View {
-  @Environment(\.measurementSystem) private var measurementSystem
   @Environment(\.colorScheme) private var colorScheme
+  @Environment(\.measurementSystem) private var measurementSystem
 
-  let weatherDetails: WeatherModel.CurrentWeather
+  let weatherDetails: CurrentWeather
 
   var body: some View {
     ZStack {
-      Color(colorScheme == .light ? .white : .black)
-      VStack {
+      Color(colorScheme.background)
+      VStack(spacing: 50) {
         Image(systemName: weatherDetails.condition.presentIcon(isDay: weatherDetails.isDay))
-          .resizable()
-          .scaledToFit()
-          .fontWeight(.regular)
-          .frame(width: 250)
-          .padding(.bottom, 50)
+          .styled(size: 250)
 
-        Group {
-          Text(weatherDetails.temperatures.temperatureCelsius.temperatureFormatter(measurementSystem))
-            .font(.system(size: 60))
-          HStack {
-            Text("L: \(weatherDetails.temperatures.temperatureCelsiusLow.temperatureFormatter(measurementSystem))")
-            Text("H: \(weatherDetails.temperatures.temperatureCelsiusHigh.temperatureFormatter(measurementSystem))")
-          }
-          .font(.system(size: 30))
+        Text(weatherDetails.temperatures.temperatureCelsius.temperatureFormatter(measurementSystem))
+          .font(.system(size: 60))
+
+        HStack {
+          Text("L: \(weatherDetails.temperatures.temperatureCelsiusLow.temperatureFormatter(measurementSystem))")
+          Text("H: \(weatherDetails.temperatures.temperatureCelsiusHigh.temperatureFormatter(measurementSystem))")
         }
-        .padding(.bottom, 25)
+        .font(.system(size: 30))
 
         Text(weatherDetails.condition)
           .font(.title)

@@ -9,45 +9,39 @@ import SwiftUI
 
 struct SwipeableRow<Content: View>: View {
   @Environment(\.colorScheme) private var colorScheme
-
-  @State private var offset: CGFloat = 0
+  @State private var offset: CGFloat = .zero
 
   let allowSwipe: Bool
-
   var action: () -> Void = {}
-
   @ViewBuilder let content: Content
 
   var body: some View {
     switch allowSwipe {
     case true:
       ZStack {
-        Color(colorScheme == .light ? .black : .white).padding(1)
+        Color(colorScheme.foreground).padding(1)
         content
-          .background(colorScheme == .light ? .white : .black)
+          .background(colorScheme.background)
+          .offset(x: offset)
           .gesture(
             DragGesture()
               .onChanged { value in
                 let dragValue = value.translation.width
 
-                guard dragValue < 0 else { return }
-                withAnimation(.smooth) {
-                  offset = dragValue
-                }
+                guard dragValue < .zero else { return }
+                withAnimation(.smooth) { offset = dragValue }
               }
               .onEnded { value in
-                withAnimation(.smooth) {
-                  let dragValue = value.translation.width
+                let dragValue = value.translation.width
 
-                  if dragValue < -200 {
+                withAnimation(.smooth) {
+                  if dragValue < -150 {
                     action()
                   } else {
-                    offset = 0
+                    offset = .zero
                   }
                 }
-              }
-          )
-          .offset(x: offset)
+              })
       }
     case false:
       content

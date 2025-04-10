@@ -46,7 +46,7 @@ final class WeatherTests: XCTestCase {
   }
 
   func testWeatherModel() async {
-    let model = await WeatherModel()
+    let model = await WeatherAggregate()
 
     do {
       try await model.getWeather(for: "London")
@@ -87,7 +87,7 @@ final class WeatherTests: XCTestCase {
 
     let httpClient = HTTPClient(urlProvider: WeatherAPI.weather("London"), decoder: decoder)
     do {
-      _ = try await httpClient.fetch() as Weather
+      _ = try await httpClient.fetch() as WeatherAPIWeather
     } catch {
       XCTFail("\(error)")
     }
@@ -122,6 +122,6 @@ final class WeatherTests: XCTestCase {
         debugDescription: "Date string does not match format expected by formatter")
     }
 
-    XCTAssertNoThrow(try decoder.decode(Weather.self, from: json))
+    XCTAssertNoThrow(try decoder.decode(WeatherAPIWeather.self, from: json))
   }
 }

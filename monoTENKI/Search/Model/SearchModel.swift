@@ -11,8 +11,8 @@ import os
 @MainActor
 @Observable
 class SearchModel {
-  private(set) var results: Locations = []
-  var history: Locations = []
+  var results: Locations = []
+  private(set) var history: Locations = []
 
   init() {
     retrieve()
@@ -83,9 +83,9 @@ extension SearchModel {
   }
 }
 
-// MARK: - Logger for 'LocationModel'
+// MARK: - Logger for 'Search'
 extension Logger {
-  static fileprivate let search = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "SearchModel")
+  static let search = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "Search")
 }
 
 #if DEBUG

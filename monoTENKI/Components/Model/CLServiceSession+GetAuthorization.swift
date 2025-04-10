@@ -12,9 +12,9 @@ extension CLServiceSession {
   ///
   /// Important, don't use this method to request Authorization use the Apple provided way instead:
   ///
-  ///     let ServiceStream = CLServiceSession(authorization: .whenInUse)
+  ///     let serviceStream = CLServiceSession(authorization: .whenInUse)
   ///
-  ///     for try await diagnostic in ServiceStream.diagnostics where !diagnostic.authorizationRequestInProgress  {
+  ///     for try await diagnostic in serviceStream.diagnostics where !diagnostic.authorizationRequestInProgress  {
   ///       if diagnostic.authorizationDenied {
   ///         ...
   ///       } else {
@@ -24,10 +24,10 @@ extension CLServiceSession {
   ///     }
   ///
   static func getAuthorization(session: CLServiceSession = CLServiceSession(authorization: .whenInUse)) async -> Bool {
-    let ServiceStream = CLServiceSession(authorization: .whenInUse)
+    let serviceStream = CLServiceSession(authorization: .whenInUse)
 
     do {
-      for try await diagnostic in ServiceStream.diagnostics {
+      for try await diagnostic in serviceStream.diagnostics {
         return diagnostic.authorizationDenied ? false : true
       }
     } catch {

@@ -13,16 +13,13 @@ struct TodayDetails: View {
 
   @Binding var showDetails: Bool
 
-  let weatherDetails: WeatherModel.CurrentWeather
+  let weatherDetails: CurrentWeather
 
   var body: some View {
     ZStack {
-      Color(colorScheme == .light ? .white : .black).ignoresSafeArea()
+      Color(colorScheme.background).safeAreaPadding(.top, 50)
       VStack(alignment: .leading, spacing: 10) {
-        Text("Temperatures")
-          .font(.title)
-          .underline()
-        VStack(alignment: .leading) {
+        DetailSection(title: "Temperatures") {
           HStack {
             Text("Now")
             Text(weatherDetails.temperatures.temperatureCelsius.temperatureFormatter(measurementSystem))
@@ -48,12 +45,9 @@ struct TodayDetails: View {
             Text(weatherDetails.temperatures.humidity, format: .percent)
           }
         }
-        .offset(x: 10)
 
-        Text("Precipitation")
-          .font(.title)
-          .underline()
-        VStack(alignment: .leading) {
+
+        DetailSection(title: "Precipitation") {
           HStack {
             Text("Chance")
             Text(weatherDetails.downfall.chance, format: .percent)
@@ -74,12 +68,8 @@ struct TodayDetails: View {
             Text(weatherDetails.downfall.type)
           }
         }
-        .offset(x: 10)
 
-        Text("Wind")
-          .font(.title)
-          .underline()
-        VStack(alignment: .leading) {
+        DetailSection(title: "Wind") {
           HStack {
             Text("Direction")
             Text(weatherDetails.windDetails.windDirection)
@@ -95,32 +85,36 @@ struct TodayDetails: View {
             Text(weatherDetails.windDetails.windGust.SpeedFormatter(measurementSystem))
           }
         }
-        .offset(x: 10)
       }
-      .font(.headline)
     }
-    .padding(.horizontal, 25)
-    .padding(.vertical, 55)
     .onTapGesture { showDetails = false }
   }
 }
 
 
-struct DetailsPage: ViewModifier {
-  @Environment(\.colorScheme) private var colorScheme
+extension TodayDetails {
+  @ViewBuilder func DetailSection<Content: View>(
+    title: String,
+    @ViewBuilder content: () -> Content) -> some View {
+      Text(title)
+        .font(.title)
+        .underline()
+      VStack(alignment: .leading) {
+        content()
+      }
+      .offset(x: 10)
+    }
+}
 
+
+struct TodayDetailsPage: ViewModifier {
   @Binding var showDetails: Bool
-  let weatherDetails: WeatherModel.CurrentWeather
+  let weatherDetails: CurrentWeather
 
   func body(content: Content) -> some View {
     content
       .overlay {
-        if showDetails {
-          ZStack {
-            Color(colorScheme == .light ? .white : .black).safeAreaPadding(.top, 50)
-            TodayDetails(showDetails: $showDetails, weatherDetails: weatherDetails)
-          }
-        }
+        if showDetails { TodayDetails(showDetails: $showDetails, weatherDetails: weatherDetails) }
       }
       .animation(.easeInOut.speed(0.5), value: showDetails)
   }
@@ -128,7 +122,7 @@ struct DetailsPage: ViewModifier {
 
 
 extension View {
-  func detailsPage(isPresented: Binding<Bool>, weatherDetails: WeatherModel.CurrentWeather) -> some View {
-    self.modifier(DetailsPage(showDetails: isPresented, weatherDetails: weatherDetails))
+  func todayDetailsPage(isPresented: Binding<Bool>, weatherDetails: CurrentWeather) -> some View {
+    self.modifier(TodayDetailsPage(showDetails: isPresented, weatherDetails: weatherDetails))
   }
 }

@@ -15,10 +15,7 @@ struct LocationPermission: View {
     VStack(spacing: 10) {
       Group {
         Image(systemName: "location.fill")
-          .resizable()
-          .scaledToFit()
-          .fontWeight(.regular)
-          .frame(width: 100)
+          .styled(size: 100)
           .offset(y: -25)
 
         Text("accurate weather")
@@ -27,15 +24,15 @@ struct LocationPermission: View {
 
         Text("location is used to show you the most accurate weather")
           .font(.footnote)
-          .multilineTextAlignment(.center)
       }
+      .multilineTextAlignment(.center)
       .offset(y: -10)
 
       Button("Grand access") {
         Task {
-          let ServiceStream = CLServiceSession(authorization: .whenInUse)
+          let serviceStream = CLServiceSession(authorization: .whenInUse)
 
-          for try await diagnostic in ServiceStream.diagnostics where !diagnostic.authorizationRequestInProgress {
+          for try await diagnostic in serviceStream.diagnostics where !diagnostic.authorizationRequestInProgress {
 
             if diagnostic.authorizationDenied {
               permissionGranted = false
@@ -50,6 +47,5 @@ struct LocationPermission: View {
       .buttonStyle(.permission)
       .offset(y: 150)
     }
-    .padding(.horizontal, 25)
   }
 }

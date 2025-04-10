@@ -13,13 +13,13 @@ struct PermissionStyle: ButtonStyle {
   func makeBody(configuration: Configuration) -> some View {
     configuration.label
       .font(.system(.body, design: .monospaced, weight: .medium))
-      .foregroundStyle(colorScheme.tint().opacity(configuration.isPressed ? 0.8 : 1))
+      .foregroundStyle(colorScheme.foreground.opacity(configuration.isPressed ? 0.8 : 1))
       .padding(.vertical, 10)
       .padding(.horizontal, 25)
       .background {
         Capsule()
           .stroke(lineWidth: 2.5)
-          .foregroundStyle(colorScheme.tint().opacity(configuration.isPressed ? 0.5 : 1))
+          .foregroundStyle(colorScheme.foreground.opacity(configuration.isPressed ? 0.5 : 1))
       }
       .contentShape(Capsule())
   }

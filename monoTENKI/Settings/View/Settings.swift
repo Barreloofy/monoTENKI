@@ -10,13 +10,15 @@ import CoreLocation
 
 struct Settings: View {
   @Environment(\.measurementSystem) private var measurementSystem
+  @Environment(\.scenePhase) private var scenePhase
   @Environment(\.dismiss) private var dismiss
 
-  @AppStorage("measurementSystem") private var measurementUsed = MeasurementSystem.metric
+  @AppStorage("measurementSystemUsed") private var measurementSystemUsed = MeasurementSystem.metric
   @State private var noPermission = false
 
   var body: some View {
     VStack {
+
       ZStack {
         Text("Settings")
         AlignedHStack(alignment: .trailing) {
@@ -31,43 +33,43 @@ struct Settings: View {
       }
       .font(.title)
       .fontWeight(.bold)
-      .padding(.vertical)
+      .padding(.bottom)
 
       ZStack {
         AlignedHStack(alignment: .leading) { Text("Measurement:") }
           .font(.headline)
 
         MeasurementSystemCell(measurement: .metric)
-          .onTapGesture { measurementUsed = .metric }
+          .onTapGesture { measurementSystemUsed = .metric }
 
         AlignedHStack(alignment: .trailing) {
           MeasurementSystemCell(measurement: .imperial)
-            .onTapGesture { measurementUsed = .imperial }
+            .onTapGesture { measurementSystemUsed = .imperial }
         }
       }
-      .padding(.bottom, 50)
 
       permissionInfo
 
       Spacer()
     }
-    .padding(.horizontal)
-    .onAppear { measurementUsed = measurementSystem }
-    .task { if await !CLServiceSession.getAuthorization() { noPermission = true } }
+    .padding()
+    .onAppear { measurementSystemUsed = measurementSystem }
+    .task(id: scenePhase) {
+      guard scenePhase == .active else { return }
+      noPermission = await !CLServiceSession.getAuthorization() ? true : false
+    }
   }
 
 
   @ViewBuilder private var permissionInfo: some View {
     if noPermission {
-      Group {
-        Text("monoTENKI has no permission to use your location currently, enable location to receive the most accurate weather")
-          .multilineTextAlignment(.center)
-        Link("Open Settings App", destination: URL(string: UIApplication.openSettingsURLString)!)
-          .buttonStyle(.bordered)
-          .font(.callout)
-          .fontWeight(.bold)
-      }
-      .font(.footnote)
+      Text("No permission to use your location currently, enable location to receive the most accurate weather")
+        .font(.footnote)
+        .multilineTextAlignment(.center)
+        .padding(.top)
+      Link("Open Settings App", destination: URL(string: UIApplication.openSettingsURLString)!)
+        .buttonStyle(.bordered)
+        .fontWeight(.bold)
     }
   }
 }
