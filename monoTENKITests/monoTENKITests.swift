@@ -11,6 +11,32 @@ import SwiftUI
 
 final class WeatherTests: XCTestCase {
 
+  func testDecodeAccuWeatherResponse() async {
+    do {
+      let client = HTTPClient(urlProvider: AccuWeather.current("328328"))
+      let weather: [AccuWeatherWeatherCurrent] = try await client.fetch()
+      print(weather)
+    } catch {
+      XCTFail("\(error.localizedDescription)")
+    }
+
+    do {
+      let client = HTTPClient(urlProvider: AccuWeather.hourly12("328328"), decoder: .accuWeatherDecoder)
+      let weather: [AccuWeatherWeatherHourForecast] = try await client.fetch()
+      print(weather)
+    } catch {
+      XCTFail("\(error)")
+    }
+
+    do {
+      let client = HTTPClient(urlProvider: AccuWeather.daily5("328328"), decoder: .accuWeatherDecoder)
+      let weather: AccuWeatherWeatherDayForecast = try await client.fetch()
+      print(weather)
+    } catch {
+      XCTFail("\(error)")
+    }
+  }
+
   @MainActor func testSearchModelupdateHistory() {
     let model = SearchModel()
 
@@ -34,6 +60,10 @@ final class WeatherTests: XCTestCase {
       Location(id: 3125553, name: "Tokyo", country: "Japan", latitude: 35.69, longitude: 139.69),
     ]
 
+    model.history.forEach {
+      model.removeHistory(location: $0)
+    }
+
     model.addArraysToHistory(historyItems)
 
     model.updateHistory(with: Location(id: 1284918, name: "Rome", country: "Italy", latitude: 41.9, longitude: 12.48))
@@ -49,8 +79,17 @@ final class WeatherTests: XCTestCase {
     let model = await WeatherAggregate()
 
     do {
-      try await model.getWeather(for: "London")
-      await print(model.currentWeather.temperatures.temperatureCelsius)
+      await model.getWeather(for: "London")
+      switch await model.state {
+      case .loading:
+        print("Loading")
+      case .loaded(let currentWeather, let hourForecast, let dayForecast):
+        print(currentWeather)
+        print(hourForecast)
+        print(dayForecast)
+      case .error:
+        throw URLError(.unknown)
+      }
     } catch {
       XCTFail("\(error)")
     }

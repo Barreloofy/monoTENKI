@@ -54,9 +54,13 @@ struct WeatherView: View {
           TabView {
             ScrollView {
               LazyVStack(spacing: 0) {
-                Today(weatherDetails: currentWeather)
+                Today(weather: currentWeather)
                   .containerRelativeFrame(.vertical)
-                  .onTapGesture { showDetails = true }
+                  .onTapGesture {
+                    withAnimation(.easeInOut.speed(0.5)) { showDetails = true }
+                  }
+                  .detailPageCurrent(present: $showDetails, current: currentWeather)
+
                 HourForecast(hours: hourForecast)
                   .containerRelativeFrame(.vertical)
               }
@@ -64,12 +68,17 @@ struct WeatherView: View {
             }
             .scrollTargetBehavior(.paging)
             .scrollIndicators(.never)
-
-            Text("Forecast")
+            ScrollView {
+              LazyVStack(spacing: 25) {
+                ForEach(dayForecast, id: \.date) { day in
+                  DayForecast(day: day)
+                }
+              }
+            }
+            .scrollIndicators(.never)
           }
           .tabViewStyle(.page(indexDisplayMode: .never))
         }
-        .todayDetailsPage(isPresented: $showDetails, weatherDetails: currentWeather)
         .tint(colorScheme.foreground)
         .padding()
       case .error:

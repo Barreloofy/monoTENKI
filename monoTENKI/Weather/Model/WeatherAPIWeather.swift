@@ -13,7 +13,7 @@ struct WeatherAPIWeather: Decodable, Weather {
   let forecast: Forecast
 }
 
-// MARK: - Primary Weather Components
+// MARK: - Primary components
 extension WeatherAPIWeather {
   struct Location: Decodable {
     let name: String
@@ -34,8 +34,8 @@ extension WeatherAPIWeather {
     let humidity: Int
     let feelsLikeCelsius: Double
     let WindDirection: String
-    let windKilometrePerHour: Double
-    let gustKilometrePerHour: Double
+    let windKilometersPerHour: Double
+    let gustKilometersPerHour: Double
 
     enum CodingKeys: String, CodingKey {
       case temperatureCelsius = "temp_c"
@@ -45,8 +45,8 @@ extension WeatherAPIWeather {
       case humidity = "humidity"
       case feelsLikeCelsius = "feelslike_c"
       case WindDirection = "wind_dir"
-      case windKilometrePerHour = "wind_kph"
-      case gustKilometrePerHour = "gust_kph"
+      case windKilometersPerHour = "wind_kph"
+      case gustKilometersPerHour = "gust_kph"
     }
   }
 
@@ -60,7 +60,7 @@ extension WeatherAPIWeather {
   }
 }
 
-// MARK: - Supporting Weather Components
+// MARK: - Supporting components
 extension WeatherAPIWeather {
   struct Condition: Decodable {
     let text: String
@@ -109,16 +109,12 @@ extension WeatherAPIWeather {
     let temperatureCelsius: Double
     let isDay: Int
     let condition: Condition
-    let chanceOfRain: Int
-    let chanceOfSnow: Int
 
     enum CodingKeys: String, CodingKey {
       case time
       case temperatureCelsius = "temp_c"
       case isDay = "is_day"
       case condition
-      case chanceOfRain = "chance_of_rain"
-      case chanceOfSnow = "chance_of_snow"
     }
   }
 }

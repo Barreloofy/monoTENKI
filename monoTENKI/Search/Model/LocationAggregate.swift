@@ -20,6 +20,8 @@ class LocationAggregate {
 
   private var locationStream: Task<Void, Error>?
 
+  init() { trackLocationUpdate() }
+
   private func trackLocationUpdate() {
     if trackLocation {
       startLocationTracking()
@@ -35,7 +37,9 @@ class LocationAggregate {
     guard locationStream == nil else { return }
 
     locationStream = Task {
-      var previousLocation: CLLocation?
+      var previousLocation = CLLocation.init(from: location)
+
+      let distanceThresholdMeters = 250.0
       let filterByDistance: (CLLocationUpdate) -> Bool = { update in
         guard let location = update.location else { return false }
 
@@ -44,7 +48,7 @@ class LocationAggregate {
           return true
         }
 
-        if location.distance(from: unwrappedPreviousLocation) > 100 {
+        if location.distance(from: unwrappedPreviousLocation) > distanceThresholdMeters {
           previousLocation = location
           return true
         } else {
@@ -55,15 +59,13 @@ class LocationAggregate {
       for try await update in CLLocationUpdate.liveUpdates().filter({ @MainActor in filterByDistance($0) }) {
         guard let newLocation = update.location?.coordinate.stringRepresentation else { continue }
 
-        location = newLocation
+        let httpClient = HTTPClient(urlProvider: WeatherAPI.search(newLocation))
+        let locations: Locations = try await httpClient.fetch()
+
+        guard let firstLocationID = locations.first?.id else { continue }
+
+        location = "id:\(firstLocationID)"
       }
     }
-  }
-}
-
-// MARK: - Convenience property
-extension CLLocationCoordinate2D {
-  var stringRepresentation: String {
-    "\(latitude) \(longitude)"
   }
 }

@@ -6,10 +6,13 @@
 //
 
 import Foundation
+import os
 /// HTTPClient with custom decoding capability
 struct HTTPClient {
   let urlProvider: URLProvider
   let decoder: JSONDecoder
+
+  let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "HTTPClient")
 
   init(urlProvider: URLProvider, decoder: JSONDecoder = JSONDecoder()) {
     self.urlProvider = urlProvider
@@ -17,19 +20,14 @@ struct HTTPClient {
   }
 
   func fetch<T: Decodable>() async throws -> T {
-    let (data, response) = try await URLSession.shared.data(from: urlProvider.constructURL())
+    do {
+      let (data, response) = try await URLSession.shared.data(from: urlProvider.constructURL())
+      guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw URLError(.badServerResponse) }
 
-    guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-      throw Errors.badRequest("In: func fetch<T: Decodable>() async throws -> T")
+      return try decoder.decode(T.self, from: data)
+    } catch {
+      logger.error("\(error.localizedDescription)")
+      throw error
     }
-
-    return try decoder.decode(T.self, from: data)
-  }
-}
-
-// MARK: - Errors
-extension HTTPClient {
-  enum Errors: Error {
-    case badRequest(String = "")
   }
 }

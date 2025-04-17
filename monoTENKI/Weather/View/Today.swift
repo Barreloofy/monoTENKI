@@ -11,25 +11,25 @@ struct Today: View {
   @Environment(\.colorScheme) private var colorScheme
   @Environment(\.measurementSystem) private var measurementSystem
 
-  let weatherDetails: CurrentWeather
+  let weather: CurrentWeather
 
   var body: some View {
     ZStack {
       Color(colorScheme.background)
       VStack(spacing: 50) {
-        Image(systemName: weatherDetails.condition.presentIcon(isDay: weatherDetails.isDay))
+        Image(systemName: weather.condition.presentIcon(isDay: weather.isDay))
           .styled(size: 250)
 
-        Text(weatherDetails.temperatures.temperatureCelsius.temperatureFormatter(measurementSystem))
+        Text(weather.temperatures.temperatureCelsius.temperatureFormatter(measurementSystem))
           .font(.system(size: 60))
 
         HStack {
-          Text("L: \(weatherDetails.temperatures.temperatureCelsiusLow.temperatureFormatter(measurementSystem))")
-          Text("H: \(weatherDetails.temperatures.temperatureCelsiusHigh.temperatureFormatter(measurementSystem))")
+          Text("L \(weather.temperatures.temperatureCelsiusLow.temperatureFormatter(measurementSystem))")
+          Text("H \(weather.temperatures.temperatureCelsiusHigh.temperatureFormatter(measurementSystem))")
         }
         .font(.system(size: 30))
 
-        Text(weatherDetails.condition)
+        Text(weather.condition)
           .font(.title)
 
         Spacer()

@@ -19,31 +19,28 @@ struct CurrentWeather {
   let condition: String
   let isDay: Int
   let temperatures: Temperatures
-  let windDetails: WindDetails
-  let downfall: Downfall
+  let precipitation: Precipitation
+  let wind: Wind
 }
 
 typealias Hours = [Hour]
 struct Hour {
   let time: Date
-  let temperatureCelsius: Double
   let isDay: Int
   let condition: String
-  let chanceOfRain: Int
-  let chanceOfSnow: Int
+  let temperatureCelsius: Double
 }
 
 typealias Days = [Day]
 struct Day {
   let date: Date
+  let condition: String
   let temperatureCelsiusAverage: Double
   let temperatureCelsiusLow: Double
   let temperatureCelsiusHigh: Double
-  let condition: String
-  let chanceOfRain: Int
-  let chanceOfSnow: Int
+  let precipitationChance: Int
   let precipitationMillimeterTotal: Double
-  let snowCentimeterTotal: Double
+  let type: String
 }
 
 // MARK: - Components
@@ -57,17 +54,17 @@ extension CurrentWeather {
   }
 
 
-  struct WindDetails {
-    let windDirection: String
-    let windSpeed: Double
-    let windGust: Double
+  struct Wind {
+    let direction: String
+    let speedKilometersPerHour: Double
+    let gustKilometersPerHour: Double
   }
 
 
-  struct Downfall {
-    let rate: Double
+  struct Precipitation {
+    let rateMillimeter: Double
     let chance: Int
-    let total: Double
+    let totalMillimeter: Double
     let type: String
   }
 }

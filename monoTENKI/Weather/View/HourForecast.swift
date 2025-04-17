@@ -13,23 +13,23 @@ struct HourForecast: View {
   let hours: Hours
 
   var body: some View {
-    List(hours, id: \.time) { hour in
-      ZStack {
-        AlignedHStack(alignment: .leading) {
-          Text(hour.time.formatted(.timeZoneNeutral))
-        }
+    VStack {
+      ForEach(hours, id: \.time) { hour in
+        ZStack {
+          AlignedHStack(alignment: .leading) {
+            Text(hour.time.formatted(.timeZoneNeutral))
+          }
 
-        Image(systemName: hour.condition.presentIcon(isDay: hour.isDay))
-          .styled(size: 30)
+          Image(systemName: hour.condition.presentIcon(isDay: hour.isDay))
+            .styled(size: 30)
 
-        AlignedHStack(alignment: .trailing) {
-          Text(hour.temperatureCelsius.temperatureFormatter(measurementSystem))
+          AlignedHStack(alignment: .trailing) {
+            Text(hour.temperatureCelsius.temperatureFormatter(measurementSystem))
+          }
         }
+        .font(.title2)
       }
-      .listRowSeparator(.hidden)
+      Spacer()
     }
-    .font(.title2)
-    .listStyle(.plain)
-    .scrollIndicators(.hidden)
   }
 }

@@ -19,6 +19,8 @@ class WeatherAggregate {
   var state: State = .loading
 
   func getWeather(for location: String) async {
+    guard !location.isEmpty else { return }
+
     do {
       let httpClient = HTTPClient(
         urlProvider: WeatherAPI.weather(location),

@@ -14,35 +14,26 @@ enum WeatherAPI {
 
 // MARK: - Implement URLProvider
 extension WeatherAPI: URLProvider {
-  private var baseURL: URL {
-    return URL(string: "https://api.weatherapi.com/v1/")!
-  }
-
   private var apiKey: String {
     Bundle.main.object(forInfoDictionaryKey: "WeatherAPI.comAPIKey") as! String
   }
 
   private var service: String {
     switch self {
-    case .weather:
-      "forecast"
-    case .search:
-      "search"
+    case .weather: "forecast"
+    case .search: "search"
     }
   }
 
   private var query: String {
     switch self {
-    case .weather(let query):
-      query
-    case .search(let query):
-      query
+    case .weather(let query), .search(let query): query
     }
   }
 
   func constructURL() throws -> URL {
     var components = URLComponents()
-    
+
     components.scheme = "https"
     components.host = "api.weatherapi.com"
     components.path = "/v1/\(service).json"
@@ -52,17 +43,8 @@ extension WeatherAPI: URLProvider {
       URLQueryItem(name: "days", value: "3"),
     ]
 
-    guard let url = components.url else {
-      throw Errors.malformedURL("In: func constructURL() throws -> URL")
-    }
+    guard let url = components.url else { throw URLError(.badURL) }
 
     return url
-  }
-}
-
-// MARK: - Errors
-extension WeatherAPI {
-  enum Errors: Error {
-    case malformedURL(String = "")
   }
 }

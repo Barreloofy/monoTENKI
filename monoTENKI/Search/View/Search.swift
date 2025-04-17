@@ -58,7 +58,7 @@ struct Search: View {
                     Text(result.completeName)
                       .onTapGesture {
                         locationAggregate.trackLocation = false
-                        locationAggregate.location = result.coordinates
+                        locationAggregate.location = "id:\(result.id)"
                         searchModel.updateHistory(with: result)
                         dismiss()
                       }

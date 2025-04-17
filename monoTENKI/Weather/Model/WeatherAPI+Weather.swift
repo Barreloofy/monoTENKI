@@ -18,10 +18,10 @@ extension WeatherAPIWeather {
       feelsLikeCelsius: current.feelsLikeCelsius,
       humidity: current.humidity)
 
-    let windDetails = CurrentWeather.WindDetails(
-      windDirection: current.WindDirection,
-      windSpeed: current.windKilometrePerHour,
-      windGust: current.gustKilometrePerHour)
+    let wind = CurrentWeather.Wind(
+      direction: current.WindDirection,
+      speedKilometersPerHour: current.windKilometersPerHour,
+      gustKilometersPerHour: current.gustKilometersPerHour)
 
     let rate: Double
     let chance: Int
@@ -34,19 +34,19 @@ extension WeatherAPIWeather {
 
     if details.chanceOfRain > details.chanceOfSnow {
       chance = details.chanceOfRain
-      type = "rain"
+      type = "Rain"
     } else if details.chanceOfRain < details.chanceOfSnow {
       chance = details.chanceOfSnow
-      type = "snow"
+      type = "Snow"
     } else {
       chance = 0
       type = "--"
     }
 
-    let downfall = CurrentWeather.Downfall(
-      rate: rate,
+    let precipitation = CurrentWeather.Precipitation(
+      rateMillimeter: rate,
       chance: chance,
-      total: total,
+      totalMillimeter: total,
       type: type)
 
     return CurrentWeather(
@@ -54,31 +54,27 @@ extension WeatherAPIWeather {
       condition: current.condition.text,
       isDay: current.isDay,
       temperatures: temperatures,
-      windDetails: windDetails,
-      downfall: downfall)
+      precipitation: precipitation,
+      wind: wind)
   }
 
   func createHourForecast() -> monoTENKI.Hours {
-    let twelveHoursinSeconds: TimeInterval = 43_200
+    let twelveHoursInSeconds: TimeInterval = 43_200
     var hourForecast: monoTENKI.Hours = []
 
     for day in forecast.days {
-      guard hourForecast.count < 12 else { return hourForecast }
-
       for hour in day.hours {
         guard hourForecast.count < 12 else { return hourForecast }
 
         guard hour.time > location.time &&
-             hour.time <= location.time.addingTimeInterval(twelveHoursinSeconds)
+             hour.time <= location.time.addingTimeInterval(twelveHoursInSeconds)
         else { continue }
 
         hourForecast.append(monoTENKI.Hour(
           time: hour.time,
-          temperatureCelsius: hour.temperatureCelsius,
           isDay: hour.isDay,
           condition: hour.condition.text,
-          chanceOfRain: hour.chanceOfRain,
-          chanceOfSnow: hour.chanceOfSnow))
+          temperatureCelsius: hour.temperatureCelsius))
       }
     }
 
@@ -87,16 +83,35 @@ extension WeatherAPIWeather {
 
   func createDayForecast() -> Days {
     return Array(forecast.days.dropFirst()).map {
-      Day(
+      let day = $0.details
+
+      let type: String
+      let snowMillimeterTotal = day.snowCentimeterTotal * 10
+      let chance: Int
+      let total: Double
+
+      chance = day.chanceOfRain > day.chanceOfSnow ? day.chanceOfRain : day.chanceOfSnow
+
+      if day.precipitationMillimeterTotal > snowMillimeterTotal {
+        type = "Rain"
+        total = day.precipitationMillimeterTotal
+      } else if day.precipitationMillimeterTotal < snowMillimeterTotal {
+        type = "Snow"
+        total = snowMillimeterTotal
+      } else {
+        type = "--"
+        total = 0
+      }
+
+      return Day(
         date: $0.date,
-        temperatureCelsiusAverage: $0.details.temperatureCelsiusAverage,
-        temperatureCelsiusLow: $0.details.temperatureCelsiusLow,
-        temperatureCelsiusHigh: $0.details.temperatureCelsiusHigh,
-        condition: $0.details.condition.text,
-        chanceOfRain: $0.details.chanceOfRain,
-        chanceOfSnow: $0.details.chanceOfSnow,
-        precipitationMillimeterTotal: $0.details.precipitationMillimeterTotal,
-        snowCentimeterTotal: $0.details.snowCentimeterTotal)
+        condition: day.condition.text,
+        temperatureCelsiusAverage: day.temperatureCelsiusAverage,
+        temperatureCelsiusLow: day.temperatureCelsiusLow,
+        temperatureCelsiusHigh: day.temperatureCelsiusHigh,
+        precipitationChance: chance,
+        precipitationMillimeterTotal: total,
+        type: type)
     }
   }
 }
