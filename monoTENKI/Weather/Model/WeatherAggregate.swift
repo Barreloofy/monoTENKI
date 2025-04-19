@@ -16,17 +16,24 @@ class WeatherAggregate {
     case error
   }
 
+  var source: Source = UserDefaults.standard.source(forKey: "source") {
+    didSet { UserDefaults.standard.set(source.rawValue, forKey: "source") }
+  }
   var state: State = .loading
 
   func getWeather(for location: String) async {
     guard !location.isEmpty else { return }
 
     do {
-      let httpClient = HTTPClient(
-        urlProvider: WeatherAPI.weather(location),
-        decoder: WeatherAPIWeather.decoder)
+      let weather: Weather
 
-      let weather: WeatherAPIWeather = try await httpClient.fetch()
+      switch source {
+      case .WeatherAPI:
+        weather = try await WeatherAPI.weather(query: location).fetch()
+      case .AccuWeather:
+        weather = try await AccuWeather.weather(query: location).fetch()
+      }
+
       async let currentWeather = weather.createCurrentWeather()
       async let hourForecast = weather.createHourForecast()
       async let dayForecast = weather.createDayForecast()

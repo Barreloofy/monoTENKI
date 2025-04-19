@@ -9,24 +9,24 @@ import Foundation
 import os
 /// HTTPClient with custom decoding capability
 struct HTTPClient {
-  let urlProvider: URLProvider
+  let url: URL
   let decoder: JSONDecoder
 
   let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "HTTPClient")
 
-  init(urlProvider: URLProvider, decoder: JSONDecoder = JSONDecoder()) {
-    self.urlProvider = urlProvider
+  init(url: URL, decoder: JSONDecoder = JSONDecoder()) {
+    self.url = url
     self.decoder = decoder
   }
 
   func fetch<T: Decodable>() async throws -> T {
     do {
-      let (data, response) = try await URLSession.shared.data(from: urlProvider.constructURL())
+      let (data, response) = try await URLSession.shared.data(from: url)
       guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw URLError(.badServerResponse) }
 
       return try decoder.decode(T.self, from: data)
     } catch {
-      logger.error("\(error.localizedDescription)")
+      logger.error("\(error)")
       throw error
     }
   }

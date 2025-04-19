@@ -7,7 +7,7 @@
 
 import Foundation
 // MARK: - Weather protocol for the diffrent API services
-protocol Weather {
+protocol Weather: Decodable {
   func createCurrentWeather() -> CurrentWeather
   func createHourForecast() -> Hours
   func createDayForecast() -> Days

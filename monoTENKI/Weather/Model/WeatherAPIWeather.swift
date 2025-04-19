@@ -6,7 +6,7 @@
 //
 
 import Foundation
-/// The model produced by decoding 'WeatherAPI.com' JSON data, used as an intermediate object
+/// The model produced by decoding 'WeatherAPI.com' JSON response, used as an intermediate object
 struct WeatherAPIWeather: Decodable, Weather {
   let location: Location
   let current: Current

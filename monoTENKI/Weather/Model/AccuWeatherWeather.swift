@@ -9,7 +9,7 @@ import Foundation
 /// The composite model for 'AccuWeather' JSON response to allow implementation of 'Weather' protocol
 struct AccuWeatherComposite: Weather {
   let location: String
-  let current: AccuWeatherWeatherCurrent
+  let current: [AccuWeatherWeatherCurrent]
   let forecastHours: [AccuWeatherWeatherHourForecast]
   let forecastDays: AccuWeatherWeatherDayForecast
 }
@@ -36,7 +36,7 @@ extension AccuWeatherComposite {
 
 // MARK: - Custom JSON decoder
 extension AccuWeatherComposite {
-  static var accuWeatherDecoder: JSONDecoder {
+  static var decoder: JSONDecoder {
     let decoder = JSONDecoder()
 
     decoder.dateDecodingStrategy = .iso8601
@@ -45,7 +45,7 @@ extension AccuWeatherComposite {
   }
 }
 
-/// The model produced by decoding 'AccuWeather/current' JSON data, used as an intermediate object
+/// The model produced by decoding 'AccuWeather/current' JSON response, used as an intermediate object
 struct AccuWeatherWeatherCurrent: Decodable {
   let condition: String
   let isDay: Bool
@@ -132,7 +132,7 @@ extension AccuWeatherWeatherCurrent {
   }
 }
 
-/// The model produced by decoding 'AccuWeather/forecasts/hourly' JSON data, used as an intermediate object
+/// The model produced by decoding 'AccuWeather/forecasts/hourly' JSON response, used as an intermediate object
 struct AccuWeatherWeatherHourForecast: Decodable {
   let time: Date
   let condition: String
@@ -151,7 +151,7 @@ struct AccuWeatherWeatherHourForecast: Decodable {
   }
 }
 
-/// The model produced by decoding 'AccuWeather/forecasts/daily' JSON data, used as an intermediate object
+/// The model produced by decoding 'AccuWeather/forecasts/daily' JSON response, used as an intermediate object
 struct AccuWeatherWeatherDayForecast: Decodable {
   let days: Days
 

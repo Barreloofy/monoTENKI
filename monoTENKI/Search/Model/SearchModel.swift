@@ -11,6 +11,8 @@ import os
 @MainActor
 @Observable
 class SearchModel {
+  let source: Source = .WeatherAPI
+
   var results: Locations = []
   private(set) var history: Locations = []
 
@@ -24,7 +26,7 @@ class SearchModel {
   }
 
   func getLocations(matching query: String) async throws {
-    let httpClient = HTTPClient(urlProvider: WeatherAPI.search(query))
+    let httpClient = try HTTPClient(url: WeatherAPI.search(query: query).provideURL())
     results = try await httpClient.fetch()
   }
 

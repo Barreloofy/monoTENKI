@@ -8,12 +8,16 @@
 import Foundation
 /// Concrete URLProvider for WeatherAPI.com
 enum WeatherAPI {
-  case weather(String)
-  case search(String)
+  case weather(query: String)
+  case search(query: String)
 }
 
 // MARK: - Implement URLProvider
 extension WeatherAPI: URLProvider {
+  func provideURLs(query: String) throws -> [String : URL] {
+    throw URLError(.badURL)
+  }
+  
   private var apiKey: String {
     Bundle.main.object(forInfoDictionaryKey: "WeatherAPI.comAPIKey") as! String
   }
@@ -31,7 +35,7 @@ extension WeatherAPI: URLProvider {
     }
   }
 
-  func constructURL() throws -> URL {
+  func provideURL() throws -> URL {
     var components = URLComponents()
 
     components.scheme = "https"
@@ -46,5 +50,16 @@ extension WeatherAPI: URLProvider {
     guard let url = components.url else { throw URLError(.badURL) }
 
     return url
+  }
+}
+
+
+extension WeatherAPI {
+  func fetch() async throws -> WeatherAPIWeather {
+    let httpClient = try HTTPClient(
+      url: WeatherAPI.weather(query: query).provideURL(),
+      decoder: WeatherAPIWeather.decoder)
+
+    return try await httpClient.fetch() as WeatherAPIWeather
   }
 }

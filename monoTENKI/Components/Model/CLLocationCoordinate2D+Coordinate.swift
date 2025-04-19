@@ -9,7 +9,8 @@ import CoreLocation
 // MARK: - Convert String to CLLocationCoordinate2D
 extension CLLocationCoordinate2D {
   static func parseCoordinate(from string: String) -> CLLocationCoordinate2D? {
-    let components = string.components(separatedBy: .whitespaces).compactMap { Double($0) }
+    let cleaned = string.replacingOccurrences(of: ",", with: "")
+    let components = cleaned.components(separatedBy: .whitespaces).compactMap { Double($0) }
 
     guard components.count == 2 else { return nil }
 
@@ -20,6 +21,6 @@ extension CLLocationCoordinate2D {
 // MARK: - Convenience property
 extension CLLocationCoordinate2D {
   var stringRepresentation: String {
-    "\(latitude) \(longitude)"
+    "\(latitude), \(longitude)"
   }
 }

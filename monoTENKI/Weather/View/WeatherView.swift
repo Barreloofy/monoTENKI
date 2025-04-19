@@ -18,8 +18,8 @@ struct WeatherView: View {
   @State private var showSearch = false
   @State private var showDetails = false
 
-  // MARK: - Produces an 'AsyncTimerSequence' event every 30 minutes
-  private let updateTimer = AsyncTimerSequence(interval: Duration.seconds(1800), clock: .continuous)
+  // MARK: - Produces an 'AsyncTimerSequence' event every 15 minutes
+  private let updateTimer = AsyncTimerSequence(interval: Duration.seconds(900), clock: .continuous)
 
   var body: some View {
     Group {

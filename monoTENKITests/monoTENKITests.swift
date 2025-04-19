@@ -13,15 +13,15 @@ final class WeatherTests: XCTestCase {
 
   func testDecodeAccuWeatherResponse() async {
     do {
-      let client = HTTPClient(urlProvider: AccuWeather.current("328328"))
+      let client = HTTPClient(urlProvider: AccuWeather.current(query: "328328"))
       let weather: [AccuWeatherWeatherCurrent] = try await client.fetch()
       print(weather)
     } catch {
-      XCTFail("\(error.localizedDescription)")
+      XCTFail("\(error)")
     }
 
     do {
-      let client = HTTPClient(urlProvider: AccuWeather.hourly12("328328"), decoder: .accuWeatherDecoder)
+      let client = HTTPClient(urlProvider: AccuWeather.hourly(query: "328328"), decoder: AccuWeatherComposite.decoder)
       let weather: [AccuWeatherWeatherHourForecast] = try await client.fetch()
       print(weather)
     } catch {
@@ -29,7 +29,7 @@ final class WeatherTests: XCTestCase {
     }
 
     do {
-      let client = HTTPClient(urlProvider: AccuWeather.daily5("328328"), decoder: .accuWeatherDecoder)
+      let client = HTTPClient(urlProvider: AccuWeather.daily(query: "328328"), decoder: AccuWeatherComposite.decoder)
       let weather: AccuWeatherWeatherDayForecast = try await client.fetch()
       print(weather)
     } catch {
@@ -76,7 +76,7 @@ final class WeatherTests: XCTestCase {
   }
 
   func testWeatherModel() async {
-    let model = await WeatherAggregate()
+    let model = await WeatherAggregate(source: .WeatherAPI)
 
     do {
       await model.getWeather(for: "London")
