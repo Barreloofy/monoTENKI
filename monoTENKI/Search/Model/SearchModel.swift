@@ -26,8 +26,12 @@ class SearchModel {
   }
 
   func getLocations(matching query: String) async throws {
-    let httpClient = try HTTPClient(url: WeatherAPI.search(query: query).provideURL())
-    results = try await httpClient.fetch()
+    switch source {
+    case .WeatherAPI:
+      results = try await WeatherAPI.search(query: query).fetchSearch()
+    case .AccuWeather:
+      results = try await AccuWeather.search(query: query).fetchSearch()
+    }
   }
 
   func updateHistory(with location: Location) {
@@ -67,21 +71,12 @@ extension SearchModel {
   private func retrieve() {
     do {
       guard FileManager.default.isReadableFile(atPath: historyURL.path()) else {
-        throw Errors.fileNotReadable("In: func retrieve() -> Locations")
+        throw URLError(.noPermissionsToReadFile)
       }
-
-      let data = try Data(contentsOf: historyURL)
-      history = try JSONDecoder().decode(Locations.self, from: data)
+      history = try JSONDecoder().decode(Locations.self, from: Data(contentsOf: historyURL))
     } catch {
       Logger.search.error("\(error)")
     }
-  }
-}
-
-// MARK: - Errors
-extension SearchModel {
-  enum Errors: Error {
-    case fileNotReadable(String = "")
   }
 }
 

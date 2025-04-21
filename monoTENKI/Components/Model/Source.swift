@@ -12,7 +12,7 @@ extension EnvironmentValues {
 }
 
 
-enum Source: String {
+enum Source: String, Codable {
   case WeatherAPI
   case AccuWeather
 }

@@ -31,6 +31,7 @@ struct Today: View {
 
         Text(weather.condition)
           .font(.title)
+          .multilineTextAlignment(.center)
 
         Spacer()
       }

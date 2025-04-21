@@ -40,7 +40,7 @@ class LocationAggregate {
       var previousLocation = CLLocation.init(from: location)
 
       let distanceThresholdMeters = 250.0
-      let filterByDistance: (CLLocationUpdate) -> Bool = { @MainActor update in
+      let filterByDistance: (CLLocationUpdate) -> Bool = { update in
         guard let location = update.location else { return false }
 
         guard let unwrappedPreviousLocation = previousLocation else {
@@ -56,7 +56,7 @@ class LocationAggregate {
         }
       }
 
-      for try await update in CLLocationUpdate.liveUpdates().filter({ filterByDistance($0) }) {
+      for try await update in CLLocationUpdate.liveUpdates().filter({ @MainActor in filterByDistance($0) }) {
         guard let newLocation = update.location?.coordinate.stringRepresentation else { continue }
 
         location = newLocation

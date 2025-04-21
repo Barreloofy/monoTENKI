@@ -28,7 +28,6 @@ struct WeatherView: View {
         colorScheme.background
       case .loaded(let currentWeather, let hourForecast, let dayForecast):
         VStack(spacing: 50) {
-
           ZStack {
             Button(
               action: { showSearch = true },

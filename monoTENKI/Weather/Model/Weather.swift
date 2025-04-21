@@ -6,8 +6,8 @@
 //
 
 import Foundation
-// MARK: - Weather protocol for the diffrent API services
-protocol Weather: Decodable {
+// MARK: - Weather protocol
+protocol Weather: Sendable, Decodable {
   func createCurrentWeather() -> CurrentWeather
   func createHourForecast() -> Hours
   func createDayForecast() -> Days
@@ -21,6 +21,27 @@ struct CurrentWeather {
   let temperatures: Temperatures
   let precipitation: Precipitation
   let wind: Wind
+
+  struct Temperatures {
+    let temperatureCelsius: Double
+    let temperatureCelsiusLow: Double
+    let temperatureCelsiusHigh: Double
+    let feelsLikeCelsius: Double
+    let humidity: Int
+  }
+
+  struct Precipitation {
+    let rateMillimeter: Double
+    let chance: Int
+    let totalMillimeter: Double
+    let type: String
+  }
+
+  struct Wind {
+    let direction: String
+    let speedKilometersPerHour: Double
+    let gustKilometersPerHour: Double
+  }
 }
 
 typealias Hours = [Hour]
@@ -41,30 +62,4 @@ struct Day {
   let precipitationChance: Int
   let precipitationMillimeterTotal: Double
   let type: String
-}
-
-// MARK: - Components
-extension CurrentWeather {
-  struct Temperatures {
-    let temperatureCelsius: Double
-    let temperatureCelsiusLow: Double
-    let temperatureCelsiusHigh: Double
-    let feelsLikeCelsius: Double
-    let humidity: Int
-  }
-
-
-  struct Wind {
-    let direction: String
-    let speedKilometersPerHour: Double
-    let gustKilometersPerHour: Double
-  }
-
-
-  struct Precipitation {
-    let rateMillimeter: Double
-    let chance: Int
-    let totalMillimeter: Double
-    let type: String
-  }
 }

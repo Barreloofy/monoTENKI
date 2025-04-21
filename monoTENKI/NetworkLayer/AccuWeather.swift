@@ -6,140 +6,86 @@
 //
 
 import Foundation
-/// Concrete URLProvider for AccuWeather
-enum AccuWeather: API, URLProvider {
+import CoreLocation
+/// Concrete interface for AccuWeather
+enum AccuWeather: URLProvider {
   case weather(query: String)
   case search(query: String)
-  case searchGeo(query: String)
-}
-
-// MARK: - Implement URLProvider
-extension AccuWeather {
-  private var apiKey: String {
-    Bundle.main.object(forInfoDictionaryKey: "AccuWeatherAPIKey") as! String
-  }
+  case geo(query: String)
 
   var query: String {
     switch self {
+    case .weather(let query): query
     case .search(let query): query
-    case .searchGeo(let query): query
-    case .weather(query: let query): query
+    case .geo(let query): query
     }
   }
 
-  func provideURL() throws -> URL {
-    switch self {
-    case .weather:
-      throw URLError(.badURL)
-    case .search(let query):
-      return try constructURL(
-        host: "dataservice.accuweather.com",
-        path: "/locations/v1/cities/autocomplete",
-        parameters: [
-          "apikey": apiKey,
-          "q": query,
-        ])
-    case .searchGeo(query: let query):
-      return try constructURL(
-        host: "dataservice.accuweather.com",
-        path: "/locations/v1/cities/geoposition",
-        parameters: [
-          "apikey": apiKey,
-          "q": query,
-        ])
-    }
-  }
+  func fetchWeather() async throws -> AccuWeatherComposite {
+    let (location, key) = try await extractLocationAndKey(from: query)
 
-  func provideURLs(query: String) throws -> [String: URL] {
-    var urlDictionary: [String: URL] = [:]
-
-    switch self {
-    case .weather:
-      try urlDictionary["current"] = constructURL(
-        host: "dataservice.accuweather.com",
-        path: "/currentconditions/v1/\(query)",
-        parameters: [
-          "apikey": apiKey,
-          "details": "true",
-        ])
-
-      try urlDictionary["hourly"] = constructURL(
-        host: "dataservice.accuweather.com",
-        path: "/forecasts/v1/hourly/12hour/\(query)",
-        parameters: [
-          "apikey": apiKey,
-          "details": "true",
-          "metric": "true",
-        ])
-
-
-      try urlDictionary["daily"] = constructURL(
-        host: "dataservice.accuweather.com",
-        path: "/forecasts/v1/daily/5day/\(query)",
-        parameters: [
-          "apikey": apiKey,
-          "details": "true",
-          "metric": "true",
-        ])
-    case .search(let query):
-      try urlDictionary["search"] = constructURL(
-        host: "dataservice.accuweather.com",
-        path: "/locations/v1/cities/autocomplete",
-        parameters: [
-          "apikey": apiKey,
-          "q": query,
-        ])
-    case .searchGeo(query: let query):
-      try urlDictionary["searchGeo"] = constructURL(
-        host: "dataservice.accuweather.com",
-        path: "/locations/v1/cities/geoposition",
-        parameters: [
-          "apikey": apiKey,
-          "q": query,
-        ])
-    }
-
-    return urlDictionary
-  }
-}
-
-
-extension AccuWeather {
-  func fetch() async throws -> AccuWeatherComposite {
-    let httpClientSearchGeo = try HTTPClient(url: AccuWeather.searchGeo(query: query).provideURL())
-
-    let accuWeatherLocation: AccuWeatherLocation = try await httpClientSearchGeo.fetch()
-    let locationKey = accuWeatherLocation.key
-
-    let urlDictionary = try provideURLs(query: locationKey)
-
+    let urlDictionary = try provideURLs(query: key)
     guard
       let currentURL = urlDictionary["current"],
       let hourlyURL = urlDictionary["hourly"],
       let dailyURL = urlDictionary["daily"]
     else { throw URLError(.badURL) }
 
-    let httpClientCurrent = HTTPClient(
+    let clientCurrent = HTTPClient(
       url: currentURL,
       decoder: AccuWeatherComposite.decoder)
-    async let accuWeatherCurrent: [AccuWeatherWeatherCurrent] = httpClientCurrent.fetch()
+    async let current: [AccuWeatherWeatherCurrent] = clientCurrent.fetch()
 
-    let httpClientHour = HTTPClient(
+    let clientHours = HTTPClient(
       url: hourlyURL,
       decoder: AccuWeatherComposite.decoder)
-    async let accuWeatherHour: [AccuWeatherWeatherHourForecast] = httpClientHour.fetch()
+    async let hours: [AccuWeatherWeatherHourForecast] = clientHours.fetch()
 
-    let httpClientDay = HTTPClient(
+    let clientDays = HTTPClient(
       url: dailyURL,
       decoder: AccuWeatherComposite.decoder)
-    async let accuWeatherDay: AccuWeatherWeatherDayForecast = httpClientDay.fetch()
+    async let days: AccuWeatherWeatherDayForecast = clientDays.fetch()
 
-    let compositeWeather = AccuWeatherComposite(
-      location: accuWeatherLocation.name,
-      current: try await accuWeatherCurrent,
-      forecastHours: try await accuWeatherHour,
-      forecastDays: try await accuWeatherDay)
+    let weather = AccuWeatherComposite(
+      location: location,
+      current: try await current,
+      forecastHours: try await hours,
+      forecastDays: try await days)
+    return weather
+  }
 
-    return compositeWeather
+  func fetchSearch() async throws -> Locations {
+    let client = try HTTPClient(url: provideURL())
+
+    let AccuWeatherLocation = try await client.fetch() as AccuWeatherLocations
+
+    return AccuWeatherLocation.compactMap { location in
+      Location(
+        source: .AccuWeather,
+        id: location.key,
+        name: location.name,
+        country: location.country.name,
+        area: location.area.name,
+        latitude: location.coordinate?.latitude,
+        longitude: location.coordinate?.longitude)
+    }
+  }
+
+  func fetchGeo() async throws -> AccuWeatherLocation {
+    let client = try HTTPClient(url: provideURL())
+    return try await client.fetch()
+  }
+
+  private func extractLocationAndKey(from string: String) async throws -> (name: String, key: String) {
+    if CLLocationCoordinate2D.parseCoordinate(from: string) != nil {
+      let geoLocation = try await AccuWeather.geo(query: string).fetchGeo()
+
+      return (name: geoLocation.name, key: geoLocation.key)
+    } else {
+      let components = string.components(separatedBy: .whitespaces)
+      guard components.count == 2 else { throw CocoaError(.formatting) }
+
+      return (name: components[0], key: components[1])
+    }
   }
 }

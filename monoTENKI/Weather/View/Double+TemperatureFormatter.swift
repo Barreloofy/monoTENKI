@@ -18,6 +18,7 @@ extension Double {
       .formatted(.measurement(
         width: .abbreviated,
         usage: .asProvided,
-        hidesScaleName: true))
+        hidesScaleName: true,
+        numberFormatStyle: .number.precision(.fractionLength(0))))
   }
 }

@@ -33,7 +33,7 @@ struct Search: View {
         .task(id: scenePhase) {
           guard scenePhase == .active else { return }
 
-          for await query in queryChannel.debounce(for: .seconds(0.25)) {
+          for await query in queryChannel.debounce(for: .seconds(0.333)) {
             do {
               try await searchModel.getLocations(matching: query)
               error = .none
@@ -58,7 +58,7 @@ struct Search: View {
                     Text(result.completeName)
                       .onTapGesture {
                         locationAggregate.trackLocation = false
-                        locationAggregate.location = result.coordinates
+                        locationAggregate.location = result.coordinate
                         searchModel.updateHistory(with: result)
                         dismiss()
                       }

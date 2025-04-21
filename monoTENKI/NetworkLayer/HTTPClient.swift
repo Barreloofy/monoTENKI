@@ -25,6 +25,9 @@ struct HTTPClient {
       guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw URLError(.badServerResponse) }
 
       return try decoder.decode(T.self, from: data)
+    } catch URLError.cancelled {
+      logger.error("\(URLError(.cancelled).localizedDescription)")
+      throw URLError(.cancelled)
     } catch {
       logger.error("\(error)")
       throw error

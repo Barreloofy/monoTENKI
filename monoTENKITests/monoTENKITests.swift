@@ -41,23 +41,23 @@ final class WeatherTests: XCTestCase {
     let model = SearchModel()
 
     let historyItems = [
-      Location(id: 2801268, name: "London", country: "United Kingdom", latitude: 51.52, longitude: -0.11),
-      Location(id: 2145091, name: "Moscow", country: "Russia", latitude: 55.75, longitude: 37.62),
-      Location(id: 3125553, name: "Tokyo", country: "Japan", latitude: 35.69, longitude: 139.69),
+      WeatherAPILocation(id: 2801268, name: "London", country: "United Kingdom", latitude: 51.52, longitude: -0.11),
+      WeatherAPILocation(id: 2145091, name: "Moscow", country: "Russia", latitude: 55.75, longitude: 37.62),
+      WeatherAPILocation(id: 3125553, name: "Tokyo", country: "Japan", latitude: 35.69, longitude: 139.69),
     ]
 
     let correctHistoryItems = [
-      Location(id: 1284918, name: "Rome", country: "Italy", latitude: 41.9, longitude: 12.48),
-      Location(id: 2801268, name: "London", country: "United Kingdom", latitude: 51.52, longitude: -0.11),
-      Location(id: 2145091, name: "Moscow", country: "Russia", latitude: 55.75, longitude: 37.62),
-      Location(id: 3125553, name: "Tokyo", country: "Japan", latitude: 35.69, longitude: 139.69),
+      WeatherAPILocation(id: 1284918, name: "Rome", country: "Italy", latitude: 41.9, longitude: 12.48),
+      WeatherAPILocation(id: 2801268, name: "London", country: "United Kingdom", latitude: 51.52, longitude: -0.11),
+      WeatherAPILocation(id: 2145091, name: "Moscow", country: "Russia", latitude: 55.75, longitude: 37.62),
+      WeatherAPILocation(id: 3125553, name: "Tokyo", country: "Japan", latitude: 35.69, longitude: 139.69),
     ]
 
     let correctHistoryItemsWithUpdatedExisting = [
-      Location(id: 2145091, name: "Moscow", country: "Russia", latitude: 55.75, longitude: 37.62),
-      Location(id: 1284918, name: "Rome", country: "Italy", latitude: 41.9, longitude: 12.48),
-      Location(id: 2801268, name: "London", country: "United Kingdom", latitude: 51.52, longitude: -0.11),
-      Location(id: 3125553, name: "Tokyo", country: "Japan", latitude: 35.69, longitude: 139.69),
+      WeatherAPILocation(id: 2145091, name: "Moscow", country: "Russia", latitude: 55.75, longitude: 37.62),
+      WeatherAPILocation(id: 1284918, name: "Rome", country: "Italy", latitude: 41.9, longitude: 12.48),
+      WeatherAPILocation(id: 2801268, name: "London", country: "United Kingdom", latitude: 51.52, longitude: -0.11),
+      WeatherAPILocation(id: 3125553, name: "Tokyo", country: "Japan", latitude: 35.69, longitude: 139.69),
     ]
 
     model.history.forEach {
@@ -66,11 +66,11 @@ final class WeatherTests: XCTestCase {
 
     model.addArraysToHistory(historyItems)
 
-    model.updateHistory(with: Location(id: 1284918, name: "Rome", country: "Italy", latitude: 41.9, longitude: 12.48))
+    model.updateHistory(with: WeatherAPILocation(id: 1284918, name: "Rome", country: "Italy", latitude: 41.9, longitude: 12.48))
 
     XCTAssertEqual(model.history, correctHistoryItems)
 
-    model.updateHistory(with: Location(id: 2145091, name: "Moscow", country: "Russia", latitude: 55.75, longitude: 37.62))
+    model.updateHistory(with: WeatherAPILocation(id: 2145091, name: "Moscow", country: "Russia", latitude: 55.75, longitude: 37.62))
 
     XCTAssertEqual(model.history, correctHistoryItemsWithUpdatedExisting)
   }

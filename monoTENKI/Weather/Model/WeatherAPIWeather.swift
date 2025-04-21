@@ -7,7 +7,7 @@
 
 import Foundation
 /// The model produced by decoding 'WeatherAPI.com' JSON response, used as an intermediate object
-struct WeatherAPIWeather: Decodable, Weather {
+struct WeatherAPIWeather: Weather {
   let location: Location
   let current: Current
   let forecast: Forecast

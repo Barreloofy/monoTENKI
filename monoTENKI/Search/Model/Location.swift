@@ -2,34 +2,61 @@
 //  Location.swift
 //  monoTENKI
 //
-//  Created by Barreloofy on 3/18/25 at 12:47 AM.
+//  Created by Barreloofy on 4/20/25 at 3:37 PM.
 //
 
+import Foundation
+
 typealias Locations = [Location]
-/// The Model used as the decoded object for location data
-struct Location: Codable, Identifiable, Equatable {
+struct Location: Codable, Equatable, Identifiable {
+  let source: Source
   let id: Int
   let name: String
   let country: String
+  let area: String
   let latitude: Double
   let longitude: Double
 
-  enum CodingKeys: String, CodingKey {
-    case id
-    case name
-    case country
-    case latitude = "lat"
-    case longitude = "lon"
+  var coordinate: String {
+    "\(latitude), \(longitude)"
   }
-}
 
-// MARK: - Convenience properties
-extension Location {
+  var locationKey: String {
+    switch source {
+    case .WeatherAPI:
+      "id:\(id)"
+    case .AccuWeather:
+      "\(name) \(id)"
+    }
+  }
+
   var completeName: String {
-    "\(name) \(country)"
+    if name == area {
+      "\(name)\(country)"
+    } else {
+      "\(name)\(area) \(country)"
+    }
   }
 
-  var coordinates: String {
-    "\(latitude) \(longitude)"
+  init(source: Source, id: Int, name: String, country: String, area: String = "", latitude: Double, longitude: Double) {
+    self.source = source
+    self.id = id
+    self.name = name
+    self.country = country
+    self.area = area
+    self.latitude = latitude
+    self.longitude = longitude
+  }
+
+  init?(source: Source, id: String, name: String, country: String, area: String = "", latitude: Double, longitude: Double) {
+    guard let id = Int(id) else { return nil }
+
+    self.source = source
+    self.id = id
+    self.name = name
+    self.country = country
+    self.area = area
+    self.latitude = latitude
+    self.longitude = longitude
   }
 }
