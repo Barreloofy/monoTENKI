@@ -6,23 +6,26 @@
 //
 
 import SwiftUI
-// MARK: - The environment-value that serves as the source of truth for the API source
-extension EnvironmentValues {
-  @Entry var source = Source.WeatherAPI
+
+actor Source {
+  private init() {}
+
+  static var value: APISource = UserDefaults.standard.source(forKey: "source") {
+    didSet { UserDefaults.standard.set(value.rawValue, forKey: "source") }
+  }
 }
 
-
-enum Source: String, Codable {
+enum APISource: String, Codable {
   case WeatherAPI
   case AccuWeather
 }
 
-// MARK: - Allows simple storing and retrieval of type 'Source' values
+// MARK: - Allows simple storing and retrieval of type 'APISource' values
 extension UserDefaults {
-  func source(forKey key: String) -> Source {
+  func source(forKey key: String) -> APISource {
     guard let rawValue = string(forKey: key) else { return .WeatherAPI }
 
-    guard let source = Source(rawValue: rawValue) else { return .WeatherAPI }
+    guard let source = APISource(rawValue: rawValue) else { return .WeatherAPI }
 
     return source
   }

@@ -8,55 +8,51 @@
 import Foundation
 
 typealias Locations = [Location]
-struct Location: Codable, Equatable, Identifiable {
-  let source: Source
-  let id: Int
+struct Location: Codable, Identifiable, Hashable {
+  let id = UUID()
   let name: String
   let country: String
-  let area: String
-  let latitude: Double
-  let longitude: Double
-
-  var coordinate: String {
-    "\(latitude), \(longitude)"
-  }
-
-  var locationKey: String {
-    switch source {
-    case .WeatherAPI:
-      "id:\(id)"
-    case .AccuWeather:
-      "\(name) \(id)"
-    }
-  }
+  var area: String?
+  let coordinate: Coordinate
 
   var completeName: String {
-    if name == area {
-      "\(name)\(country)"
-    } else {
-      "\(name)\(area) \(country)"
+    guard let area = area, area != name else { return "\(name) \(country)" }
+    return "\(area) \(name) \(country)"
+  }
+
+  enum CodingKeys: CodingKey {
+    case name
+    case country
+    case area
+    case coordinate
+  }
+
+  struct Coordinate: Codable, Hashable {
+    let latitude: Double
+    let longitude: Double
+
+    var stringRepresentation: String {
+      "\(latitude), \(longitude)"
     }
   }
+}
 
-  init(source: Source, id: Int, name: String, country: String, area: String = "", latitude: Double, longitude: Double) {
-    self.source = source
-    self.id = id
-    self.name = name
-    self.country = country
-    self.area = area
-    self.latitude = latitude
-    self.longitude = longitude
+// MARK: - Custom Equitable, Hashable implantation
+extension Location {
+  static func == (lhs: Location, rhs: Location) -> Bool {
+    lhs.completeName == rhs.completeName
   }
 
-  init?(source: Source, id: String, name: String, country: String, area: String = "", latitude: Double, longitude: Double) {
-    guard let id = Int(id) else { return nil }
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(completeName)
+  }
+}
 
-    self.source = source
-    self.id = id
-    self.name = name
-    self.country = country
-    self.area = area
-    self.latitude = latitude
-    self.longitude = longitude
+// MARK: - Custom filtering method
+extension Locations {
+  /// Deduplicates 'Locations' and returns a new 'Locations' array up to the provided length, the default value for 'upTo' is 10
+  func deduplicating(upTo: Int = 10) -> Locations {
+    var seen = Set<Location>()
+    return Array(self.filter { seen.insert($0).inserted }.prefix(upTo))
   }
 }

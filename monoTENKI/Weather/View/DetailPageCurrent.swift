@@ -34,7 +34,6 @@ struct DetailPageCurrent: ViewModifier {
                 Text("Humidity \(weather.temperatures.humidity.formatted(.percent))")
               }
 
-
               DetailSection(title: "Precipitation") {
                 Text("Chance \(weather.precipitation.chance.formatted(.percent))")
 

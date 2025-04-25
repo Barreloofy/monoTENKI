@@ -8,9 +8,9 @@
 import CoreLocation
 // MARK: - Convenience method
 extension CLServiceSession {
-  /// Returns true if 'authorizationDenied' is false otherwise true, session has a default value of 'whenInUse' authorization
+  /// Returns true if 'authorizationDenied' is false otherwise false, 'CLServiceSession' has a default value of 'whenInUse' authorization
   ///
-  /// Important, don't use this method to request Authorization use the Apple provided way instead:
+  /// Important, don't use this method to request Authorization use the Apple recommend way instead:
   ///
   ///     let serviceStream = CLServiceSession(authorization: .whenInUse)
   ///
@@ -23,7 +23,7 @@ extension CLServiceSession {
   ///       break
   ///     }
   ///
-  static func getAuthorization(session: CLServiceSession = CLServiceSession(authorization: .whenInUse)) async -> Bool {
+  static func getAuthorizationStatus(session: CLServiceSession = CLServiceSession(authorization: .whenInUse)) async -> Bool {
     let serviceStream = CLServiceSession(authorization: .whenInUse)
 
     do {

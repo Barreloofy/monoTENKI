@@ -16,9 +16,6 @@ class WeatherAggregate {
     case error
   }
 
-  var source: Source = UserDefaults.standard.source(forKey: "source") {
-    didSet { UserDefaults.standard.set(source.rawValue, forKey: "source") }
-  }
   var state: State = .loading
 
   func getWeather(for location: String) async {
@@ -27,7 +24,7 @@ class WeatherAggregate {
     do {
       let weather: Weather
 
-      switch source {
+      switch Source.value {
       case .WeatherAPI:
         weather = try await WeatherAPI.weather(query: location).fetchWeather()
       case .AccuWeather:

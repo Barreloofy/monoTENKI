@@ -15,18 +15,13 @@ struct HourForecast: View {
   var body: some View {
     VStack {
       ForEach(hours, id: \.time) { hour in
-        ZStack {
-          AlignedHStack(alignment: .leading) {
-            Text(hour.time.formatted(.timeZoneNeutral))
-          }
-
-          Image(systemName: hour.condition.presentIcon(isDay: hour.isDay))
-            .styled(size: 30)
-
-          AlignedHStack(alignment: .trailing) {
-            Text(hour.temperatureCelsius.temperatureFormatter(measurementSystem))
-          }
-        }
+        Row(
+          leading: { Text(hour.time.formatted(.timeZoneNeutral)) },
+          center: {
+            Image(systemName: hour.condition.presentIcon(isDay: hour.isDay))
+              .styled(size: 30)
+          },
+          trailing: { Text(hour.temperatureCelsius.temperatureFormatter(measurementSystem)) })
         .font(.title2)
       }
       Spacer()

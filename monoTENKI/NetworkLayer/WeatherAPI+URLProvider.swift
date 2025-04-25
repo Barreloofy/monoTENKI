@@ -20,7 +20,7 @@ extension WeatherAPI {
     }
   }
 
-  private var query: String {
+  var query: String {
     switch self {
     case .weather(let query), .search(let query): query
     }

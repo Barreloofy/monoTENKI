@@ -12,8 +12,11 @@ enum WeatherAPI: URLProvider {
   case search(query: String)
 
   func fetchWeather() async throws -> WeatherAPIWeather {
+    let locations = try await HTTPClient(url: WeatherAPI.search(query: query).provideURL()).fetch() as WeatherAPILocations
+    let locationID = "id:\(locations.first!.id)"
+
     let client = try HTTPClient(
-      url: provideURL(),
+      url: WeatherAPI.weather(query: "\(locationID)").provideURL(),
       decoder: WeatherAPIWeather.decoder)
 
     return try await client.fetch()
@@ -26,12 +29,9 @@ enum WeatherAPI: URLProvider {
 
     return weatherApiLocations.compactMap { location in
       Location(
-        source: .WeatherAPI,
-        id: location.id,
         name: location.name,
         country: location.country,
-        latitude: location.longitude,
-        longitude: location.latitude)
+        coordinate: Location.Coordinate(latitude: location.latitude, longitude: location.longitude))
     }
   }
 }

@@ -11,8 +11,6 @@ import os
 @MainActor
 @Observable
 class SearchModel {
-  let source: Source = .WeatherAPI
-
   var results: Locations = []
   private(set) var history: Locations = []
 
@@ -20,13 +18,15 @@ class SearchModel {
     retrieve()
   }
 
-  /// Returns the content of the 'history' property if condition is true otherwise the content of 'results' property 
-  func getContent(_ condition: Bool) -> Locations {
-    condition ? history : results
+  /// Returns the content of the 'history' property if condition is true otherwise the content of 'results' property
+  func getContent(condition: Bool) -> Locations {
+    condition ? history.deduplicating() : results.deduplicating()
   }
 
   func getLocations(matching query: String) async throws {
-    switch source {
+    guard !query.isEmpty else { return }
+
+    switch Source.value {
     case .WeatherAPI:
       results = try await WeatherAPI.search(query: query).fetchSearch()
     case .AccuWeather:
@@ -68,14 +68,14 @@ extension SearchModel {
     }
   }
 
-  private func retrieve() {
+  func retrieve() {
     do {
       guard FileManager.default.isReadableFile(atPath: historyURL.path()) else {
         throw URLError(.noPermissionsToReadFile)
       }
       history = try JSONDecoder().decode(Locations.self, from: Data(contentsOf: historyURL))
     } catch {
-      Logger.search.error("\(error)")
+      Logger.search.error("\(error.localizedDescription)")
     }
   }
 }

@@ -13,63 +13,72 @@ struct Settings: View {
   @Environment(\.scenePhase) private var scenePhase
   @Environment(\.dismiss) private var dismiss
 
-  @AppStorage("measurementSystemUsed") private var measurementSystemUsed = MeasurementSystem.metric
+  @AppStorage("measurementSystemInUse") private var measurementSystemInUse = MeasurementSystem.metric
   @State private var noPermission = false
+  @State private var sourceInUse = Source.value
 
   var body: some View {
-    VStack {
-
-      ZStack {
-        Text("Settings")
-        AlignedHStack(alignment: .trailing) {
+    VStack(spacing: 25) {
+      Row(
+        leading: {},
+        center: { Text("Settings") },
+        trailing: {
           Button(
             action: { dismiss() },
-            label: {
-              XIcon()
-                .stroke(lineWidth: 3)
-                .frame(width: 20, height: 20)
-            })
-        }
-      }
+            label: { XIcon().iconStyleX })
+        })
       .font(.title)
       .fontWeight(.bold)
-      .padding(.bottom)
 
-      ZStack {
-        AlignedHStack(alignment: .leading) { Text("Measurement:") }
-          .font(.headline)
+       Row(
+         leading: {
+           Text("Measurement:")
+             .font(.headline)
+         },
+         center: {
+           Text(MeasurementSystem.metric.rawValue)
+             .selectedStyle(target: MeasurementSystem.metric, value: $measurementSystemInUse)
+         },
+         trailing: {
+           Text(MeasurementSystem.imperial.rawValue)
+             .selectedStyle(target: MeasurementSystem.imperial, value: $measurementSystemInUse)
+         })
+       .font(.subheadline)
 
-        MeasurementSystemCell(measurement: .metric)
-          .onTapGesture { measurementSystemUsed = .metric }
-
-        AlignedHStack(alignment: .trailing) {
-          MeasurementSystemCell(measurement: .imperial)
-            .onTapGesture { measurementSystemUsed = .imperial }
-        }
-      }
+      Row(
+        leading: {
+          Text("Source:")
+            .font(.headline)
+        },
+        center: {
+          Text(APISource.WeatherAPI.rawValue)
+            .selectedStyle(target: APISource.WeatherAPI, value: $sourceInUse)
+        },
+        trailing: {
+          Text(APISource.AccuWeather.rawValue)
+            .selectedStyle(target: APISource.AccuWeather, value: $sourceInUse)
+        })
+      .font(.subheadline)
+      .onChange(of: sourceInUse) { Source.value = sourceInUse }
 
       permissionInfo
 
       Spacer()
     }
     .padding()
-    .onAppear { measurementSystemUsed = measurementSystem }
+    .onAppear { measurementSystemInUse = measurementSystem }
     .task(id: scenePhase) {
       guard scenePhase == .active else { return }
-      noPermission = await !CLServiceSession.getAuthorization() ? true : false
+      noPermission = await !CLServiceSession.getAuthorizationStatus() ? true : false
     }
   }
 
 
   @ViewBuilder private var permissionInfo: some View {
     if noPermission {
-      Text("No permission to use your location currently, enable location to receive the most accurate weather")
-        .font(.footnote)
-        .multilineTextAlignment(.center)
-        .padding(.top)
-      Link("Open Settings App", destination: URL(string: UIApplication.openSettingsURLString)!)
-        .buttonStyle(.bordered)
-        .fontWeight(.bold)
+      LocationAccessError(
+        message: "No permission to access location currently, enable location to receive the most accurate weather")
+      .multilineTextAlignment(.center)
     }
   }
 }

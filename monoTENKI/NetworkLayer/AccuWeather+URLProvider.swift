@@ -20,7 +20,7 @@ extension AccuWeather {
     case .search:
       return try constructURL(
         host: "dataservice.accuweather.com",
-        path: "/locations/v1/cities/autocomplete",
+        path: "/locations/v1/cities/search",
         parameters: [
           "apikey": apiKey,
           "q": query,

@@ -6,35 +6,58 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct Setup: View {
   @Environment(LocationAggregate.self) private var locationAggregate
   @Environment(\.colorScheme) private var colorScheme
 
   @AppStorage("showSearch") private var showSearch = false
-  @State private var permissionGranted: Bool?
 
   @Binding var setupCompleted: Bool
 
   var body: some View {
-    LocationPermission(permissionGranted: $permissionGranted)
-      .sheet(isPresented: $showSearch) {
-        Search(onlySearch: true)
-          .padding()
-          .presentationBackground(colorScheme.background)
-          .interactiveDismissDisabled()
+    VStack(spacing: 10) {
+      Group {
+        Image(systemName: "location.fill")
+          .styled(size: 100)
+          .offset(y: -25)
+
+        Text("accurate weather")
+          .font(.title)
+          .fontWeight(.bold)
+
+        Text("location is used to provide the most accurate weather")
+          .font(.footnote)
       }
-      .onChange(of: locationAggregate.location) { setupCompleted = true }
-      .onChange(of: permissionGranted) {
-        switch permissionGranted {
-        case true?:
-          setupCompleted = true
-          locationAggregate.trackLocation = true
-        case false?:
-          showSearch = true
-        case .none:
-          break
+      .multilineTextAlignment(.center)
+      .offset(y: -10)
+
+      Group {
+        Button("Grand access") {
+          Task {
+            let serviceStream = CLServiceSession(authorization: .whenInUse)
+
+            for try await diagnostic in serviceStream.diagnostics where !diagnostic.authorizationRequestInProgress {
+              if diagnostic.authorizationDenied {
+                showSearch = true
+              } else {
+                locationAggregate.trackLocation = true
+              }
+              break
+            }
+          }
         }
+        Button("Deny access ") { showSearch = true }
       }
+      .buttonStyle(.permission)
+      .offset(y: 150)
+    }
+    .sheet(isPresented: $showSearch) {
+      Search(setup: true)
+        .presentationBackground(colorScheme.background)
+        .interactiveDismissDisabled()
+    }
+    .onChange(of: locationAggregate.location) { setupCompleted = true }
   }
 }

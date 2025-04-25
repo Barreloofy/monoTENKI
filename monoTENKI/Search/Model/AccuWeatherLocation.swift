@@ -13,12 +13,8 @@ struct AccuWeatherLocation: Decodable {
   let name: String
   let country: Country
   let area: Area
-  let coordinate: Coordinate?
+  let coordinate: Coordinate
 
-  var stringCoordinate: String {
-    guard let lat = coordinate?.latitude, let long = coordinate?.longitude else { return "" }
-    return "\(lat), \(long)"
-  }
 
   enum CodingKeys: String, CodingKey {
     case key = "Key"

@@ -7,39 +7,45 @@
 
 import SwiftUI
 import CoreLocation
-import AsyncAlgorithms
 
 struct Search: View {
+  enum Error {
+    case none
+    case search
+    case location
+  }
+
   @Environment(LocationAggregate.self) private var locationAggregate
-  @Environment(\.scenePhase) private var scenePhase
   @Environment(\.dismiss) private var dismiss
 
   @State private var searchModel = SearchModel()
   @State private var text = ""
-  @State private var error = Errors.none
+  @State private var error: Error = .none
 
-  @FocusState private var searchIsFocus: Bool
+  let setup: Bool
 
-  private let queryChannel = AsyncChannel<String>()
-  let onlySearch: Bool
+  private var errorMessage: String {
+    switch error {
+    case .none:
+      ""
+    case .search:
+      "It seems an error occured, please check the connection status"
+    case .location:
+      "It seems an error occured, please check if location service is enabled and permission was granted"
+    }
+  }
 
   var body: some View {
     VStack {
-      SearchTextField(text: $text)
-        .task(id: text) {
-          guard !text.isEmpty else { return }
-          await queryChannel.send(text)
-        }
-        .task(id: scenePhase) {
-          guard scenePhase == .active else { return }
+      header
 
-          for await query in queryChannel.debounce(for: .seconds(0.333)) {
-            do {
-              try await searchModel.getLocations(matching: query)
-              error = .none
-            } catch {
-              self.error = .search
-            }
+      SearchTextField(text: $text)
+        .debounce(id: text, duration: .seconds(0.5)) {
+          do {
+            try await searchModel.getLocations(matching: text)
+            error = .none
+          } catch {
+            self.error = .search
           }
         }
 
@@ -49,16 +55,17 @@ struct Search: View {
       case .none:
         ScrollView {
           LazyVStack(spacing: 0) {
-            ForEach(searchModel.getContent(text.isEmpty)) { result in
+            ForEach(searchModel.getContent(condition: text.isEmpty)) { result in
               SwipeableRow(
                 allowSwipe: text.isEmpty,
                 action: { searchModel.removeHistory(location: result) },
                 content: {
                   AlignedHStack(alignment: .leading) {
                     Text(result.completeName)
+                      .lineLimit(1)
                       .onTapGesture {
                         locationAggregate.trackLocation = false
-                        locationAggregate.location = result.coordinate
+                        locationAggregate.location = result.coordinate.stringRepresentation
                         searchModel.updateHistory(with: result)
                         dismiss()
                       }
@@ -69,27 +76,42 @@ struct Search: View {
         }
         .scrollIndicators(.never)
       case .search:
-        Text("It seems an error occured, please check your internet connection")
-          .searchErrorStyle()
+        Text(errorMessage)
+          .font(.footnote)
       case .location:
-        Text("It seems an error occured, please check if location service is enbaled and permission was granted")
-          .searchErrorStyle()
+        LocationAccessError(message: errorMessage)
       }
 
       Spacer()
     }
     .font(.title3)
-    .lineLimit(1)
+    .padding()
+  }
+
+
+  @ViewBuilder private var header: some View {
+    if !setup {
+      Row(
+        leading: {},
+        center: { Text("Search") },
+        trailing: {
+          Button(
+            action: { dismiss() },
+            label: { XIcon().iconStyleX })
+        })
+      .font(.title)
+      .fontWeight(.bold)
+    }
   }
 
 
   @ViewBuilder private var locationButton: some View {
-    if !onlySearch {
+    if !setup {
       AlignedHStack(alignment: .leading) {
         Button(
           action: {
             Task {
-              if await CLServiceSession.getAuthorization() {
+              if await CLServiceSession.getAuthorizationStatus() {
                 locationAggregate.trackLocation = true
                 dismiss()
               } else {
@@ -101,14 +123,5 @@ struct Search: View {
       }
       .fontWeight(.regular)
     }
-  }
-}
-
-// MARK: - Error enum for Search view. Used to conditionally handle UI error presentation
-extension Search {
-  enum Errors {
-    case none
-    case search
-    case location
   }
 }

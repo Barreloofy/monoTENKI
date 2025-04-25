@@ -17,9 +17,10 @@ struct WeatherView: View {
   @State private var showSettings = false
   @State private var showSearch = false
   @State private var showDetails = false
+  @State private var source = Source.value
 
   // MARK: - Produces an 'AsyncTimerSequence' event every 15 minutes
-  private let updateTimer = AsyncTimerSequence(interval: Duration.seconds(900), clock: .continuous)
+  private let updateTimer = AsyncTimerSequence(interval: .seconds(900), clock: .continuous)
 
   var body: some View {
     Group {
@@ -28,15 +29,18 @@ struct WeatherView: View {
         colorScheme.background
       case .loaded(let currentWeather, let hourForecast, let dayForecast):
         VStack(spacing: 50) {
-          ZStack {
-            Button(
-              action: { showSearch = true },
-              label: { Text(currentWeather.location) })
-            .sheet(isPresented: $showSearch) {
-              SearchSheet()
-                .presentationBackground(colorScheme.background)
-            }
-            AlignedHStack(alignment: .trailing) {
+          Row(
+            leading: {},
+            center: {
+              Button(
+                action: { showSearch = true },
+                label: { Text(currentWeather.location) })
+              .sheet(isPresented: $showSearch) {
+                Search(setup: false)
+                  .presentationBackground(colorScheme.background)
+              }
+            },
+            trailing: {
               Button(
                 action: { showSettings = true },
                 label: {
@@ -47,8 +51,7 @@ struct WeatherView: View {
                 Settings()
                   .presentationBackground(colorScheme.background)
               }
-            }
-          }
+            })
 
           TabView {
             ScrollView {
@@ -67,6 +70,7 @@ struct WeatherView: View {
             }
             .scrollTargetBehavior(.paging)
             .scrollIndicators(.never)
+
             ScrollView {
               LazyVStack(spacing: 25) {
                 ForEach(dayForecast, id: \.date) { day in
@@ -78,10 +82,33 @@ struct WeatherView: View {
           }
           .tabViewStyle(.page(indexDisplayMode: .never))
         }
-        .tint(colorScheme.foreground)
         .padding()
       case .error:
-        Text("Error")
+        VStack(spacing: 10) {
+          Text("Error, check connection status, if the error persists please try again later")
+            .font(.footnote)
+          VStack(spacing: 5) {
+            Text("Try diffrent Source:")
+              .font(.headline)
+            HStack {
+              Text(APISource.WeatherAPI.rawValue)
+                .selectedStyle(target: APISource.WeatherAPI, value: $source)
+              Text(APISource.AccuWeather.rawValue)
+                .selectedStyle(target: APISource.AccuWeather, value: $source)
+            }
+            .font(.subheadline)
+          }
+        }
+        .multilineTextAlignment(.center)
+        .offset(y: -75)
+        .padding()
+      }
+    }
+    .tint(colorScheme.foreground)
+    .onChange(of: source) {
+      Source.value = source
+      Task {
+        await weatherAggregate.getWeather(for: locationAggregate.location)
       }
     }
     .task(id: locationAggregate.location) {

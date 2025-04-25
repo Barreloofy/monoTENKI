@@ -22,9 +22,9 @@ enum AccuWeather: URLProvider {
   }
 
   func fetchWeather() async throws -> AccuWeatherComposite {
-    let (location, key) = try await extractLocationAndKey(from: query)
+    let location = try await AccuWeather.geo(query: query).fetchGeo()
 
-    let urlDictionary = try provideURLs(query: key)
+    let urlDictionary = try provideURLs(query: location.key)
     guard
       let currentURL = urlDictionary["current"],
       let hourlyURL = urlDictionary["hourly"],
@@ -47,7 +47,7 @@ enum AccuWeather: URLProvider {
     async let days: AccuWeatherWeatherDayForecast = clientDays.fetch()
 
     let weather = AccuWeatherComposite(
-      location: location,
+      location: location.area.name,
       current: try await current,
       forecastHours: try await hours,
       forecastDays: try await days)
@@ -61,31 +61,17 @@ enum AccuWeather: URLProvider {
 
     return AccuWeatherLocation.compactMap { location in
       Location(
-        source: .AccuWeather,
-        id: location.key,
         name: location.name,
         country: location.country.name,
         area: location.area.name,
-        latitude: location.coordinate?.latitude,
-        longitude: location.coordinate?.longitude)
+        coordinate: Location.Coordinate(
+          latitude: location.coordinate.latitude,
+          longitude: location.coordinate.longitude))
     }
   }
 
   func fetchGeo() async throws -> AccuWeatherLocation {
     let client = try HTTPClient(url: provideURL())
     return try await client.fetch()
-  }
-
-  private func extractLocationAndKey(from string: String) async throws -> (name: String, key: String) {
-    if CLLocationCoordinate2D.parseCoordinate(from: string) != nil {
-      let geoLocation = try await AccuWeather.geo(query: string).fetchGeo()
-
-      return (name: geoLocation.name, key: geoLocation.key)
-    } else {
-      let components = string.components(separatedBy: .whitespaces)
-      guard components.count == 2 else { throw CocoaError(.formatting) }
-
-      return (name: components[0], key: components[1])
-    }
   }
 }
