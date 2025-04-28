@@ -8,8 +8,7 @@
 // MARK: - Returns the correct 'SF Symbols' icon name
 extension String {
   /// Day-night aware function to retrieve the correct 'SF Symbols' icon name for the given condition
-  func presentIcon(isDay: Int) -> String {
-    let isDay = isDay == 1 ? true : false
+  func presentIcon(isDay: Bool) -> String {
     let condition = self.trimmingCharacters(in: .whitespaces).lowercased()
 
     let sunnyClear = /(sunny|clear)/

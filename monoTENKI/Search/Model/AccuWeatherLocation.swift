@@ -6,8 +6,9 @@
 //
 
 import Foundation
-/// The model produced by decoding 'AccuWeather/locations' JSON response
+
 typealias AccuWeatherLocations = [AccuWeatherLocation]
+/// The model produced by decoding 'AccuWeather/locations' JSON response
 struct AccuWeatherLocation: Decodable {
   let key: String
   let name: String

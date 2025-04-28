@@ -1,13 +1,13 @@
 //
-//  DetailPageDay.swift
+//  DetailPageHour.swift
 //  monoTENKI
 //
-//  Created by Barreloofy on 4/15/25 at 12:38 PM.
+//  Created by Barreloofy on 4/28/25.
 //
 
 import SwiftUI
 
-struct DetailPageDay: ViewModifier {
+struct DetailPageHour: ViewModifier {
   @Environment(\.colorScheme) private var colorScheme
   @Environment(\.measurementSystem) private var measurementSystem
 
@@ -15,7 +15,7 @@ struct DetailPageDay: ViewModifier {
 
   @Binding var present: Bool
 
-  let days: Days
+  let hours: Hours
   let id: Date?
 
   func body(content: Content) -> some View {
@@ -24,26 +24,18 @@ struct DetailPageDay: ViewModifier {
         if present {
           ScrollView {
             LazyVStack(spacing: 0) {
-              ForEach(days, id: \.date) { day in
+              ForEach(hours, id: \.time) { hour in
                 VStack(alignment: .leading, spacing: 10) {
-                  Text(day.date.formatted(.dateTime.weekday(.wide)))
+                  Text(hour.time.formatted(.timeZoneNeutral))
                     .font(.system(size: 30))
                     .fontWeight(.bold)
 
-                  DetailSection(title: "Temperatures") {
-                    Text("AVG \(day.temperatureCelsiusAverage.temperatureFormatter(measurementSystem))")
-
-                    Text("High \(day.temperatureCelsiusHigh.temperatureFormatter(measurementSystem))")
-
-                    Text("Low \(day.temperatureCelsiusLow.temperatureFormatter(measurementSystem))")
-                  }
-
                   DetailSection(title: "Precipitation") {
-                    Text("Chance \(day.precipitationChance.formatted(.percent))")
+                    Text("Chance \(hour.precipitationChance.formatted(.percent))")
 
-                    Text("Total \(day.precipitationTotalMillimeter.precipitationFormatter(measurementSystem))")
+                    Text("Rate \(hour.precipitationRateMillimeter.precipitationFormatter(measurementSystem))")
 
-                    Text("Type \(day.precipitationType)")
+                    Text("Type \(hour.precipitationType)")
                   }
                 }
                 .containerRelativeFrame(.vertical)
@@ -66,14 +58,14 @@ struct DetailPageDay: ViewModifier {
 
 
 extension View {
-  func detailPageDay(
+  func detailPageHour(
     present: Binding<Bool>,
-    days: Days,
+    hours: Hours,
     jumpTo: Date?) -> some View {
-    modifier(
-      DetailPageDay(
-        present: present,
-        days: days,
-        id: jumpTo))
-  }
+      modifier(
+        DetailPageHour(
+          present: present,
+          hours: hours,
+          id: jumpTo))
+    }
 }

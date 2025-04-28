@@ -11,8 +11,6 @@ extension AccuWeatherComposite {
   func createCurrentWeather() -> CurrentWeather {
     let current = current.first!
 
-    let isDay = current.isDay ? 1 : 0
-
     let temperatures = CurrentWeather.Temperatures(
       temperatureCelsius: current.temperatureCelsius.metric.value,
       temperatureCelsiusLow: current.temperatureSummary.past24Hour.celsiusLow.metric.value,
@@ -34,8 +32,8 @@ extension AccuWeatherComposite {
 
     return CurrentWeather(
       location: location,
+      isDay: current.isDay,
       condition: current.condition,
-      isDay: isDay,
       temperatures: temperatures,
       precipitation: precipitation,
       wind: wind)
@@ -43,30 +41,32 @@ extension AccuWeatherComposite {
   
   func createHourForecast() -> Hours {
     forecastHours.map { hour in
-      let isDay = hour.isDay ? 1 : 0
-
-      return Hour(
+      Hour(
         time: hour.time,
-        isDay: isDay,
+        isDay: hour.isDay,
         condition: hour.condition,
-        temperatureCelsius: hour.temperatureCelsius.value)
+        temperatureCelsius: hour.temperatureCelsius.value,
+        precipitationChance: 0,
+        precipitationRateMillimeter: 0,
+        precipitationType: "")
     }
   }
   
   func createDayForecast() -> Days {
-    forecastDays.days.map { day in
-      let avg = (day.temperatures.celsiusHigh.value + day.temperatures.celsiusLow.value) / 2
-      let type = day.details.precipitationType ?? "--"
+    Array(
+      forecastDays.days.dropFirst().map { day in
+        let avg = (day.temperatures.celsiusHigh.value + day.temperatures.celsiusLow.value) / 2
+        let type = day.details.precipitationType ?? "--"
 
-      return Day(
-        date: day.date,
-        condition: day.details.condition,
-        temperatureCelsiusAverage: avg,
-        temperatureCelsiusLow: day.temperatures.celsiusLow.value,
-        temperatureCelsiusHigh: day.temperatures.celsiusHigh.value,
-        precipitationChance: day.details.precipitationChance,
-        precipitationMillimeterTotal: day.details.precipitationTotal.value,
-        type: type)
-    }
+        return Day(
+          date: day.date,
+          condition: day.details.condition,
+          temperatureCelsiusAverage: avg,
+          temperatureCelsiusLow: day.temperatures.celsiusLow.value,
+          temperatureCelsiusHigh: day.temperatures.celsiusHigh.value,
+          precipitationChance: day.details.precipitationChance,
+          precipitationTotalMillimeter: day.details.precipitationTotal.value,
+          precipitationType: type)
+      })
   }
 }

@@ -16,8 +16,8 @@ protocol Weather: Sendable, Decodable {
 
 struct CurrentWeather {
   let location: String
+  let isDay: Bool
   let condition: String
-  let isDay: Int
   let temperatures: Temperatures
   let precipitation: Precipitation
   let wind: Wind
@@ -44,13 +44,18 @@ struct CurrentWeather {
   }
 }
 
+
 typealias Hours = [Hour]
 struct Hour {
   let time: Date
-  let isDay: Int
+  let isDay: Bool
   let condition: String
   let temperatureCelsius: Double
+  let precipitationChance: Int
+  let precipitationRateMillimeter: Double
+  let precipitationType: String
 }
+
 
 typealias Days = [Day]
 struct Day {
@@ -60,6 +65,6 @@ struct Day {
   let temperatureCelsiusLow: Double
   let temperatureCelsiusHigh: Double
   let precipitationChance: Int
-  let precipitationMillimeterTotal: Double
-  let type: String
+  let precipitationTotalMillimeter: Double
+  let precipitationType: String
 }

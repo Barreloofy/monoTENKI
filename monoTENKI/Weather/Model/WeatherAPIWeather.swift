@@ -27,23 +27,23 @@ extension WeatherAPIWeather {
 
 
   struct Current: Decodable {
-    let temperatureCelsius: Double
     let isDay: Int
     let condition: Condition
+    let temperatureCelsius: Double
+    let feelsLikeCelsius: Double
     let precipitationMillimeter: Double
     let humidity: Int
-    let feelsLikeCelsius: Double
     let WindDirection: String
     let windKilometersPerHour: Double
     let gustKilometersPerHour: Double
 
     enum CodingKeys: String, CodingKey {
-      case temperatureCelsius = "temp_c"
       case isDay = "is_day"
       case condition
+      case temperatureCelsius = "temp_c"
+      case feelsLikeCelsius = "feelslike_c"
       case precipitationMillimeter = "precip_mm"
       case humidity = "humidity"
-      case feelsLikeCelsius = "feelslike_c"
       case WindDirection = "wind_dir"
       case windKilometersPerHour = "wind_kph"
       case gustKilometersPerHour = "gust_kph"
@@ -66,39 +66,40 @@ extension WeatherAPIWeather {
     let text: String
   }
 
+
   typealias ForecastDays = [ForecastDay]
   struct ForecastDay: Decodable {
     let date: Date
-    let details: DayDetails
+    let day: Day
     let hours: Hours
 
     enum CodingKeys: String, CodingKey {
       case date
-      case details = "day"
+      case day = "day"
       case hours = "hour"
     }
   }
 
 
-  struct DayDetails: Decodable {
-    let temperatureCelsiusHigh: Double
-    let temperatureCelsiusLow: Double
+  struct Day: Decodable {
+    let condition: Condition
     let temperatureCelsiusAverage: Double
-    let precipitationMillimeterTotal: Double
-    let snowCentimeterTotal: Double
+    let temperatureCelsiusLow: Double
+    let temperatureCelsiusHigh: Double
     let chanceOfRain: Int
     let chanceOfSnow: Int
-    let condition: Condition
+    let precipitationMillimeterTotal: Double
+    let snowCentimeterTotal: Double
 
     enum CodingKeys: String, CodingKey {
-      case temperatureCelsiusHigh = "maxtemp_c"
-      case temperatureCelsiusLow = "mintemp_c"
+      case condition
       case temperatureCelsiusAverage = "avgtemp_c"
-      case precipitationMillimeterTotal = "totalprecip_mm"
-      case snowCentimeterTotal = "totalsnow_cm"
+      case temperatureCelsiusLow = "mintemp_c"
+      case temperatureCelsiusHigh = "maxtemp_c"
       case chanceOfRain = "daily_chance_of_rain"
       case chanceOfSnow = "daily_chance_of_snow"
-      case condition
+      case precipitationMillimeterTotal = "totalprecip_mm"
+      case snowCentimeterTotal = "totalsnow_cm"
     }
   }
 
@@ -106,15 +107,30 @@ extension WeatherAPIWeather {
   typealias Hours = [Hour]
   struct Hour: Decodable {
     let time: Date
-    let temperatureCelsius: Double
     let isDay: Int
     let condition: Condition
+    let temperatureCelsius: Double
+    let chanceOfRain: Int
+    let chanceOfSnow: Int
+    let precipitationMillimeter: Double
+    let snowCentimeter: Double
+    let WindDirection: String
+    let windKilometersPerHour: Double
+    let gustKilometersPerHour: Double
+
 
     enum CodingKeys: String, CodingKey {
       case time
-      case temperatureCelsius = "temp_c"
       case isDay = "is_day"
       case condition
+      case temperatureCelsius = "temp_c"
+      case chanceOfRain = "chance_of_rain"
+      case chanceOfSnow = "chance_of_snow"
+      case precipitationMillimeter = "precip_mm"
+      case snowCentimeter = "snow_cm"
+      case WindDirection = "wind_dir"
+      case windKilometersPerHour = "wind_kph"
+      case gustKilometersPerHour = "gust_kph"
     }
   }
 }

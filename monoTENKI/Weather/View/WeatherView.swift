@@ -57,7 +57,8 @@ struct WeatherView: View {
             ScrollView {
               LazyVStack(spacing: 0) {
                 Today(weather: currentWeather)
-                  .containerRelativeFrame(.vertical)
+                  .containerRelativeFrame([.vertical, .horizontal])
+                  .contentShape(Rectangle())
                   .onTapGesture {
                     withAnimation(.easeInOut.speed(0.5)) { showDetails = true }
                   }
@@ -66,21 +67,14 @@ struct WeatherView: View {
                 HourForecast(hours: hourForecast)
                   .containerRelativeFrame(.vertical)
               }
-              .fontWeight(.bold)
             }
             .scrollTargetBehavior(.paging)
             .scrollIndicators(.never)
 
-            ScrollView {
-              LazyVStack(spacing: 25) {
-                ForEach(dayForecast, id: \.date) { day in
-                  DayForecast(day: day)
-                }
-              }
-            }
-            .scrollIndicators(.never)
+            DayForecast(days: dayForecast)
           }
           .tabViewStyle(.page(indexDisplayMode: .never))
+          .fontWeight(.bold)
         }
         .padding()
       case .error:

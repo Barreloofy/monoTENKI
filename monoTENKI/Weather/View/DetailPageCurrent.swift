@@ -52,8 +52,8 @@ struct DetailPageCurrent: ViewModifier {
                 Text("Gust \(weather.wind.gustKilometersPerHour.SpeedFormatter(measurementSystem))")
               }
             }
+            .offset(y: -50)
           }
-          .offset(y: -50)
           .onTapGesture {
             withAnimation(.easeInOut.speed(0.5)) { present = false }
           }
@@ -64,12 +64,12 @@ struct DetailPageCurrent: ViewModifier {
 
 
 extension View {
-  func detailPageCurrent(present: Binding<Bool>, current: CurrentWeather) -> some View {
+  func detailPageCurrent(
+    present: Binding<Bool>,
+    current: CurrentWeather) -> some View {
     modifier(
       DetailPageCurrent(
         present: present,
-        weather: current
-      )
-    )
+        weather: current))
   }
 }

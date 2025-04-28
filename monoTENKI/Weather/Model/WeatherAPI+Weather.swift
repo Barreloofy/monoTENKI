@@ -9,12 +9,14 @@ import Foundation
 // MARK: - Implement 'Weather' protocol conformes
 extension WeatherAPIWeather {
   func createCurrentWeather() -> CurrentWeather {
-    let details = forecast.days.first!.details
+    let day = forecast.days.first!.day
+
+    let isDay = current.isDay == 1 ? true : false
 
     let temperatures = CurrentWeather.Temperatures(
       temperatureCelsius: current.temperatureCelsius,
-      temperatureCelsiusLow: details.temperatureCelsiusLow,
-      temperatureCelsiusHigh: details.temperatureCelsiusHigh,
+      temperatureCelsiusLow: day.temperatureCelsiusLow,
+      temperatureCelsiusHigh: day.temperatureCelsiusHigh,
       feelsLikeCelsius: current.feelsLikeCelsius,
       humidity: current.humidity)
 
@@ -28,15 +30,16 @@ extension WeatherAPIWeather {
     let total: Double
     let type: String
 
-    let snowMillimeterTotal = details.snowCentimeterTotal * 10
-    total = details.precipitationMillimeterTotal + snowMillimeterTotal
     rate = current.precipitationMillimeter
 
-    if details.chanceOfRain > details.chanceOfSnow {
-      chance = details.chanceOfRain
+    let snowMillimeterTotal = day.snowCentimeterTotal * 10
+    total = day.precipitationMillimeterTotal + snowMillimeterTotal
+
+    if day.chanceOfRain > day.chanceOfSnow {
+      chance = day.chanceOfRain
       type = "Rain"
-    } else if details.chanceOfRain < details.chanceOfSnow {
-      chance = details.chanceOfSnow
+    } else if day.chanceOfRain < day.chanceOfSnow {
+      chance = day.chanceOfSnow
       type = "Snow"
     } else {
       chance = 0
@@ -51,8 +54,8 @@ extension WeatherAPIWeather {
 
     return CurrentWeather(
       location: location.name,
+      isDay: isDay,
       condition: current.condition.text,
-      isDay: current.isDay,
       temperatures: temperatures,
       precipitation: precipitation,
       wind: wind)
@@ -67,14 +70,19 @@ extension WeatherAPIWeather {
         guard hourForecast.count < 12 else { return hourForecast }
 
         guard hour.time > location.time &&
-             hour.time <= location.time.addingTimeInterval(twelveHoursInSeconds)
+              hour.time <= location.time.addingTimeInterval(twelveHoursInSeconds)
         else { continue }
+
+        let isDay = hour.isDay == 1 ? true : false
 
         hourForecast.append(monoTENKI.Hour(
           time: hour.time,
-          isDay: hour.isDay,
+          isDay: isDay,
           condition: hour.condition.text,
-          temperatureCelsius: hour.temperatureCelsius))
+          temperatureCelsius: hour.temperatureCelsius,
+          precipitationChance: hour.chanceOfRain,
+          precipitationRateMillimeter: hour.precipitationMillimeter,
+          precipitationType: "Rain"))
       }
     }
 
@@ -83,14 +91,15 @@ extension WeatherAPIWeather {
 
   func createDayForecast() -> Days {
     return Array(forecast.days.dropFirst()).map {
-      let day = $0.details
+      let day = $0.day
 
-      let type: String
-      let snowMillimeterTotal = day.snowCentimeterTotal * 10
       let chance: Int
       let total: Double
+      let type: String
 
       chance = day.chanceOfRain > day.chanceOfSnow ? day.chanceOfRain : day.chanceOfSnow
+
+      let snowMillimeterTotal = day.snowCentimeterTotal * 10
 
       if day.precipitationMillimeterTotal > snowMillimeterTotal {
         type = "Rain"
@@ -103,15 +112,15 @@ extension WeatherAPIWeather {
         total = 0
       }
 
-      return Day(
+      return monoTENKI.Day(
         date: $0.date,
         condition: day.condition.text,
         temperatureCelsiusAverage: day.temperatureCelsiusAverage,
         temperatureCelsiusLow: day.temperatureCelsiusLow,
         temperatureCelsiusHigh: day.temperatureCelsiusHigh,
         precipitationChance: chance,
-        precipitationMillimeterTotal: total,
-        type: type)
+        precipitationTotalMillimeter: total,
+        precipitationType: type)
     }
   }
 }
