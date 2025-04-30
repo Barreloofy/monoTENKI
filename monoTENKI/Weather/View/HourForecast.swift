@@ -16,7 +16,7 @@ struct HourForecast: View {
   let hours: Hours
 
   var body: some View {
-    VStack {
+    VStack(spacing: 15) {
       ForEach(hours, id: \.time) { hour in
         Row(
           leading: { Text(hour.time.formatted(.timeZoneNeutral)) },
@@ -28,15 +28,14 @@ struct HourForecast: View {
         .font(.title2)
         .contentShape(Rectangle())
         .onTapGesture {
-          withAnimation(.easeInOut.speed(0.5)) {
-            hourID = hour.time
-            presentDetails = true
-          }
+          hourID = hour.time
+          presentDetails = true
         }
       }
 
       Spacer()
     }
     .detailPageHour(present: $presentDetails, hours: hours, jumpTo: hourID)
+    .animation(.easeInOut.speed(0.5), value: presentDetails)
   }
 }

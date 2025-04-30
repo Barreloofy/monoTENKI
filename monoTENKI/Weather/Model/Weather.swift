@@ -6,7 +6,7 @@
 //
 
 import Foundation
-// MARK: - Weather protocol
+
 protocol Weather: Sendable, Decodable {
   func createCurrentWeather() -> CurrentWeather
   func createHourForecast() -> Hours
@@ -31,8 +31,8 @@ struct CurrentWeather {
   }
 
   struct Precipitation {
-    let rateMillimeter: Double
     let chance: Int
+    let rateMillimeter: Double
     let totalMillimeter: Double
     let type: String
   }

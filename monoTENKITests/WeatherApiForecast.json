@@ -1,0 +1,1160 @@
+{
+    "location": {
+        "name": "London",
+        "region": "City of London, Greater London",
+        "country": "United Kingdom",
+        "lat": 51.5171,
+        "lon": -0.1062,
+        "tz_id": "Europe/London",
+        "localtime_epoch": 1746033171,
+        "localtime": "2025-04-30 18:12"
+    },
+    "current": {
+        "temp_c": 21.1,
+        "is_day": 1,
+        "condition": {
+            "text": "Sunny"
+        },
+        "wind_kph": 13.7,
+        "wind_dir": "E",
+        "precip_mm": 0.0,
+        "humidity": 46,
+        "feelslike_c": 21.1,
+        "gust_kph": 18.6
+    },
+    "forecast": {
+        "forecastday": [
+            {
+                "date": "2025-04-30",
+                "day": {
+                    "maxtemp_c": 24.1,
+                    "mintemp_c": 10.4,
+                    "avgtemp_c": 16.9,
+                    "totalprecip_mm": 0.0,
+                    "totalsnow_cm": 0.0,
+                    "daily_chance_of_rain": 0,
+                    "daily_chance_of_snow": 0,
+                    "condition": {
+                        "text": "Sunny"
+                    }
+                },
+                "hour": [
+                    {
+                        "time": "2025-04-30 00:00",
+                        "temp_c": 11.7,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 7.2,
+                        "wind_dir": "ENE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 14.3
+                    },
+                    {
+                        "time": "2025-04-30 01:00",
+                        "temp_c": 11.2,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 6.8,
+                        "wind_dir": "ENE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 13.9
+                    },
+                    {
+                        "time": "2025-04-30 02:00",
+                        "temp_c": 10.9,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 6.5,
+                        "wind_dir": "ENE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 13.6
+                    },
+                    {
+                        "time": "2025-04-30 03:00",
+                        "temp_c": 10.6,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 6.1,
+                        "wind_dir": "ENE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 12.9
+                    },
+                    {
+                        "time": "2025-04-30 04:00",
+                        "temp_c": 10.4,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 5.8,
+                        "wind_dir": "ENE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 12.1
+                    },
+                    {
+                        "time": "2025-04-30 05:00",
+                        "temp_c": 10.4,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        },
+                        "wind_kph": 5.8,
+                        "wind_dir": "NE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 12.1
+                    },
+                    {
+                        "time": "2025-04-30 06:00",
+                        "temp_c": 11.7,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        },
+                        "wind_kph": 5.4,
+                        "wind_dir": "NE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 10.0
+                    },
+                    {
+                        "time": "2025-04-30 07:00",
+                        "temp_c": 14.0,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Cloudy "
+                        },
+                        "wind_kph": 6.1,
+                        "wind_dir": "ENE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 8.7
+                    },
+                    {
+                        "time": "2025-04-30 08:00",
+                        "temp_c": 16.4,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Cloudy "
+                        },
+                        "wind_kph": 6.1,
+                        "wind_dir": "ENE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 7.3
+                    },
+                    {
+                        "time": "2025-04-30 09:00",
+                        "temp_c": 18.8,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        },
+                        "wind_kph": 6.1,
+                        "wind_dir": "ENE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 7.1
+                    },
+                    {
+                        "time": "2025-04-30 10:00",
+                        "temp_c": 20.7,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 6.8,
+                        "wind_dir": "E",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 7.9
+                    },
+                    {
+                        "time": "2025-04-30 11:00",
+                        "temp_c": 22.2,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 7.6,
+                        "wind_dir": "E",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 8.7
+                    },
+                    {
+                        "time": "2025-04-30 12:00",
+                        "temp_c": 23.2,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 8.3,
+                        "wind_dir": "ESE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 9.5
+                    },
+                    {
+                        "time": "2025-04-30 13:00",
+                        "temp_c": 23.9,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 9.0,
+                        "wind_dir": "ESE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 10.4
+                    },
+                    {
+                        "time": "2025-04-30 14:00",
+                        "temp_c": 24.1,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 10.1,
+                        "wind_dir": "ESE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 11.6
+                    },
+                    {
+                        "time": "2025-04-30 15:00",
+                        "temp_c": 23.9,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 11.5,
+                        "wind_dir": "ESE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 13.2
+                    },
+                    {
+                        "time": "2025-04-30 16:00",
+                        "temp_c": 23.0,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 13.3,
+                        "wind_dir": "E",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 15.3
+                    },
+                    {
+                        "time": "2025-04-30 17:00",
+                        "temp_c": 21.5,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 14.8,
+                        "wind_dir": "E",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 18.0
+                    },
+                    {
+                        "time": "2025-04-30 18:00",
+                        "temp_c": 21.1,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 13.7,
+                        "wind_dir": "E",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 18.6
+                    },
+                    {
+                        "time": "2025-04-30 19:00",
+                        "temp_c": 17.7,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 10.4,
+                        "wind_dir": "E",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 16.5
+                    },
+                    {
+                        "time": "2025-04-30 20:00",
+                        "temp_c": 16.2,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 8.6,
+                        "wind_dir": "E",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 15.2
+                    },
+                    {
+                        "time": "2025-04-30 21:00",
+                        "temp_c": 15.3,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 7.6,
+                        "wind_dir": "E",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 13.8
+                    },
+                    {
+                        "time": "2025-04-30 22:00",
+                        "temp_c": 14.6,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 6.8,
+                        "wind_dir": "E",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 13.0
+                    },
+                    {
+                        "time": "2025-04-30 23:00",
+                        "temp_c": 14.0,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 6.5,
+                        "wind_dir": "E",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 12.6
+                    }
+                ]
+            },
+            {
+                "date": "2025-05-01",
+                "day": {
+                    "maxtemp_c": 25.7,
+                    "mintemp_c": 12.2,
+                    "avgtemp_c": 19.0,
+                    "totalprecip_mm": 0.1,
+                    "totalsnow_cm": 0.0,
+                    "daily_chance_of_rain": 0,
+                    "daily_chance_of_snow": 0,
+                    "condition": {
+                        "text": "Sunny"
+                    }
+                },
+                "hour": [
+                    {
+                        "time": "2025-05-01 00:00",
+                        "temp_c": 13.6,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 6.5,
+                        "wind_dir": "E",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 13.0
+                    },
+                    {
+                        "time": "2025-05-01 01:00",
+                        "temp_c": 13.2,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 5.8,
+                        "wind_dir": "ENE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 11.9
+                    },
+                    {
+                        "time": "2025-05-01 02:00",
+                        "temp_c": 12.9,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 5.8,
+                        "wind_dir": "ENE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 12.1
+                    },
+                    {
+                        "time": "2025-05-01 03:00",
+                        "temp_c": 12.6,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 6.1,
+                        "wind_dir": "ENE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 12.9
+                    },
+                    {
+                        "time": "2025-05-01 04:00",
+                        "temp_c": 12.3,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 5.8,
+                        "wind_dir": "E",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 12.1
+                    },
+                    {
+                        "time": "2025-05-01 05:00",
+                        "temp_c": 12.2,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 6.1,
+                        "wind_dir": "E",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 12.9
+                    },
+                    {
+                        "time": "2025-05-01 06:00",
+                        "temp_c": 13.6,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 4.7,
+                        "wind_dir": "E",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 8.6
+                    },
+                    {
+                        "time": "2025-05-01 07:00",
+                        "temp_c": 16.1,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 4.7,
+                        "wind_dir": "ESE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 6.7
+                    },
+                    {
+                        "time": "2025-05-01 08:00",
+                        "temp_c": 18.7,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 5.4,
+                        "wind_dir": "SE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 6.5
+                    },
+                    {
+                        "time": "2025-05-01 09:00",
+                        "temp_c": 21.0,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 6.8,
+                        "wind_dir": "SSE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 7.9
+                    },
+                    {
+                        "time": "2025-05-01 10:00",
+                        "temp_c": 22.5,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 7.6,
+                        "wind_dir": "SSE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 8.7
+                    },
+                    {
+                        "time": "2025-05-01 11:00",
+                        "temp_c": 24.1,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 9.0,
+                        "wind_dir": "SSE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 10.4
+                    },
+                    {
+                        "time": "2025-05-01 12:00",
+                        "temp_c": 25.1,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Patchy rain nearby"
+                        },
+                        "wind_kph": 12.2,
+                        "wind_dir": "S",
+                        "precip_mm": 0.01,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 83,
+                        "chance_of_snow": 0,
+                        "gust_kph": 14.1
+                    },
+                    {
+                        "time": "2025-05-01 13:00",
+                        "temp_c": 25.6,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 14.4,
+                        "wind_dir": "S",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 16.6
+                    },
+                    {
+                        "time": "2025-05-01 14:00",
+                        "temp_c": 25.7,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 15.1,
+                        "wind_dir": "S",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 17.4
+                    },
+                    {
+                        "time": "2025-05-01 15:00",
+                        "temp_c": 25.0,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 14.4,
+                        "wind_dir": "S",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 16.6
+                    },
+                    {
+                        "time": "2025-05-01 16:00",
+                        "temp_c": 24.4,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        },
+                        "wind_kph": 13.3,
+                        "wind_dir": "S",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 15.7
+                    },
+                    {
+                        "time": "2025-05-01 17:00",
+                        "temp_c": 23.1,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        },
+                        "wind_kph": 13.3,
+                        "wind_dir": "S",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 17.2
+                    },
+                    {
+                        "time": "2025-05-01 18:00",
+                        "temp_c": 21.7,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Patchy rain nearby"
+                        },
+                        "wind_kph": 12.6,
+                        "wind_dir": "SSW",
+                        "precip_mm": 0.09,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 100,
+                        "chance_of_snow": 0,
+                        "gust_kph": 17.1
+                    },
+                    {
+                        "time": "2025-05-01 19:00",
+                        "temp_c": 20.1,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Cloudy "
+                        },
+                        "wind_kph": 8.6,
+                        "wind_dir": "SSW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 12.7
+                    },
+                    {
+                        "time": "2025-05-01 20:00",
+                        "temp_c": 19.3,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 6.8,
+                        "wind_dir": "SSW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 10.6
+                    },
+                    {
+                        "time": "2025-05-01 21:00",
+                        "temp_c": 18.6,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 6.5,
+                        "wind_dir": "SSW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 10.6
+                    },
+                    {
+                        "time": "2025-05-01 22:00",
+                        "temp_c": 17.7,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 7.2,
+                        "wind_dir": "SW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 12.2
+                    },
+                    {
+                        "time": "2025-05-01 23:00",
+                        "temp_c": 16.6,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 7.6,
+                        "wind_dir": "SW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 13.5
+                    }
+                ]
+            },
+            {
+                "date": "2025-05-02",
+                "day": {
+                    "maxtemp_c": 23.9,
+                    "mintemp_c": 12.5,
+                    "avgtemp_c": 17.8,
+                    "totalprecip_mm": 0.09,
+                    "totalsnow_cm": 0.0,
+                    "daily_chance_of_rain": 0,
+                    "daily_chance_of_snow": 0,
+                    "condition": {
+                        "text": "Partly Cloudy "
+                    }
+                },
+                "hour": [
+                    {
+                        "time": "2025-05-02 00:00",
+                        "temp_c": 15.9,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 7.6,
+                        "wind_dir": "WSW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 13.5
+                    },
+                    {
+                        "time": "2025-05-02 01:00",
+                        "temp_c": 15.2,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 6.5,
+                        "wind_dir": "WSW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 11.8
+                    },
+                    {
+                        "time": "2025-05-02 02:00",
+                        "temp_c": 14.7,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 6.1,
+                        "wind_dir": "WSW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 11.2
+                    },
+                    {
+                        "time": "2025-05-02 03:00",
+                        "temp_c": 14.3,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 5.4,
+                        "wind_dir": "WSW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 10.0
+                    },
+                    {
+                        "time": "2025-05-02 04:00",
+                        "temp_c": 14.0,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 5.8,
+                        "wind_dir": "WSW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 10.7
+                    },
+                    {
+                        "time": "2025-05-02 05:00",
+                        "temp_c": 13.9,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 6.5,
+                        "wind_dir": "WSW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 11.6
+                    },
+                    {
+                        "time": "2025-05-02 06:00",
+                        "temp_c": 15.0,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 5.8,
+                        "wind_dir": "WNW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 8.4
+                    },
+                    {
+                        "time": "2025-05-02 07:00",
+                        "temp_c": 16.4,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 5.8,
+                        "wind_dir": "NW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 7.1
+                    },
+                    {
+                        "time": "2025-05-02 08:00",
+                        "temp_c": 17.8,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        },
+                        "wind_kph": 4.7,
+                        "wind_dir": "NW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 5.4
+                    },
+                    {
+                        "time": "2025-05-02 09:00",
+                        "temp_c": 19.2,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        },
+                        "wind_kph": 4.3,
+                        "wind_dir": "NW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 5.0
+                    },
+                    {
+                        "time": "2025-05-02 10:00",
+                        "temp_c": 20.7,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        },
+                        "wind_kph": 4.3,
+                        "wind_dir": "WNW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 5.0
+                    },
+                    {
+                        "time": "2025-05-02 11:00",
+                        "temp_c": 22.1,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 4.3,
+                        "wind_dir": "NW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 5.0
+                    },
+                    {
+                        "time": "2025-05-02 12:00",
+                        "temp_c": 23.3,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Sunny"
+                        },
+                        "wind_kph": 3.2,
+                        "wind_dir": "NW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 3.7
+                    },
+                    {
+                        "time": "2025-05-02 13:00",
+                        "temp_c": 23.9,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Cloudy "
+                        },
+                        "wind_kph": 4.7,
+                        "wind_dir": "WNW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 5.4
+                    },
+                    {
+                        "time": "2025-05-02 14:00",
+                        "temp_c": 23.9,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        },
+                        "wind_kph": 5.0,
+                        "wind_dir": "NNW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 5.8
+                    },
+                    {
+                        "time": "2025-05-02 15:00",
+                        "temp_c": 23.6,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Patchy rain nearby"
+                        },
+                        "wind_kph": 7.6,
+                        "wind_dir": "N",
+                        "precip_mm": 0.02,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 88,
+                        "chance_of_snow": 0,
+                        "gust_kph": 8.7
+                    },
+                    {
+                        "time": "2025-05-02 16:00",
+                        "temp_c": 22.0,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Patchy rain nearby"
+                        },
+                        "wind_kph": 15.1,
+                        "wind_dir": "NE",
+                        "precip_mm": 0.05,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 71,
+                        "chance_of_snow": 0,
+                        "gust_kph": 17.4
+                    },
+                    {
+                        "time": "2025-05-02 17:00",
+                        "temp_c": 19.2,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Patchy rain nearby"
+                        },
+                        "wind_kph": 15.8,
+                        "wind_dir": "ENE",
+                        "precip_mm": 0.02,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 82,
+                        "chance_of_snow": 0,
+                        "gust_kph": 18.5
+                    },
+                    {
+                        "time": "2025-05-02 18:00",
+                        "temp_c": 18.5,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Cloudy "
+                        },
+                        "wind_kph": 13.7,
+                        "wind_dir": "ENE",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 16.9
+                    },
+                    {
+                        "time": "2025-05-02 19:00",
+                        "temp_c": 16.8,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Cloudy "
+                        },
+                        "wind_kph": 14.0,
+                        "wind_dir": "E",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 18.0
+                    },
+                    {
+                        "time": "2025-05-02 20:00",
+                        "temp_c": 15.5,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Cloudy "
+                        },
+                        "wind_kph": 14.4,
+                        "wind_dir": "E",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 19.0
+                    },
+                    {
+                        "time": "2025-05-02 21:00",
+                        "temp_c": 14.5,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        },
+                        "wind_kph": 14.0,
+                        "wind_dir": "E",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 18.8
+                    },
+                    {
+                        "time": "2025-05-02 22:00",
+                        "temp_c": 13.7,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        },
+                        "wind_kph": 13.7,
+                        "wind_dir": "E",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 18.4
+                    },
+                    {
+                        "time": "2025-05-02 23:00",
+                        "temp_c": 12.5,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 12.2,
+                        "wind_dir": "E",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 17.2
+                    }
+                ]
+            }
+        ]
+    }
+}

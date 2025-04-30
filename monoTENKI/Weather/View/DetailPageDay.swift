@@ -50,14 +50,13 @@ struct DetailPageDay: ViewModifier {
                 .offset(y: -50)
               }
             }
+            .scrollTargetLayout()
           }
           .scrollTargetBehavior(.paging)
           .scrollIndicators(.never)
           .scrollPosition(id: $position)
           .background(colorScheme.background)
-          .onTapGesture {
-            withAnimation(.easeInOut.speed(0.5)) { present = false }
-          }
+          .onTapGesture { present = false }
           .onAppear { position = id }
         }
       }

@@ -53,27 +53,32 @@ struct WeatherView: View {
               }
             })
 
-          TabView {
-            ScrollView {
-              LazyVStack(spacing: 0) {
-                Today(weather: currentWeather)
-                  .containerRelativeFrame([.vertical, .horizontal])
-                  .contentShape(Rectangle())
-                  .onTapGesture {
-                    withAnimation(.easeInOut.speed(0.5)) { showDetails = true }
-                  }
-                  .detailPageCurrent(present: $showDetails, current: currentWeather)
+          ScrollView(.horizontal) {
+            LazyHStack(spacing: 0) {
+              ScrollView {
+                LazyVStack(spacing: 0) {
+                  Today(weather: currentWeather)
+                    .containerRelativeFrame([.vertical, .horizontal])
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                      withAnimation(.easeInOut.speed(0.5)) { showDetails = true }
+                    }
+                    .detailPageCurrent(present: $showDetails, current: currentWeather)
 
-                HourForecast(hours: hourForecast)
-                  .containerRelativeFrame(.vertical)
+                  HourForecast(hours: hourForecast)
+                    .containerRelativeFrame(.vertical)
+                }
               }
-            }
-            .scrollTargetBehavior(.paging)
-            .scrollIndicators(.never)
+              .scrollTargetBehavior(.paging)
+              .scrollIndicators(.never)
+              .containerRelativeFrame(.horizontal)
 
-            DayForecast(days: dayForecast)
+              DayForecast(days: dayForecast)
+                .containerRelativeFrame(.horizontal)
+            }
           }
-          .tabViewStyle(.page(indexDisplayMode: .never))
+          .scrollTargetBehavior(.paging)
+          .scrollIndicators(.never)
           .fontWeight(.bold)
         }
         .padding()

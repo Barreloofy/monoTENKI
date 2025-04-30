@@ -34,23 +34,23 @@ enum AccuWeather: URLProvider {
     let clientCurrent = HTTPClient(
       url: currentURL,
       decoder: AccuWeatherComposite.decoder)
-    async let current: [AccuWeatherWeatherCurrent] = clientCurrent.fetch()
+    async let current: [AccuWeatherCurrent] = clientCurrent.fetch()
 
     let clientHours = HTTPClient(
       url: hourlyURL,
       decoder: AccuWeatherComposite.decoder)
-    async let hours: [AccuWeatherWeatherHourForecast] = clientHours.fetch()
+    async let hours: [AccuWeatherHourForecast] = clientHours.fetch()
 
     let clientDays = HTTPClient(
       url: dailyURL,
       decoder: AccuWeatherComposite.decoder)
-    async let days: AccuWeatherWeatherDayForecast = clientDays.fetch()
+    async let days: AccuWeatherDayForecast = clientDays.fetch()
 
     let weather = AccuWeatherComposite(
       location: location.area.name,
       current: try await current,
-      forecastHours: try await hours,
-      forecastDays: try await days)
+      hourForecast: try await hours,
+      dayForecast: try await days)
     return weather
   }
 

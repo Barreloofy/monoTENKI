@@ -9,7 +9,6 @@ import SwiftUI
 
 struct DayForecast: View {
   @Environment(\.measurementSystem) private var measurementSystem
-  @Environment(\.colorScheme) private var colorScheme
 
   @State private var presentDetails = false
   @State private var dayID: Date?
@@ -17,7 +16,7 @@ struct DayForecast: View {
   let days: Days
 
   var body: some View {
-    VStack {
+    VStack(spacing: 15) {
       ForEach(days, id: \.date) { day in
         Row(
           leading: { Text(day.date.formatted(.dateTime.weekday(.wide))) },
@@ -29,15 +28,14 @@ struct DayForecast: View {
         .font(.title2)
         .contentShape(Rectangle())
         .onTapGesture {
-          withAnimation(.easeInOut.speed(0.5)) {
-            dayID = day.date
-            presentDetails = true
-          }
+          dayID = day.date
+          presentDetails = true
         }
       }
 
       Spacer()
     }
     .detailPageDay(present: $presentDetails, days: days, jumpTo: dayID)
+    .animation(.easeInOut.speed(0.5), value: presentDetails)
   }
 }
