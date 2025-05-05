@@ -18,16 +18,16 @@ class WeatherAggregate {
 
   var state: State = .loading
 
-  func getWeather(for location: String) async {
+  func getWeather(for location: String, with source: APISource) async {
     guard !location.isEmpty else { return }
 
     do {
       let weather: Weather
 
-      switch Source.value {
-      case .WeatherAPI:
+      switch source {
+      case .weatherApi:
         weather = try await WeatherAPI.weather(query: location).fetchWeather()
-      case .AccuWeather:
+      case .accuWeather:
         weather = try await AccuWeather.weather(query: location).fetchWeather()
       }
 

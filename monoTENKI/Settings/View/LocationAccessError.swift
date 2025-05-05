@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct LocationAccessError: View {
-  let message: String
 
   var body: some View {
     VStack {
-      Text(message)
+      Text("No permission to access location, grand permission to receive the most accurate weather")
         .font(.footnote)
       Link("Open Settings App", destination: URL(string: UIApplication.openSettingsURLString)!)
         .buttonStyle(.bordered)

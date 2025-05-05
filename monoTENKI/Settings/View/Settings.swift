@@ -13,9 +13,9 @@ struct Settings: View {
   @Environment(\.scenePhase) private var scenePhase
   @Environment(\.dismiss) private var dismiss
 
-  @AppStorage("measurementSystemInUse") private var measurementSystemInUse = MeasurementSystem.metric
+  @AppStorage("measurementSystem") private var measurementSystemInUse = MeasurementSystem.metric
+  @AppStorage("apiSource") private var apiSourceInUse = APISource.weatherApi
   @State private var noPermission = false
-  @State private var sourceInUse = Source.value
 
   var body: some View {
     VStack(spacing: 25) {
@@ -51,15 +51,14 @@ struct Settings: View {
             .font(.headline)
         },
         center: {
-          Text(APISource.WeatherAPI.rawValue)
-            .selectedStyle(target: APISource.WeatherAPI, value: $sourceInUse)
+          Text(APISource.weatherApi.rawValue)
+            .selectedStyle(target: APISource.weatherApi, value: $apiSourceInUse)
         },
         trailing: {
-          Text(APISource.AccuWeather.rawValue)
-            .selectedStyle(target: APISource.AccuWeather, value: $sourceInUse)
+          Text(APISource.accuWeather.rawValue)
+            .selectedStyle(target: APISource.accuWeather, value: $apiSourceInUse)
         })
       .font(.subheadline)
-      .onChange(of: sourceInUse) { Source.value = sourceInUse }
 
       permissionInfo
 
@@ -76,8 +75,7 @@ struct Settings: View {
 
   @ViewBuilder private var permissionInfo: some View {
     if noPermission {
-      LocationAccessError(
-        message: "No permission to access location currently, enable location to receive the most accurate weather")
+      LocationAccessError()
       .multilineTextAlignment(.center)
     }
   }

@@ -36,15 +36,10 @@ struct Setup: View {
       Group {
         Button("Grand access") {
           Task {
-            let serviceStream = CLServiceSession(authorization: .whenInUse)
-
-            for try await diagnostic in serviceStream.diagnostics where !diagnostic.authorizationRequestInProgress {
-              if diagnostic.authorizationDenied {
-                showSearch = true
-              } else {
-                locationAggregate.trackLocation = true
-              }
-              break
+            if await CLServiceSession.getAuthorizationStatus() {
+              locationAggregate.trackLocation = true
+            } else {
+              showSearch = true
             }
           }
         }

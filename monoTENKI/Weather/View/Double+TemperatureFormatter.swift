@@ -10,15 +10,16 @@ import Foundation
 extension Double {
   /// Locale-aware temperature formatter that takes in a 'MeasurementSystem' type usually retrieved from the environment
   func temperatureFormatter(_ measurementSystem: MeasurementSystem) -> String {
-    let rounded = self.rounded(.toNearestOrEven)
-    let adjusted = rounded == 0.0 ? 0.0 : rounded
+    var input = self
 
-    let temperature = Measurement<UnitTemperature>(value: adjusted, unit: .celsius)
+    if (-0.4...0).contains(input) { input = 0 }
+
+    let temperature = Measurement<UnitTemperature>(value: input, unit: .celsius)
     return temperature.converted(to: measurementSystem == .metric ? .celsius : .fahrenheit)
       .formatted(.measurement(
         width: .abbreviated,
         usage: .asProvided,
         hidesScaleName: true,
-        numberFormatStyle: .number.precision(.fractionLength(0))))
+        numberFormatStyle: .number.rounded(rule: .toNearestOrAwayFromZero,increment: 1)))
   }
 }

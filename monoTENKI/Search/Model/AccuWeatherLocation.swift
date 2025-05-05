@@ -11,43 +11,32 @@ typealias AccuWeatherLocations = [AccuWeatherLocation]
 /// The model produced by decoding 'AccuWeather/locations' JSON response
 struct AccuWeatherLocation: Decodable {
   let key: String
-  let name: String
+  let localizedName: String
   let country: Country
-  let area: Area
-  let coordinate: Coordinate
-
-
-  enum CodingKeys: String, CodingKey {
-    case key = "Key"
-    case name = "LocalizedName"
-    case country = "Country"
-    case area = "AdministrativeArea"
-    case coordinate = "GeoPosition"
-  }
+  let administrativeArea: Area
+  let geoPosition: Coordinate
 
   struct Country: Decodable {
-    let name: String
-
-    enum CodingKeys: String, CodingKey {
-      case name = "LocalizedName"
-    }
+    let localizedName: String
   }
 
   struct Area: Decodable {
-    let name: String
-
-    enum CodingKeys: String, CodingKey {
-      case name = "LocalizedName"
-    }
+    let localizedName: String
   }
 
   struct Coordinate: Decodable {
     let latitude: Double
     let longitude: Double
+  }
+}
 
-    enum CodingKeys: String, CodingKey {
-      case latitude = "Latitude"
-      case longitude = "Longitude"
-    }
+
+extension AccuWeatherLocation {
+  static var decoder: JSONDecoder {
+    let decoder = JSONDecoder()
+
+    decoder.keyDecodingStrategy = .convertFromPascalCase
+
+    return decoder
   }
 }

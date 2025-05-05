@@ -8,27 +8,16 @@
 import CoreLocation
 // MARK: - Convenience method
 extension CLServiceSession {
-  /// Returns true if 'authorizationDenied' is false otherwise false, 'CLServiceSession' has a default value of 'whenInUse' authorization
-  ///
-  /// Important, don't use this method to request Authorization use the Apple recommend way instead:
-  ///
-  ///     let serviceStream = CLServiceSession(authorization: .whenInUse)
-  ///
-  ///     for try await diagnostic in serviceStream.diagnostics where !diagnostic.authorizationRequestInProgress  {
-  ///       if diagnostic.authorizationDenied {
-  ///         ...
-  ///       } else {
-  ///         ...
-  ///       }
-  ///       break
-  ///     }
-  ///
-  static func getAuthorizationStatus(session: CLServiceSession = CLServiceSession(authorization: .whenInUse)) async -> Bool {
+  /// Returns true if some level of location authorization was granted otherwise false,
+  /// if location authorization is undetermined, prompts for permission
+  static func getAuthorizationStatus(
+    session: CLServiceSession = CLServiceSession(authorization: .whenInUse)
+  ) async -> Bool {
     let serviceStream = CLServiceSession(authorization: .whenInUse)
 
     do {
-      for try await diagnostic in serviceStream.diagnostics {
-        return diagnostic.authorizationDenied ? false : true
+      for try await diagnostic in serviceStream.diagnostics where !diagnostic.authorizationRequestInProgress {
+        return !diagnostic.authorizationDenied
       }
     } catch {
       return false

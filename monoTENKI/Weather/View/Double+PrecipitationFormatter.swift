@@ -12,10 +12,11 @@ extension Double {
     guard self > 0 else { return "0" }
 
     let value = Measurement<UnitLength>(value: self, unit: .millimeters)
+
     return value.converted(to: measurementSystem == .metric ? .millimeters : .inches)
       .formatted(.measurement(
         width: .abbreviated,
         usage: .asProvided,
-        numberFormatStyle: .number.precision(.fractionLength(2))))
+        numberFormatStyle: .number.rounded(rule: .up, increment: 0.01)))
   }
 }

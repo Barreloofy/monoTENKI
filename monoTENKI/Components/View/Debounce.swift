@@ -12,14 +12,14 @@ import SwiftUI
 struct Debounce<ID: Equatable>: ViewModifier {
   let id: ID
   let duration: Duration
-  let task: @MainActor () async -> Void
+  let action: @MainActor () async -> Void
 
   func body(content: Content) -> some View {
     content
       .task(id: id) {
         do {
           try await Task.sleep(for: duration)
-          await task()
+          await action()
         } catch {}
       }
   }
@@ -27,15 +27,19 @@ struct Debounce<ID: Equatable>: ViewModifier {
 
 
 extension View {
-  /// Executes the task after the suspension period has elapsed, if the id changes before that, the task gets cancelled
+  /// Executes the task after the suspension period has elapsed, if the id changes before that, the task gets cancelled.
+  /// - Parameters:
+  ///   - id: The value to observe for changes, id must conform to Equatable.
+  ///   - duration: The length of the suspension period.
+  ///   - action: A async closure that is called after the suspension period has elapsed
   func debounce<ID: Equatable>(
     id: ID,
-    duration: Duration,
-    task: @MainActor @escaping () async -> Void) -> some View {
+    duration: Duration = .seconds(0.333),
+    action: @MainActor @escaping () async -> Void) -> some View {
       modifier(
         Debounce(
           id: id,
           duration: duration,
-          task: task))
+          action: action))
   }
 }

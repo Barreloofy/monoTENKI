@@ -10,87 +10,27 @@ import CoreLocation
 
 struct Search: View {
   enum Error {
-    case none
-    case search
-    case location
+    case none, search, location
   }
 
-  @Environment(LocationAggregate.self) private var locationAggregate
+  @Environment(\.colorScheme) private var colorScheme
   @Environment(\.dismiss) private var dismiss
+  @Environment(\.apiSource) private var apiSource
+  @Environment(LocationAggregate.self) private var locationAggregate
 
-  @State private var searchModel = SearchModel()
+  @State private var error = Error.none
   @State private var text = ""
-  @State private var error: Error = .none
+  @State private var results = Locations()
+  @State private var history = History()
 
   let setup: Bool
 
-  private var errorMessage: String {
-    switch error {
-    case .none:
-      ""
-    case .search:
-      "It seems an error occured, please check the connection status"
-    case .location:
-      "It seems an error occured, please check if location service is enabled and permission was granted"
-    }
+  private var presentedLocations: Locations {
+    text.isEmpty ? history.locations : results
   }
 
   var body: some View {
-    VStack {
-      header
-
-      SearchTextField(text: $text)
-        .debounce(id: text, duration: .seconds(0.5)) {
-          do {
-            try await searchModel.getLocations(matching: text)
-            error = .none
-          } catch {
-            self.error = .search
-          }
-        }
-
-      locationButton
-
-      switch error {
-      case .none:
-        ScrollView {
-          LazyVStack(spacing: 0) {
-            ForEach(searchModel.getContent(condition: text.isEmpty)) { result in
-              SwipeableRow(
-                allowSwipe: text.isEmpty,
-                action: { searchModel.removeHistory(location: result) },
-                content: {
-                  AlignedHStack(alignment: .leading) {
-                    Text(result.completeName)
-                      .lineLimit(1)
-                      .onTapGesture {
-                        locationAggregate.trackLocation = false
-                        locationAggregate.location = result.coordinate.stringRepresentation
-                        searchModel.updateHistory(with: result)
-                        dismiss()
-                      }
-                  }
-                })
-            }
-          }
-        }
-        .scrollIndicators(.never)
-      case .search:
-        Text(errorMessage)
-          .font(.footnote)
-      case .location:
-        LocationAccessError(message: errorMessage)
-      }
-
-      Spacer()
-    }
-    .font(.title3)
-    .padding()
-  }
-
-
-  @ViewBuilder private var header: some View {
-    if !setup {
+    VStack(spacing: 10) {
       Row(
         leading: {},
         center: { Text("Search") },
@@ -101,27 +41,74 @@ struct Search: View {
         })
       .font(.title)
       .fontWeight(.bold)
-    }
-  }
+      .enabled(!setup)
 
+      TextField(
+        "",
+        text: $text,
+        prompt: Text("Search").foregroundStyle(colorScheme.foreground))
+        .textInputAutocapitalization(.characters)
+        .debounce(id: text) {
+          guard !text.isEmpty else { return }
+          do {
+            switch apiSource {
+            case .weatherApi:
+              results = try await WeatherAPI.search(query: text).fetchSearch()
+            case .accuWeather:
+              results = try await AccuWeather.search(query: text).fetchSearch()
+            }
+            error = .none
+          } catch {
+            self.error = .search
+          }
+        }
 
-  @ViewBuilder private var locationButton: some View {
-    if !setup {
       AlignedHStack(alignment: .leading) {
         Button(
           action: {
-            Task {
-              if await CLServiceSession.getAuthorizationStatus() {
-                locationAggregate.trackLocation = true
-                dismiss()
-              } else {
-                error = .location
-              }
-            }
+             Task {
+               if await CLServiceSession.getAuthorizationStatus() {
+                 locationAggregate.trackLocation = true
+                 dismiss()
+               } else {
+                 self.error = .location
+               }
+             }
           },
           label: { Label("CURRENT LOCATION", systemImage: "location.fill") })
       }
       .fontWeight(.regular)
+      .enabled(!setup)
+
+      switch error {
+      case .none:
+        ScrollView {
+          LazyVStack(spacing: 0) {
+            ForEach(presentedLocations) { result in
+              AlignedHStack(alignment: .leading) {
+                Text(result.completeName)
+                  .onTapGesture {
+                    locationAggregate.trackLocation = false
+                    locationAggregate.location = result.coordinate.stringRepresentation
+                    dismiss()
+                    history.add(result)
+                  }
+              }
+              .swipeToDelete(isEnabled: text.isEmpty) { history.remove(result) }
+            }
+          }
+          .lineLimit(1)
+        }
+      case .search:
+        Text("Search couldn't be completed, check connection status")
+      case .location:
+        LocationAccessError()
+      }
+
+      Spacer()
     }
+    .font(.title3)
+    .padding()
+    .onAppear { history.load() }
   }
 }

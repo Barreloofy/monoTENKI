@@ -17,7 +17,7 @@ struct WeatherView: View {
   @State private var showSettings = false
   @State private var showSearch = false
   @State private var showDetails = false
-  @State private var source = Source.value
+  @AppStorage("apiSource") private var apiSourceInUse = APISource.weatherApi
 
   // MARK: - Produces an 'AsyncTimerSequence' event every 15 minutes
   private let updateTimer = AsyncTimerSequence(interval: .seconds(900), clock: .continuous)
@@ -83,40 +83,37 @@ struct WeatherView: View {
         }
         .padding()
       case .error:
-        VStack(spacing: 10) {
-          Text("Error, check connection status, if the error persists please try again later")
-            .font(.footnote)
-          VStack(spacing: 5) {
-            Text("Try diffrent Source:")
-              .font(.headline)
-            HStack {
-              Text(APISource.WeatherAPI.rawValue)
-                .selectedStyle(target: APISource.WeatherAPI, value: $source)
-              Text(APISource.AccuWeather.rawValue)
-                .selectedStyle(target: APISource.AccuWeather, value: $source)
-            }
-            .font(.subheadline)
-          }
-        }
-        .multilineTextAlignment(.center)
-        .offset(y: -75)
-        .padding()
+         VStack(spacing: 10) {
+           Text("Error, check connection status, if the error persists please try again later")
+             .font(.footnote)
+           VStack(spacing: 5) {
+             Text("Try diffrent Source:")
+               .font(.headline)
+             HStack {
+               Text(APISource.weatherApi.rawValue)
+                 .selectedStyle(target: APISource.weatherApi, value: $apiSourceInUse)
+               Text(APISource.accuWeather.rawValue)
+                 .selectedStyle(target: APISource.accuWeather, value: $apiSourceInUse)
+             }
+             .font(.subheadline)
+           }
+         }
+         .multilineTextAlignment(.center)
+         .offset(y: -75)
+         .padding()
       }
     }
     .tint(colorScheme.foreground)
-    .onChange(of: source) {
-      Source.value = source
-      Task {
-        await weatherAggregate.getWeather(for: locationAggregate.location)
-      }
-    }
     .task(id: locationAggregate.location) {
-      await weatherAggregate.getWeather(for: locationAggregate.location)
+      await weatherAggregate.getWeather(for: locationAggregate.location, with: apiSourceInUse)
     }
     .task {
       for await _ in updateTimer.debounce(for: .seconds(1)) {
-        await weatherAggregate.getWeather(for: locationAggregate.location)
+        await weatherAggregate.getWeather(for: locationAggregate.location, with: apiSourceInUse)
       }
+    }
+    .onChange(of: apiSourceInUse) {
+      Task { await weatherAggregate.getWeather(for: locationAggregate.location, with: apiSourceInUse) }
     }
   }
 }

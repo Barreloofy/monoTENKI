@@ -17,7 +17,7 @@ struct DayForecast: View {
 
   var body: some View {
     VStack(spacing: 15) {
-      ForEach(days, id: \.date) { day in
+      ForEach(days) { day in
         Row(
           leading: { Text(day.date.formatted(.dateTime.weekday(.wide))) },
           center: {

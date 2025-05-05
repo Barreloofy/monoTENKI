@@ -31,7 +31,7 @@ enum WeatherAPI: URLProvider {
       Location(
         name: location.name,
         country: location.country,
-        coordinate: Location.Coordinate(latitude: location.latitude, longitude: location.longitude))
+        coordinate: .init(latitude: location.lat, longitude: location.lon))
     }
   }
 }

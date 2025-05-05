@@ -47,7 +47,7 @@ enum AccuWeather: URLProvider {
     async let days: AccuWeatherDayForecast = clientDays.fetch()
 
     let weather = AccuWeatherComposite(
-      location: location.area.name,
+      location: location.administrativeArea.localizedName,
       current: try await current,
       hourForecast: try await hours,
       dayForecast: try await days)
@@ -55,23 +55,28 @@ enum AccuWeather: URLProvider {
   }
 
   func fetchSearch() async throws -> Locations {
-    let client = try HTTPClient(url: provideURL())
+    let client = try HTTPClient(
+      url: provideURL(),
+      decoder: AccuWeatherLocation.decoder)
 
     let AccuWeatherLocation = try await client.fetch() as AccuWeatherLocations
 
     return AccuWeatherLocation.compactMap { location in
       Location(
-        name: location.name,
-        country: location.country.name,
-        area: location.area.name,
-        coordinate: Location.Coordinate(
-          latitude: location.coordinate.latitude,
-          longitude: location.coordinate.longitude))
+        name: location.localizedName,
+        country: location.country.localizedName,
+        area: location.administrativeArea.localizedName,
+        coordinate: .init(
+          latitude: location.geoPosition.latitude,
+          longitude: location.geoPosition.longitude))
     }
   }
 
   func fetchGeo() async throws -> AccuWeatherLocation {
-    let client = try HTTPClient(url: provideURL())
+    let client = try HTTPClient(
+      url: provideURL(),
+      decoder: AccuWeatherLocation.decoder)
+
     return try await client.fetch()
   }
 }

@@ -46,7 +46,7 @@ struct CurrentWeather {
 
 
 typealias Hours = [Hour]
-struct Hour {
+struct Hour: Identifiable {
   let time: Date
   let isDay: Bool
   let condition: String
@@ -54,11 +54,13 @@ struct Hour {
   let precipitationChance: Int
   let precipitationRateMillimeter: Double
   let precipitationType: String
+
+  var id: Date { time }
 }
 
 
 typealias Days = [Day]
-struct Day {
+struct Day: Identifiable {
   let date: Date
   let condition: String
   let temperatureCelsiusAverage: Double
@@ -67,4 +69,6 @@ struct Day {
   let precipitationChance: Int
   let precipitationTotalMillimeter: Double
   let precipitationType: String
+
+  var id: Date { date }
 }

@@ -10,7 +10,8 @@ import SwiftUI
 @main
 struct monoTENKIApp: App {
   @AppStorage("setupCompleted") private var setupCompleted = false
-  @AppStorage("measurementSystemInUse") private var measurementSystemInUse = MeasurementSystem.metric
+  @AppStorage("measurementSystem") private var measurementSystemInUse = MeasurementSystem.metric
+  @AppStorage("apiSource") private var apiSourceInUse = APISource.weatherApi
   @State private var locationAggregate = LocationAggregate()
 
   var body: some Scene {
@@ -29,5 +30,6 @@ struct monoTENKIApp: App {
     }
     .environment(locationAggregate)
     .environment(\.measurementSystem, measurementSystemInUse)
+    .environment(\.apiSource, apiSourceInUse)
   }
 }

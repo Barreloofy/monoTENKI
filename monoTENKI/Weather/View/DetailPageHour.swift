@@ -24,7 +24,7 @@ struct DetailPageHour: ViewModifier {
         if present {
           ScrollView {
             LazyVStack(spacing: 0) {
-              ForEach(hours, id: \.time) { hour in
+              ForEach(hours) { hour in
                 VStack(alignment: .leading, spacing: 10) {
                   Text(hour.time.formatted(.timeZoneNeutral))
                     .font(.system(size: 30))

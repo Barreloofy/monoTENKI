@@ -10,9 +10,13 @@ import SwiftUI
 struct Row<
   ContentLeading,
   ContentCenter,
-  ContentTrailing
->: View where
-ContentLeading: View, ContentCenter: View, ContentTrailing: View {
+  ContentTrailing,
+>: View
+where
+  ContentLeading: View,
+  ContentCenter: View,
+  ContentTrailing: View
+{
   @ViewBuilder let leading: ContentLeading
   @ViewBuilder let center: ContentCenter
   @ViewBuilder let trailing: ContentTrailing
