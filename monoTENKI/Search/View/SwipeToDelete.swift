@@ -21,7 +21,7 @@ struct SwipeToDelete: ViewModifier {
       content
         .background(colorScheme.background)
         .offset(x: offset)
-        .gesture(
+        .simultaneousGesture(
           DragGesture()
             .onChanged { value in
               let dragValue = value.translation.width

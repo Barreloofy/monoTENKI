@@ -4,7 +4,7 @@
 //
 //  Created by Barreloofy on 3/25/25 at 12:09 PM.
 //
-
+	
 import SwiftUI
 import CoreLocation
 
@@ -47,33 +47,32 @@ struct Search: View {
         "",
         text: $text,
         prompt: Text("Search").foregroundStyle(colorScheme.foreground))
-        .textInputAutocapitalization(.characters)
-        .debounce(id: text) {
-          guard !text.isEmpty else { return }
-          do {
-            switch apiSource {
-            case .weatherApi:
-              results = try await WeatherAPI.search(query: text).fetchSearch()
-            case .accuWeather:
-              results = try await AccuWeather.search(query: text).fetchSearch()
-            }
-            error = .none
-          } catch {
-            self.error = .search
+      .textInputAutocapitalization(.characters)
+      .debounce(id: text) {
+        do {
+          switch apiSource {
+          case .weatherApi:
+            results = try await Array(WeatherAPI.search(query: text).fetchSearch().prefix(10))
+          case .accuWeather:
+            results = try await Array(AccuWeather.search(query: text).fetchSearch().prefix(10))
           }
+          error = .none
+        } catch {
+          self.error = .search
         }
+      }
 
       AlignedHStack(alignment: .leading) {
         Button(
           action: {
-             Task {
-               if await CLServiceSession.getAuthorizationStatus() {
-                 locationAggregate.trackLocation = true
-                 dismiss()
-               } else {
-                 self.error = .location
-               }
-             }
+            Task {
+              if await CLServiceSession.getAuthorizationStatus() {
+                locationAggregate.trackLocation = true
+                dismiss()
+              } else {
+                self.error = .location
+              }
+            }
           },
           label: { Label("CURRENT LOCATION", systemImage: "location.fill") })
       }
@@ -90,8 +89,8 @@ struct Search: View {
                   .onTapGesture {
                     locationAggregate.trackLocation = false
                     locationAggregate.location = result.coordinate.stringRepresentation
-                    dismiss()
                     history.add(result)
+                    dismiss()
                   }
               }
               .swipeToDelete(isEnabled: text.isEmpty) { history.remove(result) }
@@ -99,16 +98,23 @@ struct Search: View {
           }
           .lineLimit(1)
         }
+        .scrollIndicators(.never)
       case .search:
         Text("Search couldn't be completed, check connection status")
+          .font(.footnote)
       case .location:
-        LocationAccessError()
+        Text("No permission to access location, grand permission to receive the most accurate weather")
+          .font(.footnote)
+        Link("Open Settings App", destination: URL(string: UIApplication.openSettingsURLString)!)
+          .buttonStyle(.bordered)
+          .fontWeight(.bold)
       }
 
       Spacer()
     }
     .font(.title3)
     .padding()
+    .animation(.default.speed(0.5), value: error)
     .onAppear { history.load() }
   }
 }

@@ -76,6 +76,7 @@ extension WeatherAPIWeather {
   func createHourForecast() -> Hours {
     let twelveHoursInSeconds: TimeInterval = 43_200
     var hourForecast: Hours = []
+    hourForecast.reserveCapacity(12)
 
     for day in forecast.forecastday {
       for hour in day.hour {

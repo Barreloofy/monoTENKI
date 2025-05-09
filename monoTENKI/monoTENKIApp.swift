@@ -17,7 +17,7 @@ struct monoTENKIApp: App {
   var body: some Scene {
     WindowGroup {
       if setupCompleted {
-        WeatherView()
+        Aggregate()
           .textCase(.uppercase)
           .fontDesign(.monospaced)
           .fontWeight(.medium)
@@ -29,7 +29,7 @@ struct monoTENKIApp: App {
       }
     }
     .environment(locationAggregate)
-    .environment(\.measurementSystem, measurementSystemInUse)
     .environment(\.apiSource, apiSourceInUse)
+    .environment(\.measurementSystem, measurementSystemInUse)
   }
 }

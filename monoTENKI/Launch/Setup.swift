@@ -9,8 +9,8 @@ import SwiftUI
 import CoreLocation
 
 struct Setup: View {
-  @Environment(LocationAggregate.self) private var locationAggregate
   @Environment(\.colorScheme) private var colorScheme
+  @Environment(LocationAggregate.self) private var locationAggregate
 
   @AppStorage("showSearch") private var showSearch = false
 
@@ -23,11 +23,11 @@ struct Setup: View {
           .styled(size: 100)
           .offset(y: -25)
 
-        Text("accurate weather")
+        Text("Accurate weather")
           .font(.title)
           .fontWeight(.bold)
 
-        Text("location is used to provide the most accurate weather")
+        Text("Location is used to provide the most accurate weather")
           .font(.footnote)
       }
       .multilineTextAlignment(.center)
@@ -43,7 +43,7 @@ struct Setup: View {
             }
           }
         }
-        Button("Deny access ") { showSearch = true }
+        Button("Deny access") { showSearch = true }
       }
       .buttonStyle(.permission)
       .offset(y: 150)
@@ -54,5 +54,6 @@ struct Setup: View {
         .interactiveDismissDisabled()
     }
     .onChange(of: locationAggregate.location) { setupCompleted = true }
+    .tint(colorScheme.foreground)
   }
 }

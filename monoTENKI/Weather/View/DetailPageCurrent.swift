@@ -54,9 +54,7 @@ struct DetailPageCurrent: ViewModifier {
             }
             .offset(y: -50)
           }
-          .onTapGesture {
-            withAnimation(.easeInOut.speed(0.5)) { present = false }
-          }
+          .onTapGesture { present = false }
         }
       }
   }

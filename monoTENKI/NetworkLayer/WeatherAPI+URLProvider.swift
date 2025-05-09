@@ -20,12 +20,6 @@ extension WeatherAPI {
     }
   }
 
-  var query: String {
-    switch self {
-    case .weather(let query), .search(let query): query
-    }
-  }
-
   func provideURL() throws -> URL {
     return try constructURL(
       host: "api.weatherapi.com",

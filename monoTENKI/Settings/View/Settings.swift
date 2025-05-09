@@ -6,16 +6,13 @@
 //
 
 import SwiftUI
-import CoreLocation
 
 struct Settings: View {
   @Environment(\.measurementSystem) private var measurementSystem
-  @Environment(\.scenePhase) private var scenePhase
   @Environment(\.dismiss) private var dismiss
 
   @AppStorage("measurementSystem") private var measurementSystemInUse = MeasurementSystem.metric
   @AppStorage("apiSource") private var apiSourceInUse = APISource.weatherApi
-  @State private var noPermission = false
 
   var body: some View {
     VStack(spacing: 25) {
@@ -60,23 +57,9 @@ struct Settings: View {
         })
       .font(.subheadline)
 
-      permissionInfo
-
       Spacer()
     }
     .padding()
     .onAppear { measurementSystemInUse = measurementSystem }
-    .task(id: scenePhase) {
-      guard scenePhase == .active else { return }
-      noPermission = await !CLServiceSession.getAuthorizationStatus() ? true : false
-    }
-  }
-
-
-  @ViewBuilder private var permissionInfo: some View {
-    if noPermission {
-      LocationAccessError()
-      .multilineTextAlignment(.center)
-    }
   }
 }

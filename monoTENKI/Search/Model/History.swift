@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import os
 
 struct History {
   private(set) var locations = Locations()
@@ -28,7 +29,7 @@ struct History {
     save()
   }
 
-  // MARK: - store, retrieve data
+  // MARK: - store, retrieve locations
   private var historyFileURL: URL {
     let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     return documentsURL.appending(path: "locationHistory")
@@ -39,7 +40,7 @@ struct History {
       let data = try JSONEncoder().encode(locations)
       try data.write(to: historyFileURL)
     } catch {
-      print(error)
+      Logger.fileManager.error("\(error)")
     }
   }
 
@@ -47,7 +48,12 @@ struct History {
     do {
       locations = try JSONDecoder().decode(Locations.self, from: Data(contentsOf: historyFileURL))
     } catch {
-      print(error)
+      Logger.fileManager.error("\(error)")
     }
   }
+}
+
+
+extension Logger {
+  static let fileManager = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "FileManager")
 }

@@ -14,8 +14,8 @@ struct PermissionStyle: ButtonStyle {
     configuration.label
       .font(.system(.body, design: .monospaced, weight: .medium))
       .foregroundStyle(colorScheme.foreground.opacity(configuration.isPressed ? 0.8 : 1))
-      .padding(.vertical, 10)
-      .padding(.horizontal, 25)
+      .frame(minWidth: 150)
+      .padding(10)
       .background {
         Capsule()
           .stroke(lineWidth: 2.5)

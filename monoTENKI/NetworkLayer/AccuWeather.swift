@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CoreLocation
 /// Concrete interface for AccuWeather
 enum AccuWeather: URLProvider {
   case weather(query: String)
@@ -46,11 +45,11 @@ enum AccuWeather: URLProvider {
       decoder: AccuWeatherComposite.decoder)
     async let days: AccuWeatherDayForecast = clientDays.fetch()
 
-    let weather = AccuWeatherComposite(
+    let weather = try await AccuWeatherComposite(
       location: location.administrativeArea.localizedName,
-      current: try await current,
-      hourForecast: try await hours,
-      dayForecast: try await days)
+      current: current,
+      hourForecast: hours,
+      dayForecast: days)
     return weather
   }
 
@@ -59,9 +58,9 @@ enum AccuWeather: URLProvider {
       url: provideURL(),
       decoder: AccuWeatherLocation.decoder)
 
-    let AccuWeatherLocation = try await client.fetch() as AccuWeatherLocations
+    let locations: AccuWeatherLocations = try await client.fetch()
 
-    return AccuWeatherLocation.compactMap { location in
+    return locations.compactMap { location in
       Location(
         name: location.localizedName,
         country: location.country.localizedName,

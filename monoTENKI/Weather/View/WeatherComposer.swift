@@ -1,22 +1,92 @@
 //
-//  WeatherView.swift
+//  WeatherComposer.swift
 //  monoTENKI
 //
 //  Created by Barreloofy on 3/30/25 at 9:15 PM.
 //
 
 import SwiftUI
-import AsyncAlgorithms
 
+struct WeatherComposer: View {
+  @Environment(\.colorScheme) private var colorScheme
+
+  @State private var presentSearch = false
+  @State private var presentSettings = false
+
+  let currentWeather: CurrentWeather
+  let hourForecast: Hours
+  let dayForecast: Days
+
+  var body: some View {
+    VStack(spacing: 25) {
+      Row(
+        leading: {},
+        center: {
+          Button(
+            action: { presentSearch = true },
+            label: { Text(currentWeather.location) })
+          //.opacity(opacity)
+          .sheet(isPresented: $presentSearch) {
+            Search(setup: false)
+              .presentationBackground(colorScheme.background)
+          }
+        },
+        trailing: {
+          Button(
+            action: { presentSettings = true },
+            label: {
+              Image(systemName: "gear")
+                .styled(size: 25)
+            })
+          .sheet(isPresented: $presentSettings) {
+            Settings()
+              .presentationBackground(colorScheme.background)
+          }
+        })
+      .padding()
+
+      ScrollView(.horizontal) {
+        LazyHStack(spacing: 0) {
+          ScrollView {
+            LazyVStack(spacing: 0) {
+              Today(current: currentWeather)
+                .containerRelativeFrame(.vertical)
+
+              HourForecast(hours: hourForecast)
+                .containerRelativeFrame(.vertical)
+            }
+            .padding()
+          }
+          .scrollTargetBehavior(.paging)
+          .scrollIndicators(.never)
+          .containerRelativeFrame(.horizontal)
+
+          DayForecast(days: dayForecast)
+            .padding()
+            .containerRelativeFrame(.horizontal)
+        }
+      }
+      .ignoresSafeArea()
+      .scrollTargetBehavior(.paging)
+      .scrollIndicators(.never)
+      .fontWeight(.bold)
+      //.opacity(opacity)
+    }
+  }
+}
+
+
+/*
 struct WeatherView: View {
   @Environment(\.colorScheme) private var colorScheme
   @Environment(\.measurementSystem) private var measurementSystem
   @Environment(LocationAggregate.self) private var locationAggregate
 
   @State private var weatherAggregate = WeatherAggregate()
+  @State private var state = WeatherAggregate.State.loading
+  @State private var opacity = 1.0
   @State private var showSettings = false
   @State private var showSearch = false
-  @State private var showDetails = false
   @AppStorage("apiSource") private var apiSourceInUse = APISource.weatherApi
 
   // MARK: - Produces an 'AsyncTimerSequence' event every 15 minutes
@@ -24,7 +94,7 @@ struct WeatherView: View {
 
   var body: some View {
     Group {
-      switch weatherAggregate.state {
+      switch state {
       case .loading:
         colorScheme.background
       case .loaded(let currentWeather, let hourForecast, let dayForecast):
@@ -35,6 +105,7 @@ struct WeatherView: View {
               Button(
                 action: { showSearch = true },
                 label: { Text(currentWeather.location) })
+              .opacity(opacity)
               .sheet(isPresented: $showSearch) {
                 Search(setup: false)
                   .presentationBackground(colorScheme.background)
@@ -57,13 +128,8 @@ struct WeatherView: View {
             LazyHStack(spacing: 0) {
               ScrollView {
                 LazyVStack(spacing: 0) {
-                  Today(weather: currentWeather)
-                    .containerRelativeFrame([.vertical, .horizontal])
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                      withAnimation(.easeInOut.speed(0.5)) { showDetails = true }
-                    }
-                    .detailPageCurrent(present: $showDetails, current: currentWeather)
+                  Today(current: currentWeather)
+                    .containerRelativeFrame(.vertical)
 
                   HourForecast(hours: hourForecast)
                     .containerRelativeFrame(.vertical)
@@ -79,15 +145,16 @@ struct WeatherView: View {
           }
           .scrollTargetBehavior(.paging)
           .scrollIndicators(.never)
+          .ignoresSafeArea()
           .fontWeight(.bold)
+          .opacity(opacity)
         }
-        .padding()
       case .error:
          VStack(spacing: 10) {
            Text("Error, check connection status, if the error persists please try again later")
              .font(.footnote)
            VStack(spacing: 5) {
-             Text("Try diffrent Source:")
+             Text("Try diffrent Source")
                .font(.headline)
              HStack {
                Text(APISource.weatherApi.rawValue)
@@ -100,9 +167,9 @@ struct WeatherView: View {
          }
          .multilineTextAlignment(.center)
          .offset(y: -75)
-         .padding()
       }
     }
+    .padding()
     .tint(colorScheme.foreground)
     .task(id: locationAggregate.location) {
       await weatherAggregate.getWeather(for: locationAggregate.location, with: apiSourceInUse)
@@ -115,5 +182,17 @@ struct WeatherView: View {
     .onChange(of: apiSourceInUse) {
       Task { await weatherAggregate.getWeather(for: locationAggregate.location, with: apiSourceInUse) }
     }
+    .onAppear { state = weatherAggregate.state }
+    .onChange(of: weatherAggregate.state) {
+      Task {
+        withAnimation(.easeIn(duration: 0.5)) { opacity = 0 }
+
+        try await Task.sleep(for: .seconds(0.5))
+        state = weatherAggregate.state
+
+        withAnimation(.easeOut(duration: 0.5)) { opacity = 1 }
+      }
+    }
   }
 }
+*/

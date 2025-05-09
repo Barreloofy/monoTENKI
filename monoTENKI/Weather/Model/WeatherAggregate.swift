@@ -10,7 +10,7 @@ import Foundation
 @MainActor
 @Observable
 class WeatherAggregate {
-  enum State {
+  enum State: Equatable {
     case loading
     case loaded(currentWeather: CurrentWeather, hourForecast: Hours, dayForecast: Days)
     case error
@@ -19,8 +19,6 @@ class WeatherAggregate {
   var state: State = .loading
 
   func getWeather(for location: String, with source: APISource) async {
-    guard !location.isEmpty else { return }
-
     do {
       let weather: Weather
 
