@@ -187,6 +187,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		290E696C2DD01A3F00D2EA6A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				29C10C9D2DCD21C100BCCF27 /* Aggregate.swift */,
+				297131D32D91787900316379 /* Setup.swift */,
+				29C10C9F2DCD442A00BCCF27 /* RecoveryState.swift */,
+				299A55DA2D945E540089C312 /* PermissionButtonStyle.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		293AC4C12D9C197C007FCC76 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -218,8 +229,8 @@
 		296094EC2D89AD1F00B326DF /* NetworkLayer */ = {
 			isa = PBXGroup;
 			children = (
-				296094ED2D89AD3D00B326DF /* HTTPClient.swift */,
 				29ECB3B52D8A415D001922EA /* URLProvider.swift */,
+				296094ED2D89AD3D00B326DF /* HTTPClient.swift */,
 				296094F22D89DA5E00B326DF /* WeatherAPI.swift */,
 				294004062DB5208700C23CA1 /* WeatherAPI+URLProvider.swift */,
 				2917DC1F2DAD15C3006AEED9 /* AccuWeather.swift */,
@@ -320,10 +331,7 @@
 		297131D22D91785000316379 /* Launch */ = {
 			isa = PBXGroup;
 			children = (
-				29C10C9D2DCD21C100BCCF27 /* Aggregate.swift */,
-				297131D32D91787900316379 /* Setup.swift */,
-				29C10C9F2DCD442A00BCCF27 /* RecoveryState.swift */,
-				299A55DA2D945E540089C312 /* PermissionButtonStyle.swift */,
+				290E696C2DD01A3F00D2EA6A /* View */,
 			);
 			path = Launch;
 			sourceTree = "<group>";
@@ -331,8 +339,8 @@
 		29C5305E2D972EA000159C2D /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				293AC4C22D9C1983007FCC76 /* Model */,
 				293AC4C12D9C197C007FCC76 /* View */,
+				293AC4C22D9C1983007FCC76 /* Model */,
 			);
 			path = Components;
 			sourceTree = "<group>";

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct Settings: View {
-  @Environment(\.measurementSystem) private var measurementSystem
   @Environment(\.dismiss) private var dismiss
 
   @AppStorage("measurementSystem") private var measurementSystemInUse = MeasurementSystem.metric
@@ -60,6 +59,5 @@ struct Settings: View {
       Spacer()
     }
     .padding()
-    .onAppear { measurementSystemInUse = measurementSystem }
   }
 }

@@ -12,7 +12,7 @@ struct PermissionStyle: ButtonStyle {
 
   func makeBody(configuration: Configuration) -> some View {
     configuration.label
-      .font(.system(.body, design: .monospaced, weight: .medium))
+      .font(.body)
       .foregroundStyle(colorScheme.foreground.opacity(configuration.isPressed ? 0.8 : 1))
       .frame(minWidth: 150)
       .padding(10)

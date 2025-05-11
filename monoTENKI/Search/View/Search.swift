@@ -4,7 +4,7 @@
 //
 //  Created by Barreloofy on 3/25/25 at 12:09 PM.
 //
-	
+
 import SwiftUI
 import CoreLocation
 
