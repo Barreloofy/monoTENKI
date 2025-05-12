@@ -30,15 +30,14 @@ struct History {
   }
 
   // MARK: - store, retrieve locations
-  private var historyFileURL: URL {
-    let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    return documentsURL.appending(path: "locationHistory")
+  private var historyURL: URL {
+    .documentsDirectory.appending(path: "LocationHistory")
   }
 
   private func save() {
     do {
       let data = try JSONEncoder().encode(locations)
-      try data.write(to: historyFileURL)
+      try data.write(to: historyURL)
     } catch {
       Logger.fileManager.error("\(error)")
     }
@@ -46,7 +45,7 @@ struct History {
 
   mutating func load() {
     do {
-      locations = try JSONDecoder().decode(Locations.self, from: Data(contentsOf: historyFileURL))
+      locations = try JSONDecoder().decode(Locations.self, from: Data(contentsOf: historyURL))
     } catch {
       Logger.fileManager.error("\(error)")
     }
