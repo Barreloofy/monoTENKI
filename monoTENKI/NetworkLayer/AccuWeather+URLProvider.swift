@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - Implement URLProvider
+// Implement URLProvider
 extension AccuWeather {
   private var apiKey: String {
     Bundle.main.object(forInfoDictionaryKey: "AccuWeatherAPIKey") as! String
@@ -21,7 +21,7 @@ extension AccuWeather {
       return try constructURL(
         host: "dataservice.accuweather.com",
         path: "/locations/v1/cities/search",
-        parameters: [
+        queryItems: [
           "apikey": apiKey,
           "q": query,
         ])
@@ -29,7 +29,7 @@ extension AccuWeather {
       return try constructURL(
         host: "dataservice.accuweather.com",
         path: "/locations/v1/cities/geoposition",
-        parameters: [
+        queryItems: [
           "apikey": apiKey,
           "q": query,
         ])
@@ -44,7 +44,7 @@ extension AccuWeather {
       try urlDictionary["current"] = constructURL(
         host: "dataservice.accuweather.com",
         path: "/currentconditions/v1/\(query)",
-        parameters: [
+        queryItems: [
           "apikey": apiKey,
           "details": "true",
         ])
@@ -52,7 +52,7 @@ extension AccuWeather {
       try urlDictionary["hourly"] = constructURL(
         host: "dataservice.accuweather.com",
         path: "/forecasts/v1/hourly/12hour/\(query)",
-        parameters: [
+        queryItems: [
           "apikey": apiKey,
           "details": "true",
           "metric": "true",
@@ -62,7 +62,7 @@ extension AccuWeather {
       try urlDictionary["daily"] = constructURL(
         host: "dataservice.accuweather.com",
         path: "/forecasts/v1/daily/5day/\(query)",
-        parameters: [
+        queryItems: [
           "apikey": apiKey,
           "details": "true",
           "metric": "true",
@@ -71,7 +71,7 @@ extension AccuWeather {
       try urlDictionary["search"] = constructURL(
         host: "dataservice.accuweather.com",
         path: "/locations/v1/cities/autocomplete",
-        parameters: [
+        queryItems: [
           "apikey": apiKey,
           "q": query,
         ])
@@ -79,7 +79,7 @@ extension AccuWeather {
       try urlDictionary["searchGeo"] = constructURL(
         host: "dataservice.accuweather.com",
         path: "/locations/v1/cities/geoposition",
-        parameters: [
+        queryItems: [
           "apikey": apiKey,
           "q": query,
         ])

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-// MARK: - Convenience property for 'Shape'
+// Convenience property for 'Shape'
 extension Shape {
   var iconStyleX: some View {
     self

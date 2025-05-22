@@ -6,7 +6,7 @@
 //
 
 import Foundation
-// MARK: - Format length to locale-aware speed representation
+// Format length to locale-aware speed representation
 extension Double {
   func SpeedFormatter(_ measurementSystem: MeasurementSystem) -> String {
     let speed = Measurement<UnitSpeed>(value: self, unit: .kilometersPerHour)

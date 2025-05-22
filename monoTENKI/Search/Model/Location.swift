@@ -37,7 +37,7 @@ struct Location: Codable, Identifiable, Hashable {
   }
 }
 
-// MARK: - Custom Equitable, Hashable implantation
+// Custom Equitable, Hashable implantation
 extension Location {
   static func == (lhs: Location, rhs: Location) -> Bool {
     lhs.completeName == rhs.completeName
@@ -48,9 +48,9 @@ extension Location {
   }
 }
 
-// MARK: - Custom filtering method
+// Custom filtering method
 extension Locations {
-  /// Deduplicates 'Locations' and returns a new 'Locations' array up to the provided length, the default value for 'upTo' is 10
+  /// Deduplicates 'Locations' and returns a new 'Locations' array up to the provided length, the default value for 'upTo' is 10.
   func deduplicating(upTo: Int = 10) -> Locations {
     var seen = Set<Location>()
     return Array(self.filter { seen.insert($0).inserted }.prefix(upTo))

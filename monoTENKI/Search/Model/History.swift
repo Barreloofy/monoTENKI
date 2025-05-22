@@ -29,7 +29,7 @@ struct History {
     save()
   }
 
-  // MARK: - store, retrieve locations
+  // store, retrieve locations
   private var historyURL: URL {
     .documentsDirectory.appending(path: "LocationHistory")
   }

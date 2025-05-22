@@ -6,10 +6,10 @@
 //
 
 import CoreLocation
-// MARK: - Convenience method
+// Convenience method
 extension CLServiceSession {
   /// Returns true if some level of location authorization was granted otherwise false,
-  /// if location authorization is undetermined, prompts for permission
+  /// if location authorization is undetermined, prompts for permission.
   static func getAuthorizationStatus(
     session: CLServiceSession = CLServiceSession(authorization: .whenInUse)
   ) async -> Bool {

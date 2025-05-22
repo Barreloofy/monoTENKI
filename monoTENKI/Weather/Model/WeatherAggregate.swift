@@ -6,7 +6,7 @@
 //
 
 import Foundation
-/// Weather aggregate model
+/// Weather aggregate model.
 @MainActor
 @Observable
 class WeatherAggregate {

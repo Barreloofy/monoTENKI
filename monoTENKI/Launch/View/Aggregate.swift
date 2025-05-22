@@ -15,18 +15,20 @@ struct Aggregate: View {
   @State private var weatherAggregate = WeatherAggregate()
   @AppStorage("apiSource") private var apiSourceInUse = APISource.weatherApi
 
-  let updateTimer = AsyncTimerSequence(interval: .seconds(900), clock: .continuous)
+  private let updateTimer = AsyncTimerSequence(interval: .seconds(900), clock: .continuous)
 
   var body: some View {
     VStack {
       switch weatherAggregate.state {
       case .loading:
         colorScheme.background
+
       case .loaded(let currentWeather, let hourForecast, let dayForecast):
         WeatherComposer(
           currentWeather: currentWeather,
           hourForecast: hourForecast,
           dayForecast: dayForecast,)
+
       case .error:
         RecoveryState(source: $apiSourceInUse) {
           await weatherAggregate.getWeather(for: locationAggregate.location, with: apiSourceInUse)

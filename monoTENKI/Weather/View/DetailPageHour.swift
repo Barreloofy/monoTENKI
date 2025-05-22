@@ -13,20 +13,19 @@ struct DetailPageHour: ViewModifier {
 
   @State private var position: Date?
 
-  @Binding var present: Bool
+  @Binding var id: Date?
 
   let hours: Hours
-  let id: Date?
 
   func body(content: Content) -> some View {
     content
       .overlay {
-        if present {
+        if let id = id {
           ScrollView {
             LazyVStack(spacing: 0) {
               ForEach(hours) { hour in
                 VStack(alignment: .leading, spacing: 10) {
-                  Text(hour.time.formatted(.timeZoneNeutral))
+                  Text(hour.time.formatted(.shortenedAndTimeZoneNeutral))
                     .font(.system(size: 30))
                     .fontWeight(.bold)
 
@@ -48,7 +47,7 @@ struct DetailPageHour: ViewModifier {
           .scrollIndicators(.never)
           .scrollPosition(id: $position)
           .background(colorScheme.background)
-          .onTapGesture { present = false }
+          .onTapGesture { self.id = nil }
           .onAppear { position = id }
         }
       }
@@ -58,13 +57,11 @@ struct DetailPageHour: ViewModifier {
 
 extension View {
   func detailPageHour(
-    present: Binding<Bool>,
-    hours: Hours,
-    jumpTo: Date?) -> some View {
+    item: Binding<Date?>,
+    hours: Hours) -> some View {
       modifier(
         DetailPageHour(
-          present: present,
-          hours: hours,
-          id: jumpTo))
+          id: item,
+          hours: hours))
     }
 }

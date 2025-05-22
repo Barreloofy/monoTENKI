@@ -6,7 +6,7 @@
 //
 
 import CoreLocation
-// MARK: - Convenience failable initializer
+// Convenience failable initializer
 extension CLLocation {
   convenience init?(from string: String) {
     guard let coordinate = CLLocationCoordinate2D.parseCoordinate(from: string) else { return nil }

@@ -80,13 +80,13 @@ extension AccuWeatherComposite {
 }
 
 
-// MARK: - Custom JSON decoder
+// Custom JSON decoder
 extension AccuWeatherComposite {
   static var decoder: JSONDecoder {
     let decoder = JSONDecoder()
 
     decoder.keyDecodingStrategy = .convertFromPascalCase
-    decoder.dateDecodingStrategy = .iso8601
+    decoder.dateDecodingStrategy = .iso8601UTC
 
     return decoder
   }

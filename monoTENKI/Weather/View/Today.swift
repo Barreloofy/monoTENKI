@@ -39,5 +39,6 @@ struct Today: View {
     .onTapGesture { presentDetails = true }
     .detailPageCurrent(present: $presentDetails, current: current)
     .animation(.easeInOut.speed(0.5), value: presentDetails)
+    .sensoryFeedback(.impact, trigger: presentDetails)
   }
 }

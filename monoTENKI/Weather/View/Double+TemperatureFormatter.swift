@@ -6,9 +6,9 @@
 //
 
 import Foundation
-// MARK: - Format Double to locale-aware temperature representation
+// Format Double to locale-aware temperature representation
 extension Double {
-  /// Locale-aware temperature formatter that takes in a 'MeasurementSystem' type usually retrieved from the environment
+  /// Locale-aware temperature formatter that takes in a 'MeasurementSystem' type usually retrieved from the environment.
   func temperatureFormatter(_ measurementSystem: MeasurementSystem) -> String {
     var input = self
 

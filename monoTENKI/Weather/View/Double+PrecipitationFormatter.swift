@@ -6,7 +6,7 @@
 //
 
 import Foundation
-// MARK: - Format length to locale-aware precipitation representation
+// Format length to locale-aware precipitation representation
 extension Double {
   func precipitationFormatter(_ measurementSystem: MeasurementSystem) -> String {
     guard self > 0 else { return "0" }

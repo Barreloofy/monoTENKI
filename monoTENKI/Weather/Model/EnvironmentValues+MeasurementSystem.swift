@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-// MARK: - The environment-value that serves as the source of truth for whether to use metric or imperial
+// The environment-value that serves as the source of truth for whether to use metric or imperial
 extension EnvironmentValues {
   @Entry var measurementSystem = MeasurementSystem.metric
 }

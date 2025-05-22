@@ -10,7 +10,6 @@ import SwiftUI
 struct HourForecast: View {
   @Environment(\.measurementSystem) private var measurementSystem
 
-  @State private var presentDetails = false
   @State private var hourID: Date?
 
   let hours: Hours
@@ -19,7 +18,7 @@ struct HourForecast: View {
     VStack(spacing: 15) {
       ForEach(hours, id: \.time) { hour in
         Row(
-          leading: { Text(hour.time.formatted(.timeZoneNeutral)) },
+          leading: { Text(hour.time.formatted(.shortenedAndTimeZoneNeutral)) },
           center: {
             Image(systemName: hour.condition.presentIcon(isDay: hour.isDay))
               .styled(size: 30)
@@ -27,15 +26,13 @@ struct HourForecast: View {
           trailing: { Text(hour.temperatureCelsius.temperatureFormatter(measurementSystem)) })
         .font(.title2)
         .contentShape(Rectangle())
-        .onTapGesture {
-          hourID = hour.time
-          presentDetails = true
-        }
+        .onTapGesture { hourID = hour.time }
       }
 
       Spacer()
     }
-    .detailPageHour(present: $presentDetails, hours: hours, jumpTo: hourID)
-    .animation(.easeInOut.speed(0.5), value: presentDetails)
+    .detailPageHour(item: $hourID, hours: hours)
+    .animation(.easeInOut.speed(0.5), value: hourID)
+    .sensoryFeedback(.impact, trigger: hourID)
   }
 }

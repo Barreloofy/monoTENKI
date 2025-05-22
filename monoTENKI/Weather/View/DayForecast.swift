@@ -10,7 +10,6 @@ import SwiftUI
 struct DayForecast: View {
   @Environment(\.measurementSystem) private var measurementSystem
 
-  @State private var presentDetails = false
   @State private var dayID: Date?
 
   let days: Days
@@ -27,15 +26,13 @@ struct DayForecast: View {
           trailing: { Text(day.temperatureCelsiusAverage.temperatureFormatter(measurementSystem)) })
         .font(.title2)
         .contentShape(Rectangle())
-        .onTapGesture {
-          dayID = day.date
-          presentDetails = true
-        }
+        .onTapGesture { dayID = day.date }
       }
 
       Spacer()
     }
-    .detailPageDay(present: $presentDetails, days: days, jumpTo: dayID)
-    .animation(.easeInOut.speed(0.5), value: presentDetails)
+    .detailPageDay(item: $dayID, days: days)
+    .animation(.easeInOut.speed(0.5), value: dayID)
+    .sensoryFeedback(.impact, trigger: dayID)
   }
 }

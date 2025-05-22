@@ -6,7 +6,7 @@
 //
 
 import Foundation
-/// Concrete interface for WeatherAPI.com
+/// Concrete interface for WeatherAPI.com.
 enum WeatherAPI: URLProvider {
   case weather(query: String)
   case search(query: String)

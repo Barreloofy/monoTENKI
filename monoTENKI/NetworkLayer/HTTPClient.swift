@@ -7,7 +7,7 @@
 
 import Foundation
 import os
-/// HTTPClient with custom decoding capability
+/// HTTPClient with custom decoding capability, if no argument for parameter 'decoder' was provided, the default JSONDecoder will be used.
 struct HTTPClient {
   let url: URL
   let decoder: JSONDecoder
@@ -25,9 +25,11 @@ struct HTTPClient {
       guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw URLError(.badServerResponse) }
 
       return try decoder.decode(T.self, from: data)
+
     } catch URLError.cancelled {
       logger.error("\(URLError(.cancelled).localizedDescription)")
       throw URLError(.cancelled)
+
     } catch {
       logger.error("\(error)")
       throw error

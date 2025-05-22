@@ -7,7 +7,7 @@
 
 import Foundation
 import CoreLocation
-/// Location aggregate model
+/// Location aggregate model.
 @MainActor
 @Observable
 class LocationAggregate {

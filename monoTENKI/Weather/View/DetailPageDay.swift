@@ -13,15 +13,14 @@ struct DetailPageDay: ViewModifier {
 
   @State private var position: Date?
 
-  @Binding var present: Bool
+  @Binding var id: Date?
 
   let days: Days
-  let id: Date?
 
   func body(content: Content) -> some View {
     content
       .overlay {
-        if present {
+        if let id = id {
           ScrollView {
             LazyVStack(spacing: 0) {
               ForEach(days, id: \.date) { day in
@@ -56,7 +55,7 @@ struct DetailPageDay: ViewModifier {
           .scrollIndicators(.never)
           .scrollPosition(id: $position)
           .background(colorScheme.background)
-          .onTapGesture { present = false }
+          .onTapGesture { self.id = nil }
           .onAppear { position = id }
         }
       }
@@ -66,13 +65,11 @@ struct DetailPageDay: ViewModifier {
 
 extension View {
   func detailPageDay(
-    present: Binding<Bool>,
-    days: Days,
-    jumpTo: Date?) -> some View {
-    modifier(
-      DetailPageDay(
-        present: present,
-        days: days,
-        id: jumpTo))
+    item: Binding<Date?>,
+    days: Days) -> some View {
+      modifier(
+        DetailPageDay(
+          id: item,
+          days: days))
   }
 }

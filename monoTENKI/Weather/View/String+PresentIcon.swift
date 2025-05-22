@@ -5,9 +5,9 @@
 //  Created by Barreloofy on 3/31/25 at 4:01 PM.
 //
 
-// MARK: - Returns the correct 'SF Symbols' icon name
+// Returns the correct 'SF Symbols' icon name
 extension String {
-  /// Day-night aware function to retrieve the correct 'SF Symbols' icon name for the given condition
+  /// Day-night aware function to retrieve the correct 'SF Symbols' icon name for the given condition.
   func presentIcon(isDay: Bool) -> String {
     let condition = self.trimmingCharacters(in: .whitespaces).lowercased()
 

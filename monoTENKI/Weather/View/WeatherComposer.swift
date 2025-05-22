@@ -54,8 +54,8 @@ struct WeatherComposer: View {
               HourForecast(hours: hourForecast)
                 .containerRelativeFrame(.vertical)
             }
-            .padding()
           }
+          .padding()
           .scrollTargetBehavior(.paging)
           .scrollIndicators(.never)
           .containerRelativeFrame(.horizontal)

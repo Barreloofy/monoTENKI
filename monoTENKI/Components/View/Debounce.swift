@@ -35,7 +35,9 @@ extension View {
   /// - Parameters:
   ///   - id: The value to observe for changes, id must conform to Equatable.
   ///   - duration: The length of the suspension period.
-  ///   - action: A async closure that is called after the suspension period has elapsed
+  ///   - action: A async closure that is called after the suspension period has elapsed.
+  /// - Returns:
+  /// A view that runs the specified action asynchronously before the view appears, or restarts the task when the id value changes.
   func debounce<ID: Equatable>(
     id: ID,
     duration: Duration = .seconds(0.5),

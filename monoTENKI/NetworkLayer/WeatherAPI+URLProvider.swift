@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - Implement URLProvider
+// Implement URLProvider
 extension WeatherAPI {
   private var apiKey: String {
     Bundle.main.object(forInfoDictionaryKey: "WeatherAPI.comAPIKey") as! String
@@ -24,7 +24,7 @@ extension WeatherAPI {
     return try constructURL(
       host: "api.weatherapi.com",
       path: "/v1/\(service).json",
-      parameters: [
+      queryItems: [
         "key": apiKey,
         "q": query,
         "days": "3",

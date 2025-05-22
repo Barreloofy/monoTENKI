@@ -9,8 +9,8 @@ import SwiftUI
 import CoreLocation
 
 struct Search: View {
-  enum Error {
-    case none, search, location
+  enum SearchState {
+    case presenting, searchError, locationError
   }
 
   @Environment(\.colorScheme) private var colorScheme
@@ -18,7 +18,7 @@ struct Search: View {
   @Environment(\.apiSource) private var apiSource
   @Environment(LocationAggregate.self) private var locationAggregate
 
-  @State private var error = Error.none
+  @State private var state = SearchState.presenting
   @State private var text = ""
   @State private var results = Locations()
   @State private var history = History()
@@ -31,17 +31,17 @@ struct Search: View {
 
   var body: some View {
     VStack(spacing: 10) {
-      Row(
-        leading: {},
-        center: { Text("Search") },
-        trailing: {
-          Button(
-            action: { dismiss() },
-            label: { XIcon().iconStyleX })
-        })
-      .font(.title)
-      .fontWeight(.bold)
-      .enabled(!setup)
+       Row(
+         leading: {},
+         center: { Text("Search") },
+         trailing: {
+           Button(
+             action: { dismiss() },
+             label: { XIcon().iconStyleX })
+         })
+       .font(.title)
+       .fontWeight(.bold)
+       .enabled(!setup)
 
       TextField(
         "",
@@ -56,9 +56,9 @@ struct Search: View {
           case .accuWeather:
             results = try await Array(AccuWeather.search(query: text).fetchSearch().prefix(10))
           }
-          error = .none
+          state = .presenting
         } catch {
-          self.error = .search
+          state = .searchError
         }
       }
 
@@ -70,7 +70,7 @@ struct Search: View {
                 locationAggregate.trackLocation = true
                 dismiss()
               } else {
-                self.error = .location
+                state = .locationError
               }
             }
           },
@@ -79,8 +79,8 @@ struct Search: View {
       .fontWeight(.regular)
       .enabled(!setup)
 
-      switch error {
-      case .none:
+      switch state {
+      case .presenting:
         ScrollView {
           LazyVStack(spacing: 0) {
             ForEach(presentedLocations) { result in
@@ -99,10 +99,12 @@ struct Search: View {
           .lineLimit(1)
         }
         .scrollIndicators(.never)
-      case .search:
+
+      case .searchError:
         Text("Search couldn't be completed, check connection status")
           .font(.footnote)
-      case .location:
+
+      case .locationError:
         Text("No permission to access location, grand permission to receive the most accurate weather")
           .font(.footnote)
         Link("Open Settings App", destination: URL(string: UIApplication.openSettingsURLString)!)
@@ -114,7 +116,7 @@ struct Search: View {
     }
     .font(.title3)
     .padding()
-    .animation(.default.speed(0.5), value: error)
+    .animation(.default.speed(0.5), value: state)
     .onAppear { history.load() }
   }
 }

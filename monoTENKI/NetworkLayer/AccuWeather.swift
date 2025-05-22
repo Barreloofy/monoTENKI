@@ -6,7 +6,7 @@
 //
 
 import Foundation
-/// Concrete interface for AccuWeather
+/// Concrete interface for AccuWeather.
 enum AccuWeather: URLProvider {
   case weather(query: String)
   case search(query: String)
