@@ -16,9 +16,9 @@ class WeatherAggregate {
     case error
   }
 
-  var state: State = .loading
+  var state = State.loading
 
-  func getWeather(for location: String, with source: APISource) async {
+  func getWeather(for location: String, from source: APISource) async {
     do {
       let weather: Weather
 

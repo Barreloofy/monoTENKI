@@ -19,18 +19,16 @@ struct RecoveryState: View {
       Button("Try again") {
         Task { await action() }
       }
-      //.font(.body)
       .padding(.vertical)
       .buttonStyle(.permission)
 
       Text("Try diffrent Source")
 
       HStack {
-        Text(APISource.weatherApi.rawValue)
-          .selectedStyle(target: APISource.weatherApi, value: $source)
-
-        Text(APISource.accuWeather.rawValue)
-          .selectedStyle(target: APISource.accuWeather, value: $source)
+        ForEach(APISource.allCases, id: \.self) {
+          Text($0.rawValue)
+            .selectedStyle(target: $0, value: $source)
+        }
       }
       .font(.subheadline)
     }

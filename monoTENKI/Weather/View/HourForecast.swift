@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HourForecast: View {
+  @Environment(\.accessibilityReduceMotion) private var reduceMotion
   @Environment(\.measurementSystem) private var measurementSystem
 
   @State private var hourID: Date?
@@ -32,7 +33,7 @@ struct HourForecast: View {
       Spacer()
     }
     .detailPageHour(item: $hourID, hours: hours)
-    .animation(.easeInOut.speed(0.5), value: hourID)
+    .animation(reduceMotion ? nil : .easeInOut.speed(0.5), value: hourID)
     .sensoryFeedback(.impact, trigger: hourID)
   }
 }

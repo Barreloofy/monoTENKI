@@ -13,6 +13,7 @@ struct Search: View {
     case presenting, searchError, locationError
   }
 
+  @Environment(\.accessibilityReduceMotion) private var reduceMotion
   @Environment(\.colorScheme) private var colorScheme
   @Environment(\.dismiss) private var dismiss
   @Environment(\.apiSource) private var apiSource
@@ -40,7 +41,6 @@ struct Search: View {
              label: { XIcon().iconStyleX })
          })
        .font(.title)
-       .fontWeight(.bold)
        .enabled(!setup)
 
       TextField(
@@ -76,7 +76,7 @@ struct Search: View {
           },
           label: { Label("CURRENT LOCATION", systemImage: "location.fill") })
       }
-      .fontWeight(.regular)
+      .fontWeight(.medium)
       .enabled(!setup)
 
       switch state {
@@ -109,14 +109,13 @@ struct Search: View {
           .font(.footnote)
         Link("Open Settings App", destination: URL(string: UIApplication.openSettingsURLString)!)
           .buttonStyle(.bordered)
-          .fontWeight(.bold)
       }
 
       Spacer()
     }
     .font(.title3)
     .padding()
-    .animation(.default.speed(0.5), value: state)
+    .animation(reduceMotion ? nil : .default.speed(0.5), value: state)
     .onAppear { history.load() }
   }
 }

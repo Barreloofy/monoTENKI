@@ -44,6 +44,7 @@
 		29947D4E2D99CFD7000E3CB5 /* WeatherComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29947D4D2D99CFD1000E3CB5 /* WeatherComposer.swift */; };
 		2995AEB52D92C66D0010744B /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2995AEB42D92C6670010744B /* Search.swift */; };
 		299A55DB2D945E550089C312 /* PermissionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299A55DA2D945E540089C312 /* PermissionButtonStyle.swift */; };
+		29A05F0C2DEB5005004F1778 /* ConfigureFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A05F0B2DEB4FEB004F1778 /* ConfigureFont.swift */; };
 		29AA8C352DC578090085B04E /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA8C342DC577FD0085B04E /* History.swift */; };
 		29B0B8742DB7D66F00F93E1B /* Debounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B0B8732DB7D64C00F93E1B /* Debounce.swift */; };
 		29C10C9E2DCD21D000BCCF27 /* Aggregate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C10C9D2DCD21C100BCCF27 /* Aggregate.swift */; };
@@ -55,7 +56,6 @@
 		29C530642D972EA000159C2D /* Double+TemperatureFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C5305C2D972EA000159C2D /* Double+TemperatureFormatter.swift */; };
 		29C656FF2DC68063000A89FC /* Enabled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C656FE2DC68054000A89FC /* Enabled.swift */; };
 		29C657012DC6A4D1000A89FC /* SwipeToDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C657002DC6A4C8000A89FC /* SwipeToDelete.swift */; };
-		29CD013F2DB719C50017CCFC /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 29CD013E2DB719C50017CCFC /* Config.xcconfig */; };
 		29D151722D90730100A851E9 /* EnvironmentValues+MeasurementSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D151712D9072D200A851E9 /* EnvironmentValues+MeasurementSystem.swift */; };
 		29D1C0682DA1DF4100F27F77 /* Double+SpeedFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D1C0672DA1DF2200F27F77 /* Double+SpeedFormatter.swift */; };
 		29E4DB572DBAA8940018D2C3 /* Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E4DB562DBAA8910018D2C3 /* Row.swift */; };
@@ -122,6 +122,7 @@
 		29947D4D2D99CFD1000E3CB5 /* WeatherComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherComposer.swift; sourceTree = "<group>"; };
 		2995AEB42D92C6670010744B /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		299A55DA2D945E540089C312 /* PermissionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionButtonStyle.swift; sourceTree = "<group>"; };
+		29A05F0B2DEB4FEB004F1778 /* ConfigureFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureFont.swift; sourceTree = "<group>"; };
 		29AA8C342DC577FD0085B04E /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		29B0B8732DB7D64C00F93E1B /* Debounce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debounce.swift; sourceTree = "<group>"; };
 		29C10C9D2DCD21C100BCCF27 /* Aggregate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aggregate.swift; sourceTree = "<group>"; };
@@ -205,6 +206,7 @@
 				29B0B8732DB7D64C00F93E1B /* Debounce.swift */,
 				29C5305B2D972EA000159C2D /* AlignedHStack.swift */,
 				29E4DB562DBAA8910018D2C3 /* Row.swift */,
+				29A05F0B2DEB4FEB004F1778 /* ConfigureFont.swift */,
 				29804ACC2DA67EB0008404A7 /* Image+Styled.swift */,
 				2934E3DF2D9AF8B200A229F4 /* ColorScheme+MainColors.swift */,
 				292C48E62D9F594B00A0909E /* FormatStyle+timeZoneNeutral.swift */,
@@ -476,7 +478,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1630;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					29FF915A2D875E9400B9DAD3 = {
 						CreatedOnToolsVersion = 16.2;
@@ -520,7 +522,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29CD013F2DB719C50017CCFC /* Config.xcconfig in Resources */,
 				29FF918E2D875F3100B9DAD3 /* Preview Assets.xcassets in Resources */,
 				29FF91962D875F6400B9DAD3 /* .gitignore in Resources */,
 				29FF918F2D875F3100B9DAD3 /* Assets.xcassets in Resources */,
@@ -584,6 +585,7 @@
 				2974E9952DABF84600663B36 /* CLLocationCoordinate2D+Coordinate.swift in Sources */,
 				29C530642D972EA000159C2D /* Double+TemperatureFormatter.swift in Sources */,
 				29FB94A92DC0022400ED5DB3 /* DetailPageHour.swift in Sources */,
+				29A05F0C2DEB5005004F1778 /* ConfigureFont.swift in Sources */,
 				29326AAD2DC2C58B00D054DE /* JSONDecoder+Strategies.swift in Sources */,
 				2917DC202DAD15DA006AEED9 /* AccuWeather.swift in Sources */,
 				2974E9932DABF78B00663B36 /* CLLocation+FailableInitializer.swift in Sources */,
@@ -783,7 +785,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Barreloofy.monoTENKI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -815,7 +817,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Barreloofy.monoTENKI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

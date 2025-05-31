@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SwipeToDelete: ViewModifier {
+  @Environment(\.accessibilityReduceMotion) private var reduceMotion
   @Environment(\.colorScheme) private var colorScheme
 
   @State private var offset: CGFloat = .zero
@@ -35,13 +36,13 @@ struct SwipeToDelete: ViewModifier {
 
               if dragValue < -200 {
                 offset = -1000
-                withAnimation(.smooth(duration: 1)) { action() }
+                withAnimation(reduceMotion ? nil : .smooth(duration: 1)) { action() }
               } else {
                 offset = .zero
               }
             },
           isEnabled: isEnabled)
-        .animation(.smooth(duration: 1), value: offset)
+        .animation(reduceMotion ? nil : .smooth(duration: 1), value: offset)
     }
   }
 }

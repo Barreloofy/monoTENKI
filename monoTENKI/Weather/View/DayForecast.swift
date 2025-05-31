@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DayForecast: View {
+  @Environment(\.accessibilityReduceMotion) private var reduceMotion
   @Environment(\.measurementSystem) private var measurementSystem
 
   @State private var dayID: Date?
@@ -32,7 +33,7 @@ struct DayForecast: View {
       Spacer()
     }
     .detailPageDay(item: $dayID, days: days)
-    .animation(.easeInOut.speed(0.5), value: dayID)
+    .animation(reduceMotion ? nil : .easeInOut.speed(0.5), value: dayID)
     .sensoryFeedback(.impact, trigger: dayID)
   }
 }

@@ -27,7 +27,6 @@ struct DetailPageDay: ViewModifier {
                 VStack(alignment: .leading, spacing: 10) {
                   Text(day.date.formatted(.dateTime.weekday(.wide)))
                     .font(.system(size: 30))
-                    .fontWeight(.bold)
 
                   DetailSection(title: "Temperatures") {
                     Text("AVG \(day.temperatureCelsiusAverage.temperatureFormatter(measurementSystem))")

@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
-// Common image style
+
+// Default image style
 extension Image {
-  /// Styles an image with the default modifiers: resizable(), scaledToFit(), fontWeight(.regular) and frame() where the methods argument 'size' will be passed to frame().
+  /// Styles an image with the default modifiers: resizable(), scaledToFit(), fontWeight(.regular) and frame()
+  /// where the methods argument 'size' will be passed to frame().
   func styled(size: CGFloat) -> some View {
     self
       .resizable()

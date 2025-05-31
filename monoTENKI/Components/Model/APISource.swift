@@ -12,7 +12,7 @@ extension EnvironmentValues {
 }
 
 
-enum APISource: String {
+enum APISource: String, CaseIterable {
   case weatherApi
   case accuWeather
 }

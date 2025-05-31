@@ -25,7 +25,6 @@ struct Setup: View {
 
         Text("Accurate weather")
           .font(.title)
-          .fontWeight(.bold)
 
         Text("Location is used to provide the most accurate weather")
           .font(.footnote)

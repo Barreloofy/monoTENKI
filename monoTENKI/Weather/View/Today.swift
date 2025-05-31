@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Today: View {
+  @Environment(\.accessibilityReduceMotion) private var reduceMotion
   @Environment(\.measurementSystem) private var measurementSystem
 
   @State private var presentDetails = false
@@ -38,7 +39,7 @@ struct Today: View {
     .contentShape(Rectangle())
     .onTapGesture { presentDetails = true }
     .detailPageCurrent(present: $presentDetails, current: current)
-    .animation(.easeInOut.speed(0.5), value: presentDetails)
+    .animation(reduceMotion ? nil : .easeInOut.speed(0.5), value: presentDetails)
     .sensoryFeedback(.impact, trigger: presentDetails)
   }
 }

@@ -24,7 +24,6 @@ struct Settings: View {
             label: { XIcon().iconStyleX })
         })
       .font(.title)
-      .fontWeight(.bold)
 
        Row(
          leading: {

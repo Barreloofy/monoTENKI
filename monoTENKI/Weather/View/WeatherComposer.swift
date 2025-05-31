@@ -40,6 +40,7 @@ struct WeatherComposer: View {
           .sheet(isPresented: $presentSettings) {
             Settings()
               .presentationBackground(colorScheme.background)
+              .dynamicTypeSize(...DynamicTypeSize.large)
           }
         })
       .padding()
@@ -68,7 +69,6 @@ struct WeatherComposer: View {
       .ignoresSafeArea()
       .scrollTargetBehavior(.paging)
       .scrollIndicators(.never)
-      .fontWeight(.bold)
     }
   }
 }

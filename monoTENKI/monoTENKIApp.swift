@@ -18,14 +18,10 @@ struct monoTENKIApp: App {
     WindowGroup {
       if setupCompleted {
         Aggregate()
-          .textCase(.uppercase)
-          .fontDesign(.monospaced)
-          .fontWeight(.medium)
+          .configureFont()
       } else {
         Setup(setupCompleted: $setupCompleted)
-          .textCase(.uppercase)
-          .fontDesign(.monospaced)
-          .fontWeight(.medium)
+          .configureFont()
       }
     }
     .environment(locationAggregate)

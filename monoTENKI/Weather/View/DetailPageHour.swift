@@ -27,7 +27,6 @@ struct DetailPageHour: ViewModifier {
                 VStack(alignment: .leading, spacing: 10) {
                   Text(hour.time.formatted(.shortenedAndTimeZoneNeutral))
                     .font(.system(size: 30))
-                    .fontWeight(.bold)
 
                   DetailSection(title: "Precipitation") {
                     Text("Chance \(hour.precipitationChance.formatted(.percent))")

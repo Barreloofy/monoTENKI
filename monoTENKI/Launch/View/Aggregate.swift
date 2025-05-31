@@ -31,21 +31,21 @@ struct Aggregate: View {
 
       case .error:
         RecoveryState(source: $apiSourceInUse) {
-          await weatherAggregate.getWeather(for: locationAggregate.location, with: apiSourceInUse)
+          await weatherAggregate.getWeather(for: locationAggregate.location, from: apiSourceInUse)
         }
       }
     }
     .tint(colorScheme.foreground)
     .task(id: locationAggregate.location) {
-      await weatherAggregate.getWeather(for: locationAggregate.location, with: apiSourceInUse)
+      await weatherAggregate.getWeather(for: locationAggregate.location, from: apiSourceInUse)
     }
-    .task {
+    .task(id: apiSourceInUse) {
       for await _ in updateTimer.debounce(for: .seconds(1)) {
-        await weatherAggregate.getWeather(for: locationAggregate.location, with: apiSourceInUse)
+        await weatherAggregate.getWeather(for: locationAggregate.location, from: apiSourceInUse)
       }
     }
     .onChange(of: apiSourceInUse) {
-      Task { await weatherAggregate.getWeather(for: locationAggregate.location, with: apiSourceInUse) }
+      Task { await weatherAggregate.getWeather(for: locationAggregate.location, from: apiSourceInUse) }
     }
   }
 }
