@@ -9,7 +9,6 @@ import SwiftUI
 
 struct DetailPageDay: ViewModifier {
   @Environment(\.colorScheme) private var colorScheme
-  @Environment(\.measurementSystem) private var measurementSystem
 
   @State private var position: Date?
 
@@ -29,17 +28,20 @@ struct DetailPageDay: ViewModifier {
                     .font(.system(size: 30))
 
                   DetailSection(title: "Temperatures") {
-                    Text("AVG \(day.temperatureCelsiusAverage.temperatureFormatter(measurementSystem))")
+                    TemperatureView(
+                      "AVG",
+                      day.temperatureCelsiusAverage,
+                      accessibilityText: "Average")
 
-                    Text("High \(day.temperatureCelsiusHigh.temperatureFormatter(measurementSystem))")
+                    TemperatureView("High", day.temperatureCelsiusHigh)
 
-                    Text("Low \(day.temperatureCelsiusLow.temperatureFormatter(measurementSystem))")
+                    TemperatureView("Low", day.temperatureCelsiusLow)
                   }
 
                   DetailSection(title: "Precipitation") {
                     Text("Chance \(day.precipitationChance.formatted(.percent))")
 
-                    Text("Total \(day.precipitationTotalMillimeter.precipitationFormatter(measurementSystem))")
+                    PrecipitationView("Total", day.precipitationTotalMillimeter)
 
                     Text("Type \(day.precipitationType)")
                   }

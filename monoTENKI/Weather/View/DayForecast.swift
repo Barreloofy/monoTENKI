@@ -9,7 +9,6 @@ import SwiftUI
 
 struct DayForecast: View {
   @Environment(\.accessibilityReduceMotion) private var reduceMotion
-  @Environment(\.measurementSystem) private var measurementSystem
 
   @State private var dayID: Date?
 
@@ -20,11 +19,8 @@ struct DayForecast: View {
       ForEach(days) { day in
         Row(
           leading: { Text(day.date.formatted(.dateTime.weekday(.wide))) },
-          center: {
-            Image(systemName: day.condition.presentIcon(isDay: true))
-              .styled(size: 30)
-          },
-          trailing: { Text(day.temperatureCelsiusAverage.temperatureFormatter(measurementSystem)) })
+          center: { WeatherIcon(name: day.condition, isDay: true, size: 30) },
+          trailing: { TemperatureView(day.temperatureCelsiusAverage) })
         .font(.title2)
         .contentShape(Rectangle())
         .onTapGesture { dayID = day.date }
@@ -32,6 +28,7 @@ struct DayForecast: View {
 
       Spacer()
     }
+    .accessibilityHidden((dayID != nil))
     .detailPageDay(item: $dayID, days: days)
     .animation(reduceMotion ? nil : .easeInOut.speed(0.5), value: dayID)
     .sensoryFeedback(.impact, trigger: dayID)

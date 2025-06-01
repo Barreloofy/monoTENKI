@@ -24,7 +24,7 @@ struct WeatherComposer: View {
         center: {
           Button(
             action: { presentSearch = true },
-            label: { Text(currentWeather.location) })
+            label: { Text(currentWeather.location).fontWeight(.medium) })
           .sheet(isPresented: $presentSearch) {
             Search(setup: false)
               .presentationBackground(colorScheme.background)

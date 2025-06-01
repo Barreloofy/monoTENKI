@@ -6,17 +6,25 @@
 //
 
 import Foundation
-// Format length to locale-aware precipitation representation
+
 extension Double {
-  func precipitationFormatter(_ measurementSystem: MeasurementSystem) -> String {
-    guard self > 0 else { return "0" }
+  /// Formats Double to a precipitation-unit.
+  /// - Parameters:
+  ///   - measurementSystem: The measurementSystem to use, Metric or Imperial.
+  ///   - unitWidth: The width — such as full names or abbreviations — with which to present units.
+  /// - Returns: The formatted precipitation-unit as a String.
+  func precipitationFormatter(
+    _ measurementSystem: MeasurementSystem,
+    unitWidth: Measurement<UnitLength>.FormatStyle.UnitWidth = .abbreviated)
+  -> String {
+    guard self >= 0.1 else { return "0" }
 
     let value = Measurement<UnitLength>(value: self, unit: .millimeters)
 
     return value.converted(to: measurementSystem == .metric ? .millimeters : .inches)
       .formatted(.measurement(
-        width: .abbreviated,
+        width: unitWidth,
         usage: .asProvided,
-        numberFormatStyle: .number.rounded(rule: .up, increment: 0.01)))
+        numberFormatStyle: .number.rounded(rule: .toNearestOrAwayFromZero, increment: 0.1)))
   }
 }

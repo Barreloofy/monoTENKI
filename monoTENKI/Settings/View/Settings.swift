@@ -24,21 +24,22 @@ struct Settings: View {
             label: { XIcon().iconStyleX })
         })
       .font(.title)
+      .fontWeight(.bold)
 
-       Row(
-         leading: {
-           Text("Measurement:")
-             .font(.headline)
-         },
-         center: {
-           Text(MeasurementSystem.metric.rawValue)
-             .selectedStyle(target: MeasurementSystem.metric, value: $measurementSystemInUse)
-         },
-         trailing: {
-           Text(MeasurementSystem.imperial.rawValue)
-             .selectedStyle(target: MeasurementSystem.imperial, value: $measurementSystemInUse)
-         })
-       .font(.subheadline)
+      Row(
+        leading: {
+          Text("Measurement:")
+            .font(.headline)
+        },
+        center: {
+          Text(MeasurementSystem.metric.rawValue)
+            .selectedStyle(target: MeasurementSystem.metric, value: $measurementSystemInUse)
+        },
+        trailing: {
+          Text(MeasurementSystem.imperial.rawValue)
+            .selectedStyle(target: MeasurementSystem.imperial, value: $measurementSystemInUse)
+        })
+      .font(.subheadline)
 
       Row(
         leading: {
@@ -57,6 +58,7 @@ struct Settings: View {
 
       Spacer()
     }
+    .fontWeight(.medium)
     .padding()
   }
 }

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct Today: View {
   @Environment(\.accessibilityReduceMotion) private var reduceMotion
-  @Environment(\.measurementSystem) private var measurementSystem
 
   @State private var presentDetails = false
 
@@ -17,15 +16,23 @@ struct Today: View {
 
   var body: some View {
     VStack(spacing: 50) {
-      Image(systemName: current.condition.presentIcon(isDay: current.isDay))
-        .styled(size: 250)
+      WeatherIcon(
+        name: current.condition,
+        isDay: current.isDay,
+        size: 250)
 
-      Text(current.temperatures.temperatureCelsius.temperatureFormatter(measurementSystem))
+      TemperatureView(current.temperatures.temperatureCelsius)
         .font(.system(size: 60))
 
       HStack {
-        Text("L \(current.temperatures.temperatureCelsiusLow.temperatureFormatter(measurementSystem))")
-        Text("H \(current.temperatures.temperatureCelsiusHigh.temperatureFormatter(measurementSystem))")
+        TemperatureView(
+          "L",
+          current.temperatures.temperatureCelsiusLow,
+          accessibilityText: "Low")
+        TemperatureView(
+          "H",
+          current.temperatures.temperatureCelsiusHigh,
+          accessibilityText: "High")
       }
       .font(.system(size: 30))
 
@@ -38,6 +45,7 @@ struct Today: View {
     .containerRelativeFrame([.vertical, .horizontal])
     .contentShape(Rectangle())
     .onTapGesture { presentDetails = true }
+    .accessibilityHidden(presentDetails)
     .detailPageCurrent(present: $presentDetails, current: current)
     .animation(reduceMotion ? nil : .easeInOut.speed(0.5), value: presentDetails)
     .sensoryFeedback(.impact, trigger: presentDetails)

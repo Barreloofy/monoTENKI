@@ -12,12 +12,15 @@ struct DetailSection<Content: View>: View {
   @ViewBuilder let content: Content
 
   var body: some View {
-    Text(title)
-      .font(.title)
-      .underline()
-    VStack(alignment: .leading) {
-      content
+    VStack(alignment: .leading, spacing: 5) {
+      Text(title)
+        .font(.title)
+        .underline()
+      VStack(alignment: .leading) {
+        content
+      }
+      .offset(x: 10)
     }
-    .offset(x: 10)
+    .accessibilityElement(children: .combine)
   }
 }

@@ -41,6 +41,7 @@ struct Search: View {
              label: { XIcon().iconStyleX })
          })
        .font(.title)
+       .fontWeight(.bold)
        .enabled(!setup)
 
       TextField(
@@ -76,7 +77,6 @@ struct Search: View {
           },
           label: { Label("CURRENT LOCATION", systemImage: "location.fill") })
       }
-      .fontWeight(.medium)
       .enabled(!setup)
 
       switch state {
@@ -114,6 +114,7 @@ struct Search: View {
       Spacer()
     }
     .font(.title3)
+    .fontWeight(.medium)
     .padding()
     .animation(reduceMotion ? nil : .default.speed(0.5), value: state)
     .onAppear { history.load() }

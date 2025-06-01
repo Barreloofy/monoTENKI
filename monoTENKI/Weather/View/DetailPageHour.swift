@@ -9,7 +9,6 @@ import SwiftUI
 
 struct DetailPageHour: ViewModifier {
   @Environment(\.colorScheme) private var colorScheme
-  @Environment(\.measurementSystem) private var measurementSystem
 
   @State private var position: Date?
 
@@ -31,7 +30,7 @@ struct DetailPageHour: ViewModifier {
                   DetailSection(title: "Precipitation") {
                     Text("Chance \(hour.precipitationChance.formatted(.percent))")
 
-                    Text("Rate \(hour.precipitationRateMillimeter.precipitationFormatter(measurementSystem))")
+                    PrecipitationView("Rate", hour.precipitationRateMillimeter)
 
                     Text("Type \(hour.precipitationType)")
                   }

@@ -11,17 +11,16 @@ struct PermissionStyle: ButtonStyle {
   @Environment(\.colorScheme) private var colorScheme
 
   func makeBody(configuration: Configuration) -> some View {
-    configuration.label
-      .font(.body)
-      .foregroundStyle(colorScheme.foreground.opacity(configuration.isPressed ? 0.8 : 1))
-      .frame(minWidth: 150)
-      .padding(10)
-      .background {
-        Capsule()
-          .stroke(lineWidth: 2.5)
-          .foregroundStyle(colorScheme.foreground.opacity(configuration.isPressed ? 0.5 : 1))
-      }
-      .contentShape(Capsule())
+    ZStack {
+      RoundedRectangle(cornerRadius: 10)
+        .stroke(lineWidth: 2.5)
+
+      configuration.label
+        .foregroundStyle(
+          colorScheme.foreground.opacity(configuration.isPressed ? 0.8 : 1))
+        .padding(10)
+    }
+    .contentShape(RoundedRectangle(cornerRadius: 10))
   }
 }
 

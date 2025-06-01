@@ -9,7 +9,6 @@ import SwiftUI
 
 struct DetailPageCurrent: ViewModifier {
   @Environment(\.colorScheme) private var colorScheme
-  @Environment(\.measurementSystem) private var measurementSystem
 
   @Binding var present: Bool
 
@@ -21,15 +20,16 @@ struct DetailPageCurrent: ViewModifier {
         if present {
           ZStack {
             colorScheme.background
+
             VStack(alignment: .leading, spacing: 10) {
               DetailSection(title: "Temperatures") {
-                Text("Now \(weather.temperatures.temperatureCelsius.temperatureFormatter(measurementSystem))")
+                TemperatureView("Now", weather.temperatures.temperatureCelsius)
 
-                Text("Feels Like \(weather.temperatures.feelsLikeCelsius.temperatureFormatter(measurementSystem))")
+                TemperatureView("Feels Like", weather.temperatures.feelsLikeCelsius)
 
-                Text("High \(weather.temperatures.temperatureCelsiusHigh.temperatureFormatter(measurementSystem))")
+                TemperatureView("High", weather.temperatures.temperatureCelsiusHigh)
 
-                Text("Low \(weather.temperatures.temperatureCelsiusLow.temperatureFormatter(measurementSystem))")
+                TemperatureView("Low", weather.temperatures.temperatureCelsiusLow)
 
                 Text("Humidity \(weather.temperatures.humidity.formatted(.percent))")
               }
@@ -37,19 +37,20 @@ struct DetailPageCurrent: ViewModifier {
               DetailSection(title: "Precipitation") {
                 Text("Chance \(weather.precipitation.chance.formatted(.percent))")
 
-                Text("Rate \(weather.precipitation.rateMillimeter.precipitationFormatter(measurementSystem))")
+                PrecipitationView("Rate", weather.precipitation.rateMillimeter)
 
-                Text("Total \(weather.precipitation.totalMillimeter.precipitationFormatter(measurementSystem))")
+                PrecipitationView("Total", weather.precipitation.totalMillimeter)
 
                 Text("Type \(weather.precipitation.type)")
               }
 
               DetailSection(title: "Wind") {
                 Text("Direction \(weather.wind.direction)")
+                  .accessibilityLabel(weather.wind.direction.windDirectionWide())
 
-                Text("Speed \(weather.wind.speedKilometersPerHour.SpeedFormatter(measurementSystem))")
+                SpeedView("Speed", weather.wind.speedKilometersPerHour)
 
-                Text("Gust \(weather.wind.gustKilometersPerHour.SpeedFormatter(measurementSystem))")
+                SpeedView("Gust", weather.wind.gustKilometersPerHour)
               }
             }
             .offset(y: -50)

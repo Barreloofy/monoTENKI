@@ -19,11 +19,12 @@ struct SwipeToDelete: ViewModifier {
   func body(content: Content) -> some View {
     ZStack {
       colorScheme.foreground.padding(1)
+
       content
         .background(colorScheme.background)
         .offset(x: offset)
-        .simultaneousGesture(
-          DragGesture()
+        .gesture(
+          DragGesture(minimumDistance: 25)
             .onChanged { value in
               let dragValue = value.translation.width
 

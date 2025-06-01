@@ -27,10 +27,10 @@ extension WeatherAPIWeather {
 extension WeatherAPIWeather {
   func createCurrentWeather() -> CurrentWeather {
     let day = forecast.forecastday.first!.day
-    let hour = forecast.forecastday.first!.hour.filter { forecast in
-      var calendar = Calendar.current
-      calendar.timeZone = TimeZone(abbreviation: "UTC")!
 
+    var calendar = Calendar.current
+    calendar.timeZone = TimeZone(abbreviation: "UTC")!
+    let hour = forecast.forecastday.first!.hour.filter { forecast in
       let localTimeHour = calendar.component(.hour, from: location.localtime)
       let hourComponent = calendar.component(.hour, from: forecast.time)
 

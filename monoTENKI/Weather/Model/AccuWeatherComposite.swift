@@ -80,7 +80,6 @@ extension AccuWeatherComposite {
 }
 
 
-// Custom JSON decoder
 extension AccuWeatherComposite {
   static var decoder: JSONDecoder {
     let decoder = JSONDecoder()
