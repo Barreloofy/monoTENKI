@@ -32,17 +32,17 @@ struct Search: View {
 
   var body: some View {
     VStack(spacing: 10) {
-       Row(
-         leading: {},
-         center: { Text("Search") },
-         trailing: {
-           Button(
-             action: { dismiss() },
-             label: { XIcon().iconStyleX })
-         })
-       .font(.title)
-       .fontWeight(.bold)
-       .enabled(!setup)
+      Row(
+        leading: {},
+        center: { Text("Search") },
+        trailing: {
+          Button(
+            action: { dismiss() },
+            label: { XIcon().iconStyleX })
+        })
+      .font(.title)
+      .fontWeight(.bold)
+      .enabled(!setup)
 
       TextField(
         "",

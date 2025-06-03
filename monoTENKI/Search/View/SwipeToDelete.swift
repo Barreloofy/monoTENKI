@@ -21,6 +21,11 @@ struct SwipeToDelete: ViewModifier {
       colorScheme.foreground.padding(1)
 
       content
+        .accessibilityAdjustableAction { accessibilityAction in
+          guard isEnabled && accessibilityAction == .increment else { return }
+          action()
+        }
+        .accessibilityHint("To delete")
         .background(colorScheme.background)
         .offset(x: offset)
         .gesture(
