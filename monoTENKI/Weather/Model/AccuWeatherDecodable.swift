@@ -77,6 +77,7 @@ struct AccuWeatherDayForecast: Decodable {
     let date: Date
     let temperature: Temperature
     let day: Day
+    let night: Night
 
     struct Temperature: Decodable {
       let minimum: AccuWeatherValue
@@ -85,6 +86,12 @@ struct AccuWeatherDayForecast: Decodable {
 
     struct Day: Decodable {
       let iconPhrase: String
+      let precipitationProbability: Int
+      let totalLiquid: AccuWeatherValue
+      let precipitationType: String?
+    }
+
+    struct Night: Decodable {
       let precipitationProbability: Int
       let totalLiquid: AccuWeatherValue
       let precipitationType: String?
