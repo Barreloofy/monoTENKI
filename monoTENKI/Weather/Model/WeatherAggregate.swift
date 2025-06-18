@@ -24,9 +24,9 @@ class WeatherAggregate {
 
       switch source {
       case .weatherApi:
-        weather = try await WeatherAPI.weather(query: location).fetchWeather()
+        weather = try await WeatherAPI.fetchWeather(for: location)
       case .accuWeather:
-        weather = try await AccuWeather.weather(query: location).fetchWeather()
+        weather = try await AccuWeather.fetchWeather(for: location)
       }
 
       async let currentWeather = weather.createCurrentWeather()

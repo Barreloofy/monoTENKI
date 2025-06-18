@@ -20,6 +20,7 @@ struct RecoveryState: View {
         Task { await action() }
       }
       .padding(.vertical)
+      .fixedSize()
       .buttonStyle(.permission)
 
       Text("Try diffrent Source")

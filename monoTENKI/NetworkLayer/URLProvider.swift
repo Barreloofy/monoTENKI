@@ -19,6 +19,10 @@ protocol URLProvider {
   /// Provides a simple interface to retrive an URL.
   func provideURL() throws -> URL
   /// Provides a comprehensive interface to retrive a dictionary of URLs, allows to construct complex API calls with multiple API endpoints as one call.
+  /// - Parameters:
+  ///   - query: the query parameter of an URL.
+  /// - Returns:
+  /// An Dictionary of [String:URL] where string is the custom identifier and URL the constructed URL.
   func provideURLs(query: String) throws -> [String: URL]
 }
 

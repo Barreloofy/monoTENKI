@@ -7,23 +7,17 @@
 
 import Foundation
 /// Concrete interface for AccuWeather.
-enum AccuWeather: URLProvider {
-  case weather(query: String)
-  case search(query: String)
-  case geo(query: String)
-
-  var query: String {
-    switch self {
-    case .weather(let query): query
-    case .search(let query): query
-    case .geo(let query): query
-    }
+enum AccuWeather {
+  enum Service: URLProvider {
+    case weather
+    case search(query: String)
+    case geo(query: String)
   }
 
-  func fetchWeather() async throws -> AccuWeatherComposite {
-    let location = try await AccuWeather.geo(query: query).fetchGeo()
+  static func fetchWeather(for query: String) async throws -> AccuWeatherComposite {
+    let location = try await AccuWeather.fetchGeo(for: query)
 
-    let urlDictionary = try provideURLs(query: location.key)
+    let urlDictionary = try Service.weather.provideURLs(query: location.key)
     guard
       let currentURL = urlDictionary["current"],
       let hourlyURL = urlDictionary["hourly"],
@@ -53,14 +47,14 @@ enum AccuWeather: URLProvider {
     return weather
   }
 
-  func fetchSearch() async throws -> Locations {
+  static func fetchSearch(for query: String) async throws -> Locations {
     let client = try HTTPClient(
-      url: provideURL(),
+      url: Service.search(query: query).provideURL(),
       decoder: AccuWeatherLocation.decoder)
 
     let locations: AccuWeatherLocations = try await client.fetch()
 
-    return locations.compactMap { location in
+    return locations.map { location in
       Location(
         name: location.localizedName,
         country: location.country.localizedName,
@@ -71,9 +65,9 @@ enum AccuWeather: URLProvider {
     }
   }
 
-  func fetchGeo() async throws -> AccuWeatherLocation {
+  static func fetchGeo(for query: String) async throws -> AccuWeatherLocation {
     let client = try HTTPClient(
-      url: provideURL(),
+      url: Service.geo(query: query).provideURL(),
       decoder: AccuWeatherLocation.decoder)
 
     return try await client.fetch()

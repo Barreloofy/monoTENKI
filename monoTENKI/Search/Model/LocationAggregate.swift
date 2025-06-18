@@ -37,14 +37,14 @@ class LocationAggregate {
     guard locationStream == nil else { return }
 
     locationStream = Task {
-      var previousLocation = CLLocation.init(from: location)
+      var previousLocation = CLLocation(from: location)
 
       let distanceThresholdMeters = 250.0
       let filterByDistance: (CLLocationUpdate) -> Bool = { update in
         guard let location = update.location else { return false }
 
         guard let unwrappedPreviousLocation = previousLocation else {
-          previousLocation = update.location
+          previousLocation = location
           return true
         }
 

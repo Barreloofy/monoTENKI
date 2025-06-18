@@ -53,9 +53,9 @@ struct Search: View {
         do {
           switch apiSource {
           case .weatherApi:
-            results = try await Array(WeatherAPI.search(query: text).fetchSearch().prefix(10))
+            results = try await Array(WeatherAPI.fetchSearch(for: text).prefix(10))
           case .accuWeather:
-            results = try await Array(AccuWeather.search(query: text).fetchSearch().prefix(10))
+            results = try await Array(AccuWeather.fetchSearch(for: text).prefix(10))
           }
           state = .presenting
         } catch {

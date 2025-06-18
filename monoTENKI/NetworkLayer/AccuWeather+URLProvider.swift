@@ -8,7 +8,7 @@
 import Foundation
 
 // Implement URLProvider
-extension AccuWeather {
+extension AccuWeather.Service {
   private var apiKey: String {
     Bundle.main.object(forInfoDictionaryKey: "AccuWeatherAPIKey") as! String
   }
@@ -17,16 +17,16 @@ extension AccuWeather {
     switch self {
     case .weather:
       throw URLError(.badURL)
-    case .search:
-      return try constructURL(
+    case .search(let query):
+      try constructURL(
         host: "dataservice.accuweather.com",
         path: "/locations/v1/cities/search",
         queryItems: [
           "apikey": apiKey,
           "q": query,
         ])
-    case .geo:
-      return try constructURL(
+    case .geo(let query):
+      try constructURL(
         host: "dataservice.accuweather.com",
         path: "/locations/v1/cities/geoposition",
         queryItems: [

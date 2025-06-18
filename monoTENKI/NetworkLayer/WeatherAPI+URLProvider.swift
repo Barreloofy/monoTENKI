@@ -8,9 +8,15 @@
 import Foundation
 
 // Implement URLProvider
-extension WeatherAPI {
+extension WeatherAPI.Service {
   private var apiKey: String {
     Bundle.main.object(forInfoDictionaryKey: "WeatherAPI.comAPIKey") as! String
+  }
+
+  private var query: String {
+    switch self {
+    case .weather(let query), .search(let query): query
+    }
   }
 
   private var service: String {
@@ -21,7 +27,7 @@ extension WeatherAPI {
   }
 
   func provideURL() throws -> URL {
-    return try constructURL(
+    try constructURL(
       host: "api.weatherapi.com",
       path: "/v1/\(service).json",
       queryItems: [
@@ -32,6 +38,11 @@ extension WeatherAPI {
   }
 
   func provideURLs(query: String) throws -> [String : URL] {
-    return try ["weather": provideURL()]
+    switch self {
+    case .weather:
+      try ["weather": provideURL()]
+    case .search:
+      try ["search": provideURL()]
+    }
   }
 }
