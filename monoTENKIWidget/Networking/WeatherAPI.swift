@@ -1,14 +1,16 @@
 //
-//  WeatherAPI+URLProvider.swift
-//  monoTENKI
+// WeatherAPI.swift
+// monoTENKI
 //
-//  Created by Barreloofy on 4/20/25 at 2:31 PM.
+// Created by Barreloofy on 6/19/25 at 1:06 PM
 //
 
 import Foundation
 
-// Implement URLProvider
-extension WeatherAPI.Service {
+enum WeatherAPI: URLProvider {
+  case geo(query: String)
+  case weather(query: String)
+
   private var apiKey: String {
     Bundle.main.object(forInfoDictionaryKey: "WeatherAPI.comAPIKey") as! String
   }
@@ -18,11 +20,11 @@ extension WeatherAPI.Service {
     let query: String
 
     switch self {
-    case .weather(let value):
-      service = "forecast"
-      query = value
-    case .search(let value):
+    case .geo(let value):
       service = "search"
+      query = value
+    case .weather(let value):
+      service = "current"
       query = value
     }
 
@@ -35,13 +37,13 @@ extension WeatherAPI.Service {
         "days": "3",
       ])
   }
-
-  func provideURLs(query: String) throws -> [String : URL] {
+  
+  func provideURLs(query: String = "") throws -> [String : URL] {
     switch self {
+    case .geo:
+      try ["geo": provideURL()]
     case .weather:
       try ["weather": provideURL()]
-    case .search:
-      try ["search": provideURL()]
     }
   }
 }

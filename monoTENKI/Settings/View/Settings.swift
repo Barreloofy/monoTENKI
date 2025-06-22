@@ -11,7 +11,7 @@ struct Settings: View {
   @Environment(\.dismiss) private var dismiss
 
   @AppStorage("measurementSystem") private var measurementSystemInUse = MeasurementSystem.metric
-  @AppStorage("apiSource") private var apiSourceInUse = APISource.weatherApi
+  @AppStorage("apiSource") private var apiSourceInUse = APISource.weatherAPI
 
   var body: some View {
     VStack(spacing: 25) {
@@ -47,8 +47,8 @@ struct Settings: View {
             .font(.headline)
         },
         center: {
-          Text(APISource.weatherApi.rawValue)
-            .selectedStyle(target: APISource.weatherApi, value: $apiSourceInUse)
+          Text(APISource.weatherAPI.rawValue)
+            .selectedStyle(target: APISource.weatherAPI, value: $apiSourceInUse)
         },
         trailing: {
           Text(APISource.accuWeather.rawValue)

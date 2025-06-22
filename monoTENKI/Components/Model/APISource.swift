@@ -8,11 +8,11 @@
 import SwiftUI
 
 extension EnvironmentValues {
-  @Entry var apiSource = APISource.weatherApi
+  @Entry var apiSource = APISource.weatherAPI
 }
 
 
 enum APISource: String, CaseIterable {
-  case weatherApi
+  case weatherAPI
   case accuWeather
 }

@@ -23,7 +23,7 @@ class WeatherAggregate {
       let weather: Weather
 
       switch source {
-      case .weatherApi:
+      case .weatherAPI:
         weather = try await WeatherAPI.fetchWeather(for: location)
       case .accuWeather:
         weather = try await AccuWeather.fetchWeather(for: location)

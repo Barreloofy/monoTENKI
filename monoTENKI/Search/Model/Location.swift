@@ -15,7 +15,7 @@ struct Location: Codable, Identifiable, Hashable {
   var area: String?
   let coordinate: Coordinate
 
-  var completeName: String {
+  var wholeName: String {
     guard let area = area, area != name else { return "\(name) \(country)" }
     return "\(area) \(name) \(country)"
   }
@@ -40,11 +40,11 @@ struct Location: Codable, Identifiable, Hashable {
 // Custom Equitable, Hashable implantation
 extension Location {
   static func == (lhs: Location, rhs: Location) -> Bool {
-    lhs.completeName == rhs.completeName
+    lhs.wholeName == rhs.wholeName
   }
 
   func hash(into hasher: inout Hasher) {
-    hasher.combine(completeName)
+    hasher.combine(wholeName)
   }
 }
 

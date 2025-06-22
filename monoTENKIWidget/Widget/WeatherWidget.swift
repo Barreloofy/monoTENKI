@@ -1,0 +1,31 @@
+//
+// WeatherWidget.swift
+// monoTENKI
+//
+// Created by Barreloofy on 6/20/25 at 6:37 PM
+//
+
+import WidgetKit
+import SwiftUI
+
+@main
+struct WeatherWidgetBundle: WidgetBundle {
+  var body: some Widget {
+    WeatherWidget()
+  }
+}
+
+struct WeatherWidget: Widget {
+  var body: some WidgetConfiguration {
+    StaticConfiguration(
+      kind: "WeatherWidget",
+      provider: WeatherTimelineProvider()) { entry in
+        WeatherView(entry: entry)
+          .containerBackground(.background, for: .widget)
+          .dynamicTypeSize(...DynamicTypeSize.large)
+      }
+      .configurationDisplayName("Current Weather")
+      .description("A sleek, minimalist widget providing a quick view of current weather condition.")
+      .supportedFamilies([.systemSmall])
+  }
+}

@@ -77,7 +77,7 @@ extension WeatherAPIWeather {
     let decoder = JSONDecoder()
 
     decoder.keyDecodingStrategy = .convertFromSnakeCase
-    decoder.dateDecodingStrategy = .weatherApiDateStrategy
+    decoder.dateDecodingStrategy = .weatherAPIDateStrategy
 
     return decoder
   }

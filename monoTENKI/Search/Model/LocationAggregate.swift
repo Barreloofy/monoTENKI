@@ -11,36 +11,51 @@ import CoreLocation
 @MainActor
 @Observable
 class LocationAggregate {
-  var location = UserDefaults.standard.string(forKey: "location") ?? "" {
-    didSet { UserDefaults.standard.set(location, forKey: "location") }
+  private var locationStorage = UserDefault(key: "location", defaultValue: "")
+  var location: String {
+    get { locationStorage.value }
+    set { locationStorage.value = newValue }
   }
-  var trackLocation = UserDefaults.standard.bool(forKey: "trackLocation") {
-    didSet { updateTrackLocation() }
+  private var trackLocationStorage = UserDefault(key: "trackLocation", defaultValue: false)
+  var trackLocation: Bool {
+    get { trackLocationStorage.value }
+    set {
+      trackLocationStorage.value = newValue
+      updateTrackLocation()
+    }
   }
 
   private var locationStream: Task<Void, Error>?
 
   init() { updateTrackLocation() }
 
+  func resume() {
+    guard trackLocation && locationStream == nil else { return }
+    startLocationTracking()
+  }
+
+  func suspend() {
+    guard trackLocation && locationStream != nil else { return }
+    locationStream?.cancel()
+    locationStream = nil
+  }
+
   private func updateTrackLocation() {
     if trackLocation {
+      guard locationStream == nil else { return }
       startLocationTracking()
     } else {
       locationStream?.cancel()
       locationStream = nil
     }
-
-    UserDefaults.standard.set(trackLocation, forKey: "trackLocation")
   }
 
   private func startLocationTracking() {
-    guard locationStream == nil else { return }
-
     locationStream = Task {
       var previousLocation = CLLocation(from: location)
 
       let distanceThresholdMeters = 250.0
-      let filterByDistance: (CLLocationUpdate) -> Bool = { update in
+      let filterByDistance: @MainActor (CLLocationUpdate) -> Bool = { update in
         guard let location = update.location else { return false }
 
         guard let unwrappedPreviousLocation = previousLocation else {
@@ -56,7 +71,7 @@ class LocationAggregate {
         }
       }
 
-      for try await update in CLLocationUpdate.liveUpdates().filter({ @MainActor in filterByDistance($0) }) {
+      for try await update in CLLocationUpdate.liveUpdates().filter({ await filterByDistance($0) }) {
         guard let newLocation = update.location?.coordinate.stringRepresentation else { continue }
 
         location = newLocation

@@ -52,7 +52,7 @@ struct Search: View {
       .debounce(id: text) {
         do {
           switch apiSource {
-          case .weatherApi:
+          case .weatherAPI:
             results = try await Array(WeatherAPI.fetchSearch(for: text).prefix(10))
           case .accuWeather:
             results = try await Array(AccuWeather.fetchSearch(for: text).prefix(10))
@@ -85,7 +85,7 @@ struct Search: View {
           LazyVStack(spacing: 0) {
             ForEach(presentedLocations) { result in
               AlignedHStack(alignment: .leading) {
-                Text(result.completeName)
+                Text(result.wholeName)
                   .onTapGesture {
                     locationAggregate.trackLocation = false
                     locationAggregate.location = result.coordinate.stringRepresentation

@@ -11,7 +11,7 @@ extension JSONDecoder.DateDecodingStrategy {
   /// Converts a JSON String date: "yyyy-MM-dd HH:mm", "yyyy-MM-dd" to a Swift 'Date' type,
   /// the date-components are 'ISO 8601' but the format itself here, is not compliant.
   /// Important, this Date-decoder uses a dateFormatter with the 'timeZone' property set to 'UTC'.
-  static var weatherApiDateStrategy: Self {
+  static var weatherAPIDateStrategy: Self {
     .custom { decoder in
       let container = try decoder.singleValueContainer()
       let stringDate = try container.decode(String.self)

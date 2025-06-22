@@ -13,7 +13,7 @@ struct Aggregate: View {
   @Environment(LocationAggregate.self) private var locationAggregate
 
   @State private var weatherAggregate = WeatherAggregate()
-  @AppStorage("apiSource") private var apiSourceInUse = APISource.weatherApi
+  @AppStorage("apiSource") private var apiSourceInUse = APISource.weatherAPI
 
   private let updateTimer = AsyncTimerSequence(interval: .seconds(900), clock: .continuous)
 
