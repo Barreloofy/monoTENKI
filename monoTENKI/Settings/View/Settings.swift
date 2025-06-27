@@ -10,8 +10,9 @@ import SwiftUI
 struct Settings: View {
   @Environment(\.dismiss) private var dismiss
 
-  @AppStorage("measurementSystem") private var measurementSystemInUse = MeasurementSystem.metric
-  @AppStorage("apiSource") private var apiSourceInUse = APISource.weatherAPI
+  @AppStorage(StorageKeys.apiSourceInUse.rawValue) private var apiSourceInUse = APISource.weatherAPI
+  @AppStorage(StorageKeys.userModifiedMeasurementSystem.rawValue) var userModifiedMeasurementSystem = false
+  @AppStorage(StorageKeys.measurementSystemInUse.rawValue) private var measurementSystemInUse = MeasurementSystem.metric
 
   var body: some View {
     VStack(spacing: 25) {
@@ -33,11 +34,17 @@ struct Settings: View {
         },
         center: {
           Text(MeasurementSystem.metric.rawValue)
-            .selectedStyle(target: MeasurementSystem.metric, value: $measurementSystemInUse)
+            .selectedStyle(target: MeasurementSystem.metric, value: $measurementSystemInUse) {
+              guard !userModifiedMeasurementSystem else { return }
+              userModifiedMeasurementSystem = true
+            }
         },
         trailing: {
           Text(MeasurementSystem.imperial.rawValue)
-            .selectedStyle(target: MeasurementSystem.imperial, value: $measurementSystemInUse)
+            .selectedStyle(target: MeasurementSystem.imperial, value: $measurementSystemInUse) {
+              guard !userModifiedMeasurementSystem else { return }
+              userModifiedMeasurementSystem = true
+            }
         })
       .font(.subheadline)
 

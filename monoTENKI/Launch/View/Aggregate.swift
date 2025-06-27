@@ -10,42 +10,47 @@ import AsyncAlgorithms
 
 struct Aggregate: View {
   @Environment(\.colorScheme) private var colorScheme
+  @Environment(\.apiSource) private var apiSource
   @Environment(LocationAggregate.self) private var locationAggregate
 
   @State private var weatherAggregate = WeatherAggregate()
-  @AppStorage("apiSource") private var apiSourceInUse = APISource.weatherAPI
-
-  private let updateTimer = AsyncTimerSequence(interval: .seconds(900), clock: .continuous)
+  @State private var refreshDate = Date.nextRefreshDate
+  @State private var apiSourceInUse = APISource.weatherAPI
 
   var body: some View {
     VStack {
       switch weatherAggregate.state {
       case .loading:
-        colorScheme.background
+        Loading()
 
       case .loaded(let currentWeather, let hourForecast, let dayForecast):
         WeatherComposer(
           currentWeather: currentWeather,
           hourForecast: hourForecast,
-          dayForecast: dayForecast,)
+          dayForecast: dayForecast)
 
       case .error:
-        RecoveryState(source: $apiSourceInUse) {
+        RecoveryState() {
+          weatherAggregate.state = .loading
           await weatherAggregate.getWeather(for: locationAggregate.location, from: apiSourceInUse)
         }
       }
     }
     .tint(colorScheme.foreground)
+    .onChange(of: apiSource, initial: true) { apiSourceInUse = apiSource }
     .task(id: locationAggregate.location) {
       await weatherAggregate.getWeather(for: locationAggregate.location, from: apiSourceInUse)
+      refreshDate = .nextRefreshDate
     }
-    .task(id: apiSourceInUse) {
-      for await _ in updateTimer.debounce(for: .seconds(1)) {
+    .task {
+      for await _ in AsyncTimerSequence(interval: .seconds(900), clock: .continuous) where Date() > refreshDate {
         await weatherAggregate.getWeather(for: locationAggregate.location, from: apiSourceInUse)
+        refreshDate = .nextRefreshDate
       }
     }
-    .onChange(of: apiSourceInUse) {
-      Task { await weatherAggregate.getWeather(for: locationAggregate.location, from: apiSourceInUse) }
+    .asyncOnChange(id: apiSource) {
+      await weatherAggregate.getWeather(for: locationAggregate.location, from: apiSourceInUse)
+      refreshDate = .nextRefreshDate
     }
   }
 }

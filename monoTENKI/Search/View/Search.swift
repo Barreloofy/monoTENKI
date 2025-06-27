@@ -23,7 +23,7 @@ struct Search: View {
   @State private var text = ""
   @State private var results = Locations()
   @State private var history = History()
-
+  
   let setup: Bool
 
   private var presentedLocations: Locations {
@@ -49,6 +49,7 @@ struct Search: View {
         text: $text,
         prompt: Text("Search").foregroundStyle(colorScheme.foreground))
       .textInputAutocapitalization(.characters)
+      .multilineTextAlignment(.leading)
       .debounce(id: text) {
         do {
           switch apiSource {

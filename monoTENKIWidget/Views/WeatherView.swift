@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct WeatherView: View {
+  @Environment(\.locale) private var locale
+
   let entry: WeatherEntry
 
   var body: some View {
@@ -17,6 +19,12 @@ struct WeatherView: View {
         .font(.system(.title, design: .monospaced, weight: .bold))
         .lineLimit(1)
         .minimumScaleFactor(0.5)
+    }
+    .transformEnvironment(\.measurementSystem) { measurementSystem in
+      switch locale.measurementSystem {
+      case .metric: measurementSystem = .metric
+      default: measurementSystem = .imperial
+      }
     }
   }
 }

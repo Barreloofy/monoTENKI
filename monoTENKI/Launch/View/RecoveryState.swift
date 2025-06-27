@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct RecoveryState: View {
-  @Binding var source: APISource
+  @AppStorage(StorageKeys.apiSourceInUse.rawValue) private var apiSourceInUse = APISource.weatherAPI
+  @State private var task: Task<Void, Never>?
 
   let action: () async -> Void
 
@@ -17,7 +18,8 @@ struct RecoveryState: View {
       Text("Error, check connection status, if the error persists please try again later")
 
       Button("Try again") {
-        Task { await action() }
+        task?.cancel()
+        task = Task { await action() }
       }
       .padding(.vertical)
       .fixedSize()
@@ -28,13 +30,12 @@ struct RecoveryState: View {
       HStack {
         ForEach(APISource.allCases, id: \.self) {
           Text($0.rawValue)
-            .selectedStyle(target: $0, value: $source)
+            .selectedStyle(target: $0, value: $apiSourceInUse)
         }
       }
       .font(.subheadline)
     }
     .font(.footnote)
-    .multilineTextAlignment(.center)
     .offset(y: -75)
   }
 }

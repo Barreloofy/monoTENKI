@@ -10,6 +10,7 @@ import SwiftUI
 struct SelectedStyle<T: Equatable>: ViewModifier {
   let target: T
   @Binding var value: T
+  let observer: () -> Void
 
   func body(content: Content) -> some View {
     content
@@ -19,13 +20,20 @@ struct SelectedStyle<T: Equatable>: ViewModifier {
             .frame(height: 2)
         }
       }
-      .onTapGesture { value = target }
+      .onTapGesture {
+        value = target
+        observer()
+      }
   }
 }
 
 
 extension View {
-  func selectedStyle<T: Equatable>(target: T, value: Binding<T>) -> some View {
-    modifier(SelectedStyle(target: target, value: value))
+  func selectedStyle<T: Equatable>(target: T, value: Binding<T>, observer: @escaping () -> Void = {}) -> some View {
+    modifier(
+      SelectedStyle(
+        target: target,
+        value: value,
+        observer: observer))
   }
 }

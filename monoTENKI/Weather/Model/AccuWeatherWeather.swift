@@ -1,5 +1,5 @@
 //
-//  AccuWeatherDecodable.swift
+//  AccuWeatherWeather.swift
 //  monoTENKI
 //
 //  Created by Barreloofy on 4/29/25.

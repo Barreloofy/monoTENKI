@@ -1,5 +1,5 @@
 //
-//  WeatherAPIWeather+Weather.swift
+//  WeatherAPIWeather+Decoded.swift
 //  monoTENKI
 //
 //  Created by Barreloofy on 4/30/25.
@@ -129,7 +129,6 @@ extension WeatherAPIWeather {
           precipitationChance: chance,
           precipitationTotalMillimeter: total,
           precipitationType: type,)
-      }
-    )
+      })
   }
 }

@@ -13,6 +13,7 @@ struct ConfigureFont: ViewModifier {
       .textCase(.uppercase)
       .fontDesign(.monospaced)
       .fontWeight(.bold)
+      .multilineTextAlignment(.center)
       .dynamicTypeSize(...DynamicTypeSize.large)
   }
 }

@@ -9,11 +9,13 @@ import SwiftUI
 
 @main
 struct monoTENKIApp: App {
+  @Environment(\.locale) private var locale
   @Environment(\.scenePhase) private var scenePhase
 
-  @AppStorage("setupCompleted") private var setupCompleted = false
-  @AppStorage("measurementSystem") private var measurementSystemInUse = MeasurementSystem.metric
-  @AppStorage("apiSource") private var apiSourceInUse = APISource.weatherAPI
+  @AppStorage(StorageKeys.setupCompleted.rawValue) private var setupCompleted = false
+  @AppStorage(StorageKeys.userModifiedMeasurementSystem.rawValue) var userModifiedMeasurementSystem = false
+  @AppStorage(StorageKeys.measurementSystemInUse.rawValue) private var measurementSystemInUse = MeasurementSystem.metric
+  @AppStorage(StorageKeys.apiSourceInUse.rawValue) private var apiSourceInUse = APISource.weatherAPI
   @State private var locationAggregate = LocationAggregate()
 
   var body: some Scene {
@@ -26,8 +28,14 @@ struct monoTENKIApp: App {
           .configureFont()
       }
     }
+    .onChange(of: locale.measurementSystem, initial: true) {
+      guard !userModifiedMeasurementSystem else { return }
+      switch locale.measurementSystem {
+      case .metric: measurementSystemInUse = .metric
+      default: measurementSystemInUse = .imperial
+      }
+    }
     .onChange(of: scenePhase) {
-      print(scenePhase)
       switch scenePhase {
       case .active: locationAggregate.resume()
       case .background: locationAggregate.suspend()

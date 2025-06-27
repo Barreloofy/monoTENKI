@@ -11,18 +11,9 @@ extension CLServiceSession {
   /// Returns true if some level of location authorization was granted otherwise false,
   /// if location authorization is undetermined, prompts for permission.
   static func getAuthorizationStatus(
-    session: CLServiceSession = CLServiceSession(authorization: .whenInUse)
-  ) async -> Bool {
-    let serviceStream = CLServiceSession(authorization: .whenInUse)
-
-    do {
-      for try await diagnostic in serviceStream.diagnostics where !diagnostic.authorizationRequestInProgress {
-        return !diagnostic.authorizationDenied
-      }
-    } catch {
-      return false
+    session: CLServiceSession = CLServiceSession(authorization: .whenInUse)) async -> Bool {
+      let authorizationStatus = try? await session.diagnostics.first { !$0.authorizationRequestInProgress }
+      guard let authorizationStatus = authorizationStatus else { return false }
+      return !authorizationStatus.authorizationDenied
     }
-
-    return false
-  }
 }

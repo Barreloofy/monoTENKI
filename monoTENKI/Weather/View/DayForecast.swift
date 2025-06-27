@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DayForecast: View {
+  @Environment(\.horizontalSizeClass) private var horizontalSizeClass
   @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
   @State private var dayID: Date?
@@ -18,10 +19,16 @@ struct DayForecast: View {
     VStack(spacing: 15) {
       ForEach(days) { day in
         Row(
-          leading: { Text(day.date.formatted(.dateTime.weekday(.wide))) },
-          center: { WeatherIcon(name: day.condition, isDay: true, size: 30) },
+          leading: { Text(day.date.formatted(.dateTime.weekday(.wide)))
+          },
+          center: {
+            WeatherIcon(
+              name: day.condition,
+              isDay: true,
+              size: horizontalSizeClass == .compact ? 30 : 45)
+          },
           trailing: { TemperatureView(day.temperatureCelsiusAverage) })
-        .font(.title2)
+        .font(horizontalSizeClass == .compact ? .title2 : .title)
         .contentShape(Rectangle())
         .onTapGesture { dayID = day.date }
       }

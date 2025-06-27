@@ -1,5 +1,5 @@
 //
-//  AccuWeatherCompound.swift
+//  AccuWeatherWeather+Decoded.swift
 //  monoTENKI
 //
 //  Created by Barreloofy on 4/29/25.
@@ -65,7 +65,7 @@ extension AccuWeatherComposite {
       dayForecast.dailyForecasts.dropFirst().map { forecast in
         let average = (forecast.temperature.maximum.value + forecast.temperature.minimum.value) / 2
         let type = forecast.day.precipitationType ?? forecast.night.precipitationType ?? "--"
-        let chance = forecast.day.precipitationProbability + forecast.night.precipitationProbability
+        let chance = (forecast.day.precipitationProbability + forecast.night.precipitationProbability) / 2
         let total = forecast.day.totalLiquid.value + forecast.night.totalLiquid.value
 
         return Day(

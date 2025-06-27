@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HourForecast: View {
+  @Environment(\.horizontalSizeClass) private var horizontalSizeClass
   @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
   @State private var hourID: Date?
@@ -18,10 +19,16 @@ struct HourForecast: View {
     VStack(spacing: 15) {
       ForEach(hours, id: \.time) { hour in
         Row(
-          leading: { Text(hour.time.formatted(.shortenedAndTimeZoneNeutral)) },
-          center: { WeatherIcon(name: hour.condition, isDay: hour.isDay, size: 30) },
+          leading: { Text(hour.time.formatted(.shortenedAndTimeZoneNeutral))
+          },
+          center: {
+            WeatherIcon(
+              name: hour.condition,
+              isDay: hour.isDay,
+              size: horizontalSizeClass == .compact ? 30 : 45)
+          },
           trailing: { TemperatureView(hour.temperatureCelsius) })
-        .font(.title2)
+        .font(horizontalSizeClass == .compact ? .title2 : .title)
         .contentShape(Rectangle())
         .onTapGesture { hourID = hour.time }
       }

@@ -8,6 +8,7 @@
 import CoreLocation
 // Convenience failable initializer
 extension CLLocation {
+  /// Parameter 'string' should be a comma-separated coordinate with or without a whitespace, i.e, (lat, lon), (lat,lon)
   convenience init?(from string: String) {
     guard let coordinate = CLLocationCoordinate2D.parseCoordinate(from: string) else { return nil }
 
