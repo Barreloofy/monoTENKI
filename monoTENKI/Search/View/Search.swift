@@ -33,7 +33,6 @@ struct Search: View {
   var body: some View {
     VStack(spacing: 10) {
       Row(
-        leading: {},
         center: { Text("Search") },
         trailing: {
           Button(
@@ -52,14 +51,17 @@ struct Search: View {
       .multilineTextAlignment(.leading)
       .debounce(id: text) {
         do {
+          state = .presenting
+
           switch apiSource {
           case .weatherAPI:
             results = try await Array(WeatherAPI.fetchSearch(for: text).prefix(10))
           case .accuWeather:
             results = try await Array(AccuWeather.fetchSearch(for: text).prefix(10))
           }
-          state = .presenting
         } catch {
+          guard (error as? URLError)?.code != .cancelled else { return }
+
           state = .searchError
         }
       }
@@ -108,6 +110,7 @@ struct Search: View {
       case .locationError:
         Text("No permission to access location, grand permission to receive the most accurate weather")
           .font(.footnote)
+
         Link("Open Settings App", destination: URL(string: UIApplication.openSettingsURLString)!)
           .buttonStyle(.bordered)
       }

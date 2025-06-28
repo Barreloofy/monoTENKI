@@ -46,6 +46,7 @@ struct Setup: View {
             Search(setup: true)
               .interactiveDismissDisabled()
               .presentationBackground(colorScheme.background)
+              .dynamicTypeSize(...DynamicTypeSize.large)
           }
       }
       .buttonStyle(.permission)

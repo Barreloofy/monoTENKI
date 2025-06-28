@@ -30,7 +30,7 @@ struct Aggregate: View {
           dayForecast: dayForecast)
 
       case .error:
-        RecoveryState() {
+        Recovery() {
           weatherAggregate.state = .loading
           await weatherAggregate.getWeather(for: locationAggregate.location, from: apiSourceInUse)
         }

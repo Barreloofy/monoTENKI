@@ -8,18 +8,22 @@
 import SwiftUI
 
 struct Row<
-  ContentLeading,
-  ContentCenter,
-  ContentTrailing,
->: View
-where
   ContentLeading: View,
   ContentCenter: View,
-  ContentTrailing: View
-{
-  @ViewBuilder let leading: ContentLeading
-  @ViewBuilder let center: ContentCenter
-  @ViewBuilder let trailing: ContentTrailing
+  ContentTrailing: View,
+>: View {
+  let leading: ContentLeading
+  let center: ContentCenter
+  let trailing: ContentTrailing
+
+  init(
+    @ViewBuilder leading: () -> ContentLeading = { EmptyView() },
+    @ViewBuilder center: () -> ContentCenter = { EmptyView() },
+    @ViewBuilder trailing: () -> ContentTrailing = {EmptyView() }) {
+    self.leading = leading()
+    self.center = center()
+    self.trailing = trailing()
+  }
 
   var body: some View {
     ZStack {

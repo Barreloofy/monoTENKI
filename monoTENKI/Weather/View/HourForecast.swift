@@ -19,8 +19,7 @@ struct HourForecast: View {
     VStack(spacing: 15) {
       ForEach(hours, id: \.time) { hour in
         Row(
-          leading: { Text(hour.time.formatted(.shortenedAndTimeZoneNeutral))
-          },
+          leading: { Text(hour.time.formatted(.shortenedAndTimeZoneNeutral)) },
           center: {
             WeatherIcon(
               name: hour.condition,

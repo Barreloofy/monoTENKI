@@ -17,7 +17,6 @@ struct Settings: View {
   var body: some View {
     VStack(spacing: 25) {
       Row(
-        leading: {},
         center: { Text("Settings") },
         trailing: {
           Button(

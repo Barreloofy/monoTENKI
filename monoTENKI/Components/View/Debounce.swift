@@ -10,21 +10,21 @@ import SwiftUI
 /// makes use of the task(id:priority:_:) method and ViewModifier protocol.
 /// The task property is bound to the MainActor, UI dependent properties can savely be accessed and modified.
 struct Debounce<ID: Equatable>: ViewModifier {
-  @State private var initID: ID?
+  @State private var initialID: ID?
 
   let id: ID
   let duration: Duration
-  let action: @MainActor () async -> Void
+  let action: () async -> Void
 
   func body(content: Content) -> some View {
     content
-      .onAppear { initID = id }
+      .onAppear { initialID = id }
       .task(id: id) {
-        guard id != initID else { return }
-        do {
-          try await Task.sleep(for: duration)
-          await action()
-        } catch {}
+        guard id != initialID else { return }
+
+        guard let _ = try? await Task.sleep(for: duration) else { return }
+
+        await action()
       }
   }
 }
@@ -41,11 +41,11 @@ extension View {
   func debounce<ID: Equatable>(
     id: ID,
     duration: Duration = .seconds(0.5),
-    action: @MainActor @escaping () async -> Void) -> some View {
+    action: @escaping () async -> Void) -> some View {
       modifier(
         Debounce(
           id: id,
           duration: duration,
           action: action))
-  }
+    }
 }

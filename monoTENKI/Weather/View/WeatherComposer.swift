@@ -20,14 +20,17 @@ struct WeatherComposer: View {
   var body: some View {
     VStack(spacing: 25) {
       Row(
-        leading: {},
         center: {
           Button(
             action: { presentSearch = true },
-            label: { Text(currentWeather.location).fontWeight(.medium) })
+            label: {
+              Text(currentWeather.location)
+                .fontWeight(.medium)
+            })
           .sheet(isPresented: $presentSearch) {
             Search(setup: false)
               .presentationBackground(colorScheme.background)
+              .dynamicTypeSize(...DynamicTypeSize.large)
           }
         },
         trailing: {

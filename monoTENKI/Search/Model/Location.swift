@@ -20,13 +20,6 @@ struct Location: Codable, Identifiable, Hashable {
     return "\(area) \(name) \(country)"
   }
 
-  enum CodingKeys: CodingKey {
-    case name
-    case country
-    case area
-    case coordinate
-  }
-
   struct Coordinate: Codable, Hashable {
     let latitude: Double
     let longitude: Double
@@ -35,9 +28,16 @@ struct Location: Codable, Identifiable, Hashable {
       "\(latitude), \(longitude)"
     }
   }
+
+  enum CodingKeys: CodingKey {
+    case name
+    case country
+    case area
+    case coordinate
+  }
 }
 
-// Custom Equitable, Hashable implantation
+// Custom Equatable, Hashable implantation
 extension Location {
   static func == (lhs: Location, rhs: Location) -> Bool {
     lhs.wholeName == rhs.wholeName

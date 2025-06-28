@@ -19,8 +19,7 @@ struct DayForecast: View {
     VStack(spacing: 15) {
       ForEach(days) { day in
         Row(
-          leading: { Text(day.date.formatted(.dateTime.weekday(.wide)))
-          },
+          leading: { Text(day.date.formatted(.dateTime.weekday(.wide))) },
           center: {
             WeatherIcon(
               name: day.condition,

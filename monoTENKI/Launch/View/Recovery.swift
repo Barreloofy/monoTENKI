@@ -1,5 +1,5 @@
 //
-//  RecoveryState.swift
+//  Recovery.swift
 //  monoTENKI
 //
 //  Created by Barreloofy on 5/8/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RecoveryState: View {
+struct Recovery: View {
   @AppStorage(StorageKeys.apiSourceInUse.rawValue) private var apiSourceInUse = APISource.weatherAPI
   @State private var task: Task<Void, Never>?
 
