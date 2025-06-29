@@ -66,6 +66,21 @@ struct AccuWeatherHourForecast: Decodable {
   let precipitationProbability: Int
   let totalLiquid: AccuWeatherValue
   let precipitationType: String?
+  let wind: Wind
+  let windGust: WindGust
+
+  struct Wind: Decodable {
+    let direction: Direction
+    let speed: AccuWeatherValue
+
+    struct Direction: Decodable {
+      let english: String
+    }
+  }
+
+  struct WindGust: Decodable {
+    let speed: AccuWeatherValue
+  }
 }
 
 

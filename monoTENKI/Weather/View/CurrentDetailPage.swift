@@ -1,5 +1,5 @@
 //
-//  DetailPageCurrent.swift
+//  CurrentDetailPage.swift
 //  monoTENKI
 //
 //  Created by Barreloofy on 4/15/25 at 12:37 PM.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DetailPageCurrent: ViewModifier {
+struct CurrentDetailPage: ViewModifier {
   @Environment(\.colorScheme) private var colorScheme
 
   @Binding var present: Bool
@@ -23,13 +23,13 @@ struct DetailPageCurrent: ViewModifier {
 
             VStack(alignment: .leading, spacing: 10) {
               DetailSection(title: "Temperatures") {
-                TemperatureView("Now", weather.temperatures.temperatureCelsius)
+                TemperatureView("Now", weather.temperatures.celsius)
 
                 TemperatureView("Feels Like", weather.temperatures.feelsLikeCelsius)
 
-                TemperatureView("High", weather.temperatures.temperatureCelsiusHigh)
+                TemperatureView("High", weather.temperatures.celsiusHigh)
 
-                TemperatureView("Low", weather.temperatures.temperatureCelsiusLow)
+                TemperatureView("Low", weather.temperatures.celsiusLow)
 
                 Text("Humidity \(weather.temperatures.humidity.formatted(.percent))")
               }
@@ -67,7 +67,7 @@ extension View {
     present: Binding<Bool>,
     current: CurrentWeather) -> some View {
     modifier(
-      DetailPageCurrent(
+      CurrentDetailPage(
         present: present,
         weather: current))
   }

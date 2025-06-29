@@ -8,9 +8,9 @@
 import Foundation
 
 protocol Weather: Sendable, Decodable {
-  func createCurrentWeather() -> CurrentWeather
-  func createHourForecast() -> Hours
-  func createDayForecast() -> Days
+  func createCurrentWeather() throws -> CurrentWeather
+  func createHourForecast() throws -> Hours
+  func createDayForecast() throws -> Days
 }
 
 
@@ -23,9 +23,9 @@ struct CurrentWeather: Equatable {
   let wind: Wind
 
   struct Temperatures: Equatable {
-    let temperatureCelsius: Double
-    let temperatureCelsiusLow: Double
-    let temperatureCelsiusHigh: Double
+    let celsius: Double
+    let celsiusLow: Double
+    let celsiusHigh: Double
     let feelsLikeCelsius: Double
     let humidity: Int
   }
@@ -51,11 +51,22 @@ struct Hour: Equatable, Identifiable {
   let isDay: Bool
   let condition: String
   let temperatureCelsius: Double
-  let precipitationChance: Int
-  let precipitationRateMillimeter: Double
-  let precipitationType: String
+  let precipitation: Precipitation
+  let wind: Wind
 
   var id: Date { time }
+
+  struct Precipitation: Equatable {
+    let chance: Int
+    let rateMillimeter: Double
+    let type: String
+  }
+
+  struct Wind: Equatable {
+    let direction: String
+    let speedKilometersPerHour: Double
+    let gustKilometersPerHour: Double
+  }
 }
 
 
@@ -63,12 +74,20 @@ typealias Days = [Day]
 struct Day: Equatable, Identifiable {
   let date: Date
   let condition: String
-  let temperatureCelsiusAverage: Double
-  let temperatureCelsiusLow: Double
-  let temperatureCelsiusHigh: Double
-  let precipitationChance: Int
-  let precipitationTotalMillimeter: Double
-  let precipitationType: String
+  let temperatures: Temperatures
+  let precipitation: Precipitation
 
   var id: Date { date }
+
+  struct Temperatures: Equatable {
+    let celsiusAverage: Double
+    let celsiusLow: Double
+    let celsiusHigh: Double
+  }
+
+  struct Precipitation: Equatable {
+    let chance: Int
+    let totalMillimeter: Double
+    let type: String
+  }
 }

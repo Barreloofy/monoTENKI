@@ -33,7 +33,7 @@ class WeatherAggregate {
       async let hourForecast = weather.createHourForecast()
       async let dayForecast = weather.createDayForecast()
 
-      state = await .loaded(
+      state = try await .loaded(
         currentWeather: currentWeather,
         hourForecast: hourForecast,
         dayForecast: dayForecast)

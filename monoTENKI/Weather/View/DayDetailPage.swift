@@ -1,5 +1,5 @@
 //
-//  DetailPageDay.swift
+//  DayDetailPage.swift
 //  monoTENKI
 //
 //  Created by Barreloofy on 4/15/25 at 12:38 PM.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DetailPageDay: ViewModifier {
+struct DayDetailPage: ViewModifier {
   @Environment(\.colorScheme) private var colorScheme
 
   @State private var position: Date?
@@ -30,20 +30,20 @@ struct DetailPageDay: ViewModifier {
                   DetailSection(title: "Temperatures") {
                     TemperatureView(
                       "AVG",
-                      day.temperatureCelsiusAverage,
+                      day.temperatures.celsiusAverage,
                       accessibilityText: "Average")
 
-                    TemperatureView("High", day.temperatureCelsiusHigh)
+                    TemperatureView("High", day.temperatures.celsiusHigh)
 
-                    TemperatureView("Low", day.temperatureCelsiusLow)
+                    TemperatureView("Low", day.temperatures.celsiusLow)
                   }
 
                   DetailSection(title: "Precipitation") {
-                    Text("Chance \(day.precipitationChance.formatted(.percent))")
+                    Text("Chance \(day.precipitation.chance.formatted(.percent))")
 
-                    PrecipitationView("Total", day.precipitationTotalMillimeter)
+                    PrecipitationView("Total", day.precipitation.totalMillimeter)
 
-                    Text("Type \(day.precipitationType)")
+                    Text("Type \(day.precipitation.type)")
                   }
                 }
                 .containerRelativeFrame(.vertical)
@@ -69,7 +69,7 @@ extension View {
     item: Binding<Date?>,
     days: Days) -> some View {
       modifier(
-        DetailPageDay(
+        DayDetailPage(
           id: item,
           days: days))
   }

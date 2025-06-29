@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
-/// Simple debounce implantation for SwiftUI,
-/// makes use of the task(id:priority:_:) method and ViewModifier protocol.
-/// The task property is bound to the MainActor, UI dependent properties can savely be accessed and modified.
+
+/// Starts a suspension period after the specified value has changed,
+/// after the suspension period has elapsed executes the asynchronous closure.
+/// If the specified value changes, restarts the suspension period and cancels the current task.
 struct Debounce<ID: Equatable>: ViewModifier {
   @State private var initialID: ID?
 
@@ -31,13 +32,12 @@ struct Debounce<ID: Equatable>: ViewModifier {
 
 
 extension View {
-  /// Executes the task after the suspension period has elapsed, if the id changes before that, the task gets cancelled.
+  /// Executes 'action' after the suspension period has elapsed, if 'id' changes before that the task gets cancelled.
   /// - Parameters:
   ///   - id: The value to observe for changes, id must conform to Equatable.
   ///   - duration: The length of the suspension period.
-  ///   - action: A async closure that is called after the suspension period has elapsed.
-  /// - Returns:
-  /// A view that runs the specified action asynchronously before the view appears, or restarts the task when the id value changes.
+  ///   - action: An async closure that is called after the suspension period has elapsed.
+  /// - Returns: A view that executes an action when 'id' changes after a certain time has elapsed.
   func debounce<ID: Equatable>(
     id: ID,
     duration: Duration = .seconds(0.5),

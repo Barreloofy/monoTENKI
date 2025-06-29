@@ -25,31 +25,31 @@ extension WeatherAPIWeather {
 
 
 extension WeatherAPIWeather {
-  func createCurrentWeather() -> CurrentWeather {
-    let day = forecast.forecastday.first!.day
+  func createCurrentWeather() throws -> CurrentWeather {
+    guard let day = forecast.forecastday.first?.day else {
+      throw DecodingError.valueNotFound(
+        Forecast.ForecastDay.self,
+        .init(
+          codingPath: [],
+          debugDescription: " Found nil 'forecast.forecastday.first?'"))
+    }
 
     var calendar = Calendar.current
     calendar.timeZone = TimeZone(abbreviation: "UTC")!
-    let hour = forecast.forecastday.first!.hour.filter { forecast in
+    guard let hour = forecast.forecastday.first?.hour.filter({ forecast in
       let localTimeHour = calendar.component(.hour, from: location.localtime)
       let hourComponent = calendar.component(.hour, from: forecast.time)
 
       return localTimeHour == hourComponent
-    }.first!
+    }).first else {
+      throw DecodingError.valueNotFound(
+        Forecast.ForecastDay.Hour.self,
+        .init(
+          codingPath: [],
+          debugDescription: "Found nil 'forecast.forecastday.first?.hour.filter?'"))
+    }
 
     let isDay = current.isDay == 1 ? true : false
-
-    let temperatures = CurrentWeather.Temperatures(
-      temperatureCelsius: current.tempC,
-      temperatureCelsiusLow: day.mintempC,
-      temperatureCelsiusHigh: day.maxtempC,
-      feelsLikeCelsius: current.feelslikeC,
-      humidity: current.humidity,)
-
-    let wind = CurrentWeather.Wind(
-      direction: current.windDir,
-      speedKilometersPerHour: current.windKph,
-      gustKilometersPerHour: current.gustKph,)
 
     let (chance, type) = determinePrecipitation(
       chanceOfRain: hour.chanceOfRain,
@@ -58,11 +58,23 @@ extension WeatherAPIWeather {
     let totalSnowMillimeter = day.totalsnowCm * 10
     let total = day.totalprecipMm + totalSnowMillimeter
 
+    let temperatures = CurrentWeather.Temperatures(
+      celsius: current.tempC,
+      celsiusLow: day.mintempC,
+      celsiusHigh: day.maxtempC,
+      feelsLikeCelsius: current.feelslikeC,
+      humidity: current.humidity)
+
+    let wind = CurrentWeather.Wind(
+      direction: current.windDir,
+      speedKilometersPerHour: current.windKph,
+      gustKilometersPerHour: current.gustKph)
+
     let precipitation = CurrentWeather.Precipitation(
       chance: chance,
       rateMillimeter: rate,
       totalMillimeter: total,
-      type: type,)
+      type: type)
 
     return CurrentWeather(
       location: location.name,
@@ -70,11 +82,12 @@ extension WeatherAPIWeather {
       condition: current.condition.text,
       temperatures: temperatures,
       precipitation: precipitation,
-      wind: wind,)
+      wind: wind)
   }
 
   func createHourForecast() -> Hours {
     let twelveHoursInSeconds: TimeInterval = 43_200
+
     var hourForecast: Hours = []
     hourForecast.reserveCapacity(12)
 
@@ -94,15 +107,24 @@ extension WeatherAPIWeather {
         let snowMillimeter = hour.snowCm * 10
         let rate = hour.precipMm + snowMillimeter
 
+        let precipitation = Hour.Precipitation(
+          chance: chance,
+          rateMillimeter: rate,
+          type: type)
+
+        let wind = Hour.Wind(
+          direction: hour.windDir,
+          speedKilometersPerHour: hour.windKph,
+          gustKilometersPerHour: hour.gustKph)
+
         hourForecast.append(
           Hour(
             time: hour.time,
             isDay: isDay,
             condition: hour.condition.text,
             temperatureCelsius: hour.tempC,
-            precipitationChance: chance,
-            precipitationRateMillimeter: rate,
-            precipitationType: type,))
+            precipitation: precipitation,
+            wind: wind))
       }
     }
 
@@ -120,15 +142,21 @@ extension WeatherAPIWeather {
         let totalSnowMillimeter = day.totalsnowCm * 10
         let total = day.totalprecipMm + totalSnowMillimeter
 
+        let temperatures = Day.Temperatures(
+          celsiusAverage: day.avgtempC,
+          celsiusLow: day.mintempC,
+          celsiusHigh: day.maxtempC)
+
+        let precipitation = Day.Precipitation(
+          chance: chance,
+          totalMillimeter: total,
+          type: type)
+
         return Day(
           date: forecast.date,
           condition: day.condition.text,
-          temperatureCelsiusAverage: day.avgtempC,
-          temperatureCelsiusLow: day.mintempC,
-          temperatureCelsiusHigh: day.maxtempC,
-          precipitationChance: chance,
-          precipitationTotalMillimeter: total,
-          precipitationType: type,)
+          temperatures: temperatures,
+          precipitation: precipitation)
       })
   }
 }

@@ -26,7 +26,7 @@ struct DayForecast: View {
               isDay: true,
               size: horizontalSizeClass == .compact ? 30 : 45)
           },
-          trailing: { TemperatureView(day.temperatureCelsiusAverage) })
+          trailing: { TemperatureView(day.temperatures.celsiusAverage) })
         .font(horizontalSizeClass == .compact ? .title2 : .title)
         .contentShape(Rectangle())
         .onTapGesture { dayID = day.date }

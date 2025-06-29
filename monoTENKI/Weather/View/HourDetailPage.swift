@@ -1,5 +1,5 @@
 //
-//  DetailPageHour.swift
+//  HourDetailPage.swift
 //  monoTENKI
 //
 //  Created by Barreloofy on 4/28/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DetailPageHour: ViewModifier {
+struct HourDetailPage: ViewModifier {
   @Environment(\.colorScheme) private var colorScheme
 
   @State private var position: Date?
@@ -28,11 +28,20 @@ struct DetailPageHour: ViewModifier {
                     .font(.system(size: 30))
 
                   DetailSection(title: "Precipitation") {
-                    Text("Chance \(hour.precipitationChance.formatted(.percent))")
+                    Text("Chance \(hour.precipitation.chance.formatted(.percent))")
 
-                    PrecipitationView("Rate", hour.precipitationRateMillimeter)
+                    PrecipitationView("Rate", hour.precipitation.rateMillimeter)
 
-                    Text("Type \(hour.precipitationType)")
+                    Text("Type \(hour.precipitation.type)")
+                  }
+
+                  DetailSection(title: "Wind") {
+                    Text("Direction \(hour.wind.direction)")
+                      .accessibilityLabel(hour.wind.direction.windDirectionWide())
+
+                    SpeedView("Speed", hour.wind.speedKilometersPerHour)
+
+                    SpeedView("Gust", hour.wind.gustKilometersPerHour)
                   }
                 }
                 .containerRelativeFrame(.vertical)
@@ -58,7 +67,7 @@ extension View {
     item: Binding<Date?>,
     hours: Hours) -> some View {
       modifier(
-        DetailPageHour(
+        HourDetailPage(
           id: item,
           hours: hours))
     }

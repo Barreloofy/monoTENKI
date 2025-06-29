@@ -22,17 +22,17 @@ struct Today: View {
         isDay: current.isDay,
         size: horizontalSizeClass == .compact ? 250 : 375)
 
-      TemperatureView(current.temperatures.temperatureCelsius)
+      TemperatureView(current.temperatures.celsius)
         .font(.system(size: horizontalSizeClass == .compact ? 60 : 90))
 
       HStack {
         TemperatureView(
           "L",
-          current.temperatures.temperatureCelsiusLow,
+          current.temperatures.celsiusLow,
           accessibilityText: "Low")
         TemperatureView(
           "H",
-          current.temperatures.temperatureCelsiusHigh,
+          current.temperatures.celsiusHigh,
           accessibilityText: "High")
       }
       .font(.system(size: horizontalSizeClass == .compact ? 30 : 45))
