@@ -24,7 +24,7 @@ enum WeatherAPI: URLProvider {
       service = "search"
       query = value
     case .weather(let value):
-      service = "current"
+      service = "forecast"
       query = value
     }
 
@@ -34,16 +34,14 @@ enum WeatherAPI: URLProvider {
       queryItems: [
         "key": apiKey,
         "q": query,
-        "days": "3",
+        "days": "1",
       ])
   }
   
   func provideURLs(query: String = "") throws -> [String : URL] {
     switch self {
-    case .geo:
-      try ["geo": provideURL()]
-    case .weather:
-      try ["weather": provideURL()]
+    case .geo: try ["geo": provideURL()]
+    case .weather: try ["weather": provideURL()]
     }
   }
 }

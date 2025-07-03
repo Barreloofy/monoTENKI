@@ -15,6 +15,7 @@ struct WeatherWidgetBundle: WidgetBundle {
   }
 }
 
+
 struct WeatherWidget: Widget {
   var body: some WidgetConfiguration {
     StaticConfiguration(
@@ -25,7 +26,7 @@ struct WeatherWidget: Widget {
           .dynamicTypeSize(...DynamicTypeSize.large)
       }
       .configurationDisplayName("Current Weather")
-      .description("A sleek, minimalist widget providing a quick view of current weather condition.")
+      .description("Sleek, minimalist widget providing a quick overview of current weather conditions.")
       .supportedFamilies([.systemSmall])
   }
 }

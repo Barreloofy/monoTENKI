@@ -25,22 +25,32 @@ enum AccuWeather: URLProvider {
           "apikey": apiKey,
           "q": query,
         ])
-    case .weather(let query):
-      try constructURL(
-        host: "dataservice.accuweather.com",
-        path: "/currentconditions/v1/\(query)",
-        queryItems: [
-          "apikey": apiKey,
-        ])
+    case .weather: throw URLError(.badURL)
     }
   }
 
   func provideURLs(query: String = "") throws -> [String : URL] {
     switch self {
     case .geo:
-      try ["geo": provideURL()]
-    case .weather:
-      try ["weather": provideURL()]
+      return try ["geo": provideURL()]
+    case .weather(let baseQuery):
+      let currentURL = try constructURL(
+        host: "dataservice.accuweather.com",
+        path: "/currentconditions/v1/\(baseQuery)",
+        queryItems: [
+          "apikey": apiKey,
+        ])
+
+      let hourURL = try constructURL(
+        host: "dataservice.accuweather.com",
+        path: "/forecasts/v1/hourly/1hour/\(baseQuery)",
+        queryItems: [
+          "apikey": apiKey,
+          "details": "false",
+          "metric": "true",
+        ])
+
+      return ["current": currentURL, "hour": hourURL]
     }
   }
 }

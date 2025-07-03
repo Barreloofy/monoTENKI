@@ -9,6 +9,7 @@ import Foundation
 
 struct WeatherAPIWeather: Decodable {
   let current: Current
+  let forecast: Forecast
 
   struct Current: Decodable {
     let tempC: Double
@@ -19,6 +20,28 @@ struct WeatherAPIWeather: Decodable {
       let text: String
     }
   }
+
+  struct Forecast: Decodable {
+    let forecastday: Forecastdays
+
+    typealias Forecastdays = [Forecastday]
+    struct Forecastday: Decodable {
+      let hour: Hours
+
+      typealias Hours = [Hour]
+      struct Hour: Decodable {
+        let time: Date
+        let chanceOfRain: Int
+        let chanceOfSnow: Int
+      }
+    }
+  }
+}
+
+
+typealias WeatherAPILocations = [WeatherAPILocation]
+struct WeatherAPILocation: Decodable {
+  let id: Int
 }
 
 
@@ -27,12 +50,8 @@ extension WeatherAPIWeather {
     let decoder = JSONDecoder()
 
     decoder.keyDecodingStrategy = .convertFromSnakeCase
+    decoder.dateDecodingStrategy = .weatherAPIDateStrategy
 
     return decoder
   }
-}
-
-typealias WeatherAPILocations = [WeatherAPILocation]
-struct WeatherAPILocation: Decodable {
-  let id: Int
 }

@@ -11,4 +11,5 @@ struct Weather {
   let condition: String
   let isDay: Bool
   let temperatureCelsius: Double
+  let precipitationChance: Int
 }

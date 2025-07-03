@@ -12,4 +12,8 @@ extension View {
   @ViewBuilder func enabled(_ condition: Bool) -> some View {
     if condition { self }
   }
+
+  @ViewBuilder func enabled(_ condition: () -> Bool) -> some View {
+    if condition() { self }
+  }
 }

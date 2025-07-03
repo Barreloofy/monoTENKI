@@ -64,6 +64,9 @@
 		299A55DB2D945E550089C312 /* PermissionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299A55DA2D945E540089C312 /* PermissionButtonStyle.swift */; };
 		29A05F0C2DEB5005004F1778 /* ConfigureFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A05F0B2DEB4FEB004F1778 /* ConfigureFont.swift */; };
 		29AA8C352DC578090085B04E /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA8C342DC577FD0085B04E /* History.swift */; };
+		29ABEC3B2E170DCA0070D3B5 /* Date+CompareDateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29ABEC3A2E170D7B0070D3B5 /* Date+CompareDateComponent.swift */; };
+		29ABEC3C2E170F5C0070D3B5 /* Date+CompareDateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29ABEC3A2E170D7B0070D3B5 /* Date+CompareDateComponent.swift */; };
+		29ABEC3D2E171ACB0070D3B5 /* Enabled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C656FE2DC68054000A89FC /* Enabled.swift */; };
 		29ACB03E2E041B0D00F23044 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29ACB03D2E041B0D00F23044 /* WidgetKit.framework */; };
 		29ACB0402E041B0D00F23044 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29ACB03F2E041B0D00F23044 /* SwiftUI.framework */; };
 		29ACB04B2E041B0E00F23044 /* monoTENKIWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 29ACB03B2E041B0D00F23044 /* monoTENKIWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -176,6 +179,7 @@
 		299A55DA2D945E540089C312 /* PermissionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionButtonStyle.swift; sourceTree = "<group>"; };
 		29A05F0B2DEB4FEB004F1778 /* ConfigureFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureFont.swift; sourceTree = "<group>"; };
 		29AA8C342DC577FD0085B04E /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		29ABEC3A2E170D7B0070D3B5 /* Date+CompareDateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+CompareDateComponent.swift"; sourceTree = "<group>"; };
 		29ACB03B2E041B0D00F23044 /* monoTENKIWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = monoTENKIWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		29ACB03D2E041B0D00F23044 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		29ACB03F2E041B0D00F23044 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -281,6 +285,7 @@
 			children = (
 				29D134012E0865F1002FBB32 /* UserDefault.swift */,
 				29426D262DC923B40071D997 /* APISource.swift */,
+				29ABEC3A2E170D7B0070D3B5 /* Date+CompareDateComponent.swift */,
 				2974E9942DABF7EB00663B36 /* CLLocationCoordinate2D+Coordinate.swift */,
 				2974E9922DABF73800663B36 /* CLLocation+FailableInitializer.swift */,
 				293AC4BF2D9C1806007FCC76 /* CLServiceSession+GetAuthorization.swift */,
@@ -666,6 +671,7 @@
 				2913A5812E05C5E600B4E6CE /* WeatherView.swift in Sources */,
 				292DF7602E07567A0065A808 /* CLLocationCoordinate2D+Coordinate.swift in Sources */,
 				29ACB0672E04628600F23044 /* HTTPClient.swift in Sources */,
+				29ABEC3C2E170F5C0070D3B5 /* Date+CompareDateComponent.swift in Sources */,
 				29ACB05D2E04234E00F23044 /* AccuWeatherWeather.swift in Sources */,
 				2913A5832E05C92000B4E6CE /* TemperatureView.swift in Sources */,
 				29ACB05B2E041CBF00F23044 /* WeatherAPIWeather.swift in Sources */,
@@ -678,6 +684,7 @@
 				29ACB05F2E04255C00F23044 /* Weather.swift in Sources */,
 				2913A5852E05C98F00B4E6CE /* Image+Styled.swift in Sources */,
 				29ACB0612E0426D200F23044 /* WeatherAPI.swift in Sources */,
+				29ABEC3D2E171ACB0070D3B5 /* Enabled.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -721,6 +728,7 @@
 				291B5D2B2DAE6E9B0049589E /* DayDetailPage.swift in Sources */,
 				29C530632D972EA000159C2D /* XIcon.swift in Sources */,
 				2974E9952DABF84600663B36 /* CLLocationCoordinate2D+Coordinate.swift in Sources */,
+				29ABEC3B2E170DCA0070D3B5 /* Date+CompareDateComponent.swift in Sources */,
 				29FC15E12DEC674300F5DEA9 /* TemperatureView.swift in Sources */,
 				29C530642D972EA000159C2D /* Double+TemperatureFormatter.swift in Sources */,
 				29FB94A92DC0022400ED5DB3 /* HourDetailPage.swift in Sources */,

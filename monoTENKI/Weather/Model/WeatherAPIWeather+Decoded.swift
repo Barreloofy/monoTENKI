@@ -8,52 +8,44 @@
 import Foundation
 
 extension WeatherAPIWeather {
-  func determinePrecipitation(chanceOfRain: Int, chanceOfSnow: Int) -> (chance: Int, type: String) {
-    if (chanceOfRain + chanceOfSnow) == 0 {
-      (0, "--")
+  func determinePrecipitationType(_ rain: Double, _ snow: Double) -> String {
+    guard rain + snow > 0 else { return "--" }
+
+    if rain > (snow * 10) {
+      return "Rain"
+    } else if rain < (snow * 10) {
+      return "Snow"
     } else {
-      if chanceOfRain > chanceOfSnow {
-        (chanceOfRain, "Rain")
-      } else if chanceOfRain < chanceOfSnow {
-        (chanceOfSnow, "Snow")
-      } else {
-        (chanceOfRain, "Mixed")
-      }
+      return "Mixed"
     }
+  }
+
+  func determinePrecipitationChance(_ rain: Int, _ snow: Int) -> Int {
+    rain > snow ? rain : snow
   }
 }
 
 
 extension WeatherAPIWeather {
   func createCurrentWeather() throws -> CurrentWeather {
-    guard let day = forecast.forecastday.first?.day else {
+    guard let today = forecast.forecastday.first else {
       throw DecodingError.valueNotFound(
-        Forecast.ForecastDay.self,
-        .init(
-          codingPath: [],
-          debugDescription: " Found nil 'forecast.forecastday.first?'"))
+        Forecast.ForecastDays.self,
+        .init(codingPath: [], debugDescription: "Found nil 'forecast.forecastday.first'"))
     }
 
-    var calendar = Calendar.current
-    calendar.timeZone = TimeZone(abbreviation: "UTC")!
-    guard let hour = forecast.forecastday.first?.hour.filter({ forecast in
-      let localTimeHour = calendar.component(.hour, from: location.localtime)
-      let hourComponent = calendar.component(.hour, from: forecast.time)
+    let day = today.day
 
-      return localTimeHour == hourComponent
-    }).first else {
+    guard let hour = today.hour.first(where: { $0.time.compareDateComponent(.hour, with: location.localtime) }) else {
       throw DecodingError.valueNotFound(
         Forecast.ForecastDay.Hour.self,
-        .init(
-          codingPath: [],
-          debugDescription: "Found nil 'forecast.forecastday.first?.hour.filter?'"))
+        .init(codingPath: [], debugDescription: "Found nil forecast.forecastday.first.hour.first"))
     }
 
     let isDay = current.isDay == 1 ? true : false
 
-    let (chance, type) = determinePrecipitation(
-      chanceOfRain: hour.chanceOfRain,
-      chanceOfSnow: hour.chanceOfSnow,)
+    let chance = determinePrecipitationChance(hour.chanceOfRain, hour.chanceOfSnow)
+    let type = determinePrecipitationType(hour.precipMm, hour.snowCm)
     let rate = current.precipMm
     let totalSnowMillimeter = day.totalsnowCm * 10
     let total = day.totalprecipMm + totalSnowMillimeter
@@ -101,9 +93,8 @@ extension WeatherAPIWeather {
 
         let isDay = hour.isDay == 1 ? true : false
 
-        let (chance, type) = determinePrecipitation(
-          chanceOfRain: hour.chanceOfRain,
-          chanceOfSnow: hour.chanceOfSnow,)
+        let chance = determinePrecipitationChance(hour.chanceOfRain, hour.chanceOfSnow)
+        let type = determinePrecipitationType(hour.precipMm, hour.snowCm)
         let snowMillimeter = hour.snowCm * 10
         let rate = hour.precipMm + snowMillimeter
 
@@ -136,9 +127,8 @@ extension WeatherAPIWeather {
       forecast.forecastday.dropFirst().map { forecast in
         let day = forecast.day
 
-        let (chance, type) = determinePrecipitation(
-          chanceOfRain: day.dailyChanceOfRain,
-          chanceOfSnow: day.dailyChanceOfSnow,)
+        let chance = determinePrecipitationChance(day.dailyChanceOfRain, day.dailyChanceOfSnow)
+        let type = determinePrecipitationType(day.totalprecipMm, day.totalsnowCm)
         let totalSnowMillimeter = day.totalsnowCm * 10
         let total = day.totalprecipMm + totalSnowMillimeter
 

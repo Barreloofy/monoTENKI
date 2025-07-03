@@ -16,13 +16,19 @@ enum WeatherAPI {
   static func fetchWeather(for query: String) async throws -> WeatherAPIWeather {
     let searchClient = try HTTPClient(url: Service.search(query: query).provideURL())
     let locations: WeatherAPILocations = try await searchClient.fetch()
-    let locationID = "id:\(locations.first!.id)"
 
-    let client = try HTTPClient(
+    guard let location = locations.first else {
+      throw DecodingError.valueNotFound(
+        WeatherAPILocations.self,
+        .init(codingPath: [], debugDescription: "Found nil while unwrapping"))
+    }
+    let locationID = "id:\(location.id)"
+
+    let weatherClient = try HTTPClient(
       url: Service.weather(query: locationID).provideURL(),
       decoder: WeatherAPIWeather.decoder)
 
-    return try await client.fetch()
+    return try await weatherClient.fetch()
   }
 
   static func fetchSearch(for query: String) async throws -> Locations {

@@ -13,13 +13,18 @@ struct WeatherView: View {
   let entry: WeatherEntry
 
   var body: some View {
-    HStack {
-      WeatherIcon(name: entry.weather.condition, isDay: entry.weather.isDay, size: 75)
-      TemperatureView(entry.weather.temperatureCelsius)
-        .font(.system(.title, design: .monospaced, weight: .bold))
-        .lineLimit(1)
-        .minimumScaleFactor(0.5)
+    VStack {
+      HStack {
+        WeatherIcon(name: entry.weather.condition, isDay: entry.weather.isDay, size: 75)
+        TemperatureView(entry.weather.temperatureCelsius)
+      }
+      .font(.system(.title, design: .monospaced, weight: .bold))
+
+      Label(entry.weather.precipitationChance.formatted(.percent), systemImage: "drop.fill")
+        .enabled(entry.weather.precipitationChance >= 33)
     }
+    .lineLimit(1)
+    .minimumScaleFactor(0.5)
     .transformEnvironment(\.measurementSystem) { measurementSystem in
       switch locale.measurementSystem {
       case .metric: measurementSystem = .metric

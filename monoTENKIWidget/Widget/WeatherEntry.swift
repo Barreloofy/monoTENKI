@@ -19,5 +19,6 @@ extension WeatherEntry {
     weather: Weather(
       condition: "Clear",
       isDay: true,
-      temperatureCelsius: 22))
+      temperatureCelsius: 22,
+      precipitationChance: 0))
 }

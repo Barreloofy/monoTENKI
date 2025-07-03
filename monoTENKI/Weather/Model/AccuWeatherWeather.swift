@@ -22,26 +22,10 @@ struct AccuWeatherCurrent: Decodable {
   let weatherText: String
   let temperature: AccuWeatherMetric
   let realFeelTemperature: AccuWeatherMetric
-  let temperatureSummary: TemperatureSummary
   let relativeHumidity: Int
-  let precipitationSummary: PrecipitationSummary
   let precipitationType: String?
   let wind: Wind
   let windGust: WindGust
-
-  struct TemperatureSummary: Decodable {
-    let past24HourRange: Past24HourRange
-  }
-
-  struct Past24HourRange: Decodable {
-    let minimum: AccuWeatherMetric
-    let maximum: AccuWeatherMetric
-  }
-
-  struct PrecipitationSummary: Decodable {
-    let precipitation: AccuWeatherMetric
-    let past24Hours: AccuWeatherMetric
-  }
 
   struct Wind: Decodable {
     let direction: Direction

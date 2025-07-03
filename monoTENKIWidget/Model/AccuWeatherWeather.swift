@@ -22,6 +22,16 @@ struct AccuWeatherWeather: Decodable {
 }
 
 
+struct AccuWeatherWeatherHour: Decodable {
+  let precipitationProbability: Int
+}
+
+
+struct AccuWeatherLocation: Decodable {
+  let key: String
+}
+
+
 extension AccuWeatherWeather {
   static var decoder: JSONDecoder {
     let decoder = JSONDecoder()
@@ -30,9 +40,4 @@ extension AccuWeatherWeather {
 
     return decoder
   }
-}
-
-
-struct AccuWeatherLocation: Decodable {
-  let key: String
 }

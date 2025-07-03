@@ -17,26 +17,28 @@ struct AccuWeatherComposite: Weather {
 
 extension AccuWeatherComposite {
   func createCurrentWeather() throws -> CurrentWeather {
-    guard let current = current.first else {
+    guard let current = current.first,
+          let day = dayForecast.dailyForecasts.first,
+          let hour = hourForecast.first else {
       throw DecodingError.valueNotFound(
         AccuWeatherCurrent.self,
-        .init(
-          codingPath: [],
-          debugDescription: "Found nil 'current.first?'"))
+        .init(codingPath: [], debugDescription: "Found nil while unwrapping"))
     }
+
+    let total = day.day.totalLiquid.value + day.night.totalLiquid.value
+    let type = current.precipitationType ?? "--"
 
     let temperatures = CurrentWeather.Temperatures(
       celsius: current.temperature.metric.value,
-      celsiusLow: current.temperatureSummary.past24HourRange.minimum.metric.value,
-      celsiusHigh: current.temperatureSummary.past24HourRange.maximum.metric.value,
+      celsiusLow: day.temperature.minimum.value,
+      celsiusHigh: day.temperature.maximum.value,
       feelsLikeCelsius: current.realFeelTemperature.metric.value,
       humidity: current.relativeHumidity)
 
-    let type = current.precipitationType ?? "--"
     let precipitation = CurrentWeather.Precipitation(
-      chance: hourForecast.first!.precipitationProbability,
-      rateMillimeter: current.precipitationSummary.precipitation.metric.value,
-      totalMillimeter: current.precipitationSummary.past24Hours.metric.value,
+      chance: hour.precipitationProbability,
+      rateMillimeter: hour.totalLiquid.value,
+      totalMillimeter: total,
       type: type)
 
     let wind = CurrentWeather.Wind(
@@ -55,10 +57,12 @@ extension AccuWeatherComposite {
 
   func createHourForecast() -> Hours {
     hourForecast.map { hour in
+      let type = hour.precipitationType ?? "--"
+
       let precipitation = Hour.Precipitation(
         chance: hour.precipitationProbability,
         rateMillimeter: hour.totalLiquid.value,
-        type: hour.precipitationType ?? "--")
+        type: type)
 
       let wind = Hour.Wind(
         direction: hour.wind.direction.english,
