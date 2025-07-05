@@ -21,6 +21,7 @@ struct WeatherView: View {
       .font(.system(.title, design: .monospaced, weight: .bold))
 
       Label(entry.weather.precipitationChance.formatted(.percent), systemImage: "drop.fill")
+        .font(.system(.body, design: .monospaced, weight: .bold))
         .enabled(entry.weather.precipitationChance >= 33)
     }
     .lineLimit(1)

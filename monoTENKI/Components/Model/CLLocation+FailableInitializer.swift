@@ -6,6 +6,7 @@
 //
 
 import CoreLocation
+
 // Convenience failable initializer
 extension CLLocation {
   /// Parameter 'string' should be a comma-separated coordinate with or without a whitespace, i.e, (lat, lon), (lat,lon)

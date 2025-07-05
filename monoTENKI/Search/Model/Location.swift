@@ -37,6 +37,7 @@ struct Location: Codable, Identifiable, Hashable {
   }
 }
 
+
 // Custom Equatable, Hashable implantation
 extension Location {
   static func == (lhs: Location, rhs: Location) -> Bool {
@@ -47,6 +48,7 @@ extension Location {
     hasher.combine(wholeName)
   }
 }
+
 
 // Custom filtering method
 extension Locations {

@@ -1,5 +1,5 @@
 //
-//  AccuWeatherWeather+Decoded.swift
+//  AccuWeather+Weather.swift
 //  monoTENKI
 //
 //  Created by Barreloofy on 4/29/25.
@@ -17,12 +17,14 @@ struct AccuWeatherComposite: Weather {
 
 extension AccuWeatherComposite {
   func createCurrentWeather() throws -> CurrentWeather {
-    guard let current = current.first,
-          let day = dayForecast.dailyForecasts.first,
-          let hour = hourForecast.first else {
+    guard
+      let current = current.first,
+      let day = dayForecast.dailyForecasts.first,
+      let hour = hourForecast.first
+    else {
       throw DecodingError.valueNotFound(
-        AccuWeatherCurrent.self,
-        .init(codingPath: [], debugDescription: "Found nil while unwrapping"))
+        (any Sequence).self,
+        .init(codingPath: [], debugDescription: "Nil found while accessing element"))
     }
 
     let total = day.day.totalLiquid.value + day.night.totalLiquid.value

@@ -70,15 +70,3 @@ struct WeatherAPIWeather: Weather {
     }
   }
 }
-
-
-extension WeatherAPIWeather {
-  static var decoder: JSONDecoder {
-    let decoder = JSONDecoder()
-
-    decoder.keyDecodingStrategy = .convertFromSnakeCase
-    decoder.dateDecodingStrategy = .weatherAPIDateStrategy
-
-    return decoder
-  }
-}

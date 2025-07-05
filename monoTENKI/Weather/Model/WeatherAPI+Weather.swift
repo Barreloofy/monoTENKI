@@ -1,5 +1,5 @@
 //
-//  WeatherAPIWeather+Decoded.swift
+//  WeatherAPI+Weather.swift
 //  monoTENKI
 //
 //  Created by Barreloofy on 4/30/25.
@@ -8,30 +8,11 @@
 import Foundation
 
 extension WeatherAPIWeather {
-  func determinePrecipitationType(_ rain: Double, _ snow: Double) -> String {
-    guard rain + snow > 0 else { return "--" }
-
-    if rain > (snow * 10) {
-      return "Rain"
-    } else if rain < (snow * 10) {
-      return "Snow"
-    } else {
-      return "Mixed"
-    }
-  }
-
-  func determinePrecipitationChance(_ rain: Int, _ snow: Int) -> Int {
-    rain > snow ? rain : snow
-  }
-}
-
-
-extension WeatherAPIWeather {
   func createCurrentWeather() throws -> CurrentWeather {
     guard let today = forecast.forecastday.first else {
       throw DecodingError.valueNotFound(
         Forecast.ForecastDays.self,
-        .init(codingPath: [], debugDescription: "Found nil 'forecast.forecastday.first'"))
+        .init(codingPath: [], debugDescription: "Nil found 'forecast.forecastday.first'"))
     }
 
     let day = today.day
@@ -39,7 +20,7 @@ extension WeatherAPIWeather {
     guard let hour = today.hour.first(where: { $0.time.compareDateComponent(.hour, with: location.localtime) }) else {
       throw DecodingError.valueNotFound(
         Forecast.ForecastDay.Hour.self,
-        .init(codingPath: [], debugDescription: "Found nil forecast.forecastday.first.hour.first"))
+        .init(codingPath: [], debugDescription: "Nil found 'forecast.forecastday.first.hour.first'"))
     }
 
     let isDay = current.isDay == 1 ? true : false
@@ -87,8 +68,9 @@ extension WeatherAPIWeather {
       for hour in day.hour {
         guard hourForecast.count < 12 else { return hourForecast }
 
-        guard hour.time > location.localtime &&
-              hour.time <= location.localtime.addingTimeInterval(twelveHoursInSeconds)
+        guard
+          hour.time > location.localtime &&
+          hour.time <= location.localtime.addingTimeInterval(twelveHoursInSeconds)
         else { continue }
 
         let isDay = hour.isDay == 1 ? true : false
@@ -148,5 +130,32 @@ extension WeatherAPIWeather {
           temperatures: temperatures,
           precipitation: precipitation)
       })
+  }
+}
+
+
+extension WeatherAPIWeather {
+  func determinePrecipitationType(_ rain: Double, _ snow: Double) -> String {
+    guard rain + snow > 0 else { return "--" }
+
+    let snow = snow * 10
+
+    return rain > snow ? "Rain" : rain == snow ? "Mixed" : "Snow"
+  }
+
+  func determinePrecipitationChance(_ rain: Int, _ snow: Int) -> Int {
+    rain > snow ? rain : snow
+  }
+}
+
+
+extension WeatherAPIWeather {
+  static var decoder: JSONDecoder {
+    let decoder = JSONDecoder()
+
+    decoder.keyDecodingStrategy = .convertFromSnakeCase
+    decoder.dateDecodingStrategy = .weatherAPIDateStrategy
+
+    return decoder
   }
 }

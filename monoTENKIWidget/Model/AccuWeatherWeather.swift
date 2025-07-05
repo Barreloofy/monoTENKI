@@ -7,7 +7,12 @@
 
 import Foundation
 
-struct AccuWeatherWeather: Decodable {
+struct AccuWeatherLocation: Decodable {
+  let key: String
+}
+
+
+struct AccuWeatherCurrent: Decodable {
   let weatherText: String
   let isDayTime: Bool
   let temperature: Temperature
@@ -22,22 +27,6 @@ struct AccuWeatherWeather: Decodable {
 }
 
 
-struct AccuWeatherWeatherHour: Decodable {
+struct AccuWeatherHour: Decodable {
   let precipitationProbability: Int
-}
-
-
-struct AccuWeatherLocation: Decodable {
-  let key: String
-}
-
-
-extension AccuWeatherWeather {
-  static var decoder: JSONDecoder {
-    let decoder = JSONDecoder()
-
-    decoder.keyDecodingStrategy = .convertFromPascalCase
-
-    return decoder
-  }
 }

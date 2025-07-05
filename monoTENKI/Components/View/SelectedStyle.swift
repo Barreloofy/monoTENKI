@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct SelectedStyle<T: Equatable>: ViewModifier {
-  let target: T
   @Binding var value: T
+
+  let target: T
   let observer: () -> Void
 
   func body(content: Content) -> some View {
@@ -29,11 +30,15 @@ struct SelectedStyle<T: Equatable>: ViewModifier {
 
 
 extension View {
-  func selectedStyle<T: Equatable>(target: T, value: Binding<T>, observer: @escaping () -> Void = {}) -> some View {
+  func selectedStyle<T: Equatable>(
+    target: T,
+    value: Binding<T>,
+    observer: @escaping () -> Void = {})
+  -> some View {
     modifier(
       SelectedStyle(
-        target: target,
         value: value,
+        target: target,
         observer: observer))
   }
 }

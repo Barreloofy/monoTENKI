@@ -24,8 +24,3 @@ struct Loading: View {
       }
   }
 }
-
-
-#Preview {
-  Loading()
-}

@@ -7,9 +7,20 @@
 
 import Foundation
 
-struct WeatherAPIWeather: Decodable {
+typealias WeatherAPILocations = [WeatherAPILocation]
+struct WeatherAPILocation: Decodable {
+  let id: Int
+}
+
+
+struct WeatherAPIWeather: Decodable, CreateWeather {
+  let location: Location
   let current: Current
   let forecast: Forecast
+
+  struct Location: Decodable {
+    let localtime: Date
+  }
 
   struct Current: Decodable {
     let tempC: Double
@@ -35,23 +46,5 @@ struct WeatherAPIWeather: Decodable {
         let chanceOfSnow: Int
       }
     }
-  }
-}
-
-
-typealias WeatherAPILocations = [WeatherAPILocation]
-struct WeatherAPILocation: Decodable {
-  let id: Int
-}
-
-
-extension WeatherAPIWeather {
-  static var decoder: JSONDecoder {
-    let decoder = JSONDecoder()
-
-    decoder.keyDecodingStrategy = .convertFromSnakeCase
-    decoder.dateDecodingStrategy = .weatherAPIDateStrategy
-
-    return decoder
   }
 }

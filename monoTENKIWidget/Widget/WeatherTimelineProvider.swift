@@ -20,7 +20,7 @@ struct WeatherTimelineProvider: TimelineProvider {
     } else {
       Task {
         let location = try await LocationManager.requestLocation().coordinate.stringRepresentation
-        let weather = try await WeatherProvider.weatherAPI.fetch(for: location)
+        let weather = try await WeatherAggregate.weatherAPI.fetch(for: location)
 
         completion(WeatherEntry(date: .now, weather: weather))
       }
@@ -30,7 +30,7 @@ struct WeatherTimelineProvider: TimelineProvider {
   func getTimeline(in context: Context, completion: @escaping @Sendable (Timeline<Entry>) -> Void) {
     Task {
       let location = try await LocationManager.requestLocation().coordinate.stringRepresentation
-      let weather = try await WeatherProvider.weatherAPI.fetch(for: location)
+      let weather = try await WeatherAggregate.weatherAPI.fetch(for: location)
 
       let entry = WeatherEntry(date: .now, weather: weather)
       let nextDate = Calendar.current.date(byAdding: .minute, value: 15, to: .now)!

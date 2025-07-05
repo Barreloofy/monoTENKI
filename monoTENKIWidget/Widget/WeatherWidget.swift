@@ -9,13 +9,6 @@ import WidgetKit
 import SwiftUI
 
 @main
-struct WeatherWidgetBundle: WidgetBundle {
-  var body: some Widget {
-    WeatherWidget()
-  }
-}
-
-
 struct WeatherWidget: Widget {
   var body: some WidgetConfiguration {
     StaticConfiguration(

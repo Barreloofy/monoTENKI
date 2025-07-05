@@ -13,7 +13,7 @@ struct monoTENKIApp: App {
   @Environment(\.scenePhase) private var scenePhase
 
   @AppStorage(StorageKeys.setupCompleted.rawValue) private var setupCompleted = false
-  @AppStorage(StorageKeys.userModifiedMeasurementSystem.rawValue) var userModifiedMeasurementSystem = false
+  @AppStorage(StorageKeys.userModifiedMeasurementSystem.rawValue) private var userModifiedMeasurementSystem = false
   @AppStorage(StorageKeys.measurementSystemInUse.rawValue) private var measurementSystemInUse = MeasurementSystem.metric
   @AppStorage(StorageKeys.apiSourceInUse.rawValue) private var apiSourceInUse = APISource.weatherAPI
   @State private var locationAggregate = LocationAggregate()

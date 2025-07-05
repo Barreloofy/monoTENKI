@@ -6,6 +6,7 @@
 //
 
 import CoreLocation
+
 // Convert String to CLLocationCoordinate2D
 extension CLLocationCoordinate2D {
   static func parseCoordinate(from string: String) -> CLLocationCoordinate2D? {

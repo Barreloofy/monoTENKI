@@ -16,7 +16,8 @@ struct DetailSection<Content: View>: View {
       Text(title)
         .font(.title)
         .underline()
-      VStack(alignment: .leading) {
+
+      Group {
         content
       }
       .offset(x: 10)

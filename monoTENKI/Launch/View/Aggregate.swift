@@ -49,6 +49,8 @@ struct Aggregate: View {
       }
     }
     .asyncOnChange(id: apiSource) {
+      guard weatherAggregate.state != .error else { return }
+
       await weatherAggregate.getWeather(for: locationAggregate.location, from: apiSourceInUse)
       refreshDate = .nextRefreshDate
     }

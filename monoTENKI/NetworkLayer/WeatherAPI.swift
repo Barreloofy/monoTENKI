@@ -20,7 +20,7 @@ enum WeatherAPI {
     guard let location = locations.first else {
       throw DecodingError.valueNotFound(
         WeatherAPILocations.self,
-        .init(codingPath: [], debugDescription: "Found nil while unwrapping"))
+        .init(codingPath: [], debugDescription: "Nil found 'locations.first'"))
     }
     let locationID = "id:\(location.id)"
 

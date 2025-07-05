@@ -7,68 +7,52 @@
 
 import SwiftUI
 
-struct CurrentDetailPage: ViewModifier {
+struct CurrentDetailPage: View {
   @Environment(\.colorScheme) private var colorScheme
 
   @Binding var present: Bool
 
   let weather: CurrentWeather
 
-  func body(content: Content) -> some View {
-    content
-      .overlay {
-        if present {
-          ZStack {
-            colorScheme.background
+  var body: some View {
+    ZStack {
+      colorScheme.background
 
-            VStack(alignment: .leading, spacing: 10) {
-              DetailSection(title: "Temperatures") {
-                TemperatureView("Now", weather.temperatures.celsius)
+      VStack(alignment: .leading, spacing: 10) {
+        DetailSection(title: "Temperatures") {
+          TemperatureView("Now", weather.temperatures.celsius)
 
-                TemperatureView("Feels Like", weather.temperatures.feelsLikeCelsius)
+          TemperatureView("Feels Like", weather.temperatures.feelsLikeCelsius)
 
-                TemperatureView("High", weather.temperatures.celsiusHigh)
+          TemperatureView("High", weather.temperatures.celsiusHigh)
 
-                TemperatureView("Low", weather.temperatures.celsiusLow)
+          TemperatureView("Low", weather.temperatures.celsiusLow)
 
-                Text("Humidity \(weather.temperatures.humidity.formatted(.percent))")
-              }
+          Text("Humidity \(weather.temperatures.humidity.formatted(.percent))")
+        }
 
-              DetailSection(title: "Precipitation") {
-                Text("Chance \(weather.precipitation.chance.formatted(.percent))")
+        DetailSection(title: "Precipitation") {
+          Text("Chance \(weather.precipitation.chance.formatted(.percent))")
 
-                PrecipitationView("Rate", weather.precipitation.rateMillimeter)
+          PrecipitationView("Rate", weather.precipitation.rateMillimeter)
 
-                PrecipitationView("Total", weather.precipitation.totalMillimeter)
+          PrecipitationView("Total", weather.precipitation.totalMillimeter)
 
-                Text("Type \(weather.precipitation.type)")
-              }
+          Text("Type \(weather.precipitation.type)")
+        }
 
-              DetailSection(title: "Wind") {
-                Text("Direction \(weather.wind.direction)")
-                  .accessibilityLabel(weather.wind.direction.windDirectionWide())
+        DetailSection(title: "Wind") {
+          Text("Direction \(weather.wind.direction)")
+            .accessibilityLabel(weather.wind.direction.windDirectionWide())
 
-                SpeedView("Speed", weather.wind.speedKilometersPerHour)
+          SpeedView("Speed", weather.wind.speedKilometersPerHour)
 
-                SpeedView("Gust", weather.wind.gustKilometersPerHour)
-              }
-            }
-            .offset(y: -50)
-          }
-          .onTapGesture { present = false }
+          SpeedView("Gust", weather.wind.gustKilometersPerHour)
         }
       }
-  }
-}
-
-
-extension View {
-  func detailPageCurrent(
-    present: Binding<Bool>,
-    current: CurrentWeather) -> some View {
-    modifier(
-      CurrentDetailPage(
-        present: present,
-        weather: current))
+      .offset(y: -50)
+    }
+    .onTapGesture { present = false }
+    .enabled(present)
   }
 }

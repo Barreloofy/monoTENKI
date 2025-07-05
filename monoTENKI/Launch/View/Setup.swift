@@ -41,6 +41,7 @@ struct Setup: View {
             }
           }
         }
+
         Button("Deny access") { presentSearch = true }
           .sheet(isPresented: $presentSearch) {
             Search(setup: true)
