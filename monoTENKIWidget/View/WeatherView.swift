@@ -14,14 +14,16 @@ struct WeatherView: View {
 
   var body: some View {
     VStack {
-      HStack {
+      HStack(spacing: 0) {
         WeatherIcon(name: entry.weather.condition, isDay: entry.weather.isDay, size: 75)
-        TemperatureView(entry.weather.temperatureCelsius)
+
+        TemperatureView(entry.weather.temperatureCelsius, accessibilityText: "Now")
       }
       .font(.system(.title, design: .monospaced, weight: .bold))
 
       Label(entry.weather.precipitationChance.formatted(.percent), systemImage: "drop.fill")
         .font(.system(.body, design: .monospaced, weight: .bold))
+        .accessibilityLabel("Next hour \(entry.weather.precipitationChance.formatted(.percent)) precipitation Chance")
         .enabled(entry.weather.precipitationChance >= 33)
     }
     .lineLimit(1)

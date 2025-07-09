@@ -89,6 +89,7 @@ struct Search: View {
             ForEach(presentedLocations) { result in
               AlignedHStack(alignment: .leading) {
                 Text(result.wholeName)
+                  .accessibilityAddTraits(.isSelected)
                   .onTapGesture {
                     locationAggregate.trackLocation = false
                     locationAggregate.location = result.coordinate.stringRepresentation

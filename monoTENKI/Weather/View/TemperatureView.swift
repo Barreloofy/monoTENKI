@@ -20,6 +20,12 @@ struct TemperatureView: View {
     self.accessibilityText = ""
   }
 
+  init(_ temperature: Double, accessibilityText: String? = nil) {
+    self.temperature = temperature
+    self.text = ""
+    self.accessibilityText = accessibilityText ?? text
+  }
+
   init(_ text: String, _ temperature: Double, accessibilityText: String? = nil) {
     self.temperature = temperature
     self.text = text + " "

@@ -35,7 +35,7 @@ struct HourDetailPage: View {
 
               DetailSection(title: "Wind") {
                 Text("Direction \(hour.wind.direction)")
-                  .accessibilityLabel(hour.wind.direction.windDirectionWide())
+                  .accessibilityLabel(hour.wind.direction.windDirectionWide)
 
                 SpeedView("Speed", hour.wind.speedKilometersPerHour)
 

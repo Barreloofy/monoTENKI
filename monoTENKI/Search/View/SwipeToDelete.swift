@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct SwipeToDelete: ViewModifier {
   @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -16,39 +17,55 @@ struct SwipeToDelete: ViewModifier {
   let isEnabled: Bool
   let action: () -> Void
 
+  private let minimumThreshold: CGFloat = 25
+  private let actionThreshold: CGFloat = -100
+  private let deletedOffset: CGFloat = -1000
+
   func body(content: Content) -> some View {
-    ZStack {
-      colorScheme.foreground.padding(1)
-
+    switch isEnabled {
+    case false:
       content
-        .accessibilityAdjustableAction { accessibilityAction in
-          guard isEnabled && accessibilityAction == .increment else { return }
-          action()
-        }
-        .accessibilityHint("To delete")
-        .background(colorScheme.background)
-        .offset(x: offset)
-        .gesture(
-          DragGesture(minimumDistance: 25)
-            .onChanged { value in
-              let dragValue = value.translation.width
+    case true:
+      ZStack {
+        colorScheme.foreground.padding(1) // .padding(1) needed to fix a SwiftUI rendering bug. Stackoverflow id: 79441756
 
-              guard dragValue < .zero else { return }
+        content
+          .accessibilityAdjustableAction { _ in
+            guard isEnabled else { return }
 
-              offset = dragValue
-            }
-            .onEnded { value in
-              let dragValue = value.translation.width
+            action()
+            UIAccessibility.post(
+              notification: .announcement,
+              argument: "Deleted item")
+          }
+          .accessibilityHint("To delete")
+          .background(colorScheme.background)
+          .offset(x: offset)
+          .gesture(
+            DragGesture(minimumDistance: minimumThreshold)
+              .onChanged { value in
+                let dragValue = value.translation.width
 
-              if dragValue < -200 {
-                offset = -1000
-                withAnimation(reduceMotion ? nil : .smooth(duration: 1)) { action() }
-              } else {
-                offset = .zero
+                guard dragValue < .zero else { return }
+
+                offset = dragValue
               }
-            },
-          isEnabled: isEnabled)
-        .animation(reduceMotion ? nil : .smooth(duration: 1), value: offset)
+              .onEnded { value in
+                let dragValue = value.translation.width
+
+                if dragValue < actionThreshold {
+                  offset = deletedOffset
+                  withAnimation(reduceMotion ? nil : .smooth(duration: 1)) { action() }
+                } else {
+                  offset = .zero
+                }
+              })
+          .animation(reduceMotion ? nil : .smooth(duration: 1), value: offset)
+          .sensoryFeedback(.impact, trigger: offset < actionThreshold) { old, new in
+            new == true && new != old
+          }
+      }
+      .enabled { isEnabled }
     }
   }
 }

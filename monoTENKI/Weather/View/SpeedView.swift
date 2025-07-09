@@ -20,6 +20,12 @@ struct SpeedView: View {
     self.accessibilityText = ""
   }
 
+  init(_ speed: Double, accessibilityText: String? = nil) {
+    self.speed = speed
+    self.text = ""
+    self.accessibilityText = accessibilityText ?? text
+  }
+
   init(_ text: String, _ speed: Double, accessibilityText: String? = nil) {
     self.speed = speed
     self.text = text + " "
@@ -29,8 +35,9 @@ struct SpeedView: View {
   var body: some View {
     Text(String(text + speed.SpeedFormatter(measurementSystem)))
       .accessibilityLabel(
-        accessibilityText + speed.SpeedFormatter(
-          measurementSystem,
-          unitWidth: .wide))
+        String(
+          accessibilityText + speed.SpeedFormatter(
+            measurementSystem,
+            unitWidth: .wide)))
   }
 }

@@ -43,7 +43,7 @@ struct CurrentDetailPage: View {
 
         DetailSection(title: "Wind") {
           Text("Direction \(weather.wind.direction)")
-            .accessibilityLabel(weather.wind.direction.windDirectionWide())
+            .accessibilityLabel(weather.wind.direction.windDirectionWide)
 
           SpeedView("Speed", weather.wind.speedKilometersPerHour)
 

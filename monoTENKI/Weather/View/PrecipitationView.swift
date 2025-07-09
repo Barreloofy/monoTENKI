@@ -20,6 +20,12 @@ struct PrecipitationView: View {
     self.accessibilityText = ""
   }
 
+  init(_ precipitation: Double, accessibilityText: String? = nil) {
+    self.precipitation = precipitation
+    self.text = ""
+    self.accessibilityText = accessibilityText ?? text
+  }
+
   init(_ text: String, _ precipitation: Double, accessibilityText: String? = nil) {
     self.precipitation = precipitation
     self.text = text + " "

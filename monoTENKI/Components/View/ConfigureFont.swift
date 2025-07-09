@@ -10,9 +10,9 @@ import SwiftUI
 struct ConfigureFont: ViewModifier {
   func body(content: Content) -> some View {
     content
-      .textCase(.uppercase)
       .fontDesign(.monospaced)
       .fontWeight(.bold)
+      .textCase(.uppercase)
       .multilineTextAlignment(.center)
       .dynamicTypeSize(...DynamicTypeSize.large)
   }

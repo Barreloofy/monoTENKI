@@ -8,7 +8,7 @@
 extension String {
   /// Converts a compass direction in it's abbreviated form to its wide form, able to convert 4, 8 and 16 point-compass's.
   /// - Returns: Returns the wide form of the input direction, if it matches one of the points, else returns self.
-  func windDirectionWide() -> String {
+  var windDirectionWide: String {
     return switch self.lowercased() {
     case "n": "north"
     case "s": "south"

@@ -18,7 +18,7 @@ struct WeatherWidget: Widget {
           .containerBackground(.background, for: .widget)
           .dynamicTypeSize(...DynamicTypeSize.large)
       }
-      .configurationDisplayName("Current Weather")
+      .configurationDisplayName("Current Weather overview")
       .description("Sleek, minimalist widget providing a quick overview of current weather conditions.")
       .supportedFamilies([.systemSmall])
   }
