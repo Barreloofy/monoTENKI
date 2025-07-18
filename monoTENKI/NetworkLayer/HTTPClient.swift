@@ -7,12 +7,13 @@
 
 import Foundation
 import os
-/// HTTPClient with custom decoding capability, if no argument for parameter 'decoder' was provided, the default JSONDecoder will be used.
+/// HTTPClient with custom decoding capability.
+/// If no argument for parameter 'decoder' was provided, the default JSONDecoder will be used.
 struct HTTPClient {
   let url: URL
   let decoder: JSONDecoder
 
-  let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "HTTPClient")
+  private let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "HTTPClient")
 
   init(url: URL, decoder: JSONDecoder = JSONDecoder()) {
     self.url = url

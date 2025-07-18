@@ -37,10 +37,9 @@ struct Search: View {
         trailing: {
           Button(
             action: { dismiss() },
-            label: { XIcon().iconStyleX })
+            label: { DismissIcon().styled() })
         })
-      .font(.title)
-      .fontWeight(.bold)
+      .topBarConfiguration()
       .enabled(!setup)
 
       TextField(
@@ -88,37 +87,38 @@ struct Search: View {
           LazyVStack(spacing: 0) {
             ForEach(presentedLocations) { result in
               AlignedHStack(alignment: .leading) {
-                Text(result.wholeName)
-                  .accessibilityAddTraits(.isSelected)
+                Text(result.completeName)
                   .onTapGesture {
                     locationAggregate.trackLocation = false
                     locationAggregate.location = result.coordinate.stringRepresentation
                     history.add(result)
                     dismiss()
                   }
+                  .accessibilityAddTraits(.isSelected)
               }
               .swipeToDelete(isEnabled: text.isEmpty) { history.remove(result) }
             }
           }
-          .lineLimit(1)
         }
         .scrollIndicators(.never)
 
       case .searchError:
         Text("Search couldn't be completed, check connection status")
-          .font(.footnote)
+          .errorTextConfiguration()
 
       case .locationError:
-        Text("No permission to access location, grand permission to receive the most accurate weather")
-          .font(.footnote)
+        Group {
+          Text("No permission to access location, grand permission to receive the most accurate weather")
 
-        Link("Open Settings App", destination: URL(string: UIApplication.openSettingsURLString)!)
-          .buttonStyle(.bordered)
+          Link("Open Settings App", destination: URL(string: UIApplication.openSettingsURLString)!)
+            .buttonStyle(.bordered)
+        }
+        .errorTextConfiguration()
       }
 
       Spacer()
     }
-    .font(.title3)
+    .overviewFont()
     .fontWeight(.medium)
     .padding()
     .animation(reduceMotion ? nil : .default.speed(0.5), value: state)

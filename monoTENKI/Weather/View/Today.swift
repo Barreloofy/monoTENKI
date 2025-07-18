@@ -16,7 +16,7 @@ struct Today: View {
   let current: CurrentWeather
 
   var body: some View {
-    ZStack {
+    VStack {
       VStack(spacing: 50) {
         WeatherIcon(
           name: current.condition,
@@ -24,7 +24,7 @@ struct Today: View {
           size: horizontalSizeClass == .compact ? 250 : 375)
 
         TemperatureView(current.temperatures.celsius)
-          .font(.system(size: horizontalSizeClass == .compact ? 60 : 90))
+          .primaryFont()
 
         HStack {
           TemperatureView(
@@ -37,18 +37,16 @@ struct Today: View {
             current.temperatures.celsiusHigh,
             accessibilityText: "High")
         }
-        .font(.system(size: horizontalSizeClass == .compact ? 30 : 45))
+        .primaryFontSecondary()
 
         Text(current.condition)
-          .font(horizontalSizeClass == .compact ? .title : .largeTitle)
-
-        Spacer()
+          .primaryFontSecondary()
+          .lineLimit(nil)
       }
-      .containerRelativeFrame([.vertical, .horizontal])
+      .containerRelativeFrame(.horizontal)
       .contentShape(Rectangle())
       .onTapGesture { presentDetails = true }
-      .accessibilityHidden(presentDetails)
-      .zIndex(-1)
+      .enabled(!presentDetails)
 
       CurrentDetailPage(present: $presentDetails, weather: current)
     }

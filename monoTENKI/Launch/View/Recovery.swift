@@ -21,9 +21,9 @@ struct Recovery: View {
         task?.cancel()
         task = Task { await action() }
       }
-      .padding(.vertical)
-      .fixedSize()
       .buttonStyle(.permission)
+      .fixedSize()
+      .padding(.vertical)
 
       Text("Try diffrent Source")
 
@@ -33,9 +33,9 @@ struct Recovery: View {
             .selectedStyle(target: $0, value: $apiSourceInUse)
         }
       }
-      .font(.subheadline)
     }
-    .font(.footnote)
+    .errorTextConfiguration()
     .offset(y: -75)
+    .padding(.horizontal)
   }
 }

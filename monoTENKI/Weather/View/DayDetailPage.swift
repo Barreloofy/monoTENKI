@@ -20,10 +20,10 @@ struct DayDetailPage: View {
     if let id = id {
       ScrollView {
         LazyVStack(spacing: 0) {
-          ForEach(days, id: \.date) { day in
+          ForEach(days) { day in
             VStack(alignment: .leading, spacing: 10) {
               Text(day.date.formatted(.dateTime.weekday(.wide)))
-                .font(.system(size: 30))
+                .primaryFontSecondary()
 
               DetailSection(title: "Temperatures") {
                 TemperatureView(

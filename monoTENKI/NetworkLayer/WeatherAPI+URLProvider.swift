@@ -7,7 +7,6 @@
 
 import Foundation
 
-// Implement URLProvider
 extension WeatherAPI.Service {
   private var apiKey: String {
     Bundle.main.object(forInfoDictionaryKey: "WeatherAPI.comAPIKey") as! String

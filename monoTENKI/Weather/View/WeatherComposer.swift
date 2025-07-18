@@ -29,8 +29,7 @@ struct WeatherComposer: View {
             })
           .sheet(isPresented: $presentSearch) {
             Search(setup: false)
-              .presentationBackground(colorScheme.background)
-              .dynamicTypeSize(...DynamicTypeSize.large)
+              .sheetConfiguration()
           }
         },
         trailing: {
@@ -42,31 +41,30 @@ struct WeatherComposer: View {
             })
           .sheet(isPresented: $presentSettings) {
             Settings()
-              .presentationBackground(colorScheme.background)
-              .dynamicTypeSize(...DynamicTypeSize.large)
+              .sheetConfiguration()
           }
         })
       .padding()
 
       ScrollView(.horizontal) {
         LazyHStack(spacing: 0) {
-          ScrollView {
+          ScrollView(.vertical) {
             LazyVStack(spacing: 0) {
               Today(current: currentWeather)
-                .containerRelativeFrame(.vertical)
+                .containerRelativeFrame(.vertical, alignment: .top)
 
               HourForecast(hours: hourForecast)
-                .containerRelativeFrame(.vertical)
+                .containerRelativeFrame(.vertical, alignment: .top)
             }
           }
-          .padding()
+          .padding(.horizontal)
+          .containerRelativeFrame(.horizontal)
           .scrollTargetBehavior(.paging)
           .scrollIndicators(.never)
-          .containerRelativeFrame(.horizontal)
 
           DayForecast(days: dayForecast)
-            .padding()
-            .containerRelativeFrame(.horizontal)
+            .padding(.horizontal)
+            .containerRelativeFrame([.vertical, .horizontal], alignment: .top)
         }
       }
       .ignoresSafeArea()

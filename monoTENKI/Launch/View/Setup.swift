@@ -24,10 +24,10 @@ struct Setup: View {
           .offset(y: -25)
 
         Text("Accurate weather")
-          .font(.title)
 
         Text("Location is used to provide the most accurate weather")
           .font(.footnote)
+          .fontWeight(.medium)
       }
       .offset(y: -25)
 
@@ -46,14 +46,14 @@ struct Setup: View {
           .sheet(isPresented: $presentSearch) {
             Search(setup: true)
               .interactiveDismissDisabled()
-              .presentationBackground(colorScheme.background)
-              .dynamicTypeSize(...DynamicTypeSize.large)
+              .sheetConfiguration()
           }
       }
       .buttonStyle(.permission)
       .fixedSize()
       .offset(y: 150)
     }
+    .lineLimit(nil)
     .tint(colorScheme.foreground)
     .onChange(of: locationAggregate.location) { setupCompleted = true }
   }

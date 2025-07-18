@@ -23,7 +23,7 @@ struct HourDetailPage: View {
           ForEach(hours) { hour in
             VStack(alignment: .leading, spacing: 10) {
               Text(hour.time.formatted(.shortenedAndTimeZoneNeutral))
-                .font(.system(size: 30))
+                .primaryFontSecondary()
 
               DetailSection(title: "Precipitation") {
                 Text("Chance \(hour.precipitation.chance.formatted(.percent))")

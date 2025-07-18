@@ -16,9 +16,9 @@ struct HourForecast: View {
   let hours: Hours
 
   var body: some View {
-    ZStack {
+    VStack {
       VStack(spacing: 15) {
-        ForEach(hours, id: \.time) { hour in
+        ForEach(hours) { hour in
           Row(
             leading: { Text(hour.time.formatted(.shortenedAndTimeZoneNeutral)) },
             center: {
@@ -28,15 +28,12 @@ struct HourForecast: View {
                 size: horizontalSizeClass == .compact ? 30 : 45)
             },
             trailing: { TemperatureView(hour.temperatureCelsius) })
-          .font(horizontalSizeClass == .compact ? .title2 : .title)
+          .overviewFont()
           .contentShape(Rectangle())
           .onTapGesture { hourID = hour.time }
         }
-
-        Spacer()
       }
-      .accessibilityHidden(hourID != nil)
-      .zIndex(-1)
+      .enabled(hourID == nil)
 
       HourDetailPage(id: $hourID, hours: hours)
     }

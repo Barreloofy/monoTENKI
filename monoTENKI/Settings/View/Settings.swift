@@ -21,16 +21,12 @@ struct Settings: View {
         trailing: {
           Button(
             action: { dismiss() },
-            label: { XIcon().iconStyleX })
+            label: { DismissIcon().styled() })
         })
-      .font(.title)
-      .fontWeight(.bold)
+      .topBarConfiguration()
 
       Row(
-        leading: {
-          Text("Measurement:")
-            .font(.headline)
-        },
+        leading: { Text("Measurement:") },
         center: {
           Text(MeasurementSystem.metric.rawValue)
             .selectedStyle(target: MeasurementSystem.metric, value: $measurementSystemInUse) {
@@ -45,13 +41,9 @@ struct Settings: View {
               userModifiedMeasurementSystem = true
             }
         })
-      .font(.subheadline)
 
       Row(
-        leading: {
-          Text("Source:")
-            .font(.headline)
-        },
+        leading: { Text("Source:") },
         center: {
           Text(APISource.weatherAPI.rawValue)
             .selectedStyle(target: APISource.weatherAPI, value: $apiSourceInUse)
@@ -60,7 +52,6 @@ struct Settings: View {
           Text(APISource.accuWeather.rawValue)
             .selectedStyle(target: APISource.accuWeather, value: $apiSourceInUse)
         })
-      .font(.subheadline)
 
       Spacer()
     }

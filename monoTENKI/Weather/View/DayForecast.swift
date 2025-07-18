@@ -16,7 +16,7 @@ struct DayForecast: View {
   let days: Days
 
   var body: some View {
-    ZStack {
+    VStack {
       VStack(spacing: 15) {
         ForEach(days) { day in
           Row(
@@ -28,15 +28,12 @@ struct DayForecast: View {
                 size: horizontalSizeClass == .compact ? 30 : 45)
             },
             trailing: { TemperatureView(day.temperatures.celsiusAverage) })
-          .font(horizontalSizeClass == .compact ? .title2 : .title)
+          .overviewFont()
           .contentShape(Rectangle())
           .onTapGesture { dayID = day.date }
         }
-
-        Spacer()
       }
-      .accessibilityHidden(dayID != nil)
-      .zIndex(-1)
+      .enabled(dayID == nil)
 
       DayDetailPage(id: $dayID, days: days)
     }

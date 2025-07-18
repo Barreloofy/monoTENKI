@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-// Convenience methods
+
 extension ColorScheme {
   var foreground: Color {
     self == .light ? .black : .white

@@ -6,23 +6,25 @@
 //
 
 import Foundation
-/// Protocol for constructing URLs, intended as an interface to build and retrive URLs for the HTTP protocol
+/// Protocol for constructing URLs, intended as an interface to build and retrive URLs for the HTTP protocol.
 protocol URLProvider {
-  /// Constructs URL from URLComponents. and the provided values for 'host', 'path' and 'parameters'.
+  /// Constructs URL from URLComponents.
   /// - Parameters:
   ///   - host: host component of an URL, see URLComponents.host for more documentation.
   ///   - path: path component of an URL, see URLComponents.path for more documentation.
   ///   - queryItems: query component of an URL, dictionary of type [String: String?], see URLComponents.queryItems for more documentation.
-  /// - Returns:
-  /// A URL if construction succeeded else throws an URLError.badURL
+  /// - Returns: A URL if construction succeeded else throws an error.
   func constructURL(host: String, path: String, queryItems: [String: String?]) throws -> URL
+
   /// Provides a simple interface to retrive an URL.
+  /// - Returns: A URL with the option to throw an error instead.
   func provideURL() throws -> URL
-  /// Provides a comprehensive interface to retrive a dictionary of URLs, allows to construct complex API calls with multiple API endpoints as one call.
+
+  /// Provides a comprehensive interface to retrive a dictionary of URLs,
+  /// allows the construction of complex API calls with multiple API endpoints as one call.
   /// - Parameters:
-  ///   - query: the query parameter of an URL.
-  /// - Returns:
-  /// An Dictionary of [String:URL] where string is the custom identifier and URL the constructed URL.
+  ///   - query: An optional query to provide.
+  /// - Returns: A Dictionary of [String:URL] where string is the custom identifier and URL the constructed URL.
   func provideURLs(query: String) throws -> [String: URL]
 }
 

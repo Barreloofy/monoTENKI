@@ -20,16 +20,18 @@ struct monoTENKIApp: App {
 
   var body: some Scene {
     WindowGroup {
-      if setupCompleted {
-        Aggregate()
-          .configureFont()
-      } else {
-        Setup(setupCompleted: $setupCompleted)
-          .configureFont()
+      Group {
+        if setupCompleted {
+          Aggregate()
+        } else {
+          Setup(setupCompleted: $setupCompleted)
+        }
       }
+      .textConfigure()
     }
     .onChange(of: locale.measurementSystem, initial: true) {
       guard !userModifiedMeasurementSystem else { return }
+
       switch locale.measurementSystem {
       case .metric: measurementSystemInUse = .metric
       default: measurementSystemInUse = .imperial

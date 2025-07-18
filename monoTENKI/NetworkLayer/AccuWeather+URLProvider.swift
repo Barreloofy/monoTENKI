@@ -7,7 +7,6 @@
 
 import Foundation
 
-// Implement URLProvider
 extension AccuWeather.Service {
   private var apiKey: String {
     Bundle.main.object(forInfoDictionaryKey: "AccuWeatherAPIKey") as! String

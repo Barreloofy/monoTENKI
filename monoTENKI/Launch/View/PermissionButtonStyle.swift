@@ -12,15 +12,14 @@ struct PermissionStyle: ButtonStyle {
 
   func makeBody(configuration: Configuration) -> some View {
     ZStack {
-      RoundedRectangle(cornerRadius: 10)
+      RoundedRectangle(cornerRadius: 8)
         .stroke(lineWidth: 2.5)
 
       configuration.label
-        .foregroundStyle(
-          colorScheme.foreground.opacity(configuration.isPressed ? 0.8 : 1))
+        .foregroundStyle(colorScheme.foreground.opacity(configuration.isPressed ? 0.8 : 1))
         .padding(10)
     }
-    .contentShape(RoundedRectangle(cornerRadius: 10))
+    .contentShape(RoundedRectangle(cornerRadius: 8))
   }
 }
 
