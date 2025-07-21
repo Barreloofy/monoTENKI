@@ -8,9 +8,27 @@
 import SwiftUI
 
 struct WeatherIcon: View {
+  enum IconUsage {
+    case primary, overview
+    case custom(CGFloat)
+  }
+
+  @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
   let name: String
   let isDay: Bool
-  let size: CGFloat
+  let usage: IconUsage
+
+  private var size: CGFloat {
+    switch usage {
+    case .primary:
+      horizontalSizeClass == .compact ? 250 : 375
+    case .overview:
+      horizontalSizeClass == .compact ? 30 : 45
+    case .custom(let value):
+      value
+    }
+  }
 
   var body: some View {
     Image(systemName: name.presentIcon(isDay: isDay))

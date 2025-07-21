@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct DayForecast: View {
-  @Environment(\.horizontalSizeClass) private var horizontalSizeClass
   @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
   @State private var dayID: Date?
@@ -17,7 +16,7 @@ struct DayForecast: View {
 
   var body: some View {
     VStack {
-      VStack(spacing: 15) {
+      VStack(spacing: 30) {
         ForEach(days) { day in
           Row(
             leading: { Text(day.date.formatted(.dateTime.weekday(.wide))) },
@@ -25,7 +24,7 @@ struct DayForecast: View {
               WeatherIcon(
                 name: day.condition,
                 isDay: true,
-                size: horizontalSizeClass == .compact ? 30 : 45)
+                usage: .overview)
             },
             trailing: { TemperatureView(day.temperatures.celsiusAverage) })
           .overviewFont()
@@ -37,7 +36,7 @@ struct DayForecast: View {
 
       DayDetailPage(id: $dayID, days: days)
     }
-    .animation(reduceMotion ? nil : .easeInOut.speed(0.5), value: dayID)
+    .animation(reduceMotion ? nil : .easeInOut(duration: 0.75), value: dayID)
     .sensoryFeedback(.impact, trigger: dayID)
   }
 }

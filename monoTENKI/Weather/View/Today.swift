@@ -17,11 +17,11 @@ struct Today: View {
 
   var body: some View {
     VStack {
-      VStack(spacing: 50) {
+      VStack(spacing: horizontalSizeClass == .compact ? 50 : 100) {
         WeatherIcon(
           name: current.condition,
           isDay: current.isDay,
-          size: horizontalSizeClass == .compact ? 250 : 375)
+          usage: .primary)
 
         TemperatureView(current.temperatures.celsius)
           .primaryFont()
@@ -50,7 +50,7 @@ struct Today: View {
 
       CurrentDetailPage(present: $presentDetails, weather: current)
     }
-    .animation(reduceMotion ? nil : .easeInOut.speed(0.5), value: presentDetails)
+    .animation(reduceMotion ? nil : .easeInOut(duration: 0.75), value: presentDetails)
     .sensoryFeedback(.impact, trigger: presentDetails)
   }
 }

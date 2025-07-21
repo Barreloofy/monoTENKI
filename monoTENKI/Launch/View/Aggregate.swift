@@ -24,7 +24,7 @@ struct Aggregate: View {
         Loading()
 
       case .loaded(let currentWeather, let hourForecast, let dayForecast):
-        WeatherComposer(
+        WeatherComposite(
           currentWeather: currentWeather,
           hourForecast: hourForecast,
           dayForecast: dayForecast)

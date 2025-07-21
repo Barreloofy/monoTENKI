@@ -63,7 +63,7 @@
 		297EF7A32E0EC8D9008A28B4 /* AsyncOnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297EF7A22E0EC8C5008A28B4 /* AsyncOnChange.swift */; };
 		29804ACD2DA67EBE008404A7 /* Image+Styled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29804ACC2DA67EB0008404A7 /* Image+Styled.swift */; };
 		298D98C02E27018100846F31 /* SheetConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298D98BF2E27016700846F31 /* SheetConfiguration.swift */; };
-		29947D4E2D99CFD7000E3CB5 /* WeatherComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29947D4D2D99CFD1000E3CB5 /* WeatherComposer.swift */; };
+		29947D4E2D99CFD7000E3CB5 /* WeatherComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29947D4D2D99CFD1000E3CB5 /* WeatherComposite.swift */; };
 		2995AEB52D92C66D0010744B /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2995AEB42D92C6670010744B /* Search.swift */; };
 		299A55DB2D945E550089C312 /* PermissionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299A55DA2D945E540089C312 /* PermissionButtonStyle.swift */; };
 		29A05F0C2DEB5005004F1778 /* TextConfigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A05F0B2DEB4FEB004F1778 /* TextConfigure.swift */; };
@@ -187,7 +187,7 @@
 		297EF7A22E0EC8C5008A28B4 /* AsyncOnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOnChange.swift; sourceTree = "<group>"; };
 		29804ACC2DA67EB0008404A7 /* Image+Styled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Styled.swift"; sourceTree = "<group>"; };
 		298D98BF2E27016700846F31 /* SheetConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetConfiguration.swift; sourceTree = "<group>"; };
-		29947D4D2D99CFD1000E3CB5 /* WeatherComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherComposer.swift; sourceTree = "<group>"; };
+		29947D4D2D99CFD1000E3CB5 /* WeatherComposite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherComposite.swift; sourceTree = "<group>"; };
 		2995AEB42D92C6670010744B /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		299A55DA2D945E540089C312 /* PermissionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionButtonStyle.swift; sourceTree = "<group>"; };
 		29A05F0B2DEB4FEB004F1778 /* TextConfigure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextConfigure.swift; sourceTree = "<group>"; };
@@ -383,7 +383,7 @@
 		2965508A2D8887910073D3E9 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				29947D4D2D99CFD1000E3CB5 /* WeatherComposer.swift */,
+				29947D4D2D99CFD1000E3CB5 /* WeatherComposite.swift */,
 				2934E3DB2D9ABADA00A229F4 /* Today.swift */,
 				29336FD22D9D82290074DEDF /* HourForecast.swift */,
 				297AF2EA2DBBFB1E00676A98 /* DayForecast.swift */,
@@ -759,7 +759,7 @@
 				29D151722D90730100A851E9 /* EnvironmentValues+MeasurementSystem.swift in Sources */,
 				29AA8C352DC578090085B04E /* History.swift in Sources */,
 				29C530622D972EA000159C2D /* AlignedHStack.swift in Sources */,
-				29947D4E2D99CFD7000E3CB5 /* WeatherComposer.swift in Sources */,
+				29947D4E2D99CFD7000E3CB5 /* WeatherComposite.swift in Sources */,
 				294004072DB5209E00C23CA1 /* WeatherAPI+URLProvider.swift in Sources */,
 				29595EE32DAB133D0069257F /* DetailSection.swift in Sources */,
 				29D134022E086600002FBB32 /* UserDefault.swift in Sources */,
@@ -1014,7 +1014,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"monoTENKI/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = H9V2P5AGD3;
 				ENABLE_PREVIEWS = YES;
@@ -1026,7 +1026,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1052,7 +1052,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"monoTENKI/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = H9V2P5AGD3;
 				ENABLE_PREVIEWS = YES;
@@ -1064,7 +1064,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
