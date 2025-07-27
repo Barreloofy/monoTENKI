@@ -14,7 +14,7 @@ extension Image {
     self
       .resizable()
       .scaledToFit()
-      .fontWeight(.regular)
       .frame(width: size, height: size)
+      .fontWeight(.regular)
   }
 }

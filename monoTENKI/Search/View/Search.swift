@@ -37,7 +37,10 @@ struct Search: View {
         trailing: {
           Button(
             action: { dismiss() },
-            label: { DismissIcon().styled() })
+            label: {
+              Image(systemName: "xmark")
+                .fontWeight(.regular)
+            })
         })
       .topBarConfiguration()
       .enabled(!setup)
@@ -87,7 +90,7 @@ struct Search: View {
           LazyVStack(spacing: 0) {
             ForEach(presentedLocations) { result in
               AlignedHStack(alignment: .leading) {
-                Text(result.completeName)
+                Label(result.completeName, systemImage: "mappin.and.ellipse")
                   .onTapGesture {
                     locationAggregate.trackLocation = false
                     locationAggregate.location = result.coordinate.stringRepresentation

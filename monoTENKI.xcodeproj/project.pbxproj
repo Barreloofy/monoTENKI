@@ -47,6 +47,11 @@
 		294004092DB5303400C23CA1 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294004082DB5302E00C23CA1 /* Location.swift */; };
 		29426D272DC923BE0071D997 /* APISource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29426D262DC923B40071D997 /* APISource.swift */; };
 		2947E0BB2D88EC1000746BA4 /* WeatherAPILocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2947E0BA2D88EC0C00746BA4 /* WeatherAPILocation.swift */; };
+		2948672B2E364199001A2B01 /* ConfigureSettingsDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2948672A2E36413F001A2B01 /* ConfigureSettingsDetail.swift */; };
+		2948672D2E364360001A2B01 /* SettingsNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2948672C2E364360001A2B01 /* SettingsNavigationBar.swift */; };
+		2948672F2E364A46001A2B01 /* SourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2948672E2E364A46001A2B01 /* SourceView.swift */; };
+		294867312E364A4E001A2B01 /* MeasurementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294867302E364A4E001A2B01 /* MeasurementView.swift */; };
+		294867392E367E6F001A2B01 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294867382E367E6F001A2B01 /* SettingsController.swift */; };
 		29595EE32DAB133D0069257F /* DetailSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29595EE22DAB13260069257F /* DetailSection.swift */; };
 		296094EE2D89ADD800B326DF /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296094ED2D89AD3D00B326DF /* HTTPClient.swift */; };
 		296094F32D89DA7400B326DF /* WeatherAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296094F22D89DA5E00B326DF /* WeatherAPI.swift */; };
@@ -66,7 +71,7 @@
 		29947D4E2D99CFD7000E3CB5 /* WeatherComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29947D4D2D99CFD1000E3CB5 /* WeatherComposite.swift */; };
 		2995AEB52D92C66D0010744B /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2995AEB42D92C6670010744B /* Search.swift */; };
 		299A55DB2D945E550089C312 /* PermissionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299A55DA2D945E540089C312 /* PermissionButtonStyle.swift */; };
-		29A05F0C2DEB5005004F1778 /* TextConfigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A05F0B2DEB4FEB004F1778 /* TextConfigure.swift */; };
+		29A05F0C2DEB5005004F1778 /* ContentConfigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A05F0B2DEB4FEB004F1778 /* ContentConfigure.swift */; };
 		29AA8C352DC578090085B04E /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA8C342DC577FD0085B04E /* History.swift */; };
 		29ABEC3B2E170DCA0070D3B5 /* Date+CompareDateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29ABEC3A2E170D7B0070D3B5 /* Date+CompareDateComponent.swift */; };
 		29ABEC3C2E170F5C0070D3B5 /* Date+CompareDateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29ABEC3A2E170D7B0070D3B5 /* Date+CompareDateComponent.swift */; };
@@ -90,7 +95,6 @@
 		29C530402D96E6B700159C2D /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C5303F2D96E6A400159C2D /* Settings.swift */; };
 		29C5304A2D9713E100159C2D /* SelectedStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C530492D9713DF00159C2D /* SelectedStyle.swift */; };
 		29C530622D972EA000159C2D /* AlignedHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C5305B2D972EA000159C2D /* AlignedHStack.swift */; };
-		29C530632D972EA000159C2D /* DismissIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C5305D2D972EA000159C2D /* DismissIcon.swift */; };
 		29C530642D972EA000159C2D /* Double+TemperatureFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C5305C2D972EA000159C2D /* Double+TemperatureFormatter.swift */; };
 		29C656FF2DC68063000A89FC /* Enabled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C656FE2DC68054000A89FC /* Enabled.swift */; };
 		29C657012DC6A4D1000A89FC /* SwipeToDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C657002DC6A4C8000A89FC /* SwipeToDelete.swift */; };
@@ -171,6 +175,11 @@
 		294004082DB5302E00C23CA1 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		29426D262DC923B40071D997 /* APISource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APISource.swift; sourceTree = "<group>"; };
 		2947E0BA2D88EC0C00746BA4 /* WeatherAPILocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPILocation.swift; sourceTree = "<group>"; };
+		2948672A2E36413F001A2B01 /* ConfigureSettingsDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureSettingsDetail.swift; sourceTree = "<group>"; };
+		2948672C2E364360001A2B01 /* SettingsNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigationBar.swift; sourceTree = "<group>"; };
+		2948672E2E364A46001A2B01 /* SourceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceView.swift; sourceTree = "<group>"; };
+		294867302E364A4E001A2B01 /* MeasurementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementView.swift; sourceTree = "<group>"; };
+		294867382E367E6F001A2B01 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		29595EE22DAB13260069257F /* DetailSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSection.swift; sourceTree = "<group>"; };
 		296094ED2D89AD3D00B326DF /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		296094F22D89DA5E00B326DF /* WeatherAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPI.swift; sourceTree = "<group>"; };
@@ -190,7 +199,7 @@
 		29947D4D2D99CFD1000E3CB5 /* WeatherComposite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherComposite.swift; sourceTree = "<group>"; };
 		2995AEB42D92C6670010744B /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		299A55DA2D945E540089C312 /* PermissionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionButtonStyle.swift; sourceTree = "<group>"; };
-		29A05F0B2DEB4FEB004F1778 /* TextConfigure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextConfigure.swift; sourceTree = "<group>"; };
+		29A05F0B2DEB4FEB004F1778 /* ContentConfigure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentConfigure.swift; sourceTree = "<group>"; };
 		29AA8C342DC577FD0085B04E /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		29ABEC3A2E170D7B0070D3B5 /* Date+CompareDateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+CompareDateComponent.swift"; sourceTree = "<group>"; };
 		29ACB03B2E041B0D00F23044 /* monoTENKIWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = monoTENKIWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -211,7 +220,6 @@
 		29C530492D9713DF00159C2D /* SelectedStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedStyle.swift; sourceTree = "<group>"; };
 		29C5305B2D972EA000159C2D /* AlignedHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignedHStack.swift; sourceTree = "<group>"; };
 		29C5305C2D972EA000159C2D /* Double+TemperatureFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+TemperatureFormatter.swift"; sourceTree = "<group>"; };
-		29C5305D2D972EA000159C2D /* DismissIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissIcon.swift; sourceTree = "<group>"; };
 		29C656FE2DC68054000A89FC /* Enabled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enabled.swift; sourceTree = "<group>"; };
 		29C657002DC6A4C8000A89FC /* SwipeToDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeToDelete.swift; sourceTree = "<group>"; };
 		29CD013E2DB719C50017CCFC /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
@@ -297,14 +305,13 @@
 				292AF1C72E2AB0FB001A005C /* Fonts */,
 				29C656FE2DC68054000A89FC /* Enabled.swift */,
 				2934E3DF2D9AF8B200A229F4 /* ColorScheme+MainColors.swift */,
-				29A05F0B2DEB4FEB004F1778 /* TextConfigure.swift */,
+				29A05F0B2DEB4FEB004F1778 /* ContentConfigure.swift */,
 				29E56DB32E27DBE500131730 /* TopBarConfiguration.swift */,
 				292AF1C82E2AB1A2001A005C /* ErrorTextConfiguration.swift */,
 				298D98BF2E27016700846F31 /* SheetConfiguration.swift */,
 				29804ACC2DA67EB0008404A7 /* Image+Styled.swift */,
 				292C48E62D9F594B00A0909E /* FormatStyle+timeZoneNeutral.swift */,
 				29C530492D9713DF00159C2D /* SelectedStyle.swift */,
-				29C5305D2D972EA000159C2D /* DismissIcon.swift */,
 				29C5305B2D972EA000159C2D /* AlignedHStack.swift */,
 				29E4DB562DBAA8910018D2C3 /* Row.swift */,
 				297EF7A22E0EC8C5008A28B4 /* AsyncOnChange.swift */,
@@ -323,6 +330,14 @@
 				2974E9942DABF7EB00663B36 /* CLLocationCoordinate2D+Coordinate.swift */,
 				2974E9922DABF73800663B36 /* CLLocation+FailableInitializer.swift */,
 				293AC4BF2D9C1806007FCC76 /* CLServiceSession+GetAuthorization.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		294867372E367E12001A2B01 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				294867382E367E6F001A2B01 /* SettingsController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -361,6 +376,7 @@
 		296550882D8886440073D3E9 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				294867372E367E12001A2B01 /* Model */,
 				2965508C2D88879F0073D3E9 /* View */,
 			);
 			path = Settings;
@@ -408,6 +424,10 @@
 			isa = PBXGroup;
 			children = (
 				29C5303F2D96E6A400159C2D /* Settings.swift */,
+				2948672C2E364360001A2B01 /* SettingsNavigationBar.swift */,
+				2948672A2E36413F001A2B01 /* ConfigureSettingsDetail.swift */,
+				294867302E364A4E001A2B01 /* MeasurementView.swift */,
+				2948672E2E364A46001A2B01 /* SourceView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -738,7 +758,9 @@
 				2934E3E02D9AF8C000A229F4 /* ColorScheme+MainColors.swift in Sources */,
 				292C48E72D9F595C00A0909E /* FormatStyle+timeZoneNeutral.swift in Sources */,
 				29C10C9E2DCD21D000BCCF27 /* Aggregate.swift in Sources */,
+				2948672D2E364360001A2B01 /* SettingsNavigationBar.swift in Sources */,
 				29ECB3B62D8A417F001922EA /* URLProvider.swift in Sources */,
+				2948672F2E364A46001A2B01 /* SourceView.swift in Sources */,
 				296094EE2D89ADD800B326DF /* HTTPClient.swift in Sources */,
 				292EDE4C2DC13CD200C8EC52 /* AccuWeatherWeather.swift in Sources */,
 				2970EF532D8B08B700068106 /* WeatherAggregate.swift in Sources */,
@@ -764,14 +786,13 @@
 				29595EE32DAB133D0069257F /* DetailSection.swift in Sources */,
 				29D134022E086600002FBB32 /* UserDefault.swift in Sources */,
 				291B5D2B2DAE6E9B0049589E /* DayDetailPage.swift in Sources */,
-				29C530632D972EA000159C2D /* DismissIcon.swift in Sources */,
 				2974E9952DABF84600663B36 /* CLLocationCoordinate2D+Coordinate.swift in Sources */,
 				29ABEC3B2E170DCA0070D3B5 /* Date+CompareDateComponent.swift in Sources */,
 				29FC15E12DEC674300F5DEA9 /* TemperatureView.swift in Sources */,
 				29D46DD32E2931B000B1BD80 /* PrimaryFont.swift in Sources */,
 				29C530642D972EA000159C2D /* Double+TemperatureFormatter.swift in Sources */,
 				29FB94A92DC0022400ED5DB3 /* HourDetailPage.swift in Sources */,
-				29A05F0C2DEB5005004F1778 /* TextConfigure.swift in Sources */,
+				29A05F0C2DEB5005004F1778 /* ContentConfigure.swift in Sources */,
 				2968CD162E2A3DB1007FD1D4 /* OverviewFont.swift in Sources */,
 				29F241E22E0AB5500031FAB8 /* StorageKeys.swift in Sources */,
 				2924E0432E0DFCE800164518 /* Date+RefreshPolicy.swift in Sources */,
@@ -781,6 +802,7 @@
 				292EDE4E2DC146AC00C8EC52 /* AccuWeather+Weather.swift in Sources */,
 				297EF7A12E0EBA9F008A28B4 /* Loading.swift in Sources */,
 				297EF7A32E0EC8D9008A28B4 /* AsyncOnChange.swift in Sources */,
+				294867312E364A4E001A2B01 /* MeasurementView.swift in Sources */,
 				294004052DB51F4200C23CA1 /* AccuWeather+URLProvider.swift in Sources */,
 				2964DCA02D8B4E53009C259B /* LocationAggregate.swift in Sources */,
 				29C530402D96E6B700159C2D /* Settings.swift in Sources */,
@@ -798,6 +820,8 @@
 				292AF1C92E2AB1AB001A005C /* ErrorTextConfiguration.swift in Sources */,
 				29E4DB572DBAA8940018D2C3 /* Row.swift in Sources */,
 				297AF2EB2DBBFB4F00676A98 /* DayForecast.swift in Sources */,
+				2948672B2E364199001A2B01 /* ConfigureSettingsDetail.swift in Sources */,
+				294867392E367E6F001A2B01 /* SettingsController.swift in Sources */,
 				29D46DD52E29339600B1BD80 /* PrimaryFontSecondary.swift in Sources */,
 				298D98C02E27018100846F31 /* SheetConfiguration.swift in Sources */,
 				294004092DB5303400C23CA1 /* Location.swift in Sources */,
@@ -1014,7 +1038,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"monoTENKI/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = H9V2P5AGD3;
 				ENABLE_PREVIEWS = YES;
@@ -1032,7 +1056,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5;
+				MARKETING_VERSION = 2.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Barreloofy.monoTENKI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1052,7 +1076,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"monoTENKI/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = H9V2P5AGD3;
 				ENABLE_PREVIEWS = YES;
@@ -1070,7 +1094,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5;
+				MARKETING_VERSION = 2.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Barreloofy.monoTENKI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

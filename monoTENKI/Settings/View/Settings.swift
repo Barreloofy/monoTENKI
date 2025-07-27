@@ -9,53 +9,65 @@ import SwiftUI
 
 struct Settings: View {
   @Environment(\.dismiss) private var dismiss
-
-  @AppStorage(StorageKeys.apiSourceInUse.rawValue) private var apiSourceInUse = APISource.weatherAPI
-  @AppStorage(StorageKeys.userModifiedMeasurementSystem.rawValue) var userModifiedMeasurementSystem = false
-  @AppStorage(StorageKeys.measurementSystemInUse.rawValue) private var measurementSystemInUse = MeasurementSystem.metric
+  @Environment(\.apiSource) private var apiSourceInUse
+  @Environment(\.measurementSystem) private var measurementSystemInUse
 
   var body: some View {
-    VStack(spacing: 25) {
-      Row(
-        center: { Text("Settings") },
-        trailing: {
-          Button(
-            action: { dismiss() },
-            label: { DismissIcon().styled() })
-        })
-      .topBarConfiguration()
+    NavigationStack {
+      VStack(spacing: 25) {
+        Row(
+          center: { Text("Settings") },
+          trailing: {
+            Button(
+              action: { dismiss() },
+              label: {
+                Image(systemName: "xmark")
+                  .fontWeight(.regular)
+              })
+          })
+        .topBarConfiguration()
 
-      Row(
-        leading: { Text("Measurement:") },
-        center: {
-          Text(MeasurementSystem.metric.rawValue)
-            .selectedStyle(target: MeasurementSystem.metric, value: $measurementSystemInUse) {
-              guard !userModifiedMeasurementSystem else { return }
-              userModifiedMeasurementSystem = true
+        NavigationLink(
+          destination: { SourceView() },
+          label: {
+            HStack {
+              Label(
+                title: { Text("Source:") },
+                icon: {
+                  Image(systemName: "antenna.radiowaves.left.and.right")
+                    .styled(size: 25)
+                })
+
+              Spacer()
+
+              Text(apiSourceInUse.rawValue)
+                .selectedStyle()
+                .accessibilityLabel(apiSourceInUse.accessibilityPronunciation)
             }
-        },
-        trailing: {
-          Text(MeasurementSystem.imperial.rawValue)
-            .selectedStyle(target: MeasurementSystem.imperial, value: $measurementSystemInUse) {
-              guard !userModifiedMeasurementSystem else { return }
-              userModifiedMeasurementSystem = true
+          })
+
+        NavigationLink(
+          destination: { MeasurementView() },
+          label: {
+            HStack {
+              Label(
+                title: { Text("Units:") },
+                icon: {
+                  Image(systemName: "ruler.fill")
+                    .styled(size: 25)
+                })
+
+              Spacer()
+
+              Text(measurementSystemInUse.rawValue)
+                .selectedStyle()
             }
-        })
+          })
 
-      Row(
-        leading: { Text("Source:") },
-        center: {
-          Text(APISource.weatherAPI.rawValue)
-            .selectedStyle(target: APISource.weatherAPI, value: $apiSourceInUse)
-        },
-        trailing: {
-          Text(APISource.accuWeather.rawValue)
-            .selectedStyle(target: APISource.accuWeather, value: $apiSourceInUse)
-        })
-
-      Spacer()
+        Spacer()
+      }
+      .padding()
     }
     .fontWeight(.medium)
-    .padding()
   }
 }

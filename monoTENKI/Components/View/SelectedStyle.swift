@@ -41,4 +41,12 @@ extension View {
         target: target,
         observer: observer))
   }
+
+  func selectedStyle() -> some View {
+    self
+      .overlay(alignment: .bottom) {
+        Rectangle()
+          .frame(height: 2)
+      }
+  }
 }

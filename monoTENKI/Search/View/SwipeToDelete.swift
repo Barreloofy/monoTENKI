@@ -22,50 +22,51 @@ struct SwipeToDelete: ViewModifier {
   private let deletedOffset: CGFloat = -1000
 
   func body(content: Content) -> some View {
-    switch isEnabled {
-    case false:
-      content
-    case true:
-      ZStack {
-        colorScheme.foreground.padding(1) // .padding(1) needed to fix a SwiftUI rendering bug. Stackoverflow id: 79441756
-
+    ZStack {
+      switch isEnabled {
+      case false:
         content
-          .accessibilityAdjustableAction { _ in
-            guard isEnabled else { return }
+      case true:
+        ZStack {
+          colorScheme.foreground.padding(1) // .padding(1) needed to fix a SwiftUI rendering bug. Stackoverflow id: 79441756
 
-            action()
-            UIAccessibility.post(
-              notification: .announcement,
-              argument: "Deleted item")
-          }
-          .accessibilityHint("To delete")
-          .background(colorScheme.background)
-          .offset(x: offset)
-          .gesture(
-            DragGesture(minimumDistance: minimumThreshold)
-              .onChanged { value in
-                let dragValue = value.translation.width
+          content
+            .accessibilityAdjustableAction { _ in
+              guard isEnabled else { return }
 
-                guard dragValue < .zero else { return }
+              action()
+              UIAccessibility.post(
+                notification: .announcement,
+                argument: "Deleted item")
+            }
+            .accessibilityHint("To delete")
+            .background(colorScheme.background)
+            .offset(x: offset)
+            .gesture(
+              DragGesture(minimumDistance: minimumThreshold)
+                .onChanged { value in
+                  let dragValue = value.translation.width
 
-                offset = dragValue
-              }
-              .onEnded { value in
-                let dragValue = value.translation.width
+                  guard dragValue < .zero else { return }
 
-                if dragValue < actionThreshold {
-                  offset = deletedOffset
-                  withAnimation(reduceMotion ? nil : .smooth(duration: 1)) { action() }
-                } else {
-                  offset = .zero
+                  offset = dragValue
                 }
-              })
-          .animation(reduceMotion ? nil : .smooth(duration: 1), value: offset)
-          .sensoryFeedback(.impact, trigger: offset < actionThreshold) { old, new in
-            new == true && new != old
-          }
+                .onEnded { value in
+                  let dragValue = value.translation.width
+
+                  if dragValue < actionThreshold {
+                    offset = deletedOffset
+                    withAnimation(reduceMotion ? nil : .smooth(duration: 1)) { action() }
+                  } else {
+                    offset = .zero
+                  }
+                })
+            .animation(reduceMotion ? nil : .smooth(duration: 1), value: offset)
+            .sensoryFeedback(.impact, trigger: offset < actionThreshold) { old, new in
+              new == true && new != old
+            }
+        }
       }
-      .enabled { isEnabled }
     }
   }
 }

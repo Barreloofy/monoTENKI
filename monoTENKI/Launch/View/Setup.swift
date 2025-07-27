@@ -9,7 +9,6 @@ import SwiftUI
 import CoreLocation
 
 struct Setup: View {
-  @Environment(\.colorScheme) private var colorScheme
   @Environment(LocationAggregate.self) private var locationAggregate
 
   @AppStorage(StorageKeys.presentSearch.rawValue) private var presentSearch = false
@@ -29,6 +28,7 @@ struct Setup: View {
           .font(.footnote)
           .fontWeight(.medium)
       }
+      .lineLimit(nil)
       .offset(y: -25)
 
       VStack {
@@ -53,8 +53,6 @@ struct Setup: View {
       .fixedSize()
       .offset(y: 150)
     }
-    .lineLimit(nil)
-    .tint(colorScheme.foreground)
     .onChange(of: locationAggregate.location) { setupCompleted = true }
   }
 }

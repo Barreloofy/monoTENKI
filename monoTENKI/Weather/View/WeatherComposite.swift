@@ -11,7 +11,7 @@ struct WeatherComposite: View {
   @Environment(\.colorScheme) private var colorScheme
 
   @State private var presentSearch = false
-  @State private var presentSettings = false
+  @SettingsControllerWrapper private var settingsController
 
   let currentWeather: CurrentWeather
   let hourForecast: Hours
@@ -33,14 +33,15 @@ struct WeatherComposite: View {
       },
       trailing: {
         Button(
-          action: { presentSettings = true },
+          action: { settingsController() },
           label: {
             Image(systemName: "gear")
               .styled(size: 25)
           })
-        .sheet(isPresented: $presentSettings) {
+        .sheet(isPresented: $settingsController) {
           Settings()
             .sheetConfiguration()
+            .environment(_settingsController())
         }
       })
     .padding()

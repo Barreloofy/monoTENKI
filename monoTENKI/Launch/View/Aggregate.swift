@@ -9,7 +9,6 @@ import SwiftUI
 import AsyncAlgorithms
 
 struct Aggregate: View {
-  @Environment(\.colorScheme) private var colorScheme
   @Environment(\.apiSource) private var apiSource
   @Environment(LocationAggregate.self) private var locationAggregate
 
@@ -33,10 +32,10 @@ struct Aggregate: View {
         Recovery() {
           weatherAggregate.state = .loading
           await weatherAggregate.getWeather(for: locationAggregate.location, from: apiSourceInUse)
+          refreshDate = .nextRefreshDate
         }
       }
     }
-    .tint(colorScheme.foreground)
     .onChange(of: apiSource, initial: true) { apiSourceInUse = apiSource }
     .task(id: locationAggregate.location) {
       await weatherAggregate.getWeather(for: locationAggregate.location, from: apiSourceInUse)
@@ -50,7 +49,6 @@ struct Aggregate: View {
     }
     .asyncOnChange(id: apiSource) {
       guard weatherAggregate.state != .error else { return }
-
       await weatherAggregate.getWeather(for: locationAggregate.location, from: apiSourceInUse)
       refreshDate = .nextRefreshDate
     }

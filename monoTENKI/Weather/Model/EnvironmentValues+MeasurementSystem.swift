@@ -12,7 +12,9 @@ extension EnvironmentValues {
 }
 
 
-enum MeasurementSystem: String {
+enum MeasurementSystem: String, CaseIterable, Identifiable {
   case metric
   case imperial
+
+  var id: MeasurementSystem { self }
 }

@@ -27,11 +27,10 @@ struct monoTENKIApp: App {
           Setup(setupCompleted: $setupCompleted)
         }
       }
-      .textConfigure()
+      .contentConfigure()
     }
     .onChange(of: locale.measurementSystem, initial: true) {
       guard !userModifiedMeasurementSystem else { return }
-
       switch locale.measurementSystem {
       case .metric: measurementSystemInUse = .metric
       default: measurementSystemInUse = .imperial

@@ -13,7 +13,18 @@ extension EnvironmentValues {
 }
 
 
-enum APISource: String, CaseIterable {
+enum APISource: String, CaseIterable, Identifiable {
   case weatherAPI
   case accuWeather
+
+  var id: APISource { self }
+
+  var accessibilityPronunciation: String {
+    switch self {
+    case .weatherAPI:
+      "Weather A P I"
+    case .accuWeather:
+      "Accu Weather"
+    }
+  }
 }
