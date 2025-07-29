@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PermissionStyle: ButtonStyle {
-  @Environment(\.colorScheme) private var colorScheme
+  @ColorSchemeWrapper private var colorSchemeWrapper
 
   func makeBody(configuration: Configuration) -> some View {
     ZStack {
@@ -16,7 +16,7 @@ struct PermissionStyle: ButtonStyle {
         .stroke(lineWidth: 2.5)
 
       configuration.label
-        .foregroundStyle(colorScheme.foreground.opacity(configuration.isPressed ? 0.8 : 1))
+        .foregroundStyle(colorSchemeWrapper.opacity(configuration.isPressed ? 0.8 : 1))
         .padding(10)
     }
     .contentShape(RoundedRectangle(cornerRadius: 8))

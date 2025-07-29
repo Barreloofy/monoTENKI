@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ContentConfigure: ViewModifier {
   @Environment(\.colorScheme) private var colorScheme
+  @Environment(\.nightVision) private var nightVision
+  @ColorSchemeWrapper private var colorSchemeWrapper
 
   func body(content: Content) -> some View {
     content
@@ -17,9 +19,12 @@ struct ContentConfigure: ViewModifier {
       .textCase(.uppercase)
       .multilineTextAlignment(.center)
       .lineLimit(1)
+      .preferredColorScheme($colorSchemeWrapper)
+      .foregroundStyle(colorSchemeWrapper)
+      .tint(colorSchemeWrapper)
+      .animation(.default, value: nightVision)
+      .animation(.default, value: colorScheme)
       .dynamicTypeSize(...DynamicTypeSize.large)
-      .foregroundStyle(colorScheme.foreground)
-      .tint(colorScheme.foreground)
   }
 }
 

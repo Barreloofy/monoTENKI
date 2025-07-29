@@ -45,7 +45,8 @@ struct History {
 
   mutating func load() {
     do {
-      locations = try JSONDecoder().decode(Locations.self, from: Data(contentsOf: historyURL))
+      let data = try Data(contentsOf: historyURL)
+      locations = try JSONDecoder().decode(Locations.self, from: data)
     } catch {
       Logger.fileManager.error("\(error)")
     }
@@ -54,5 +55,5 @@ struct History {
 
 
 extension Logger {
-  static let fileManager = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "FileManager")
+  static let fileManager = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "History")
 }

@@ -14,10 +14,10 @@ struct Search: View {
   }
 
   @Environment(\.accessibilityReduceMotion) private var reduceMotion
-  @Environment(\.colorScheme) private var colorScheme
   @Environment(\.dismiss) private var dismiss
   @Environment(\.apiSource) private var apiSource
   @Environment(LocationAggregate.self) private var locationAggregate
+  @ColorSchemeWrapper private var colorSchemeWrapper
 
   @State private var state = SearchState.presenting
   @State private var text = ""
@@ -48,7 +48,7 @@ struct Search: View {
       TextField(
         "",
         text: $text,
-        prompt: Text("Search").foregroundStyle(colorScheme.foreground))
+        prompt: Text("Search").foregroundStyle(colorSchemeWrapper))
       .textInputAutocapitalization(.characters)
       .multilineTextAlignment(.leading)
       .debounce(id: text) {

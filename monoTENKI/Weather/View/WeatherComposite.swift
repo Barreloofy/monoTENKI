@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct WeatherComposite: View {
-  @Environment(\.colorScheme) private var colorScheme
+  @ColorSchemeWrapper private var colorSchemeWrapper
 
   @State private var presentSearch = false
-  @SettingsControllerWrapper private var settingsController
+  @SheetControllerWrapper private var settingsController
 
   let currentWeather: CurrentWeather
   let hourForecast: Hours
@@ -38,10 +38,13 @@ struct WeatherComposite: View {
             Image(systemName: "gear")
               .styled(size: 25)
           })
+
         .sheet(isPresented: $settingsController) {
           Settings()
             .sheetConfiguration()
-            .environment(_settingsController())
+            // Fix for colorScheme not updating properly when sheet active // Doesn't work inside sheetConfiguration
+            .preferredColorScheme(_colorSchemeWrapper.sheetValue)
+            .sheetController(_settingsController())
         }
       })
     .padding()

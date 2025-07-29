@@ -64,6 +64,14 @@ struct Settings: View {
             }
           })
 
+        HStack {
+          Text("Night Vision")
+
+          Spacer()
+
+          NightToggle()
+        }
+
         Spacer()
       }
       .padding()

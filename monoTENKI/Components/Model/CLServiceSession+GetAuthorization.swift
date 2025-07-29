@@ -7,7 +7,6 @@
 
 import CoreLocation
 
-// Convenience method
 extension CLServiceSession {
   /// Returns true if some level of location authorization was granted otherwise false,
   /// if location authorization is undetermined, prompts for permission.

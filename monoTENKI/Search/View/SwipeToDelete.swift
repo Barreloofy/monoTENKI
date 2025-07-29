@@ -9,8 +9,9 @@ import SwiftUI
 import UIKit
 
 struct SwipeToDelete: ViewModifier {
-  @Environment(\.accessibilityReduceMotion) private var reduceMotion
   @Environment(\.colorScheme) private var colorScheme
+  @Environment(\.accessibilityReduceMotion) private var reduceMotion
+  @ColorSchemeWrapper private var colorSchemeWrapper
 
   @State private var offset: CGFloat = .zero
 
@@ -28,7 +29,7 @@ struct SwipeToDelete: ViewModifier {
         content
       case true:
         ZStack {
-          colorScheme.foreground.padding(1) // .padding(1) needed to fix a SwiftUI rendering bug. Stackoverflow id: 79441756
+          colorSchemeWrapper.padding(1) // .padding(1) needed to fix a SwiftUI rendering bug. Stackoverflow id: 79441756
 
           content
             .accessibilityAdjustableAction { _ in

@@ -11,4 +11,5 @@ enum StorageKeys: String {
   case measurementSystemInUse
   case apiSourceInUse
   case presentSearch
+  case nightVision
 }

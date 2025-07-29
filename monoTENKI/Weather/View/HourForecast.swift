@@ -15,21 +15,9 @@ struct HourForecast: View {
 
   let hours: Hours
 
-  private var rowHeight: CGFloat {
-    horizontalSizeClass == .compact ? 30 : 45
-  }
-
-  private func calculateRowSpacing(containerHeight: CGFloat) -> CGFloat {
-    let verticalSafeArea = rowHeight
-    let contentHeight = rowHeight * CGFloat(hours.count)
-    let spacingHeight = containerHeight - (verticalSafeArea + contentHeight)
-
-    return spacingHeight / CGFloat(hours.count)
-  }
-
   var body: some View {
-    GeometryReader { proxy in
-      VStack(spacing: calculateRowSpacing(containerHeight: proxy.size.height)) {
+    VStack {
+      VStack(spacing: 0) {
         ForEach(hours) { hour in
           Row(
             leading: { Text(hour.time.formatted(.shortenedAndTimeZoneNeutral)) },
@@ -37,12 +25,14 @@ struct HourForecast: View {
               WeatherIcon(
                 name: hour.condition,
                 isDay: hour.isDay,
-                usage: .custom(rowHeight))
+                usage: .overview)
             },
             trailing: { TemperatureView(hour.temperatureCelsius) })
           .overviewFont()
           .contentShape(Rectangle())
           .onTapGesture { hourID = hour.time }
+
+          Spacer()
         }
       }
       .enabled(hourID == nil)

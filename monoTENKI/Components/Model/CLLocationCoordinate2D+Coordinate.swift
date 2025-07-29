@@ -18,7 +18,7 @@ extension CLLocationCoordinate2D {
   }
 }
 
-// Convenience property
+
 extension CLLocationCoordinate2D {
   var stringRepresentation: String {
     "\(latitude), \(longitude)"

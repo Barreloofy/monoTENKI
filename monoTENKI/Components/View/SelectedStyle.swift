@@ -16,10 +16,8 @@ struct SelectedStyle<T: Equatable>: ViewModifier {
   func body(content: Content) -> some View {
     content
       .overlay(alignment: .bottom) {
-        if target == value {
-          Rectangle()
-            .frame(height: 2)
-        }
+        Rectangle()
+          .frame(height: value == target ? 2 : 0)
       }
       .onTapGesture {
         value = target

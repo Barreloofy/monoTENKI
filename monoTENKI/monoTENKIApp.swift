@@ -16,6 +16,7 @@ struct monoTENKIApp: App {
   @AppStorage(StorageKeys.userModifiedMeasurementSystem.rawValue) private var userModifiedMeasurementSystem = false
   @AppStorage(StorageKeys.measurementSystemInUse.rawValue) private var measurementSystemInUse = MeasurementSystem.metric
   @AppStorage(StorageKeys.apiSourceInUse.rawValue) private var apiSourceInUse = APISource.weatherAPI
+  @AppStorage(StorageKeys.nightVision.rawValue) private var nightVision = false
   @State private var locationAggregate = LocationAggregate()
 
   var body: some Scene {
@@ -44,7 +45,8 @@ struct monoTENKIApp: App {
       }
     }
     .environment(locationAggregate)
-    .environment(\.apiSource, apiSourceInUse)
-    .environment(\.measurementSystem, measurementSystemInUse)
+    .apiSource(apiSourceInUse)
+    .measurementSystem(measurementSystemInUse)
+    .nightVision(nightVision)
   }
 }

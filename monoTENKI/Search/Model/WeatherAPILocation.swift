@@ -6,8 +6,8 @@
 //
 
 typealias WeatherAPILocations = [WeatherAPILocation]
-/// The Model used as the decoded object for location data.
-struct WeatherAPILocation: Codable, Identifiable, Equatable {
+/// The model produced by decoding WeatherAPI/Search.
+struct WeatherAPILocation: Decodable, Identifiable, Equatable {
   let id: Int
   let name: String
   let country: String
@@ -15,7 +15,7 @@ struct WeatherAPILocation: Codable, Identifiable, Equatable {
   let lon: Double
 }
 
-// Convenience properties
+
 extension WeatherAPILocation {
   var coordinates: String {
     "\(lat) \(lon)"
