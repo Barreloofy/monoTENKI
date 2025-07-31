@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 /// Weather aggregate model.
 @MainActor
 @Observable

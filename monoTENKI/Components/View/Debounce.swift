@@ -29,19 +29,21 @@ struct Debounce<ID: Equatable>: ViewModifier {
 
 
 extension View {
-  /// Executes the action closure after the suspension period has elapsed,
-  /// if the value of id changes before that, the task gets cancelled.
+  /// Calls the action closure after the suspension period has elapsed and the specified value has changed.
   ///
-  /// ## Overview
   /// Starts a suspension period after the specified value has changed,
   /// after the suspension period has elapsed executes the asynchronous closure.
   /// If the specified value changes, restarts the suspension period and cancels the current task.
+  ///
+  /// > Important:
+  /// The first value `id` has after the view this modifier is applied to is initialized,
+  /// will not trigger the debounce.
   ///
   /// - Parameters:
   ///   - id: The value to observe for changes, must conform to Equatable.
   ///   - duration: The length of the suspension period.
   ///   - action: An async closure that is called after the suspension period has elapsed.
-  /// - Returns: A view that executes an action when 'id' changes after a certain time has elapsed.
+  /// - Returns: A view that executes an action when `id` changes after a certain time has elapsed.
   func debounce<ID: Equatable>(
     id: ID,
     duration: TimeInterval = 0.5,

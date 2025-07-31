@@ -28,7 +28,7 @@ struct Recovery: View {
       Text("Try diffrent Source")
 
       HStack {
-        ForEach(APISource.allCases, id: \.self) {
+        ForEach(APISource.allCases) {
           Text($0.rawValue)
             .selectedStyle(target: $0, value: $apiSourceInUse)
         }

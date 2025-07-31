@@ -11,13 +11,11 @@ struct MeasurementView: View {
   @AppStorage(StorageKeys.userModifiedMeasurementSystem.rawValue) var userModifiedMeasurementSystem = false
   @AppStorage(StorageKeys.measurementSystemInUse.rawValue) private var measurementSystemInUse = MeasurementSystem.metric
 
-  private let columnLayout = Array(repeating: GridItem(), count: 2)
-
   var body: some View {
     VStack(spacing: 50) {
       SettingsNavigationBar(title: "Units")
 
-      LazyVGrid(columns: columnLayout) {
+      LazyVGrid(columns: .twoColumnLayout) {
         ForEach(MeasurementSystem.allCases) { system in
           Text(system.rawValue)
             .selectedStyle(target: system, value: $measurementSystemInUse) {

@@ -33,12 +33,12 @@ struct TemperatureView: View {
   }
 
   var body: some View {
-    Text(String(text + temperature.temperatureFormatter(measurementSystem)))
+    Text(text + temperature.formatted(.temperature(measurementSystem)))
       .accessibilityLabel(
-        String(
-          accessibilityText + temperature.temperatureFormatter(
+        accessibilityText + temperature.formatted(
+          .temperature(
             measurementSystem,
-            unitWidth: .wide,
+            width: .wide,
             hideScaleName: false)))
   }
 }

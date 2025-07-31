@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentConfigure: ViewModifier {
+  @Environment(\.accessibilityReduceMotion) private var reduceMotion
   @Environment(\.colorScheme) private var colorScheme
   @Environment(\.nightVision) private var nightVision
   @ColorSchemeWrapper private var colorSchemeWrapper
@@ -22,8 +23,8 @@ struct ContentConfigure: ViewModifier {
       .preferredColorScheme($colorSchemeWrapper)
       .foregroundStyle(colorSchemeWrapper)
       .tint(colorSchemeWrapper)
-      .animation(.default, value: nightVision)
-      .animation(.default, value: colorScheme)
+      .animation(reduceMotion ? nil : .default, value: nightVision)
+      .animation(reduceMotion ? nil : .default, value: colorScheme)
       .dynamicTypeSize(...DynamicTypeSize.large)
   }
 }

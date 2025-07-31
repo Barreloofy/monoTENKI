@@ -64,13 +64,7 @@ struct Settings: View {
             }
           })
 
-        HStack {
-          Text("Night Vision")
-
-          Spacer()
-
-          NightToggle()
-        }
+        NightToggle()
 
         Spacer()
       }

@@ -8,9 +8,13 @@
 import Foundation
 
 extension JSONDecoder.DateDecodingStrategy {
-  /// Converts a JSON String date: "yyyy-MM-dd HH:mm", "yyyy-MM-dd" to a Swift 'Date' type,
-  /// the date-components are 'ISO 8601' but the format itself here, is not compliant.
-  /// Important, this Date-decoder uses a dateFormatter with the 'timeZone' property set to 'UTC'.
+  /// Converts a JSON String date: "yyyy-MM-dd HH:mm", "yyyy-MM-dd" to `Date` type.
+  ///
+  /// > Important:
+  /// Date components are `ISO 8601` but the format itself, here, is not compliant.
+  ///
+  /// > Important:
+  /// Date-decoder uses a dateFormatter with the `timeZone` property set to UTC.
   static var weatherAPIDateStrategy: Self {
     .custom { decoder in
       let container = try decoder.singleValueContainer()
@@ -33,7 +37,7 @@ extension JSONDecoder.DateDecodingStrategy {
 
 
 extension JSONDecoder.DateDecodingStrategy {
-  /// Converts a JSON string date following the 'ISO 8601' standard into a Swift 'Date' type, with timeZone set to 'UTC'.
+  /// Converts a JSON string date following the `ISO 8601` standard into `Date` type, with timeZone set to UTC.
   static var iso8601UTC: Self {
     .custom { decoder in
       let container = try decoder.singleValueContainer()

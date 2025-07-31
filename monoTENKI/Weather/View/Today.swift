@@ -43,13 +43,14 @@ struct Today: View {
           .primaryFontSecondary()
           .lineLimit(nil)
       }
-      .containerRelativeFrame(.horizontal)
-      .contentShape(Rectangle())
-      .onTapGesture { presentDetails = true }
       .enabled(!presentDetails)
 
-      CurrentDetailPage(present: $presentDetails, weather: current)
+      CurrentDetailPage(weather: current)
+        .enabled(presentDetails)
     }
+    .containerRelativeFrame([.vertical, .horizontal], alignment: presentDetails ? .center : .top)
+    .contentShape(Rectangle())
+    .onTapGesture { presentDetails() }
     .animation(reduceMotion ? nil : .easeInOut(duration: 0.75), value: presentDetails)
     .sensoryFeedback(.impact, trigger: presentDetails)
   }

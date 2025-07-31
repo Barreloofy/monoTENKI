@@ -26,7 +26,6 @@ struct AsyncOnChange<T: Equatable>: ViewModifier {
 extension View {
   /// Executes an asynchronous closure on change of the specified value.
   ///
-  /// ## Overview
   /// After the value of id has changed and before the action closure is executed,
   /// signals cancellation of the previous action.
   ///

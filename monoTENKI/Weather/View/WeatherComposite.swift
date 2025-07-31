@@ -38,11 +38,10 @@ struct WeatherComposite: View {
             Image(systemName: "gear")
               .styled(size: 25)
           })
-
         .sheet(isPresented: $settingsController) {
           Settings()
             .sheetConfiguration()
-            // Fix for colorScheme not updating properly when sheet active // Doesn't work inside sheetConfiguration
+          // Fix for colorScheme not updating properly when sheet active // Doesn't work inside sheetConfiguration
             .preferredColorScheme(_colorSchemeWrapper.sheetValue)
             .sheetController(_settingsController())
         }

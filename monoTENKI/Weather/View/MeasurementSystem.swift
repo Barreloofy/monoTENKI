@@ -1,5 +1,5 @@
 //
-//  EnvironmentValues+MeasurementSystem.swift
+//  MeasurementSystem.swift
 //  monoTENKI
 //
 //  Created by Barreloofy on 3/23/25 at 5:49 PM.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum MeasurementSystem: String, CaseIterable, Identifiable {
+enum MeasurementSystem: String, Codable, Identifiable, CaseIterable{
   case metric
   case imperial
 
@@ -15,7 +15,6 @@ enum MeasurementSystem: String, CaseIterable, Identifiable {
 }
 
 
-// The environment-value that serves as the source of truth for whether to use metric or imperial
 extension EnvironmentValues {
   @Entry var measurementSystem = MeasurementSystem.metric
 }

@@ -8,51 +8,41 @@
 import SwiftUI
 
 struct CurrentDetailPage: View {
-  @Environment(\.colorScheme) private var colorScheme
-
-  @Binding var present: Bool
-
   let weather: CurrentWeather
 
   var body: some View {
-    ZStack {
-      colorScheme.background
+    VStack(alignment: .leading, spacing: 10) {
+      DetailSection(title: "Temperatures") {
+        TemperatureView("Now", weather.temperatures.celsius)
 
-      VStack(alignment: .leading, spacing: 10) {
-        DetailSection(title: "Temperatures") {
-          TemperatureView("Now", weather.temperatures.celsius)
+        TemperatureView("Feels Like", weather.temperatures.feelsLikeCelsius)
 
-          TemperatureView("Feels Like", weather.temperatures.feelsLikeCelsius)
+        TemperatureView("High", weather.temperatures.celsiusHigh)
 
-          TemperatureView("High", weather.temperatures.celsiusHigh)
+        TemperatureView("Low", weather.temperatures.celsiusLow)
 
-          TemperatureView("Low", weather.temperatures.celsiusLow)
-
-          Text("Humidity \(weather.temperatures.humidity.formatted(.percent))")
-        }
-
-        DetailSection(title: "Precipitation") {
-          Text("Chance \(weather.precipitation.chance.formatted(.percent))")
-
-          PrecipitationView("Rate", weather.precipitation.rateMillimeter)
-
-          PrecipitationView("Total", weather.precipitation.totalMillimeter)
-
-          Text("Type \(weather.precipitation.type)")
-        }
-
-        DetailSection(title: "Wind") {
-          Text("Direction \(weather.wind.direction)")
-            .accessibilityLabel(weather.wind.direction.windDirectionWide)
-
-          SpeedView("Speed", weather.wind.speedKilometersPerHour)
-
-          SpeedView("Gust", weather.wind.gustKilometersPerHour)
-        }
+        Text("Humidity \(weather.temperatures.humidity.formatted(.percent))")
       }
-      .offset(y: -50)
+
+      DetailSection(title: "Precipitation") {
+        Text("Chance \(weather.precipitation.chance.formatted(.percent))")
+
+        PrecipitationView("Rate", weather.precipitation.rateMillimeter)
+
+        PrecipitationView("Total", weather.precipitation.totalMillimeter)
+
+        Text("Type \(weather.precipitation.type)")
+      }
+
+      DetailSection(title: "Wind") {
+        Text("Direction \(weather.wind.direction)")
+          .accessibilityLabel(weather.wind.direction.formatted(.windDirectionWide))
+
+        SpeedView("Speed", weather.wind.speedKilometersPerHour)
+
+        SpeedView("Gust", weather.wind.gustKilometersPerHour)
+      }
     }
-    .onTapGesture { present = false }
-    .enabled(present)
+    .offset(y: -50)
   }
 }

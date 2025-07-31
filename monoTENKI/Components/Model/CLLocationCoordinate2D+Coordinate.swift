@@ -7,7 +7,6 @@
 
 import CoreLocation
 
-// Convert String to CLLocationCoordinate2D
 extension CLLocationCoordinate2D {
   static func parseCoordinate(from string: String) -> CLLocationCoordinate2D? {
     let components = string.split { $0 == "," || $0 == " " }.compactMap { Double($0) }

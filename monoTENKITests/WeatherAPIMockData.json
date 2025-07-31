@@ -1,0 +1,407 @@
+{
+    "location": {
+        "name": "London",
+        "region": "City of London, Greater London",
+        "country": "United Kingdom",
+        "lat": 51.5171,
+        "lon": -0.1062,
+        "tz_id": "Europe/London",
+        "localtime_epoch": 1753983180,
+        "localtime": "2025-07-31 18:33"
+    },
+    "current": {
+        "temp_c": 22.1,
+        "is_day": 1,
+        "condition": {
+            "text": "Light rain"
+        },
+        "wind_kph": 15.8,
+        "wind_degree": 328,
+        "wind_dir": "NNW",
+        "precip_mm": 0.0,
+        "humidity": 69,
+        "feelslike_c": 24.1,
+        "gust_kph": 24.0
+    },
+    "forecast": {
+        "forecastday": [
+            {
+                "date": "2025-07-31",
+                "day": {
+                    "maxtemp_c": 24.7,
+                    "mintemp_c": 16.5,
+                    "avgtemp_c": 19.5,
+                    "totalprecip_mm": 5.5,
+                    "totalsnow_cm": 0.0,
+                    "daily_chance_of_rain": 90,
+                    "daily_chance_of_snow": 0,
+                    "condition": {
+                        "text": "Moderate rain"
+                    }
+                },
+                "hour": [
+                    {
+                        "time": "2025-07-31 00:00",
+                        "temp_c": 18.4,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Overcast "
+                        },
+                        "wind_kph": 8.6,
+                        "wind_dir": "NNW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 14.0
+                    },
+                    {
+                        "time": "2025-07-31 01:00",
+                        "temp_c": 17.8,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Cloudy "
+                        },
+                        "wind_kph": 8.3,
+                        "wind_dir": "NW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 12.9
+                    },
+                    {
+                        "time": "2025-07-31 02:00",
+                        "temp_c": 17.3,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        },
+                        "wind_kph": 7.9,
+                        "wind_dir": "WNW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 12.1
+                    },
+                    {
+                        "time": "2025-07-31 03:00",
+                        "temp_c": 16.9,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 7.2,
+                        "wind_dir": "WNW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 10.9
+                    },
+                    {
+                        "time": "2025-07-31 04:00",
+                        "temp_c": 16.5,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        },
+                        "wind_kph": 6.5,
+                        "wind_dir": "W",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 9.9
+                    },
+                    {
+                        "time": "2025-07-31 05:00",
+                        "temp_c": 16.6,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Cloudy "
+                        },
+                        "wind_kph": 6.5,
+                        "wind_dir": "W",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 9.7
+                    },
+                    {
+                        "time": "2025-07-31 06:00",
+                        "temp_c": 17.3,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Overcast "
+                        },
+                        "wind_kph": 8.3,
+                        "wind_dir": "W",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 11.2
+                    },
+                    {
+                        "time": "2025-07-31 07:00",
+                        "temp_c": 17.5,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Light rain shower"
+                        },
+                        "wind_kph": 8.6,
+                        "wind_dir": "W",
+                        "precip_mm": 0.17,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 100,
+                        "chance_of_snow": 0,
+                        "gust_kph": 11.5
+                    },
+                    {
+                        "time": "2025-07-31 08:00",
+                        "temp_c": 17.6,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Light rain shower"
+                        },
+                        "wind_kph": 9.4,
+                        "wind_dir": "W",
+                        "precip_mm": 0.58,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 100,
+                        "chance_of_snow": 0,
+                        "gust_kph": 12.5
+                    },
+                    {
+                        "time": "2025-07-31 09:00",
+                        "temp_c": 17.7,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Light rain shower"
+                        },
+                        "wind_kph": 10.1,
+                        "wind_dir": "W",
+                        "precip_mm": 0.47,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 100,
+                        "chance_of_snow": 0,
+                        "gust_kph": 13.6
+                    },
+                    {
+                        "time": "2025-07-31 10:00",
+                        "temp_c": 19.1,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Light rain shower"
+                        },
+                        "wind_kph": 9.4,
+                        "wind_dir": "WSW",
+                        "precip_mm": 0.29,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 100,
+                        "chance_of_snow": 0,
+                        "gust_kph": 12.7
+                    },
+                    {
+                        "time": "2025-07-31 11:00",
+                        "temp_c": 19.1,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Light rain shower"
+                        },
+                        "wind_kph": 9.7,
+                        "wind_dir": "WSW",
+                        "precip_mm": 1.52,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 100,
+                        "chance_of_snow": 0,
+                        "gust_kph": 14.0
+                    },
+                    {
+                        "time": "2025-07-31 12:00",
+                        "temp_c": 19.5,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Light rain shower"
+                        },
+                        "wind_kph": 10.4,
+                        "wind_dir": "W",
+                        "precip_mm": 1.02,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 100,
+                        "chance_of_snow": 0,
+                        "gust_kph": 16.6
+                    },
+                    {
+                        "time": "2025-07-31 13:00",
+                        "temp_c": 21.0,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Light rain shower"
+                        },
+                        "wind_kph": 8.6,
+                        "wind_dir": "WNW",
+                        "precip_mm": 0.69,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 100,
+                        "chance_of_snow": 0,
+                        "gust_kph": 11.4
+                    },
+                    {
+                        "time": "2025-07-31 14:00",
+                        "temp_c": 21.8,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Light rain shower"
+                        },
+                        "wind_kph": 11.2,
+                        "wind_dir": "WNW",
+                        "precip_mm": 0.75,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 100,
+                        "chance_of_snow": 0,
+                        "gust_kph": 16.4
+                    },
+                    {
+                        "time": "2025-07-31 15:00",
+                        "temp_c": 22.6,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Patchy rain nearby"
+                        },
+                        "wind_kph": 11.5,
+                        "wind_dir": "WNW",
+                        "precip_mm": 0.02,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 76,
+                        "chance_of_snow": 0,
+                        "gust_kph": 17.5
+                    },
+                    {
+                        "time": "2025-07-31 16:00",
+                        "temp_c": 24.1,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        },
+                        "wind_kph": 10.4,
+                        "wind_dir": "WNW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 15.8
+                    },
+                    {
+                        "time": "2025-07-31 17:00",
+                        "temp_c": 24.7,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        },
+                        "wind_kph": 13.0,
+                        "wind_dir": "NW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 19.7
+                    },
+                    {
+                        "time": "2025-07-31 18:00",
+                        "temp_c": 22.1,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Light rain"
+                        },
+                        "wind_kph": 15.8,
+                        "wind_dir": "NNW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 24.0
+                    },
+                    {
+                        "time": "2025-07-31 19:00",
+                        "temp_c": 21.5,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        },
+                        "wind_kph": 19.4,
+                        "wind_dir": "NNW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 28.1
+                    },
+                    {
+                        "time": "2025-07-31 20:00",
+                        "temp_c": 20.7,
+                        "is_day": 1,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        },
+                        "wind_kph": 16.2,
+                        "wind_dir": "NNW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 23.8
+                    },
+                    {
+                        "time": "2025-07-31 21:00",
+                        "temp_c": 19.9,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        },
+                        "wind_kph": 15.8,
+                        "wind_dir": "NNW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 22.9
+                    },
+                    {
+                        "time": "2025-07-31 22:00",
+                        "temp_c": 19.0,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Clear "
+                        },
+                        "wind_kph": 15.5,
+                        "wind_dir": "NNW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 21.6
+                    },
+                    {
+                        "time": "2025-07-31 23:00",
+                        "temp_c": 17.7,
+                        "is_day": 0,
+                        "condition": {
+                            "text": "Partly Cloudy "
+                        },
+                        "wind_kph": 14.0,
+                        "wind_dir": "NNW",
+                        "precip_mm": 0.0,
+                        "snow_cm": 0.0,
+                        "chance_of_rain": 0,
+                        "chance_of_snow": 0,
+                        "gust_kph": 19.3
+                    }
+                ]
+            }
+        ]
+    }
+}

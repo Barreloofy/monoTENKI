@@ -31,7 +31,7 @@ struct WeatherIcon: View {
   }
 
   var body: some View {
-    Image(systemName: name.presentIcon(isDay: isDay))
+    Image(systemName: name.formatted(.sfSymbols(isDay: isDay)))
       .styled(size: size)
       .accessibilityLabel(name)
   }

@@ -7,8 +7,10 @@
 
 import Foundation
 import os
+
 /// HTTPClient with custom decoding capability.
-/// If no argument for parameter 'decoder' was provided, the default JSONDecoder will be used.
+///  
+/// If no argument for parameter `decoder` was provided, the default `JSONDecoder` will be used.
 struct HTTPClient {
   let url: URL
   let decoder: JSONDecoder
@@ -19,7 +21,9 @@ struct HTTPClient {
     self.url = url
     self.decoder = decoder
   }
-
+  
+  /// Fetches data from `url`, converts response to the specified type.
+  /// - Returns: A value of the specified type, which must conform to Decodable.
   func fetch<T: Decodable>() async throws -> T {
     do {
       let (data, response) = try await URLSession.shared.data(from: url)

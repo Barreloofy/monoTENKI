@@ -8,8 +8,12 @@
 import SwiftUI
 
 extension Image {
-  /// Applies the default image modifiers for this App,
-  /// optionally specify an image size.
+  /// The default configuration for Image.
+  /// ## Overview
+  /// The image may be smaller then the provided size,
+  /// since a default aspect ratio is applied.
+  /// - Parameters:
+  ///   - size: The size of the image frame.
   func styled(size: CGFloat?) -> some View {
     self
       .resizable()

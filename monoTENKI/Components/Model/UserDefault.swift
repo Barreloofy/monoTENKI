@@ -8,7 +8,7 @@
 import Foundation
 
 /// Convenience wrapper for UserDefaults.
-/// Access the underlying-value through the 'value' stored-property.
+/// Access the underlying value through the `value` stored-property.
 /// - Parameters:
 ///   - key: The key with which to associate the value.
 ///   - defaultValue: The value to set when no value can be found with 'key'.

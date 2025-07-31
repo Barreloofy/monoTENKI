@@ -6,27 +6,38 @@
 //
 
 import Foundation
-/// Protocol for constructing URLs, intended as an interface to build and retrive URLs for the HTTP protocol.
+
+/// Protocol for constructing URLs, intended as an interface to build and retrive URLs for the `HTTP` protocol.
 protocol URLProvider {
-  /// Constructs URL from URLComponents.
+  /// Constructs `URL` from `URLComponents`.
   /// - Parameters:
-  ///   - host: host component of an URL, see URLComponents.host for more documentation.
-  ///   - path: path component of an URL, see URLComponents.path for more documentation.
-  ///   - queryItems: query component of an URL, dictionary of type [String: String?], see URLComponents.queryItems for more documentation.
-  /// - Returns: A URL if construction succeeded else throws an error.
+  ///   - host: The host subcomponent.
+  ///   - path: The path subcomponent.
+  ///   - queryItems: A dictionary of `[String: String?]` that maps to an Array of `URLQueryItem`.
+  /// - Throws: Up to the implementation, usually a `URLError`.
+  /// - Returns: A `URL` constructed from its constituent parts.
   func constructURL(host: String, path: String, queryItems: [String: String?]) throws -> URL
 
-  /// Provides a simple interface to retrive an URL.
-  /// - Returns: A URL with the option to throw an error instead.
+  /// Provides a simple interface to retrive a `URL`.
+  ///
+  /// Implement this method when only one `URL` is required
+  /// and its construction is straightforward.
+  /// - Throws: Up to the implementation, usually a `URLError`.
+  /// - Returns: `URL`.
   func provideURL() throws -> URL
-
-  /// Provides a comprehensive interface to retrive a dictionary of URLs,
-  /// allows the construction of complex API calls with multiple API endpoints as one call.
+  
+  /// Provides a comprehensive interface to retrive a `URL`.
+  ///
+  /// Implement this method when the intended functionally is
+  /// to retrive an aggregate of data in one call.
+  ///
   /// - Parameters:
-  ///   - query: An optional query to provide.
-  /// - Returns: A Dictionary of [String:URL] where string is the custom identifier and URL the constructed URL.
+  ///   - query: An external query.
+  /// - Throws: Up to the implementation, usually a `URLError`.
+  /// - Returns: A dictionary of `[String: URL]` where the key is a prior defined identifier.
   func provideURLs(query: String) throws -> [String: URL]
 }
+
 
 extension URLProvider {
   func constructURL(host: String, path: String, queryItems: [String: String?]) throws -> URL {

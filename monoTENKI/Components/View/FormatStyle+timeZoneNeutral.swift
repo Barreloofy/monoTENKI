@@ -6,7 +6,7 @@
 //
 
 import Foundation
-// Format date time-zone neutral
+
 extension FormatStyle where Self == Date.FormatStyle {
   static var shortenedAndTimeZoneNeutral: Self {
     .Strategy(

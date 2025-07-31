@@ -22,7 +22,6 @@ enum APISource: String, CaseIterable, Identifiable {
 }
 
 
-// The environment-value that serves as the source of truth for whichever API to use.
 extension EnvironmentValues {
   @Entry var apiSource = APISource.weatherAPI
 }

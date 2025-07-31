@@ -17,7 +17,7 @@ struct ConfigureSettingsDetail: ViewModifier {
       .background(colorScheme.background)
       .toolbarVisibility(.hidden, for: .navigationBar)
       .gesture(
-        DragGesture(minimumDistance: 50, coordinateSpace: .global)
+        DragGesture(minimumDistance: 50)
           .onChanged { value in
             guard value.startLocation.x < 20,
                   value.translation.width > 60

@@ -8,54 +8,47 @@
 import SwiftUI
 
 struct DayDetailPage: View {
-  @Environment(\.colorScheme) private var colorScheme
-
-  @State private var position: Date?
-
   @Binding var id: Date?
 
   let days: Days
 
   var body: some View {
-    if let id = id {
-      ScrollView {
-        LazyVStack(spacing: 0) {
-          ForEach(days) { day in
-            VStack(alignment: .leading, spacing: 10) {
-              Text(day.date.formatted(.dateTime.weekday(.wide)))
-                .primaryFontSecondary()
+    ScrollView {
+      LazyVStack(spacing: 0) {
+        ForEach(days) { day in
+          VStack(alignment: .leading, spacing: 10) {
+            Text(day.date.formatted(.dateTime.weekday(.wide)))
+              .primaryFontSecondary()
 
-              DetailSection(title: "Temperatures") {
-                TemperatureView(
-                  "AVG",
-                  day.temperatures.celsiusAverage,
-                  accessibilityText: "Average")
+            DetailSection(title: "Temperatures") {
+              TemperatureView(
+                "AVG",
+                day.temperatures.celsiusAverage,
+                accessibilityText: "Average")
 
-                TemperatureView("High", day.temperatures.celsiusHigh)
+              TemperatureView("High", day.temperatures.celsiusHigh)
 
-                TemperatureView("Low", day.temperatures.celsiusLow)
-              }
-
-              DetailSection(title: "Precipitation") {
-                Text("Chance \(day.precipitation.chance.formatted(.percent))")
-
-                PrecipitationView("Total", day.precipitation.totalMillimeter)
-
-                Text("Type \(day.precipitation.type)")
-              }
+              TemperatureView("Low", day.temperatures.celsiusLow)
             }
-            .containerRelativeFrame(.vertical)
-            .offset(y: -50)
+
+            DetailSection(title: "Precipitation") {
+              Text("Chance \(day.precipitation.chance.formatted(.percent))")
+
+              PrecipitationView("Total", day.precipitation.totalMillimeter)
+
+              Text("Type \(day.precipitation.type)")
+            }
           }
+          .containerRelativeFrame(.vertical)
+          .offset(y: -50)
         }
-        .scrollTargetLayout()
       }
-      .scrollTargetBehavior(.paging)
-      .scrollIndicators(.never)
-      .scrollPosition(id: $position)
-      .background(colorScheme.background)
-      .onTapGesture { self.id = nil }
-      .onAppear { position = id }
+      .scrollTargetLayout()
     }
+    .scrollTargetBehavior(.paging)
+    .scrollPosition(id: $id)
+    .scrollIndicators(.never)
+    .onTapGesture { id = nil }
+    .enabled(id != nil)
   }
 }

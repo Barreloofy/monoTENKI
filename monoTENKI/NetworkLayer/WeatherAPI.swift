@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 /// Concrete interface for WeatherAPI.com.
 enum WeatherAPI {
   enum Service: URLProvider {

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 /// Concrete interface for AccuWeather.
 enum AccuWeather {
   enum Service: URLProvider {

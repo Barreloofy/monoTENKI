@@ -10,7 +10,7 @@ import SwiftUI
 struct SettingsNavigationBar: View {
   @Environment(\.isPresented) private var isPresented
   @Environment(\.dismiss) private var dismiss
-  @Environment(SheetController.self) private var settingsController
+  @Environment(SettingsController.self) private var settingsController
 
   let title: String
 

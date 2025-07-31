@@ -35,7 +35,7 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "29D00D442E2BE2720029C2C2"
+               BlueprintIdentifier = "2969DEAD2E3ACCED007276D4"
                BuildableName = "monoTENKITests.xctest"
                BlueprintName = "monoTENKITests"
                ReferencedContainer = "container:monoTENKI.xcodeproj">

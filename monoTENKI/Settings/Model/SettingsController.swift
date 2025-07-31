@@ -1,5 +1,5 @@
 //
-// SheetController.swift
+// SettingsController.swift
 // monoTENKI
 //
 // Created by Barreloofy on 7/27/25 at 5:34 PM
@@ -9,7 +9,7 @@ import SwiftUI
 
 @MainActor
 @Observable
-class SheetController {
+class SettingsController {
   var present = false
 
   func callAsFunction() { present() }
@@ -18,7 +18,7 @@ class SheetController {
 
 @MainActor
 @propertyWrapper struct SheetControllerWrapper: DynamicProperty {
-  @State private var settingsController = SheetController()
+  @State private var settingsController = SettingsController()
 
   var wrappedValue: Bool {
     get { settingsController.present }
@@ -27,14 +27,14 @@ class SheetController {
 
   var projectedValue: Binding<Bool> { $settingsController.present }
 
-  func callAsFunction() -> SheetController {
+  func callAsFunction() -> SettingsController {
     settingsController
   }
 }
 
 
 extension View {
-  func sheetController(_ sheetController: SheetController) -> some View {
+  func sheetController(_ sheetController: SettingsController) -> some View {
     environment(sheetController)
   }
 }

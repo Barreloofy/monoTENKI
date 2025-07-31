@@ -33,11 +33,7 @@ struct SpeedView: View {
   }
 
   var body: some View {
-    Text(String(text + speed.SpeedFormatter(measurementSystem)))
-      .accessibilityLabel(
-        String(
-          accessibilityText + speed.SpeedFormatter(
-            measurementSystem,
-            unitWidth: .wide)))
+    Text(text + speed.formatted(.speed(measurementSystem)))
+      .accessibilityLabel(accessibilityText + speed.formatted(.speed(measurementSystem, width: .wide)))
   }
 }

@@ -10,13 +10,11 @@ import SwiftUI
 struct SourceView: View {
   @AppStorage(StorageKeys.apiSourceInUse.rawValue) private var apiSourceInUse = APISource.weatherAPI
 
-  private let columnLayout = Array(repeating: GridItem(), count: 2)
-
   var body: some View {
     VStack(spacing: 50) {
       SettingsNavigationBar(title: "Source")
 
-      LazyVGrid(columns: columnLayout) {
+      LazyVGrid(columns: .twoColumnLayout) {
         ForEach(APISource.allCases) { source in
           Text(source.rawValue)
             .selectedStyle(target: source, value: $apiSourceInUse)
