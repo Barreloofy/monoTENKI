@@ -53,20 +53,14 @@ struct WeatherComposite: View {
         ScrollView(.vertical) {
           LazyVStack(spacing: 0) {
             Today(current: currentWeather)
-              .containerRelativeFrame(.vertical, alignment: .top)
 
             HourForecast(hours: hourForecast)
-              .containerRelativeFrame(.vertical, alignment: .top)
           }
         }
-        .padding(.horizontal)
-        .containerRelativeFrame(.horizontal)
         .scrollTargetBehavior(.paging)
         .scrollIndicators(.never)
 
         DayForecast(days: dayForecast)
-          .padding(.horizontal)
-          .containerRelativeFrame([.vertical, .horizontal], alignment: .top)
       }
     }
     .ignoresSafeArea()

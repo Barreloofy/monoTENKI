@@ -30,12 +30,16 @@ struct DayForecast: View {
           .overviewFont()
           .contentShape(Rectangle())
           .onTapGesture { dayID = day.date }
+          .accessibilityElement(children: .combine)
         }
       }
+      .padding(.horizontal)
       .enabled(dayID == nil)
 
       DayDetailPage(id: $dayID, days: days)
+        .enabled(dayID != nil)
     }
+    .containerRelativeFrame([.vertical, .horizontal], alignment: .top)
     .animation(reduceMotion ? nil : .easeInOut(duration: 0.75), value: dayID)
     .sensoryFeedback(.impact, trigger: dayID)
   }

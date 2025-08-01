@@ -49,6 +49,5 @@ struct DayDetailPage: View {
     .scrollPosition(id: $id)
     .scrollIndicators(.never)
     .onTapGesture { id = nil }
-    .enabled(id != nil)
   }
 }

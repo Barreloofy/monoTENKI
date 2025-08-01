@@ -29,13 +29,17 @@ struct HourForecast: View {
         .overviewFont()
         .contentShape(Rectangle())
         .onTapGesture { hourID = hour.time }
+        .accessibilityElement(children: .combine)
 
         Spacer()
       }
+      .padding(.horizontal)
       .enabled(hourID == nil)
 
       HourDetailPage(id: $hourID, hours: hours)
+        .enabled(hourID != nil)
     }
+    .containerRelativeFrame(.vertical, alignment: .top)
     .animation(reduceMotion ? nil : .easeInOut(duration: 0.75), value: hourID)
     .sensoryFeedback(.impact, trigger: hourID)
   }
