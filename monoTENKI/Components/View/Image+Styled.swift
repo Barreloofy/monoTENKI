@@ -20,7 +20,7 @@ extension Image {
     self
       .resizable()
       .scaledToFit()
-      .frame(width: size, height: size, alignment: .top)
+      .frame(width: size, height: size)
       .fontWeight(.regular)
   }
 }
