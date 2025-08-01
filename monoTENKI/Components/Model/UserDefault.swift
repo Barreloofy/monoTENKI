@@ -7,12 +7,16 @@
 
 import Foundation
 
-/// Convenience wrapper for UserDefaults.
-/// Access the underlying value through the `value` stored-property.
-/// - Parameters:
-///   - key: The key with which to associate the value.
-///   - defaultValue: The value to set when no value can be found with 'key'.
-///   - container: The UserDefaults instance to use.
+/// A custom "wrapper" for `UserDefaults` that works with `@Observable` classes.
+///
+/// Use this type's callAsFunction methods to read and write `value`.
+/// ```swift
+/// let location = UserDefault(key: "location", "London")
+///
+/// showRestaurants(for: location())
+///
+/// location(getLocation())
+/// ```
 struct UserDefault<Value> {
   let key: String
   let defaultValue: Value
@@ -20,10 +24,33 @@ struct UserDefault<Value> {
 
   var value: Value { didSet { container.set(value, forKey: key) } }
 
+  /// - Parameters:
+  ///   - key: The key of the value stored in `UserDefaults`.
+  ///   - defaultValue: The value to use when no value corresponding to `Key` in `UserDefaults` can be found.
+  ///   - container: The `UserDefaults` container to read and write to.
   init(key: String, defaultValue: Value, container: UserDefaults = .standard) {
     self.key = key
     self.defaultValue = defaultValue
     self.container = container
     self.value = container.object(forKey: key) as? Value ?? defaultValue
+  }
+
+  /// - Parameters:
+  ///   - key: The key of the value stored in `UserDefaults`.
+  ///   - defaultValue: The value to use when no value corresponding to `Key` in `UserDefaults` can be found.
+  ///   - container: The `UserDefaults` container to read and write to.
+  init(key: StorageKeys, defaultValue: Value, container: UserDefaults = .standard) {
+    self.key = key.rawValue
+    self.defaultValue = defaultValue
+    self.container = container
+    self.value = container.object(forKey: key.rawValue) as? Value ?? defaultValue
+  }
+
+  func callAsFunction() -> Value {
+    value
+  }
+
+  mutating func callAsFunction(_ newValue: Value) {
+    value = newValue
   }
 }

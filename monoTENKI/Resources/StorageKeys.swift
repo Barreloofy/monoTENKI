@@ -12,4 +12,6 @@ enum StorageKeys: String {
   case apiSourceInUse
   case presentSearch
   case nightVision
+  case location
+  case trackLocation
 }

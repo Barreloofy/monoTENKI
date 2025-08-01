@@ -12,16 +12,16 @@ import CoreLocation
 @MainActor
 @Observable
 class LocationAggregate {
-  private var locationStorage = UserDefault(key: "location", defaultValue: "")
+  private var locationStorage = UserDefault(key: .location, defaultValue: "")
   var location: String {
-    get { locationStorage.value }
-    set { locationStorage.value = newValue }
+    get { locationStorage() }
+    set { locationStorage(newValue) }
   }
-  private var trackLocationStorage = UserDefault(key: "trackLocation", defaultValue: false)
+  private var trackLocationStorage = UserDefault(key: .trackLocation, defaultValue: false)
   var trackLocation: Bool {
-    get { trackLocationStorage.value }
+    get { trackLocationStorage() }
     set {
-      trackLocationStorage.value = newValue
+      trackLocationStorage(newValue)
       updateTrackLocation()
     }
   }
