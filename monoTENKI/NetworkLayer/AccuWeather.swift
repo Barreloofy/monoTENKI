@@ -13,6 +13,12 @@ enum AccuWeather {
     case weather
     case search(query: String)
     case geo(query: String)
+
+    static let currentKey = "current"
+    static let hourlyKey = "hourly"
+    static let dailyKey = "daily"
+    static let searchKey = "search"
+    static let geoKey = "searchGeo"
   }
 
   static func fetchWeather(for query: String) async throws -> AccuWeatherComposite {
@@ -20,9 +26,9 @@ enum AccuWeather {
 
     let urlDictionary = try Service.weather.provideURLs(query: location.key)
     guard
-      let currentURL = urlDictionary["current"],
-      let hourlyURL = urlDictionary["hourly"],
-      let dailyURL = urlDictionary["daily"]
+      let currentURL = urlDictionary[Service.currentKey],
+      let hourlyURL = urlDictionary[Service.hourlyKey],
+      let dailyURL = urlDictionary[Service.dailyKey]
     else { throw URLError(.badURL) }
 
     let clientCurrent = HTTPClient(

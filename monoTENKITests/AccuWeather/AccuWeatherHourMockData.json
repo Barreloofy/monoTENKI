@@ -1,0 +1,1362 @@
+[
+  {
+    "DateTime": "2025-08-01T15:00:00+01:00",
+    "EpochDateTime": 1754056800,
+    "WeatherIcon": 12,
+    "IconPhrase": "Showers",
+    "HasPrecipitation": true,
+    "PrecipitationType": "Rain",
+    "PrecipitationIntensity": "Light",
+    "IsDaylight": true,
+    "Temperature": {
+      "Value": 20.2,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "RealFeelTemperature": {
+      "Value": 18.1,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Pleasant"
+    },
+    "RealFeelTemperatureShade": {
+      "Value": 16.8,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Pleasant"
+    },
+    "WetBulbTemperature": {
+      "Value": 15.9,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "WetBulbGlobeTemperature": {
+      "Value": 18.3,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "DewPoint": {
+      "Value": 12.7,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "Wind": {
+      "Speed": {
+        "Value": 14.8,
+        "Unit": "km/h",
+        "UnitType": 7
+      },
+      "Direction": {
+        "Degrees": 357,
+        "Localized": "N",
+        "English": "N"
+      }
+    },
+    "WindGust": {
+      "Speed": {
+        "Value": 31.5,
+        "Unit": "km/h",
+        "UnitType": 7
+      }
+    },
+    "RelativeHumidity": 62,
+    "IndoorRelativeHumidity": 62,
+    "Visibility": {
+      "Value": 9.7,
+      "Unit": "km",
+      "UnitType": 6
+    },
+    "Ceiling": {
+      "Value": 1219,
+      "Unit": "m",
+      "UnitType": 5
+    },
+    "UVIndex": 2,
+    "UVIndexFloat": 1.6,
+    "UVIndexText": "Low",
+    "PrecipitationProbability": 60,
+    "ThunderstormProbability": 12,
+    "RainProbability": 60,
+    "SnowProbability": 0,
+    "IceProbability": 0,
+    "TotalLiquid": {
+      "Value": 0.7,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Rain": {
+      "Value": 0.7,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Snow": {
+      "Value": 0,
+      "Unit": "cm",
+      "UnitType": 4
+    },
+    "Ice": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "CloudCover": 82,
+    "Evapotranspiration": {
+      "Value": 0.3,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "SolarIrradiance": {
+      "Value": 425.5,
+      "Unit": "W/m²",
+      "UnitType": 33
+    },
+    "AccuLumenBrightnessIndex": 4,
+    "MobileLink": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=1&hbhhour=15&unit=c&lang=en-us",
+    "Link": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=1&hbhhour=15&unit=c&lang=en-us"
+  },
+  {
+    "DateTime": "2025-08-01T16:00:00+01:00",
+    "EpochDateTime": 1754060400,
+    "WeatherIcon": 13,
+    "IconPhrase": "Mostly cloudy w/ showers",
+    "HasPrecipitation": true,
+    "PrecipitationType": "Rain",
+    "PrecipitationIntensity": "Moderate",
+    "IsDaylight": true,
+    "Temperature": {
+      "Value": 20,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "RealFeelTemperature": {
+      "Value": 17.8,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Pleasant"
+    },
+    "RealFeelTemperatureShade": {
+      "Value": 16.7,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Pleasant"
+    },
+    "WetBulbTemperature": {
+      "Value": 15.7,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "WetBulbGlobeTemperature": {
+      "Value": 18.4,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "DewPoint": {
+      "Value": 12.4,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "Wind": {
+      "Speed": {
+        "Value": 14.8,
+        "Unit": "km/h",
+        "UnitType": 7
+      },
+      "Direction": {
+        "Degrees": 1,
+        "Localized": "N",
+        "English": "N"
+      }
+    },
+    "WindGust": {
+      "Speed": {
+        "Value": 33.3,
+        "Unit": "km/h",
+        "UnitType": 7
+      }
+    },
+    "RelativeHumidity": 61,
+    "IndoorRelativeHumidity": 61,
+    "Visibility": {
+      "Value": 8,
+      "Unit": "km",
+      "UnitType": 6
+    },
+    "Ceiling": {
+      "Value": 1219,
+      "Unit": "m",
+      "UnitType": 5
+    },
+    "UVIndex": 1,
+    "UVIndexFloat": 1.5,
+    "UVIndexText": "Low",
+    "PrecipitationProbability": 64,
+    "ThunderstormProbability": 12,
+    "RainProbability": 64,
+    "SnowProbability": 0,
+    "IceProbability": 0,
+    "TotalLiquid": {
+      "Value": 1.3,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Rain": {
+      "Value": 1.3,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Snow": {
+      "Value": 0,
+      "Unit": "cm",
+      "UnitType": 4
+    },
+    "Ice": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "CloudCover": 70,
+    "Evapotranspiration": {
+      "Value": 0.3,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "SolarIrradiance": {
+      "Value": 517.6,
+      "Unit": "W/m²",
+      "UnitType": 33
+    },
+    "AccuLumenBrightnessIndex": 6,
+    "MobileLink": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=1&hbhhour=16&unit=c&lang=en-us",
+    "Link": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=1&hbhhour=16&unit=c&lang=en-us"
+  },
+  {
+    "DateTime": "2025-08-01T17:00:00+01:00",
+    "EpochDateTime": 1754064000,
+    "WeatherIcon": 3,
+    "IconPhrase": "Partly sunny",
+    "HasPrecipitation": false,
+    "IsDaylight": true,
+    "Temperature": {
+      "Value": 19.5,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "RealFeelTemperature": {
+      "Value": 20,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Pleasant"
+    },
+    "RealFeelTemperatureShade": {
+      "Value": 17.9,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Pleasant"
+    },
+    "WetBulbTemperature": {
+      "Value": 15.3,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "WetBulbGlobeTemperature": {
+      "Value": 18.1,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "DewPoint": {
+      "Value": 12,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "Wind": {
+      "Speed": {
+        "Value": 14.8,
+        "Unit": "km/h",
+        "UnitType": 7
+      },
+      "Direction": {
+        "Degrees": 5,
+        "Localized": "N",
+        "English": "N"
+      }
+    },
+    "WindGust": {
+      "Speed": {
+        "Value": 31.5,
+        "Unit": "km/h",
+        "UnitType": 7
+      }
+    },
+    "RelativeHumidity": 62,
+    "IndoorRelativeHumidity": 60,
+    "Visibility": {
+      "Value": 16.1,
+      "Unit": "km",
+      "UnitType": 6
+    },
+    "Ceiling": {
+      "Value": 9144,
+      "Unit": "m",
+      "UnitType": 5
+    },
+    "UVIndex": 3,
+    "UVIndexFloat": 2.8,
+    "UVIndexText": "Moderate",
+    "PrecipitationProbability": 29,
+    "ThunderstormProbability": 5,
+    "RainProbability": 29,
+    "SnowProbability": 0,
+    "IceProbability": 0,
+    "TotalLiquid": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Rain": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Snow": {
+      "Value": 0,
+      "Unit": "cm",
+      "UnitType": 4
+    },
+    "Ice": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "CloudCover": 47,
+    "Evapotranspiration": {
+      "Value": 0.3,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "SolarIrradiance": {
+      "Value": 544.6,
+      "Unit": "W/m²",
+      "UnitType": 33
+    },
+    "AccuLumenBrightnessIndex": 8,
+    "MobileLink": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=1&hbhhour=17&unit=c&lang=en-us",
+    "Link": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=1&hbhhour=17&unit=c&lang=en-us"
+  },
+  {
+    "DateTime": "2025-08-01T18:00:00+01:00",
+    "EpochDateTime": 1754067600,
+    "WeatherIcon": 3,
+    "IconPhrase": "Partly sunny",
+    "HasPrecipitation": false,
+    "IsDaylight": true,
+    "Temperature": {
+      "Value": 19.1,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "RealFeelTemperature": {
+      "Value": 18.9,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Pleasant"
+    },
+    "RealFeelTemperatureShade": {
+      "Value": 17.4,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Pleasant"
+    },
+    "WetBulbTemperature": {
+      "Value": 15,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "WetBulbGlobeTemperature": {
+      "Value": 17.7,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "DewPoint": {
+      "Value": 11.8,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "Wind": {
+      "Speed": {
+        "Value": 14.8,
+        "Unit": "km/h",
+        "UnitType": 7
+      },
+      "Direction": {
+        "Degrees": 6,
+        "Localized": "N",
+        "English": "N"
+      }
+    },
+    "WindGust": {
+      "Speed": {
+        "Value": 29.6,
+        "Unit": "km/h",
+        "UnitType": 7
+      }
+    },
+    "RelativeHumidity": 63,
+    "IndoorRelativeHumidity": 59,
+    "Visibility": {
+      "Value": 11.3,
+      "Unit": "km",
+      "UnitType": 6
+    },
+    "Ceiling": {
+      "Value": 9144,
+      "Unit": "m",
+      "UnitType": 5
+    },
+    "UVIndex": 2,
+    "UVIndexFloat": 1.9,
+    "UVIndexText": "Low",
+    "PrecipitationProbability": 24,
+    "ThunderstormProbability": 4,
+    "RainProbability": 24,
+    "SnowProbability": 0,
+    "IceProbability": 0,
+    "TotalLiquid": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Rain": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Snow": {
+      "Value": 0,
+      "Unit": "cm",
+      "UnitType": 4
+    },
+    "Ice": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "CloudCover": 30,
+    "Evapotranspiration": {
+      "Value": 0.3,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "SolarIrradiance": {
+      "Value": 424.6,
+      "Unit": "W/m²",
+      "UnitType": 33
+    },
+    "AccuLumenBrightnessIndex": 9,
+    "MobileLink": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=1&hbhhour=18&unit=c&lang=en-us",
+    "Link": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=1&hbhhour=18&unit=c&lang=en-us"
+  },
+  {
+    "DateTime": "2025-08-01T19:00:00+01:00",
+    "EpochDateTime": 1754071200,
+    "WeatherIcon": 2,
+    "IconPhrase": "Mostly sunny",
+    "HasPrecipitation": false,
+    "IsDaylight": true,
+    "Temperature": {
+      "Value": 18.8,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "RealFeelTemperature": {
+      "Value": 18.1,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Pleasant"
+    },
+    "RealFeelTemperatureShade": {
+      "Value": 17.2,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Pleasant"
+    },
+    "WetBulbTemperature": {
+      "Value": 14.7,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "WetBulbGlobeTemperature": {
+      "Value": 17.5,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "DewPoint": {
+      "Value": 11.4,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "Wind": {
+      "Speed": {
+        "Value": 13,
+        "Unit": "km/h",
+        "UnitType": 7
+      },
+      "Direction": {
+        "Degrees": 7,
+        "Localized": "N",
+        "English": "N"
+      }
+    },
+    "WindGust": {
+      "Speed": {
+        "Value": 27.8,
+        "Unit": "km/h",
+        "UnitType": 7
+      }
+    },
+    "RelativeHumidity": 62,
+    "IndoorRelativeHumidity": 57,
+    "Visibility": {
+      "Value": 11.3,
+      "Unit": "km",
+      "UnitType": 6
+    },
+    "Ceiling": {
+      "Value": 9144,
+      "Unit": "m",
+      "UnitType": 5
+    },
+    "UVIndex": 1,
+    "UVIndexFloat": 1.2,
+    "UVIndexText": "Low",
+    "PrecipitationProbability": 22,
+    "ThunderstormProbability": 4,
+    "RainProbability": 22,
+    "SnowProbability": 0,
+    "IceProbability": 0,
+    "TotalLiquid": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Rain": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Snow": {
+      "Value": 0,
+      "Unit": "cm",
+      "UnitType": 4
+    },
+    "Ice": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "CloudCover": 12,
+    "Evapotranspiration": {
+      "Value": 0.3,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "SolarIrradiance": {
+      "Value": 263.8,
+      "Unit": "W/m²",
+      "UnitType": 33
+    },
+    "AccuLumenBrightnessIndex": 8,
+    "MobileLink": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=1&hbhhour=19&unit=c&lang=en-us",
+    "Link": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=1&hbhhour=19&unit=c&lang=en-us"
+  },
+  {
+    "DateTime": "2025-08-01T20:00:00+01:00",
+    "EpochDateTime": 1754074800,
+    "WeatherIcon": 2,
+    "IconPhrase": "Mostly sunny",
+    "HasPrecipitation": false,
+    "IsDaylight": true,
+    "Temperature": {
+      "Value": 18.4,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "RealFeelTemperature": {
+      "Value": 17.2,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Pleasant"
+    },
+    "RealFeelTemperatureShade": {
+      "Value": 17.2,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Pleasant"
+    },
+    "WetBulbTemperature": {
+      "Value": 14.5,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "WetBulbGlobeTemperature": {
+      "Value": 17.3,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "DewPoint": {
+      "Value": 11.3,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "Wind": {
+      "Speed": {
+        "Value": 13,
+        "Unit": "km/h",
+        "UnitType": 7
+      },
+      "Direction": {
+        "Degrees": 6,
+        "Localized": "N",
+        "English": "N"
+      }
+    },
+    "WindGust": {
+      "Speed": {
+        "Value": 22.2,
+        "Unit": "km/h",
+        "UnitType": 7
+      }
+    },
+    "RelativeHumidity": 63,
+    "IndoorRelativeHumidity": 57,
+    "Visibility": {
+      "Value": 11.3,
+      "Unit": "km",
+      "UnitType": 6
+    },
+    "Ceiling": {
+      "Value": 9144,
+      "Unit": "m",
+      "UnitType": 5
+    },
+    "UVIndex": 0,
+    "UVIndexFloat": 0.4,
+    "UVIndexText": "Low",
+    "PrecipitationProbability": 20,
+    "ThunderstormProbability": 0,
+    "RainProbability": 20,
+    "SnowProbability": 0,
+    "IceProbability": 0,
+    "TotalLiquid": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Rain": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Snow": {
+      "Value": 0,
+      "Unit": "cm",
+      "UnitType": 4
+    },
+    "Ice": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "CloudCover": 22,
+    "Evapotranspiration": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "SolarIrradiance": {
+      "Value": 96,
+      "Unit": "W/m²",
+      "UnitType": 33
+    },
+    "AccuLumenBrightnessIndex": 3,
+    "MobileLink": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=1&hbhhour=20&unit=c&lang=en-us",
+    "Link": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=1&hbhhour=20&unit=c&lang=en-us"
+  },
+  {
+    "DateTime": "2025-08-01T21:00:00+01:00",
+    "EpochDateTime": 1754078400,
+    "WeatherIcon": 36,
+    "IconPhrase": "Intermittent clouds",
+    "HasPrecipitation": false,
+    "IsDaylight": false,
+    "Temperature": {
+      "Value": 17.9,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "RealFeelTemperature": {
+      "Value": 17.1,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Pleasant"
+    },
+    "RealFeelTemperatureShade": {
+      "Value": 17.1,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Pleasant"
+    },
+    "WetBulbTemperature": {
+      "Value": 14.3,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "WetBulbGlobeTemperature": {
+      "Value": 17,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "DewPoint": {
+      "Value": 11.4,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "Wind": {
+      "Speed": {
+        "Value": 11.1,
+        "Unit": "km/h",
+        "UnitType": 7
+      },
+      "Direction": {
+        "Degrees": 4,
+        "Localized": "N",
+        "English": "N"
+      }
+    },
+    "WindGust": {
+      "Speed": {
+        "Value": 20.4,
+        "Unit": "km/h",
+        "UnitType": 7
+      }
+    },
+    "RelativeHumidity": 66,
+    "IndoorRelativeHumidity": 57,
+    "Visibility": {
+      "Value": 9.7,
+      "Unit": "km",
+      "UnitType": 6
+    },
+    "Ceiling": {
+      "Value": 9144,
+      "Unit": "m",
+      "UnitType": 5
+    },
+    "UVIndex": 0,
+    "UVIndexFloat": 0,
+    "UVIndexText": "Low",
+    "PrecipitationProbability": 20,
+    "ThunderstormProbability": 0,
+    "RainProbability": 20,
+    "SnowProbability": 0,
+    "IceProbability": 0,
+    "TotalLiquid": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Rain": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Snow": {
+      "Value": 0,
+      "Unit": "cm",
+      "UnitType": 4
+    },
+    "Ice": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "CloudCover": 70,
+    "Evapotranspiration": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "SolarIrradiance": {
+      "Value": 0,
+      "Unit": "W/m²",
+      "UnitType": 33
+    },
+    "AccuLumenBrightnessIndex": 0,
+    "MobileLink": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=1&hbhhour=21&unit=c&lang=en-us",
+    "Link": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=1&hbhhour=21&unit=c&lang=en-us"
+  },
+  {
+    "DateTime": "2025-08-01T22:00:00+01:00",
+    "EpochDateTime": 1754082000,
+    "WeatherIcon": 35,
+    "IconPhrase": "Partly cloudy",
+    "HasPrecipitation": false,
+    "IsDaylight": false,
+    "Temperature": {
+      "Value": 17.3,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "RealFeelTemperature": {
+      "Value": 16.7,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Pleasant"
+    },
+    "RealFeelTemperatureShade": {
+      "Value": 16.7,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Pleasant"
+    },
+    "WetBulbTemperature": {
+      "Value": 14,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "WetBulbGlobeTemperature": {
+      "Value": 16.9,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "DewPoint": {
+      "Value": 11.2,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "Wind": {
+      "Speed": {
+        "Value": 9.3,
+        "Unit": "km/h",
+        "UnitType": 7
+      },
+      "Direction": {
+        "Degrees": 360,
+        "Localized": "N",
+        "English": "N"
+      }
+    },
+    "WindGust": {
+      "Speed": {
+        "Value": 16.7,
+        "Unit": "km/h",
+        "UnitType": 7
+      }
+    },
+    "RelativeHumidity": 67,
+    "IndoorRelativeHumidity": 57,
+    "Visibility": {
+      "Value": 9.7,
+      "Unit": "km",
+      "UnitType": 6
+    },
+    "Ceiling": {
+      "Value": 9144,
+      "Unit": "m",
+      "UnitType": 5
+    },
+    "UVIndex": 0,
+    "UVIndexFloat": 0,
+    "UVIndexText": "Low",
+    "PrecipitationProbability": 20,
+    "ThunderstormProbability": 0,
+    "RainProbability": 20,
+    "SnowProbability": 0,
+    "IceProbability": 0,
+    "TotalLiquid": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Rain": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Snow": {
+      "Value": 0,
+      "Unit": "cm",
+      "UnitType": 4
+    },
+    "Ice": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "CloudCover": 40,
+    "Evapotranspiration": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "SolarIrradiance": {
+      "Value": 0,
+      "Unit": "W/m²",
+      "UnitType": 33
+    },
+    "AccuLumenBrightnessIndex": 0,
+    "MobileLink": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=1&hbhhour=22&unit=c&lang=en-us",
+    "Link": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=1&hbhhour=22&unit=c&lang=en-us"
+  },
+  {
+    "DateTime": "2025-08-01T23:00:00+01:00",
+    "EpochDateTime": 1754085600,
+    "WeatherIcon": 35,
+    "IconPhrase": "Partly cloudy",
+    "HasPrecipitation": false,
+    "IsDaylight": false,
+    "Temperature": {
+      "Value": 16.6,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "RealFeelTemperature": {
+      "Value": 16,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Cool"
+    },
+    "RealFeelTemperatureShade": {
+      "Value": 16,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Cool"
+    },
+    "WetBulbTemperature": {
+      "Value": 13.6,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "WetBulbGlobeTemperature": {
+      "Value": 16.4,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "DewPoint": {
+      "Value": 11.1,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "Wind": {
+      "Speed": {
+        "Value": 9.3,
+        "Unit": "km/h",
+        "UnitType": 7
+      },
+      "Direction": {
+        "Degrees": 354,
+        "Localized": "N",
+        "English": "N"
+      }
+    },
+    "WindGust": {
+      "Speed": {
+        "Value": 16.7,
+        "Unit": "km/h",
+        "UnitType": 7
+      }
+    },
+    "RelativeHumidity": 70,
+    "IndoorRelativeHumidity": 56,
+    "Visibility": {
+      "Value": 9.7,
+      "Unit": "km",
+      "UnitType": 6
+    },
+    "Ceiling": {
+      "Value": 9144,
+      "Unit": "m",
+      "UnitType": 5
+    },
+    "UVIndex": 0,
+    "UVIndexFloat": 0,
+    "UVIndexText": "Low",
+    "PrecipitationProbability": 20,
+    "ThunderstormProbability": 0,
+    "RainProbability": 20,
+    "SnowProbability": 0,
+    "IceProbability": 0,
+    "TotalLiquid": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Rain": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Snow": {
+      "Value": 0,
+      "Unit": "cm",
+      "UnitType": 4
+    },
+    "Ice": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "CloudCover": 42,
+    "Evapotranspiration": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "SolarIrradiance": {
+      "Value": 0,
+      "Unit": "W/m²",
+      "UnitType": 33
+    },
+    "AccuLumenBrightnessIndex": 0,
+    "MobileLink": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=1&hbhhour=23&unit=c&lang=en-us",
+    "Link": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=1&hbhhour=23&unit=c&lang=en-us"
+  },
+  {
+    "DateTime": "2025-08-02T00:00:00+01:00",
+    "EpochDateTime": 1754089200,
+    "WeatherIcon": 35,
+    "IconPhrase": "Partly cloudy",
+    "HasPrecipitation": false,
+    "IsDaylight": false,
+    "Temperature": {
+      "Value": 16.1,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "RealFeelTemperature": {
+      "Value": 15.5,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Cool"
+    },
+    "RealFeelTemperatureShade": {
+      "Value": 15.5,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Cool"
+    },
+    "WetBulbTemperature": {
+      "Value": 13.5,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "WetBulbGlobeTemperature": {
+      "Value": 16.2,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "DewPoint": {
+      "Value": 11.2,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "Wind": {
+      "Speed": {
+        "Value": 9.3,
+        "Unit": "km/h",
+        "UnitType": 7
+      },
+      "Direction": {
+        "Degrees": 347,
+        "Localized": "NNW",
+        "English": "NNW"
+      }
+    },
+    "WindGust": {
+      "Speed": {
+        "Value": 18.5,
+        "Unit": "km/h",
+        "UnitType": 7
+      }
+    },
+    "RelativeHumidity": 73,
+    "IndoorRelativeHumidity": 57,
+    "Visibility": {
+      "Value": 11.3,
+      "Unit": "km",
+      "UnitType": 6
+    },
+    "Ceiling": {
+      "Value": 9144,
+      "Unit": "m",
+      "UnitType": 5
+    },
+    "UVIndex": 0,
+    "UVIndexFloat": 0,
+    "UVIndexText": "Low",
+    "PrecipitationProbability": 20,
+    "ThunderstormProbability": 0,
+    "RainProbability": 20,
+    "SnowProbability": 0,
+    "IceProbability": 0,
+    "TotalLiquid": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Rain": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Snow": {
+      "Value": 0,
+      "Unit": "cm",
+      "UnitType": 4
+    },
+    "Ice": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "CloudCover": 45,
+    "Evapotranspiration": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "SolarIrradiance": {
+      "Value": 0,
+      "Unit": "W/m²",
+      "UnitType": 33
+    },
+    "AccuLumenBrightnessIndex": 0,
+    "MobileLink": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=2&hbhhour=0&unit=c&lang=en-us",
+    "Link": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=2&hbhhour=0&unit=c&lang=en-us"
+  },
+  {
+    "DateTime": "2025-08-02T01:00:00+01:00",
+    "EpochDateTime": 1754092800,
+    "WeatherIcon": 35,
+    "IconPhrase": "Partly cloudy",
+    "HasPrecipitation": false,
+    "IsDaylight": false,
+    "Temperature": {
+      "Value": 15.7,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "RealFeelTemperature": {
+      "Value": 15.1,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Cool"
+    },
+    "RealFeelTemperatureShade": {
+      "Value": 15.1,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Cool"
+    },
+    "WetBulbTemperature": {
+      "Value": 13.1,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "WetBulbGlobeTemperature": {
+      "Value": 15.8,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "DewPoint": {
+      "Value": 10.9,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "Wind": {
+      "Speed": {
+        "Value": 9.3,
+        "Unit": "km/h",
+        "UnitType": 7
+      },
+      "Direction": {
+        "Degrees": 340,
+        "Localized": "NNW",
+        "English": "NNW"
+      }
+    },
+    "WindGust": {
+      "Speed": {
+        "Value": 18.5,
+        "Unit": "km/h",
+        "UnitType": 7
+      }
+    },
+    "RelativeHumidity": 73,
+    "IndoorRelativeHumidity": 56,
+    "Visibility": {
+      "Value": 11.3,
+      "Unit": "km",
+      "UnitType": 6
+    },
+    "Ceiling": {
+      "Value": 9144,
+      "Unit": "m",
+      "UnitType": 5
+    },
+    "UVIndex": 0,
+    "UVIndexFloat": 0,
+    "UVIndexText": "Low",
+    "PrecipitationProbability": 13,
+    "ThunderstormProbability": 0,
+    "RainProbability": 13,
+    "SnowProbability": 0,
+    "IceProbability": 0,
+    "TotalLiquid": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Rain": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Snow": {
+      "Value": 0,
+      "Unit": "cm",
+      "UnitType": 4
+    },
+    "Ice": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "CloudCover": 47,
+    "Evapotranspiration": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "SolarIrradiance": {
+      "Value": 0,
+      "Unit": "W/m²",
+      "UnitType": 33
+    },
+    "AccuLumenBrightnessIndex": 0,
+    "MobileLink": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=2&hbhhour=1&unit=c&lang=en-us",
+    "Link": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=2&hbhhour=1&unit=c&lang=en-us"
+  },
+  {
+    "DateTime": "2025-08-02T02:00:00+01:00",
+    "EpochDateTime": 1754096400,
+    "WeatherIcon": 35,
+    "IconPhrase": "Partly cloudy",
+    "HasPrecipitation": false,
+    "IsDaylight": false,
+    "Temperature": {
+      "Value": 15,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "RealFeelTemperature": {
+      "Value": 14.4,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Cool"
+    },
+    "RealFeelTemperatureShade": {
+      "Value": 14.4,
+      "Unit": "C",
+      "UnitType": 17,
+      "Phrase": "Cool"
+    },
+    "WetBulbTemperature": {
+      "Value": 12.7,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "WetBulbGlobeTemperature": {
+      "Value": 15.2,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "DewPoint": {
+      "Value": 10.7,
+      "Unit": "C",
+      "UnitType": 17
+    },
+    "Wind": {
+      "Speed": {
+        "Value": 9.3,
+        "Unit": "km/h",
+        "UnitType": 7
+      },
+      "Direction": {
+        "Degrees": 335,
+        "Localized": "NNW",
+        "English": "NNW"
+      }
+    },
+    "WindGust": {
+      "Speed": {
+        "Value": 16.7,
+        "Unit": "km/h",
+        "UnitType": 7
+      }
+    },
+    "RelativeHumidity": 75,
+    "IndoorRelativeHumidity": 55,
+    "Visibility": {
+      "Value": 11.3,
+      "Unit": "km",
+      "UnitType": 6
+    },
+    "Ceiling": {
+      "Value": 9144,
+      "Unit": "m",
+      "UnitType": 5
+    },
+    "UVIndex": 0,
+    "UVIndexFloat": 0,
+    "UVIndexText": "Low",
+    "PrecipitationProbability": 0,
+    "ThunderstormProbability": 0,
+    "RainProbability": 0,
+    "SnowProbability": 0,
+    "IceProbability": 0,
+    "TotalLiquid": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Rain": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "Snow": {
+      "Value": 0,
+      "Unit": "cm",
+      "UnitType": 4
+    },
+    "Ice": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "CloudCover": 31,
+    "Evapotranspiration": {
+      "Value": 0,
+      "Unit": "mm",
+      "UnitType": 3
+    },
+    "SolarIrradiance": {
+      "Value": 0,
+      "Unit": "W/m²",
+      "UnitType": 33
+    },
+    "AccuLumenBrightnessIndex": 0,
+    "MobileLink": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=2&hbhhour=2&unit=c&lang=en-us",
+    "Link": "http://www.accuweather.com/en/gb/london/ec4a-2/hourly-weather-forecast/328328?day=2&hbhhour=2&unit=c&lang=en-us"
+  }
+]

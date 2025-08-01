@@ -36,11 +36,6 @@ extension WeatherAPI.Service {
   }
 
   func provideURLs(query: String) throws -> [String : URL] {
-    switch self {
-    case .weather:
-      try ["weather": provideURL()]
-    case .search:
-      try ["search": provideURL()]
-    }
+    throw URLError(.badURL)
   }
 }

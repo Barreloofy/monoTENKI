@@ -42,7 +42,7 @@ extension AccuWeather.Service {
 
     switch self {
     case .weather:
-      try urlDictionary["current"] = constructURL(
+      try urlDictionary[Self.currentKey] = constructURL(
         host: "dataservice.accuweather.com",
         path: "/currentconditions/v1/\(query)",
         queryItems: [
@@ -50,7 +50,7 @@ extension AccuWeather.Service {
           "details": "true",
         ])
 
-      try urlDictionary["hourly"] = constructURL(
+      try urlDictionary[Self.hourlyKey] = constructURL(
         host: "dataservice.accuweather.com",
         path: "/forecasts/v1/hourly/12hour/\(query)",
         queryItems: [
@@ -60,7 +60,7 @@ extension AccuWeather.Service {
         ])
 
 
-      try urlDictionary["daily"] = constructURL(
+      try urlDictionary[Self.dailyKey] = constructURL(
         host: "dataservice.accuweather.com",
         path: "/forecasts/v1/daily/5day/\(query)",
         queryItems: [
@@ -70,7 +70,7 @@ extension AccuWeather.Service {
         ])
 
     case .search(let query):
-      try urlDictionary["search"] = constructURL(
+      try urlDictionary[Self.searchKey] = constructURL(
         host: "dataservice.accuweather.com",
         path: "/locations/v1/cities/autocomplete",
         queryItems: [
@@ -79,7 +79,7 @@ extension AccuWeather.Service {
         ])
 
     case .geo(let query):
-      try urlDictionary["searchGeo"] = constructURL(
+      try urlDictionary[Self.geoKey] = constructURL(
         host: "dataservice.accuweather.com",
         path: "/locations/v1/cities/geoposition",
         queryItems: [
