@@ -82,6 +82,7 @@
 		29947D4E2D99CFD7000E3CB5 /* WeatherComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29947D4D2D99CFD1000E3CB5 /* WeatherComposite.swift */; };
 		2995AEB52D92C66D0010744B /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2995AEB42D92C6670010744B /* Search.swift */; };
 		299A55DB2D945E550089C312 /* PermissionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299A55DA2D945E540089C312 /* PermissionButtonStyle.swift */; };
+		299AB51B2E426A1A00988E8F /* HTTPClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299AB5172E4259F500988E8F /* HTTPClientTest.swift */; };
 		29A05F0C2DEB5005004F1778 /* ContentConfigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A05F0B2DEB4FEB004F1778 /* ContentConfigure.swift */; };
 		29AA8C352DC578090085B04E /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA8C342DC577FD0085B04E /* History.swift */; };
 		29ABEC3B2E170DCA0070D3B5 /* Date+CompareDateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29ABEC3A2E170D7B0070D3B5 /* Date+CompareDateComponent.swift */; };
@@ -232,6 +233,7 @@
 		2995AEB42D92C6670010744B /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		29998AD12E3BA14000E71023 /* WeatherAPITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPITest.swift; sourceTree = "<group>"; };
 		299A55DA2D945E540089C312 /* PermissionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionButtonStyle.swift; sourceTree = "<group>"; };
+		299AB5172E4259F500988E8F /* HTTPClientTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientTest.swift; sourceTree = "<group>"; };
 		29A05F0B2DEB4FEB004F1778 /* ContentConfigure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentConfigure.swift; sourceTree = "<group>"; };
 		29AA8C342DC577FD0085B04E /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		29ABEC3A2E170D7B0070D3B5 /* Date+CompareDateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+CompareDateComponent.swift"; sourceTree = "<group>"; };
@@ -509,6 +511,7 @@
 		2969DEB82E3ACCF2007276D4 /* monoTENKITests */ = {
 			isa = PBXGroup;
 			children = (
+				299AB5172E4259F500988E8F /* HTTPClientTest.swift */,
 				296D33402E3CE3A8006A10F3 /* AccuWeather */,
 				296D333E2E3CE38D006A10F3 /* WeatherAPI */,
 			);
@@ -859,6 +862,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				299AB51B2E426A1A00988E8F /* HTTPClientTest.swift in Sources */,
 				296D33432E3CE3BB006A10F3 /* AccuWeatherTest.swift in Sources */,
 				29EC6D742E3BDC5600B40C7F /* WeatherAPITest.swift in Sources */,
 			);
@@ -1012,7 +1016,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Barreloofy.monoTENKITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/monoTENKI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/monoTENKI";
 			};
@@ -1031,7 +1035,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Barreloofy.monoTENKITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/monoTENKI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/monoTENKI";
 			};
