@@ -15,7 +15,7 @@ extension JSONDecoder.DateDecodingStrategy {
   ///
   /// > Important:
   /// Date-decoder uses a dateFormatter with the `timeZone` property set to UTC.
-  static var weatherAPIDateStrategy: Self {
+  static let weatherAPIDateStrategy: Self = {
     .custom { decoder in
       let container = try decoder.singleValueContainer()
       let stringDate = try container.decode(String.self)
@@ -32,13 +32,13 @@ extension JSONDecoder.DateDecodingStrategy {
         in: container,
         debugDescription: "Date string does not match format expected by formatter")
     }
-  }
+  }()
 }
 
 
 extension JSONDecoder.DateDecodingStrategy {
   /// Converts a JSON string date following the `ISO 8601` standard into `Date` type, with timeZone set to UTC.
-  static var iso8601UTC: Self {
+  static let iso8601UTC: Self = {
     .custom { decoder in
       let container = try decoder.singleValueContainer()
       let stringDate = try String(container.decode(String.self).dropLast(6))
@@ -55,7 +55,7 @@ extension JSONDecoder.DateDecodingStrategy {
 
       return date
     }
-  }
+  }()
 }
 
 
@@ -73,11 +73,11 @@ extension JSONDecoder.KeyDecodingStrategy {
   }
 
   /// Converts JSON key from PascalCase to camelCase.
-  static var convertFromPascalCase: Self {
+  static let convertFromPascalCase: Self = {
     .custom { keys in
       let key = keys.last!.stringValue
 
       return PascalCaseCodingKey(stringValue: key)
     }
-  }
+  }()
 }

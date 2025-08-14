@@ -33,12 +33,12 @@ extension WeatherAPIWeather {
 
 
 extension WeatherAPIWeather {
-  static var decoder: JSONDecoder {
+  static let decoder: JSONDecoder = {
     let decoder = JSONDecoder()
 
     decoder.keyDecodingStrategy = .convertFromSnakeCase
     decoder.dateDecodingStrategy = .weatherAPIDateStrategy
 
     return decoder
-  }
+  }()
 }

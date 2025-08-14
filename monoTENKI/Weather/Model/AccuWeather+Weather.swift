@@ -111,12 +111,12 @@ extension AccuWeatherComposite {
 
 
 extension AccuWeatherComposite {
-  static var decoder: JSONDecoder {
+  static let decoder: JSONDecoder = {
     let decoder = JSONDecoder()
 
     decoder.keyDecodingStrategy = .convertFromPascalCase
     decoder.dateDecodingStrategy = .iso8601UTC
 
     return decoder
-  }
+  }()
 }

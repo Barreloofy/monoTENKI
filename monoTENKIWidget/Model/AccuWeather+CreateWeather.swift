@@ -34,11 +34,11 @@ struct AccuWeatherComposite: CreateWeather {
 
 
 extension AccuWeatherComposite {
-  static var decoder: JSONDecoder {
+  static let decoder: JSONDecoder = {
     let decoder = JSONDecoder()
 
     decoder.keyDecodingStrategy = .convertFromPascalCase
 
     return decoder
-  }
+  }()
 }

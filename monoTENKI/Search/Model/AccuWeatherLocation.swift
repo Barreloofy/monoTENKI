@@ -32,11 +32,11 @@ struct AccuWeatherLocation: Decodable {
 
 
 extension AccuWeatherLocation {
-  static var decoder: JSONDecoder {
+  static let decoder: JSONDecoder = {
     let decoder = JSONDecoder()
 
     decoder.keyDecodingStrategy = .convertFromPascalCase
 
     return decoder
-  }
+  }()
 }
