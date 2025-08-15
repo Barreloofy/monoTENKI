@@ -15,26 +15,17 @@ enum WeatherAPI {
   }
 
   static func fetchWeather(for query: String) async throws -> WeatherAPIWeather {
-    let searchClient = try HTTPClient(url: Service.search(query: query).provideURL())
-    let locations: WeatherAPILocations = try await searchClient.fetch()
+    let location = try await fetchPosition(for: query)
 
-    guard let location = locations.first else {
-      throw DecodingError.valueNotFound(
-        WeatherAPILocations.self,
-        .init(codingPath: [], debugDescription: "Nil found 'locations.first'"))
-    }
-    let locationID = "id:\(location.id)"
-
-    let weatherClient = try HTTPClient(
-      url: Service.weather(query: locationID).provideURL(),
+    let client = try HTTPClient(
+      url: Service.weather(query: location).provideURL(),
       decoder: WeatherAPIWeather.decoder)
 
-    return try await weatherClient.fetch()
+    return try await client.fetch()
   }
 
   static func fetchSearch(for query: String) async throws -> Locations {
     let client = try HTTPClient(url: Service.search(query: query).provideURL())
-
     let locations: WeatherAPILocations = try await client.fetch()
 
     return locations.map { location in
@@ -43,5 +34,18 @@ enum WeatherAPI {
         country: location.country,
         coordinate: .init(latitude: location.lat, longitude: location.lon))
     }
+  }
+
+  private static func fetchPosition(for query: String) async throws -> String {
+    let client = try HTTPClient(url: Service.search(query: query).provideURL())
+    let locations: WeatherAPILocations = try await client.fetch()
+
+    guard let location = locations.first else {
+      throw DecodingError.valueNotFound(
+        WeatherAPILocations.self,
+        .init(codingPath: [], debugDescription: "Nil found 'locations.first'"))
+    }
+
+    return "id:\(location.id)"
   }
 }

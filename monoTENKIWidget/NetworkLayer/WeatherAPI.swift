@@ -16,10 +16,11 @@ enum WeatherAPI {
   static func fetchWeather(for query: String) async throws -> WeatherAPIWeather {
     let location = try await fetchPosition(for: query)
 
-    let weatherClient = try HTTPClient(
+    let client = try HTTPClient(
       url: Service.weather(query: location).provideURL(),
       decoder: WeatherAPIWeather.decoder)
-    return try await weatherClient.fetch()
+
+    return try await client.fetch()
   }
 
   private static func fetchPosition(for query: String) async throws -> String {

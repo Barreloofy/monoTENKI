@@ -42,7 +42,6 @@ enum AccuWeather {
     let client = try HTTPClient(
       url: Service.geo(query: query).provideURL(),
       decoder: AccuWeatherComposite.decoder)
-
     let location: AccuWeatherLocation = try await client.fetch()
 
     return location.key

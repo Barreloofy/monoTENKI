@@ -23,8 +23,8 @@ enum AccuWeather {
 
   static func fetchWeather(for query: String) async throws -> AccuWeatherComposite {
     let location = try await AccuWeather.fetchGeo(for: query)
-
     let urlDictionary = try Service.weather.provideURLs(query: location.key)
+
     guard
       let currentURL = urlDictionary[Service.currentKey],
       let hourlyURL = urlDictionary[Service.hourlyKey],
@@ -46,19 +46,17 @@ enum AccuWeather {
       decoder: AccuWeatherComposite.decoder)
     async let days: AccuWeatherDayForecast = clientDays.fetch()
 
-    let weather = try await AccuWeatherComposite(
+    return try await AccuWeatherComposite(
       location: location.administrativeArea.localizedName,
       current: current,
       hourForecast: hours,
       dayForecast: days)
-    return weather
   }
 
   static func fetchSearch(for query: String) async throws -> Locations {
     let client = try HTTPClient(
       url: Service.search(query: query).provideURL(),
       decoder: AccuWeatherLocation.decoder)
-
     let locations: AccuWeatherLocations = try await client.fetch()
 
     return locations.map { location in
