@@ -20,8 +20,9 @@ enum AccuWeather {
     let location = try await fetchPosition(for: query)
     let urlDictionary = try Service.weather.provideURLs(query: location)
 
-    guard let currentURL = urlDictionary[Service.currentKey],
-          let hourURL = urlDictionary[Service.hourKey]
+    guard
+      let currentURL = urlDictionary[Service.currentKey],
+      let hourURL = urlDictionary[Service.hourKey]
     else { throw URLError(.badURL) }
 
     let currentClient = HTTPClient(

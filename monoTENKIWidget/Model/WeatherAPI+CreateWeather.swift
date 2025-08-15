@@ -12,8 +12,9 @@ extension WeatherAPIWeather {
     let oneHourInSeconds = TimeInterval(3_600)
     let nextHour = location.localtime.addingTimeInterval(oneHourInSeconds)
 
-    guard let today = forecast.forecastday.first,
-          let hour = today.hour.first(where: { $0.time.compareDateComponent(.hour, with: nextHour) })
+    guard
+      let today = forecast.forecastday.first,
+      let hour = today.hour.first(where: { $0.time.compareDateComponent(.hour, with: nextHour) })
     else {
       throw DecodingError.valueNotFound(
         WeatherAPIWeather.Forecast.self,
