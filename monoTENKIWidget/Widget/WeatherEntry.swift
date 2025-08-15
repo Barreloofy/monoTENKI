@@ -14,7 +14,7 @@ struct WeatherEntry: TimelineEntry {
 
 
 extension WeatherEntry {
-  static let mock = WeatherEntry(
+  static let placeholder = WeatherEntry(
     date: .now,
     weather: Weather(
       condition: "Clear",

@@ -7,10 +7,37 @@
 
 import Foundation
 
-enum WeatherAPI: URLProvider {
-  case geo(query: String)
-  case weather(query: String)
+enum WeatherAPI {
+  enum Service: URLProvider {
+    case geo(query: String)
+    case weather(query: String)
+  }
 
+  static func fetchWeather(for query: String) async throws -> WeatherAPIWeather {
+    let location = try await fetchPosition(for: query)
+
+    let weatherClient = try HTTPClient(
+      url: Service.weather(query: location).provideURL(),
+      decoder: WeatherAPIWeather.decoder)
+    return try await weatherClient.fetch()
+  }
+
+  private static func fetchPosition(for query: String) async throws -> String {
+    let client = try HTTPClient(url: Service.geo(query: query).provideURL())
+    let locations: WeatherAPILocations = try await client.fetch()
+
+    guard let location = locations.first else {
+      throw DecodingError.valueNotFound(
+        WeatherAPILocations.self,
+        .init(codingPath: [], debugDescription: "Nil found 'locations.first'"))
+    }
+
+    return "id:\(location.id)"
+  }
+}
+
+
+extension WeatherAPI.Service {
   private var apiKey: String {
     Bundle.main.object(forInfoDictionaryKey: "WeatherAPI.comAPIKey") as! String
   }
@@ -37,11 +64,8 @@ enum WeatherAPI: URLProvider {
         "days": "1",
       ])
   }
-  
-  func provideURLs(query: String = "") throws -> [String : URL] {
-    switch self {
-    case .geo: try ["geo": provideURL()]
-    case .weather: try ["weather": provideURL()]
-    }
+
+  func provideURLs(query: String) throws -> [String : URL] {
+    throw URLError(.badURL)
   }
 }
