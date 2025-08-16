@@ -9,10 +9,18 @@ import Testing
 import Foundation
 @testable import monoTENKI
 
+// The following Swift tests aim to validate the correctness of `HTTPClient`.
+// In order to create reliable tests, it's important to have complete and predictable control
+// over request and response, thus the additional setup of `MockURLProtocol` and `MockResponse`.
+// The former is a class inherited from `URLProtocol`,
+// an abstract class that handles the loading of protocol-specific URL data,
+// simply put, it provides an interface for handling requests and returning responses.
+// The latter, `MockResponse`, is a container for the custom response provided to `MockURLProtocol`.
+
 struct Person: Codable {
   let name: String
   let age: Int
-  let retired: Bool
+  let isRetired: Bool
 }
 
 struct MockResponse {
@@ -72,55 +80,103 @@ class MockURLProtocol: URLProtocol {
 
 @Suite(.serialized)
 struct HTTPClientTest {
-  let mockSession: URLSession = {
+  static let mockSession: URLSession = {
     let configuration = URLSessionConfiguration.ephemeral
     configuration.protocolClasses = [MockURLProtocol.self]
     return URLSession(configuration: configuration)
   }()
+  static let mockURL = URL(string: "https://httpclient-test.monotenki")!
 
-  let mockURL = URL(string: "https://httpclient-test.monotenki")!
 
-  let mockResponseSuccess = {
-    let person = Person(name: "George", age: 35, retired: false)
-    let personData = try! JSONEncoder().encode(person)
-    return MockResponse(statusCode: 200, body: personData)
-  }()
+  struct HTTPClientResponseTest {
+    let mockResponseSuccess = {
+      let person = Person(name: "George", age: 35, isRetired: false)
+      let personData = try! JSONEncoder().encode(person)
+      return MockResponse(statusCode: 200, body: personData)
+    }()
+    let mockResponseFailure = {
+      let person = Person(name: "George", age: 35, isRetired: false)
+      let personData = try! JSONEncoder().encode(person)
+      return MockResponse(statusCode: 404, body: personData)
+    }()
 
-  let mockResponseFailure = {
-    let person = Person(name: "George", age: 35, retired: false)
-    let personData = try! JSONEncoder().encode(person)
-    return MockResponse(statusCode: 404, body: personData)
-  }()
+    @Test("Validate HTTPClient fetch() succeeds")
+    func validateSuccessfulResponse() async throws {
+      let client = HTTPClient(url: mockURL, session: mockSession)
 
-  @Test("Validate HTTPClient fetch() succeeds")
-  func validateSuccessfulResponse() async throws {
-    let client = HTTPClient(url: mockURL, session: mockSession)
+      MockURLProtocol.register(
+        for: mockURL,
+        with: mockResponseSuccess,
+        requestValidator: { request in
+          request.url == mockURL
+        })
 
-    MockURLProtocol.register(
-      for: mockURL,
-      with: mockResponseSuccess,
-      requestValidator: { request in
-        request.url == mockURL
-      })
+      await #expect(throws: Never.self) {
+        try await client.fetch() as Person
+      }
+    }
 
-    await #expect(throws: Never.self) {
-      try await client.fetch() as Person
+    @Test("Validate HTTPClient fetch() fails")
+    func validateFailureResponse() async throws {
+      let client = HTTPClient(url: mockURL, session: mockSession)
+
+      MockURLProtocol.register(
+        for: mockURL,
+        with: mockResponseFailure,
+        requestValidator: { request in
+          request.url == mockURL
+        })
+
+      await #expect(throws: URLError.init(.badServerResponse)) {
+        try await client.fetch() as Person
+      }
     }
   }
 
-  @Test("Validate HTTPClient fetch() fails")
-  func validateFailureResponse() async throws {
-    let client = HTTPClient(url: mockURL, session: mockSession)
 
-    MockURLProtocol.register(
-      for: mockURL,
-      with: mockResponseFailure,
-      requestValidator: { request in
-        request.url == mockURL
-      })
+  struct HTTPClientDecoderTest {
+    let mockResponseCustomDecoder = {
+      let encoder = JSONEncoder()
+      encoder.keyEncodingStrategy = .convertToSnakeCase
 
-    await #expect(throws: URLError.init(.badServerResponse)) {
-      try await client.fetch() as Person
+      let person = Person(name: "George", age: 35, isRetired: false)
+      let personData = try! encoder.encode(person)
+      return MockResponse(statusCode: 200, body: personData)
+    }()
+    let customDecoder = {
+      let decoder = JSONDecoder()
+      decoder.keyDecodingStrategy = .convertFromSnakeCase
+      return decoder
+    }()
+
+    @Test("Validate HTTPClient uses and succeeds with correct decoder")
+    func validateSuccessfulCustomDecoder() async throws {
+      let client = HTTPClient(url: mockURL, decoder: customDecoder, session: mockSession)
+
+      MockURLProtocol.register(
+        for: mockURL,
+        with: mockResponseCustomDecoder) { request in
+          request.url == mockURL
+        }
+
+      await #expect(throws: Never.self) {
+        try await client.fetch() as Person
+      }
+    }
+
+    @Test("Validate HTTPClient uses and fails with wrong decoder")
+    func validateFailureCustomDecoder() async throws {
+      let client = HTTPClient(url: mockURL, session: mockSession)
+
+      MockURLProtocol.register(
+        for: mockURL,
+        with: mockResponseCustomDecoder) { request in
+          request.url == mockURL
+        }
+
+      await #expect(throws: DecodingError.self) {
+        try await client.fetch() as Person
+      }
     }
   }
 }

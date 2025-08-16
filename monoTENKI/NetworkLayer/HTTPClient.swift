@@ -33,7 +33,10 @@ struct HTTPClient {
   func fetch<T: Decodable>() async throws -> T {
     do {
       let (data, response) = try await session.data(from: url)
-      guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw URLError(.badServerResponse) }
+
+      guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+        throw URLError(.badServerResponse)
+      }
 
       return try decoder.decode(T.self, from: data)
 
