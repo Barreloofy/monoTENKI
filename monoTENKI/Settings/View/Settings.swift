@@ -30,38 +30,39 @@ struct Settings: View {
         NavigationLink(
           destination: { SourceView() },
           label: {
-            HStack {
-              Label(
-                title: { Text("Source:") },
-                icon: {
-                  Image(systemName: "antenna.radiowaves.left.and.right")
-                    .styled(size: 25)
-                })
-
-              Spacer()
-
-              Text(apiSourceInUse.rawValue)
-                .selectedStyle()
-                .accessibilityLabel(apiSourceInUse.accessibilityPronunciation)
-            }
+            LabeledContent(
+              content: {
+                Text(apiSourceInUse.rawValue)
+                  .selectedStyle()
+                  .accessibilityLabel(apiSourceInUse.accessibilityPronunciation)
+              },
+              label: {
+                Label(
+                  title: { Text("Source:") },
+                  icon: {
+                    Image(systemName: "antenna.radiowaves.left.and.right")
+                      .styled(size: 25)
+                  })
+              })
           })
 
         NavigationLink(
-          destination: { MeasurementView() },
+          destination: { MeasurementView()
+          },
           label: {
-            HStack {
-              Label(
-                title: { Text("Units:") },
-                icon: {
-                  Image(systemName: "ruler.fill")
-                    .styled(size: 25)
-                })
-
-              Spacer()
-
-              Text(measurementSystemInUse.rawValue)
-                .selectedStyle()
-            }
+            LabeledContent(
+              content: {
+                Text(measurementSystemInUse.rawValue)
+                  .selectedStyle()
+              },
+              label: {
+                Label(
+                  title: { Text("Units:") },
+                  icon: {
+                    Image(systemName: "ruler.fill")
+                      .styled(size: 25)
+                  })
+              })
           })
 
         NightToggle()
