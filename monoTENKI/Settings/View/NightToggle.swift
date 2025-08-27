@@ -14,25 +14,30 @@ struct NightToggle: View {
   @AppStorage(StorageKeys.nightVision.rawValue) private var nightVision = false
 
   var body: some View {
-    HStack {
-      Text("Night Vision")
-
-      Spacer()
-
-      RoundedRectangle(cornerRadius: 8)
-        .fill(colorScheme.foreground)
-        .frame(width: 35, height: 20)
-        .padding(.vertical, 4)
-        .padding(.horizontal, 8)
-        .frame(
-          width: 78,
-          alignment: nightVision ? .trailing : .leading)
-        .background(
-          nightVision ? .nightRed : colorScheme.background,
-          in: RoundedRectangle(cornerRadius: 8))
-        .animation(reduceMotion ? nil : .easeOut, value: nightVision)
-        .sensoryFeedback(.impact, trigger: nightVision)
-        .onTapGesture { nightVision.toggle() }
-    }
+    LabeledContent(
+      content: {
+        RoundedRectangle(cornerRadius: 8)
+          .fill(colorScheme.foreground)
+          .frame(width: 35, height: 20)
+          .padding(.vertical, 4)
+          .padding(.horizontal, 8)
+          .frame(
+            width: 78,
+            alignment: nightVision ? .trailing : .leading)
+          .background(
+            nightVision ? .nightRed : colorScheme.background,
+            in: RoundedRectangle(cornerRadius: 8))
+          .animation(reduceMotion ? nil : .easeOut, value: nightVision)
+          .sensoryFeedback(.impact, trigger: nightVision)
+          .onTapGesture { nightVision.toggle() }
+      },
+      label: {
+        Label("Night Vision", systemImage: "lightswitch.on")
+      })
   }
+}
+
+
+#Preview {
+  NightToggle()
 }
