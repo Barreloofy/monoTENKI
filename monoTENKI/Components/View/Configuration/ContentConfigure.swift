@@ -11,7 +11,7 @@ struct ContentConfigure: ViewModifier {
   @Environment(\.accessibilityReduceMotion) private var reduceMotion
   @Environment(\.colorScheme) private var colorScheme
   @Environment(\.nightVision) private var nightVision
-  @ColorSchemeWrapper private var colorSchemeWrapper
+  @StyleMode private var styleMode
 
   func body(content: Content) -> some View {
     content
@@ -20,9 +20,9 @@ struct ContentConfigure: ViewModifier {
       .textCase(.uppercase)
       .multilineTextAlignment(.center)
       .lineLimit(1)
-      .preferredColorScheme($colorSchemeWrapper)
-      .foregroundStyle(colorSchemeWrapper)
-      .tint(colorSchemeWrapper)
+      .preferredColorScheme($styleMode)
+      .foregroundStyle(styleMode)
+      .tint(styleMode)
       .animation(reduceMotion ? nil : .default, value: nightVision)
       .animation(reduceMotion ? nil : .default, value: colorScheme)
       .dynamicTypeSize(...DynamicTypeSize.large)

@@ -17,7 +17,7 @@ struct Search: View {
   @Environment(\.dismiss) private var dismiss
   @Environment(\.apiSource) private var apiSource
   @Environment(LocationAggregate.self) private var locationAggregate
-  @ColorSchemeWrapper private var colorSchemeWrapper
+  @StyleMode private var styleMode
 
   @State private var state = SearchState.presenting
   @State private var text = ""
@@ -48,7 +48,7 @@ struct Search: View {
       TextField(
         "",
         text: $text,
-        prompt: Text("Search").foregroundStyle(colorSchemeWrapper))
+        prompt: Text("Search").foregroundStyle(styleMode))
       .textInputAutocapitalization(.characters)
       .multilineTextAlignment(.leading)
       .debounce(id: text) {

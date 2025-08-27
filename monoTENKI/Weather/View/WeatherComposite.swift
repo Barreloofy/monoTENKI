@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WeatherComposite: View {
-  @ColorSchemeWrapper private var colorSchemeWrapper
+  @StyleMode private var styleMode
 
   @State private var presentSearch = false
   @SheetControllerWrapper private var settingsController
@@ -41,8 +41,8 @@ struct WeatherComposite: View {
         .sheet(isPresented: $settingsController) {
           Settings()
             .sheetConfiguration()
-          // Fix for colorScheme not updating properly when sheet active // Doesn't work inside sheetConfiguration
-            .preferredColorScheme(_colorSchemeWrapper.sheetValue)
+            // Fix for colorScheme not updating properly when sheet active. Doesn't work inside sheetConfiguration
+            .preferredColorScheme(_styleMode.sheetValue)
             .sheetController(_settingsController())
         }
       })

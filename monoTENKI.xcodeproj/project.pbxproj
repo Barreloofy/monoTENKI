@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29106D162E5F148700581DEB /* StyleMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29106D152E5F148700581DEB /* StyleMode.swift */; };
 		2913A5772E05C10F00B4E6CE /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2913A5762E05C10F00B4E6CE /* LocationManager.swift */; };
 		2913A5792E05C13700B4E6CE /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 2913A5782E05C13700B4E6CE /* AsyncAlgorithms */; };
 		2913A57B2E05C16400B4E6CE /* WeatherEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2913A57A2E05C16400B4E6CE /* WeatherEntry.swift */; };
@@ -170,6 +171,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		29106D152E5F148700581DEB /* StyleMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleMode.swift; sourceTree = "<group>"; };
 		2913A5762E05C10F00B4E6CE /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		2913A57A2E05C16400B4E6CE /* WeatherEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherEntry.swift; sourceTree = "<group>"; };
 		2913A57C2E05C1BD00B4E6CE /* WeatherTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTimelineProvider.swift; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 				29C656FE2DC68054000A89FC /* Enabled.swift */,
 				2934E3DF2D9AF8B200A229F4 /* ColorScheme+MainColors.swift */,
 				29804ACC2DA67EB0008404A7 /* Image+Styled.swift */,
+				29106D152E5F148700581DEB /* StyleMode.swift */,
 				292C48E62D9F594B00A0909E /* FormatStyle+timeZoneNeutral.swift */,
 				29C530492D9713DF00159C2D /* SelectedStyle.swift */,
 				29C5305B2D972EA000159C2D /* AlignedHStack.swift */,
@@ -951,6 +954,7 @@
 				29C530642D972EA000159C2D /* TemperatureFormat.swift in Sources */,
 				29FB94A92DC0022400ED5DB3 /* HourDetailPage.swift in Sources */,
 				29A05F0C2DEB5005004F1778 /* ContentConfigure.swift in Sources */,
+				29106D162E5F148700581DEB /* StyleMode.swift in Sources */,
 				2968CD162E2A3DB1007FD1D4 /* OverviewFont.swift in Sources */,
 				29F241E22E0AB5500031FAB8 /* StorageKeys.swift in Sources */,
 				2924E0432E0DFCE800164518 /* Date+RefreshPolicy.swift in Sources */,
