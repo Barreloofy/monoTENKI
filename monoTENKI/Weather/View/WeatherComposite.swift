@@ -11,7 +11,7 @@ struct WeatherComposite: View {
   @StyleMode private var styleMode
 
   @State private var presentSearch = false
-  @SheetControllerWrapper private var settingsController
+  @SheetController private var settingsController
 
   let currentWeather: CurrentWeather
   let hourForecast: Hours
@@ -36,13 +36,13 @@ struct WeatherComposite: View {
           action: { settingsController() },
           label: {
             Image(systemName: "gear")
-              .styled(size: 25)
+              .font(.title2)
+              .fontWeight(.regular)
           })
         .sheet(isPresented: $settingsController) {
           Settings()
             .sheetConfiguration()
-            // Fix for colorScheme not updating properly when sheet active. Doesn't work inside sheetConfiguration
-            .preferredColorScheme(_styleMode.sheetValue)
+            .preferredColorScheme(_styleMode.sheetValue) // Fix for colorScheme not updating properly when sheet active.
             .sheetController(_settingsController())
         }
       })
@@ -59,12 +59,13 @@ struct WeatherComposite: View {
         }
         .scrollTargetBehavior(.paging)
         .scrollIndicators(.never)
+        .containerRelativeFrame(.horizontal)
 
         DayForecast(days: dayForecast)
       }
     }
-    .ignoresSafeArea()
     .scrollTargetBehavior(.paging)
     .scrollIndicators(.never)
+    .ignoresSafeArea()
   }
 }

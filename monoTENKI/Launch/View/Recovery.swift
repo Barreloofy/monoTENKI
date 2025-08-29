@@ -39,3 +39,8 @@ struct Recovery: View {
     .padding(.horizontal)
   }
 }
+
+
+#Preview {
+  Recovery() {}
+}

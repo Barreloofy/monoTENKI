@@ -20,12 +20,7 @@ struct DayForecast: View {
         ForEach(days) { day in
           Row(
             leading: { Text(day.date.formatted(.dateTime.weekday(.wide))) },
-            center: {
-              WeatherIcon(
-                name: day.condition,
-                isDay: true,
-                usage: .overview)
-            },
+            center: { WeatherListSymbol(name: day.condition, isDay: true) },
             trailing: { TemperatureView(day.temperatures.celsiusAverage) })
           .overviewFont()
           .contentShape(Rectangle())

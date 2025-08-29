@@ -17,7 +17,7 @@ class SettingsController {
 
 
 @MainActor
-@propertyWrapper struct SheetControllerWrapper: DynamicProperty {
+@propertyWrapper struct SheetController: DynamicProperty {
   @State private var settingsController = SettingsController()
 
   var wrappedValue: Bool {

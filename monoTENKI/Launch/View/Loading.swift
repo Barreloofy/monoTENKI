@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct Loading: View {
-  @State private var text = ""
+  @State private var currentPhase = ""
 
   private let phaseSequence = ["Loading", "Loading.", "Loading..", "Loading..."]
 
   var body: some View {
-    Text(text)
+    Text(currentPhase)
       .task {
         while !Task.isCancelled {
           for phase in phaseSequence {
             try? await Task.sleep(for: .seconds(0.5))
-            text = phase
+            currentPhase = phase
           }
         }
       }

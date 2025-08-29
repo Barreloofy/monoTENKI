@@ -20,10 +20,10 @@ struct Row<
     @ViewBuilder leading: () -> ContentLeading = { EmptyView() },
     @ViewBuilder center: () -> ContentCenter = { EmptyView() },
     @ViewBuilder trailing: () -> ContentTrailing = {EmptyView() }) {
-    self.leading = leading()
-    self.center = center()
-    self.trailing = trailing()
-  }
+      self.leading = leading()
+      self.center = center()
+      self.trailing = trailing()
+    }
 
   var body: some View {
     ZStack {

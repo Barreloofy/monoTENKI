@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct Today: View {
-  @Environment(\.horizontalSizeClass) private var horizontalSizeClass
   @Environment(\.accessibilityReduceMotion) private var reduceMotion
+  @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
   @State private var presentDetails = false
 
@@ -17,11 +17,8 @@ struct Today: View {
 
   var body: some View {
     VStack {
-      VStack(spacing: horizontalSizeClass == .compact ? 50 : 100) {
-        WeatherIcon(
-          name: current.condition,
-          isDay: current.isDay,
-          usage: .primary)
+      VStack(spacing: horizontalSizeClass == .regular ? 75 : 50) {
+        WeatherSymbol(name: current.condition, isDay: current.isDay)
 
         TemperatureView(current.temperatures.celsius)
           .primaryFont()
@@ -37,13 +34,14 @@ struct Today: View {
             current.temperatures.celsiusHigh,
             accessibilityText: "High")
         }
-        .primaryFontSecondary()
+        .secondaryFont()
 
         Text(current.condition)
-          .primaryFontSecondary()
+          .secondaryFont()
           .lineLimit(nil)
       }
       .enabled(!presentDetails)
+      .padding(.vertical)
 
       CurrentDetailPage(weather: current)
         .enabled(presentDetails)

@@ -19,12 +19,7 @@ struct HourForecast: View {
       ForEach(hours) { hour in
         Row(
           leading: { Text(hour.time.formatted(.shortenedAndTimeZoneNeutral)) },
-          center: {
-            WeatherIcon(
-              name: hour.condition,
-              isDay: hour.isDay,
-              usage: .overview)
-          },
+          center: { WeatherListSymbol(name: hour.condition, isDay: hour.isDay) },
           trailing: { TemperatureView(hour.temperatureCelsius) })
         .overviewFont()
         .contentShape(Rectangle())

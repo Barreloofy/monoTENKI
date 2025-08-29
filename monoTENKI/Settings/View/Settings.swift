@@ -41,7 +41,8 @@ struct Settings: View {
                   title: { Text("Source:") },
                   icon: {
                     Image(systemName: "antenna.radiowaves.left.and.right")
-                      .styled(size: 25)
+                      .font(.title2)
+                      .fontWeight(.regular)
                   })
               })
           })
@@ -60,7 +61,8 @@ struct Settings: View {
                   title: { Text("Units:") },
                   icon: {
                     Image(systemName: "ruler.fill")
-                      .styled(size: 25)
+                      .font(.title2)
+                      .fontWeight(.regular)
                   })
               })
           })

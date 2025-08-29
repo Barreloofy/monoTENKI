@@ -10,27 +10,27 @@ import CoreLocation
 
 struct Setup: View {
   @Environment(LocationAggregate.self) private var locationAggregate
-
+  
   @AppStorage(StorageKeys.presentSearch.rawValue) private var presentSearch = false
-
+  
   @Binding var setupCompleted: Bool
-
+  
   var body: some View {
     VStack {
       Group {
         Image(systemName: "location.fill")
-          .styled(size: 100)
+          .primaryFont()
           .offset(y: -25)
-
+        
         Text("Accurate weather")
-
+        
         Text("Location is used to provide the most accurate weather")
           .font(.footnote)
           .fontWeight(.medium)
       }
       .lineLimit(nil)
       .offset(y: -25)
-
+      
       VStack {
         Button("Grand access") {
           Task {
@@ -41,7 +41,7 @@ struct Setup: View {
             }
           }
         }
-
+        
         Button("Deny access") { presentSearch = true }
           .sheet(isPresented: $presentSearch) {
             Search(setup: true)
@@ -55,4 +55,10 @@ struct Setup: View {
     }
     .onChange(of: locationAggregate.location) { setupCompleted = true }
   }
+}
+
+
+#Preview {
+  Setup(setupCompleted: .constant(false))
+    .environment(LocationAggregate())
 }

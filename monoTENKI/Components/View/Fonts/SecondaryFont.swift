@@ -1,5 +1,5 @@
 //
-// PrimaryFontSecondary.swift
+// SecondaryFont.swift
 // monoTENKI
 //
 // Created by Barreloofy on 7/17/25 at 3:35 PM
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PrimaryFontSecondary: ViewModifier {
+struct SecondaryFont: ViewModifier {
   @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
   func body(content: Content) -> some View {
@@ -18,7 +18,7 @@ struct PrimaryFontSecondary: ViewModifier {
 
 
 extension View {
-  func primaryFontSecondary() -> some View {
-    modifier(PrimaryFontSecondary())
+  func secondaryFont() -> some View {
+    modifier(SecondaryFont())
   }
 }

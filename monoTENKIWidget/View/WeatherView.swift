@@ -15,7 +15,8 @@ struct WeatherView: View {
   var body: some View {
     VStack {
       HStack {
-        WeatherIcon(name: entry.weather.condition, isDay: entry.weather.isDay, usage: .custom(65))
+        Image(systemName: entry.weather.condition.formatted(.sfSymbols(isDay: entry.weather.isDay)))
+          .font(.title)
 
         TemperatureView(entry.weather.temperatureCelsius, accessibilityText: "Now")
       }
