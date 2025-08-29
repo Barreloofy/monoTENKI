@@ -48,11 +48,11 @@ struct PrecipitationFormat: FormatStyle {
 
 
 extension FormatStyle where Self == PrecipitationFormat {
-  /// Formats Double to a precipitation unit.
+  /// Formats Double to precipitation unit.
   /// - Parameters:
-  ///   - measurementSystem: The measurementSystem to use, Metric or Imperial.
+  ///   - measurementSystem: The measurementSystem to use.
   ///   - width: The width — such as full names or abbreviations — with which to present units.
-  /// - Returns: The formatted precipitation value as a String.
+  /// - Returns: The formatted precipitation value as an instance of `PrecipitationFormat`.
   static func precipitation(
     _ measurementSystem: MeasurementSystem,
     width: Measurement<UnitLength>.FormatStyle.UnitWidth = .abbreviated)

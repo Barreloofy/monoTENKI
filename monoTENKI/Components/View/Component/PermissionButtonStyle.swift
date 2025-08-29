@@ -17,7 +17,7 @@ struct PermissionStyle: ButtonStyle {
 
       configuration.label
         .foregroundStyle(styleMode.opacity(configuration.isPressed ? 0.8 : 1))
-        .padding(10)
+        .padding(8)
     }
     .contentShape(RoundedRectangle(cornerRadius: 8))
   }
@@ -26,4 +26,11 @@ struct PermissionStyle: ButtonStyle {
 
 extension ButtonStyle where Self == PermissionStyle {
   static var permission: PermissionStyle { PermissionStyle() }
+}
+
+
+#Preview {
+  Button("Press, me") {}
+    .buttonStyle(.permission)
+    .fixedSize()
 }

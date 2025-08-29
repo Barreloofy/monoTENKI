@@ -33,7 +33,7 @@ struct SettingsNavigationBar: View {
               .fontWeight(.regular)
           })
       })
-    .topBarConfiguration()
+    .configureTopBar()
     .opacity(!isPresented ? 0 : 1)
   }
 }

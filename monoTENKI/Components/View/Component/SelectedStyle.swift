@@ -11,7 +11,6 @@ struct SelectedStyle<T: Equatable>: ViewModifier {
   @Binding var value: T
 
   let target: T
-  let observer: () -> Void
 
   func body(content: Content) -> some View {
     content
@@ -19,25 +18,14 @@ struct SelectedStyle<T: Equatable>: ViewModifier {
         Rectangle()
           .frame(height: value == target ? 2 : 0)
       }
-      .onTapGesture {
-        value = target
-        observer()
-      }
+      .onTapGesture { value = target }
   }
 }
 
 
 extension View {
-  func selectedStyle<T: Equatable>(
-    target: T,
-    value: Binding<T>,
-    observer: @escaping () -> Void = {})
-  -> some View {
-    modifier(
-      SelectedStyle(
-        value: value,
-        target: target,
-        observer: observer))
+  func selectedStyle<T: Equatable>(target: T, value: Binding<T>) -> some View {
+    modifier(SelectedStyle(value: value, target: target))
   }
 
   func selectedStyle() -> some View {

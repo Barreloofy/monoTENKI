@@ -34,6 +34,10 @@ struct PrecipitationView: View {
 
   var body: some View {
     Text(text + precipitation.formatted(.precipitation(measurementSystem)))
-      .accessibilityLabel(accessibilityText + precipitation.formatted(.precipitation(measurementSystem, width: .wide)))
+      .accessibilityLabel(
+        accessibilityText + precipitation.formatted(
+          .precipitation(
+            measurementSystem,
+            width: .wide)))
   }
 }

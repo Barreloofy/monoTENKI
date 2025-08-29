@@ -11,7 +11,7 @@ import Foundation
 ///
 /// Use this type's callAsFunction methods to read and write `value`.
 /// ```swift
-/// let location = UserDefault(key: "location", "London")
+/// var location = UserDefault(key: "location", "London")
 ///
 /// showRestaurants(for: location())
 ///

@@ -1,5 +1,5 @@
 //
-// PrimaryFont.swift
+// HeadlineFont.swift
 // monoTENKI
 //
 // Created by Barreloofy on 7/17/25 at 3:27 PM
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PrimaryFont: ViewModifier {
+struct HeadlineFont: ViewModifier {
   @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
   func body(content: Content) -> some View {
@@ -18,7 +18,7 @@ struct PrimaryFont: ViewModifier {
 
 
 extension View {
-  func primaryFont() -> some View {
-    modifier(PrimaryFont())
+  func headlineFont() -> some View {
+    modifier(HeadlineFont())
   }
 }

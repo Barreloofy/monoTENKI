@@ -1,5 +1,5 @@
 //
-// ContentConfigure.swift
+// AppConfiguration.swift
 // monoTENKI
 //
 // Created by Barreloofy on 5/31/25 at 4:56 PM
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentConfigure: ViewModifier {
+struct AppConfiguration: ViewModifier {
   @Environment(\.accessibilityReduceMotion) private var reduceMotion
   @Environment(\.colorScheme) private var colorScheme
   @Environment(\.nightVision) private var nightVision
@@ -15,6 +15,7 @@ struct ContentConfigure: ViewModifier {
 
   func body(content: Content) -> some View {
     content
+      .bodyFont()
       .fontDesign(.monospaced)
       .fontWeight(.bold)
       .textCase(.uppercase)
@@ -31,7 +32,7 @@ struct ContentConfigure: ViewModifier {
 
 
 extension View {
-  func contentConfigure() -> some View {
-    modifier(ContentConfigure())
+  func configureApp() -> some View {
+    modifier(AppConfiguration())
   }
 }

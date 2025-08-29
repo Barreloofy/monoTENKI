@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct Today: View {
-  @Environment(\.accessibilityReduceMotion) private var reduceMotion
   @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
   @State private var presentDetails = false
@@ -21,7 +20,7 @@ struct Today: View {
         WeatherSymbol(name: current.condition, isDay: current.isDay)
 
         TemperatureView(current.temperatures.celsius)
-          .primaryFont()
+          .headlineFont()
 
         HStack {
           TemperatureView(
@@ -34,10 +33,10 @@ struct Today: View {
             current.temperatures.celsiusHigh,
             accessibilityText: "High")
         }
-        .secondaryFont()
+        .subheadlineFont()
 
         Text(current.condition)
-          .secondaryFont()
+          .subheadlineFont()
           .lineLimit(nil)
       }
       .enabled(!presentDetails)
@@ -49,7 +48,7 @@ struct Today: View {
     .containerRelativeFrame([.vertical, .horizontal], alignment: presentDetails ? .center : .top)
     .contentShape(Rectangle())
     .onTapGesture { presentDetails() }
-    .animation(reduceMotion ? nil : .easeInOut(duration: 0.75), value: presentDetails)
+    .animating(presentDetails, with: .easeInOut(duration: 1))
     .sensoryFeedback(.impact, trigger: presentDetails)
   }
 }

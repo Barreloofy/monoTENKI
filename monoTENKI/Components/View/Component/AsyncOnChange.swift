@@ -26,13 +26,13 @@ struct AsyncOnChange<T: Equatable>: ViewModifier {
 extension View {
   /// Executes an asynchronous closure on change of the specified value.
   ///
-  /// After the value of id has changed and before the action closure is executed,
+  /// After the value of `id` has changed and before the action closure is executed,
   /// signals cancellation of the previous action.
   ///
   /// - Parameters:
   ///   - id: The value to observe for changes, must conform to Equatable.
-  ///   - action: An async closure that is called after the value of id has changed.
-  /// - Returns: A view that executes an action when the value of id changes.
+  ///   - action: An async closure that is called after the value of `id` has changed.
+  /// - Returns: A view that executes an action when the value of `id` changes.
   func asyncOnChange<T: Equatable>(id: T, _ action: @escaping () async -> Void) -> some View {
     modifier(AsyncOnChange(id: id, action: action))
   }

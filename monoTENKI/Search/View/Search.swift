@@ -42,7 +42,7 @@ struct Search: View {
                 .fontWeight(.regular)
             })
         })
-      .topBarConfiguration()
+      .configureTopBar()
       .enabled(!setup)
 
       TextField(
@@ -107,7 +107,7 @@ struct Search: View {
 
       case .searchError:
         Text("Search couldn't be completed, check connection status")
-          .errorTextConfiguration()
+          .configureMessage()
 
       case .locationError:
         Group {
@@ -116,12 +116,12 @@ struct Search: View {
           Link("Open Settings App", destination: URL(string: UIApplication.openSettingsURLString)!)
             .buttonStyle(.bordered)
         }
-        .errorTextConfiguration()
+        .configureMessage()
       }
 
       Spacer()
     }
-    .overviewFont()
+    .subtitleFont()
     .fontWeight(.medium)
     .padding()
     .animation(reduceMotion ? nil : .default.speed(0.5), value: state)

@@ -32,12 +32,11 @@ extension View {
   /// Calls the action closure after the suspension period has elapsed and the specified value has changed.
   ///
   /// Starts a suspension period after the specified value has changed,
-  /// after the suspension period has elapsed executes the asynchronous closure.
+  /// once the suspension period has elapsed, executes the asynchronous closure.
   /// If the specified value changes, restarts the suspension period and cancels the current task.
   ///
   /// > Important:
-  /// The first value `id` has after the view this modifier is applied to is initialized,
-  /// will not trigger the debounce.
+  /// `id`s value must not be equal to its initial value to trigger debounce.
   ///
   /// - Parameters:
   ///   - id: The value to observe for changes, must conform to Equatable.

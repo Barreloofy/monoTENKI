@@ -18,11 +18,12 @@ struct MeasurementView: View {
       LazyVGrid(columns: .twoColumnLayout) {
         ForEach(MeasurementSystem.allCases) { system in
           Text(system.rawValue)
-            .selectedStyle(target: system, value: $measurementSystemInUse) {
-              guard !userModifiedMeasurementSystem else { return }
-              userModifiedMeasurementSystem = true
-            }
+            .selectedStyle(target: system, value: $measurementSystemInUse)
         }
+      }
+      .onChange(of: measurementSystemInUse) {
+        guard !userModifiedMeasurementSystem else { return }
+        userModifiedMeasurementSystem = true
       }
 
       Spacer()

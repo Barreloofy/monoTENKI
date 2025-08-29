@@ -28,7 +28,7 @@ struct WeatherComposite: View {
           })
         .sheet(isPresented: $presentSearch) {
           Search(setup: false)
-            .sheetConfiguration()
+            .configureSheet()
         }
       },
       trailing: {
@@ -41,7 +41,7 @@ struct WeatherComposite: View {
           })
         .sheet(isPresented: $settingsController) {
           Settings()
-            .sheetConfiguration()
+            .configureSheet()
             .preferredColorScheme(_styleMode.sheetValue) // Fix for colorScheme not updating properly when sheet active.
             .sheetController(_settingsController())
         }

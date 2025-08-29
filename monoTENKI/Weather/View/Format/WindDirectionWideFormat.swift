@@ -33,8 +33,8 @@ struct WindDirectionWideFormat: FormatStyle {
 
 
 extension FormatStyle where Self == WindDirectionWideFormat {
-  /// Converts a compass direction in it's abbreviated form to its wide form, able to convert 4, 8 and 16 point-compass's.
-  /// - Returns: Returns the wide form of the input direction, if it matches one of the points, else returns self.
+  /// Converts compass direction in it's abbreviated form to its wide form, able to convert 4, 8 and 16 point-compass's.
+  /// - Returns: The wide form of the input direction, if it matches one of the points, else returns self.
   static var windDirectionWide: WindDirectionWideFormat {
     .init()
   }

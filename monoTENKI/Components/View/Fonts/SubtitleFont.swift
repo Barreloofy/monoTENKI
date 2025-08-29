@@ -1,5 +1,5 @@
 //
-// OverviewFont.swift
+// SubtitleFont\.swift
 // monoTENKI
 //
 // Created by Barreloofy on 7/18/25 at 10:30 AM
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OverviewFont: ViewModifier {
+struct SubtitleFont: ViewModifier {
   @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
   func body(content: Content) -> some View {
@@ -18,7 +18,7 @@ struct OverviewFont: ViewModifier {
 
 
 extension View {
-  func overviewFont() -> some View {
-    modifier(OverviewFont())
+  func subtitleFont() -> some View {
+    modifier(SubtitleFont())
   }
 }

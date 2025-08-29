@@ -28,7 +28,7 @@ struct monoTENKIApp: App {
           Setup(setupCompleted: $setupCompleted)
         }
       }
-      .contentConfigure()
+      .configureApp()
     }
     .onChange(of: locale.measurementSystem, initial: true) {
       guard !userModifiedMeasurementSystem else { return }

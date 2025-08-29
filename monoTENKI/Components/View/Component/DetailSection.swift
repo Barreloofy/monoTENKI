@@ -14,14 +14,12 @@ struct DetailSection<Content: View>: View {
   var body: some View {
     VStack(alignment: .leading, spacing: 5) {
       Text(title)
-        .highlightFont()
+        .titleFont()
         .underline()
 
-      Group {
-        content
-      }
-      .contentFont()
-      .offset(x: 10)
+      content
+        .bodyFont()
+        .offset(x: 10)
     }
     .accessibilityElement(children: .combine)
   }

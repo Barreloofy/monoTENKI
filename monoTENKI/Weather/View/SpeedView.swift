@@ -34,6 +34,10 @@ struct SpeedView: View {
 
   var body: some View {
     Text(text + speed.formatted(.speed(measurementSystem)))
-      .accessibilityLabel(accessibilityText + speed.formatted(.speed(measurementSystem, width: .wide)))
+      .accessibilityLabel(
+        accessibilityText + speed.formatted(
+          .speed(
+            measurementSystem,
+            width: .wide)))
   }
 }

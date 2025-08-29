@@ -10,14 +10,14 @@ import SwiftUI
 struct TopBarConfiguration: ViewModifier {
   func body(content: Content) -> some View {
     content
-      .highlightFont()
+      .titleFont()
       .fontWeight(.bold)
   }
 }
 
 
 extension View {
-  func topBarConfiguration() -> some View {
+  func configureTopBar() -> some View {
     modifier(TopBarConfiguration())
   }
 }

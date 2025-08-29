@@ -1,5 +1,5 @@
 //
-// SecondaryFont.swift
+// SubheadlineFont.swift
 // monoTENKI
 //
 // Created by Barreloofy on 7/17/25 at 3:35 PM
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SecondaryFont: ViewModifier {
+struct SubheadlineFont: ViewModifier {
   @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
   func body(content: Content) -> some View {
@@ -18,7 +18,7 @@ struct SecondaryFont: ViewModifier {
 
 
 extension View {
-  func secondaryFont() -> some View {
-    modifier(SecondaryFont())
+  func subheadlineFont() -> some View {
+    modifier(SubheadlineFont())
   }
 }

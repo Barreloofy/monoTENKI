@@ -1,5 +1,5 @@
 //
-// ErrorTextConfiguration.swift
+// MessageConfiguration.swift
 // monoTENKI
 //
 // Created by Barreloofy on 7/18/25 at 6:45 PM
@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct ErrorTextConfiguration: ViewModifier {
+struct MessageConfiguration: ViewModifier {
   func body(content: Content) -> some View {
     content
-      .font(.body)
+      .footnoteFont()
       .fontWeight(.medium)
       .lineLimit(nil)
   }
@@ -18,7 +18,7 @@ struct ErrorTextConfiguration: ViewModifier {
 
 
 extension View {
-  func errorTextConfiguration() -> some View {
-    modifier(ErrorTextConfiguration())
+  func configureMessage() -> some View {
+    modifier(MessageConfiguration())
   }
 }

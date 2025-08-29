@@ -31,12 +31,12 @@ struct TemperatureFormat: FormatStyle {
 
 
 extension FormatStyle where Self == TemperatureFormat {
-  /// Formats Double to a temperature unit.
+  /// Formats Double to temperature unit.
   /// - Parameters:
-  ///   - measurementSystem: The measurementSystem to use, Metric or Imperial.
+  ///   - measurementSystem: The measurementSystem to use.
   ///   - width: The width — such as full names or abbreviations — with which to present units.
   ///   - hideScaleName: To hide the units scale-name, such as, degrees Celsius, or degrees Fahrenheit.
-  /// - Returns: The formatted temperature as a String.
+  /// - Returns: The formatted temperature as an instance of `TemperatureFormat`.
   static func temperature(
     _ measurementSystem: MeasurementSystem,
     width: Measurement<UnitTemperature>.FormatStyle.UnitWidth = .abbreviated,

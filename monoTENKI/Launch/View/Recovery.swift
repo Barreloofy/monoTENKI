@@ -16,6 +16,7 @@ struct Recovery: View {
   var body: some View {
     VStack {
       Text("Error, check connection status, if the error persists please try again later")
+        .configureMessage()
 
       Button("Try again") {
         task?.cancel()
@@ -34,7 +35,6 @@ struct Recovery: View {
         }
       }
     }
-    .errorTextConfiguration()
     .offset(y: -75)
     .padding(.horizontal)
   }
@@ -43,4 +43,5 @@ struct Recovery: View {
 
 #Preview {
   Recovery() {}
+    .configureApp()
 }

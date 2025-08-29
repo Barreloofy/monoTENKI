@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct HourForecast: View {
-  @Environment(\.accessibilityReduceMotion) private var reduceMotion
-
   @State private var hourID: Date?
 
   let hours: Hours
@@ -21,7 +19,7 @@ struct HourForecast: View {
           leading: { Text(hour.time.formatted(.shortenedAndTimeZoneNeutral)) },
           center: { WeatherListSymbol(name: hour.condition, isDay: hour.isDay) },
           trailing: { TemperatureView(hour.temperatureCelsius) })
-        .overviewFont()
+        .subtitleFont()
         .contentShape(Rectangle())
         .onTapGesture { hourID = hour.time }
         .accessibilityElement(children: .combine)
@@ -35,7 +33,7 @@ struct HourForecast: View {
         .enabled(hourID != nil)
     }
     .containerRelativeFrame(.vertical, alignment: .top)
-    .animation(reduceMotion ? nil : .easeInOut(duration: 0.75), value: hourID)
+    .animating(hourID, with: .easeInOut(duration: 1))
     .sensoryFeedback(.impact, trigger: hourID)
   }
 }

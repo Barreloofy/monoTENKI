@@ -1,5 +1,5 @@
 //
-// ContentFont.swift
+// BodyFont.swift
 // monoTENKI
 //
 // Created by Barreloofy on 7/17/25 at 10:02 PM
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentFont: ViewModifier {
+struct BodyFont: ViewModifier {
   @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
   func body(content: Content) -> some View {
@@ -18,7 +18,7 @@ struct ContentFont: ViewModifier {
 
 
 extension View {
-  func contentFont() -> some View {
-    modifier(ContentFont())
+  func bodyFont() -> some View {
+    modifier(BodyFont())
   }
 }

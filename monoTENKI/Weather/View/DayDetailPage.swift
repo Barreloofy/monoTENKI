@@ -18,7 +18,7 @@ struct DayDetailPage: View {
         ForEach(days) { day in
           VStack(alignment: .leading, spacing: 10) {
             Text(day.date.formatted(.dateTime.weekday(.wide)))
-              .secondaryFont()
+              .subheadlineFont()
 
             DetailSection(title: "Temperatures") {
               TemperatureView(

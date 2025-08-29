@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct DayForecast: View {
-  @Environment(\.accessibilityReduceMotion) private var reduceMotion
-
   @State private var dayID: Date?
 
   let days: Days
@@ -22,7 +20,7 @@ struct DayForecast: View {
             leading: { Text(day.date.formatted(.dateTime.weekday(.wide))) },
             center: { WeatherListSymbol(name: day.condition, isDay: true) },
             trailing: { TemperatureView(day.temperatures.celsiusAverage) })
-          .overviewFont()
+          .subtitleFont()
           .contentShape(Rectangle())
           .onTapGesture { dayID = day.date }
           .accessibilityElement(children: .combine)
@@ -35,7 +33,7 @@ struct DayForecast: View {
         .enabled(dayID != nil)
     }
     .containerRelativeFrame([.vertical, .horizontal], alignment: .top)
-    .animation(reduceMotion ? nil : .easeInOut(duration: 0.75), value: dayID)
+    .animating(dayID, with: .easeInOut(duration: 1))
     .sensoryFeedback(.impact, trigger: dayID)
   }
 }

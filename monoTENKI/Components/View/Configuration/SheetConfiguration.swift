@@ -19,7 +19,7 @@ struct SheetConfiguration: ViewModifier {
 
 
 extension View {
-  func sheetConfiguration() -> some View {
+  func configureSheet() -> some View {
     modifier(SheetConfiguration())
   }
 }

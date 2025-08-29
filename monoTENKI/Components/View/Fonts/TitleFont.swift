@@ -1,5 +1,5 @@
 //
-// HighlightFont.swift
+// TitleFont.swift
 // monoTENKI
 //
 // Created by Barreloofy on 7/17/25 at 9:42 PM
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HighlightFont: ViewModifier {
+struct TitleFont: ViewModifier {
   @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
   func body(content: Content) -> some View {
@@ -18,7 +18,7 @@ struct HighlightFont: ViewModifier {
 
 
 extension View {
-  func highlightFont() -> some View {
-    modifier(HighlightFont())
+  func titleFont() -> some View {
+    modifier(TitleFont())
   }
 }

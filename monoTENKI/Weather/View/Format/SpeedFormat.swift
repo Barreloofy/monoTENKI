@@ -28,11 +28,11 @@ struct SpeedFormat: FormatStyle {
 
 
 extension FormatStyle where Self == SpeedFormat {
-  /// Formats Double to a speed unit.
+  /// Formats Double to speed unit.
   /// - Parameters:
-  ///   - measurementSystem: The measurementSystem to use, Metric or Imperial.
+  ///   - measurementSystem: The measurementSystem to use.
   ///   - width: The width — such as full names or abbreviations — with which to present units.
-  /// - Returns: The formatted speed value as a String.
+  /// - Returns: The formatted speed value as an instance of `SpeedFormat`.
   static func speed(
     _ measurementSystem: MeasurementSystem,
     width: Measurement<UnitSpeed>.FormatStyle.UnitWidth = .abbreviated)

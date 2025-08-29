@@ -53,6 +53,9 @@ struct SFSymbolsFormat: FormatStyle {
 
 
 extension FormatStyle where Self == SFSymbolsFormat {
+  /// Converts condition into its `SF Symbols` representation.
+  /// - Parameter isDay: Whether to use the day or night variant.
+  /// - Returns: The formatted condition as an instance of `SFSymbolsFormat`.
   static func sfSymbols(isDay: Bool) -> SFSymbolsFormat {
     .init(isDay: isDay)
   }

@@ -25,7 +25,7 @@ struct Settings: View {
                   .fontWeight(.regular)
               })
           })
-        .topBarConfiguration()
+        .configureTopBar()
 
         NavigationLink(
           destination: { SourceView() },
