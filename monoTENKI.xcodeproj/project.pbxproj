@@ -82,7 +82,6 @@
 		299A55DB2D945E550089C312 /* PermissionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299A55DA2D945E540089C312 /* PermissionButtonStyle.swift */; };
 		299AB51B2E426A1A00988E8F /* HTTPClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299AB5172E4259F500988E8F /* HTTPClientTest.swift */; };
 		29A05F0C2DEB5005004F1778 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A05F0B2DEB4FEB004F1778 /* AppConfiguration.swift */; };
-		29AA8C352DC578090085B04E /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AA8C342DC577FD0085B04E /* History.swift */; };
 		29ABEC3B2E170DCA0070D3B5 /* Date+CompareDateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29ABEC3A2E170D7B0070D3B5 /* Date+CompareDateComponent.swift */; };
 		29ABEC3C2E170F5C0070D3B5 /* Date+CompareDateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29ABEC3A2E170D7B0070D3B5 /* Date+CompareDateComponent.swift */; };
 		29ABEC3D2E171ACB0070D3B5 /* Enabled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C656FE2DC68054000A89FC /* Enabled.swift */; };
@@ -237,7 +236,6 @@
 		299A55DA2D945E540089C312 /* PermissionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionButtonStyle.swift; sourceTree = "<group>"; };
 		299AB5172E4259F500988E8F /* HTTPClientTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientTest.swift; sourceTree = "<group>"; };
 		29A05F0B2DEB4FEB004F1778 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
-		29AA8C342DC577FD0085B04E /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		29ABEC3A2E170D7B0070D3B5 /* Date+CompareDateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+CompareDateComponent.swift"; sourceTree = "<group>"; };
 		29AC3F202E38D028003A9359 /* NightToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightToggle.swift; sourceTree = "<group>"; };
 		29AC3F222E38DB4D003A9359 /* NightVision+Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NightVision+Environment.swift"; sourceTree = "<group>"; };
@@ -477,7 +475,6 @@
 			isa = PBXGroup;
 			children = (
 				294004082DB5302E00C23CA1 /* Location.swift */,
-				29AA8C342DC577FD0085B04E /* History.swift */,
 				2964DC9F2D8B4E35009C259B /* LocationAggregate.swift */,
 				2947E0BA2D88EC0C00746BA4 /* WeatherAPILocation.swift */,
 				291C41F22DB285E400D6A2B1 /* AccuWeatherLocation.swift */,
@@ -960,7 +957,6 @@
 				29C5304A2D9713E100159C2D /* SelectedStyle.swift in Sources */,
 				29C657012DC6A4D1000A89FC /* SwipeToDelete.swift in Sources */,
 				29D151722D90730100A851E9 /* MeasurementSystem.swift in Sources */,
-				29AA8C352DC578090085B04E /* History.swift in Sources */,
 				29C530622D972EA000159C2D /* AlignedHStack.swift in Sources */,
 				29947D4E2D99CFD7000E3CB5 /* WeatherComposite.swift in Sources */,
 				294004072DB5209E00C23CA1 /* WeatherAPI+URLProvider.swift in Sources */,
@@ -1206,6 +1202,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_UPCOMING_FEATURE_EXISTENTIAL_ANY = YES;
 				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
@@ -1264,6 +1261,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_UPCOMING_FEATURE_EXISTENTIAL_ANY = YES;
 				SWIFT_VERSION = 6.0;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1302,6 +1300,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_EXISTENTIAL_ANY = YES;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1340,6 +1339,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_EXISTENTIAL_ANY = YES;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

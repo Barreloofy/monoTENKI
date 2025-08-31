@@ -8,6 +8,7 @@
 import Foundation
 
 /// Concrete interface for WeatherAPI.com.
+@MainActor
 enum WeatherAPI {
   enum Service: URLProvider {
     case weather(query: String)

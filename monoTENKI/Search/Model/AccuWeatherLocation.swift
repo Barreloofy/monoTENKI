@@ -8,7 +8,8 @@
 import Foundation
 
 typealias AccuWeatherLocations = [AccuWeatherLocation]
-/// The model produced by decoding AccuWeather/locations JSON response.
+
+/// The model produced by decoding AccuWeather/geo or AccuWeather/search.
 struct AccuWeatherLocation: Decodable {
   let key: String
   let localizedName: String

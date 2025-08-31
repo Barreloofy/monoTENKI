@@ -6,14 +6,17 @@
 //
 
 import SwiftUI
+import SwiftData
 import CoreLocation
 
 struct Search: View {
   enum SearchState {
-    case presenting, searchError, locationError
+    case presenting, queryFailed, permissionDenied
   }
 
-  @Environment(\.accessibilityReduceMotion) private var reduceMotion
+  @Query(Location.descriptor, animation: .smooth(duration: 1)) private var history: Locations
+
+  @Environment(\.modelContext) private var modelContext
   @Environment(\.dismiss) private var dismiss
   @Environment(\.apiSource) private var apiSource
   @Environment(LocationAggregate.self) private var locationAggregate
@@ -21,13 +24,12 @@ struct Search: View {
 
   @State private var state = SearchState.presenting
   @State private var text = ""
-  @State private var results = Locations()
-  @State private var history = History()
-  
+  @State private var result = Locations()
+
   let setup: Bool
 
-  private var presentedLocations: Locations {
-    text.isEmpty ? history.locations : results
+  private var displayedLocations: Locations {
+    text.isEmpty ? history : result
   }
 
   var body: some View {
@@ -54,17 +56,16 @@ struct Search: View {
       .debounce(id: text) {
         do {
           state = .presenting
-
           switch apiSource {
           case .weatherAPI:
-            results = try await Array(WeatherAPI.fetchSearch(for: text).prefix(10))
+            result = try await Array(WeatherAPI.fetchSearch(for: text).prefix(10))
           case .accuWeather:
-            results = try await Array(AccuWeather.fetchSearch(for: text).prefix(10))
+            result = try await Array(AccuWeather.fetchSearch(for: text).prefix(10))
           }
+        } catch URLError.cancelled {
+          return
         } catch {
-          guard (error as? URLError)?.code != .cancelled else { return }
-
-          state = .searchError
+          state = .queryFailed
         }
       }
 
@@ -73,10 +74,10 @@ struct Search: View {
           action: {
             Task {
               if await CLServiceSession.getAuthorizationStatus() {
-                locationAggregate.trackLocation = true
+                locationAggregate.startTracking()
                 dismiss()
               } else {
-                state = .locationError
+                state = .permissionDenied
               }
             }
           },
@@ -88,33 +89,42 @@ struct Search: View {
       case .presenting:
         ScrollView {
           LazyVStack(spacing: 0) {
-            ForEach(presentedLocations) { result in
+            ForEach(displayedLocations) { result in
               AlignedHStack(alignment: .leading) {
                 Label(result.completeName, systemImage: "mappin.and.ellipse")
                   .onTapGesture {
-                    locationAggregate.trackLocation = false
-                    locationAggregate.location = result.coordinate.stringRepresentation
-                    history.add(result)
+                    result.accessDate = .now
+                    modelContext.insert(result)
+                    locationAggregate.stopTracking(result.coordinate.stringRepresentation)
                     dismiss()
                   }
                   .accessibilityAddTraits(.isSelected)
               }
-              .swipeToDelete(isEnabled: text.isEmpty) { history.remove(result) }
+              .swipeToDelete(isEnabled: text.isEmpty) { modelContext.delete(result) }
             }
           }
         }
         .scrollIndicators(.never)
 
-      case .searchError:
-        Text("Search couldn't be completed, check connection status")
-          .configureMessage()
+      case .queryFailed:
+        Text("""
+        Search couldn't be completed, 
+        check connection status
+        """)
+        .configureMessage()
 
-      case .locationError:
+      case .permissionDenied:
         Group {
-          Text("No permission to access location, grand permission to receive the most accurate weather")
+          Text("""
+          No permission to access location, 
+          grand permission to receive the most accurate weather
+          """)
 
-          Link("Open Settings App", destination: URL(string: UIApplication.openSettingsURLString)!)
-            .buttonStyle(.bordered)
+          Link(
+            "Open Settings",
+            destination: URL(
+              string: UIApplication.openSettingsURLString)!)
+          .buttonStyle(.bordered)
         }
         .configureMessage()
       }
@@ -124,7 +134,13 @@ struct Search: View {
     .subtitleFont()
     .fontWeight(.medium)
     .padding()
-    .animation(reduceMotion ? nil : .default.speed(0.5), value: state)
-    .onAppear { history.load() }
+    .animating(state, with: .smooth)
   }
+}
+
+
+#Preview {
+  Search(setup: false)
+    .configureApp()
+    .environment(LocationAggregate())
 }

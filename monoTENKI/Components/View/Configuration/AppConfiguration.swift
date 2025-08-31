@@ -27,6 +27,7 @@ struct AppConfiguration: ViewModifier {
       .animation(reduceMotion ? nil : .default, value: nightVision)
       .animation(reduceMotion ? nil : .default, value: colorScheme)
       .dynamicTypeSize(...DynamicTypeSize.large)
+      .modelContainer(for: Location.self)
   }
 }
 

@@ -6,21 +6,33 @@
 //
 
 import Foundation
+import SwiftData
 
 typealias Locations = [Location]
-struct Location: Codable, Identifiable, Hashable {
-  let id = UUID()
-  let name: String
-  let country: String
+
+@Model
+class Location {
+  #Unique<Location>([\.name, \.country], [\.area])
+
+  var accessDate = Date()
+  var name: String
+  var country: String
   var area: String?
-  let coordinate: Coordinate
+  var coordinate: Coordinate
 
   var completeName: String {
     guard let area = area, area != name else { return "\(name) \(country)" }
     return "\(area) \(name) \(country)"
   }
 
-  struct Coordinate: Codable, Hashable {
+  init(name: String, country: String, area: String? = nil, coordinate: Coordinate) {
+    self.name = name
+    self.country = country
+    self.area = area
+    self.coordinate = coordinate
+  }
+
+  struct Coordinate: Codable {
     let latitude: Double
     let longitude: Double
 
@@ -28,31 +40,16 @@ struct Location: Codable, Identifiable, Hashable {
       "\(latitude), \(longitude)"
     }
   }
-
-  enum CodingKeys: CodingKey {
-    case name
-    case country
-    case area
-    case coordinate
-  }
 }
 
 
 extension Location {
-  static func == (lhs: Location, rhs: Location) -> Bool {
-    lhs.completeName == rhs.completeName
-  }
+  static let descriptor: FetchDescriptor<Location> = {
+    var descriptor = FetchDescriptor<Location>(
+      sortBy: [.init(\.accessDate, order: .reverse)])
 
-  func hash(into hasher: inout Hasher) {
-    hasher.combine(completeName)
-  }
-}
+    descriptor.fetchLimit = 25
 
-
-extension Locations {
-  /// Deduplicates 'Locations' and returns a new 'Locations' array up to the provided length, the default value for 'upTo' is 10.
-  func deduplicating(upTo: Int = 10) -> Locations {
-    var seen = Set<Location>()
-    return Array(self.filter { seen.insert($0).inserted }.prefix(upTo))
-  }
+    return descriptor
+  }()
 }

@@ -21,7 +21,7 @@ class WeatherAggregate {
 
   func getWeather(for location: String, from source: APISource) async {
     do {
-      let weather: Weather
+      let weather: any Weather
 
       switch source {
       case .weatherAPI:

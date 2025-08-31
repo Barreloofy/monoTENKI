@@ -36,15 +36,15 @@ extension View {
   /// If the specified value changes, restarts the suspension period and cancels the current task.
   ///
   /// > Important:
-  /// `id`s value must not be equal to its initial value to trigger debounce.
+  /// `id`'s value must not be equal to its initial value to trigger debounce.
   ///
   /// - Parameters:
   ///   - id: The value to observe for changes, must conform to Equatable.
   ///   - duration: The length of the suspension period.
   ///   - action: An async closure that is called after the suspension period has elapsed.
   /// - Returns: A view that executes an action when `id` changes after a certain time has elapsed.
-  func debounce<ID: Equatable>(
-    id: ID,
+  func debounce(
+    id: some Equatable,
     duration: TimeInterval = 0.5,
     action: @escaping () async -> Void) -> some View {
       modifier(

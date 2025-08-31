@@ -10,7 +10,6 @@ import UIKit
 
 struct SwipeToDelete: ViewModifier {
   @Environment(\.colorScheme) private var colorScheme
-  @Environment(\.accessibilityReduceMotion) private var reduceMotion
   @StyleMode private var styleMode
 
   @State private var offset: CGFloat = .zero
@@ -56,12 +55,12 @@ struct SwipeToDelete: ViewModifier {
 
                   if dragValue < actionThreshold {
                     offset = deletedOffset
-                    withAnimation(reduceMotion ? nil : .smooth(duration: 1)) { action() }
+                    action()
                   } else {
                     offset = .zero
                   }
                 })
-            .animation(reduceMotion ? nil : .smooth(duration: 1), value: offset)
+            .animating(offset, with: .smooth(duration: 1))
             .sensoryFeedback(.impact, trigger: offset < actionThreshold) { old, new in
               new == true && new != old
             }

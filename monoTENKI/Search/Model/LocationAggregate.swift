@@ -26,9 +26,19 @@ class LocationAggregate {
     }
   }
 
-  private var locationStream: Task<Void, Error>?
+  private var locationStream: Task<Void, any Error>?
 
   init() { updateTrackLocation() }
+
+  func startTracking() {
+    trackLocation = true
+  }
+
+  func stopTracking(_ location: String? = nil) {
+    defer { trackLocation = false }
+    guard let location = location else { return }
+    self.location = location
+  }
 
   func resume() {
     guard trackLocation && locationStream == nil else { return }

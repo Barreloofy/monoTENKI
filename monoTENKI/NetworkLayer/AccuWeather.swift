@@ -8,6 +8,7 @@
 import Foundation
 
 /// Concrete interface for AccuWeather.
+@MainActor
 enum AccuWeather {
   enum Service: URLProvider {
     case weather

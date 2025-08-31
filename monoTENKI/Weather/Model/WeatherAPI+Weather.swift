@@ -12,7 +12,7 @@ extension WeatherAPIWeather {
     guard let today = forecast.forecastday.first else {
       throw DecodingError.valueNotFound(
         Forecast.ForecastDays.self,
-        .init(codingPath: [], debugDescription: "Nil found 'forecast.forecastday.first'"))
+        .init(codingPath: [], debugDescription: "Nil found `forecast.forecastday.first`"))
     }
 
     let day = today.day
@@ -20,7 +20,7 @@ extension WeatherAPIWeather {
     guard let hour = today.hour.first(where: { $0.time.compareDateComponent(.hour, with: location.localtime) }) else {
       throw DecodingError.valueNotFound(
         Forecast.ForecastDay.Hour.self,
-        .init(codingPath: [], debugDescription: "Nil found 'forecast.forecastday.first.hour.first'"))
+        .init(codingPath: [], debugDescription: "Nil found `forecast.forecastday.first.hour.first`"))
     }
 
     let isDay = current.isDay == 1 ? true : false
@@ -70,7 +70,7 @@ extension WeatherAPIWeather {
 
         guard
           hour.time > location.localtime &&
-          hour.time <= location.localtime.addingTimeInterval(twelveHoursInSeconds)
+            hour.time <= location.localtime.addingTimeInterval(twelveHoursInSeconds)
         else { continue }
 
         let isDay = hour.isDay == 1 ? true : false
