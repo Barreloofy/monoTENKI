@@ -16,11 +16,10 @@ struct WeatherView: View {
     VStack {
       HStack {
         Image(systemName: entry.weather.condition.formatted(.sfSymbols(isDay: entry.weather.isDay)))
-          .font(.title)
 
         TemperatureView(entry.weather.temperatureCelsius, accessibilityText: "Now")
       }
-      .font(.system(.title, design: .monospaced, weight: .bold))
+      .font(.system(.largeTitle, design: .monospaced, weight: .bold))
 
       Label(entry.weather.precipitationChance.formatted(.percent), systemImage: "drop.fill")
         .accessibilityLabel("Next hour \(entry.weather.precipitationChance.formatted(.percent)) precipitation Chance")
