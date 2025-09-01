@@ -1,5 +1,5 @@
 //
-// SubtitleFont\.swift
+// SubtitleFont.swift
 // monoTENKI
 //
 // Created by Barreloofy on 7/18/25 at 10:30 AM

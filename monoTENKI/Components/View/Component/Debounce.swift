@@ -1,8 +1,8 @@
 //
-//  Debounce.swift
-//  monoTENKI
+// Debounce.swift
+// monoTENKI
 //
-//  Created by Barreloofy on 4/22/25.
+// Created by Barreloofy on 4/22/25.
 //
 
 import SwiftUI

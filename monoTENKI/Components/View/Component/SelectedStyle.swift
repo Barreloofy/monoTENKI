@@ -1,8 +1,8 @@
 //
-//  SelectedStyle.swift
-//  monoTENKI
+// SelectedStyle.swift
+// monoTENKI
 //
-//  Created by Barreloofy on 3/28/25 at 6:29 PM.
+// Created by Barreloofy on 3/28/25 at 6:29 PM.
 //
 
 import SwiftUI

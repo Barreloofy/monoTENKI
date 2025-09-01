@@ -1,8 +1,8 @@
 //
-//  Row.swift
-//  monoTENKI
+// Row.swift
+// monoTENKI
 //
-//  Created by Barreloofy on 4/24/25.
+// Created by Barreloofy on 4/24/25.
 //
 
 import SwiftUI

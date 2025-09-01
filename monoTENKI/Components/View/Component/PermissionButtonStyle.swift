@@ -1,8 +1,8 @@
 //
-//  PermissionButtonStyle.swift
-//  monoTENKI
+// PermissionButtonStyle.swift
+// monoTENKI
 //
-//  Created by Barreloofy on 3/26/25 at 5:09 PM.
+// Created by Barreloofy on 3/26/25 at 5:09 PM.
 //
 
 import SwiftUI

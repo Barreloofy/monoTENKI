@@ -1,8 +1,8 @@
 //
-//  AlignedHStack.swift
-//  monoTENKI
+// AlignedHStack.swift
+// monoTENKI
 //
-//  Created by Barreloofy on 3/27/25 at 4:31 PM.
+// Created by Barreloofy on 3/27/25 at 4:31 PM.
 //
 
 import SwiftUI

@@ -1,8 +1,8 @@
 //
-//  Enabled.swift
-//  monoTENKI
+// Enabled.swift
+// monoTENKI
 //
-//  Created by Barreloofy on 5/3/25.
+// Created by Barreloofy on 5/3/25.
 //
 
 import SwiftUI

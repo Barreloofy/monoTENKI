@@ -1,8 +1,8 @@
 //
-//  DetailSection.swift
-//  monoTENKI
+// DetailSection.swift
+// monoTENKI
 //
-//  Created by Barreloofy on 4/12/25 at 11:31 PM.
+// Created by Barreloofy on 4/12/25 at 11:31 PM.
 //
 
 import SwiftUI

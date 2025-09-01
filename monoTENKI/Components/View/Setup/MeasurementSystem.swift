@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum MeasurementSystem: String, Codable, Identifiable, CaseIterable{
+enum MeasurementSystem: String, Codable, Identifiable, CaseIterable {
   case metric
   case imperial
 
