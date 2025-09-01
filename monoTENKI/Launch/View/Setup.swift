@@ -33,7 +33,7 @@ struct Setup: View {
         Button("Grand access") {
           Task {
             if await CLServiceSession.getAuthorizationStatus() {
-              locationAggregate.trackLocation = true
+              locationAggregate.startTracking()
             } else {
               presentSearch = true
             }

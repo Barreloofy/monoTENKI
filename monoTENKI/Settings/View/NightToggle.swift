@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct NightToggle: View {
-  @Environment(\.accessibilityReduceMotion) private var reduceMotion
   @Environment(\.colorScheme) private var colorScheme
 
   @AppStorage(StorageKeys.nightVision.rawValue) private var nightVision = false
@@ -27,7 +26,7 @@ struct NightToggle: View {
           .background(
             nightVision ? .nightRed : colorScheme.background,
             in: RoundedRectangle(cornerRadius: 8))
-          .animation(reduceMotion ? nil : .easeOut, value: nightVision)
+          .animating(nightVision, with: .easeOut)
           .sensoryFeedback(.impact, trigger: nightVision)
           .onTapGesture { nightVision.toggle() }
       },

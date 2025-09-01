@@ -1,5 +1,5 @@
 //
-// MeasurementView.swift
+// UnitSettings.swift
 // monoTENKI
 //
 // Created by Barreloofy on 7/27/25 at 1:51 PM
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct MeasurementView: View {
-  @AppStorage(StorageKeys.userModifiedMeasurementSystem.rawValue) var userModifiedMeasurementSystem = false
+struct UnitSettings: View {
+  @AppStorage(StorageKeys.userModifiedMeasurementSystem.rawValue) private var userModifiedMeasurementSystem = false
   @AppStorage(StorageKeys.measurementSystemInUse.rawValue) private var measurementSystemInUse = MeasurementSystem.metric
 
   var body: some View {

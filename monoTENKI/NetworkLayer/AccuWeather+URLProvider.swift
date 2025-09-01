@@ -11,7 +11,7 @@ extension AccuWeather.Service {
   private var apiKey: String {
     Bundle.main.object(forInfoDictionaryKey: "AccuWeatherAPIKey") as! String
   }
-  
+
   func provideURL() throws -> URL {
     switch self {
     case .weather:

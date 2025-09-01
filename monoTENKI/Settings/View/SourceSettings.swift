@@ -1,5 +1,5 @@
 //
-// SourceView.swift
+// SourceSettings.swift
 // monoTENKI
 //
 // Created by Barreloofy on 7/27/25 at 1:51 PM
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SourceView: View {
+struct SourceSettings: View {
   @AppStorage(StorageKeys.apiSourceInUse.rawValue) private var apiSourceInUse = APISource.weatherAPI
 
   var body: some View {

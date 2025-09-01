@@ -28,7 +28,7 @@ struct Settings: View {
         .configureTopBar()
 
         NavigationLink(
-          destination: { SourceView() },
+          destination: { SourceSettings() },
           label: {
             LabeledContent(
               content: {
@@ -48,7 +48,7 @@ struct Settings: View {
           })
 
         NavigationLink(
-          destination: { MeasurementView()
+          destination: { UnitSettings()
           },
           label: {
             LabeledContent(
@@ -75,4 +75,11 @@ struct Settings: View {
     }
     .fontWeight(.medium)
   }
+}
+
+
+#Preview {
+  Settings()
+    .configureApp()
+    .sheetController(SettingsController())
 }

@@ -30,21 +30,25 @@ class LocationAggregate {
 
   init() { updateTrackLocation() }
 
+  /// Enable location tracking.
   func startTracking() {
     trackLocation = true
   }
 
+  /// Stop location tracking and optionally sets a new location.
   func stopTracking(_ location: String? = nil) {
     defer { trackLocation = false }
     guard let location = location else { return }
     self.location = location
   }
 
+  /// Resumes location tracking if active, but was previously suspended.
   func resume() {
     guard trackLocation && locationStream == nil else { return }
     startLocationTracking()
   }
 
+  /// Pauses location tracking if active.
   func suspend() {
     guard trackLocation && locationStream != nil else { return }
     locationStream?.cancel()

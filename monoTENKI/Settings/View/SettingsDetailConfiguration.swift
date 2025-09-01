@@ -1,5 +1,5 @@
 //
-// ConfigureSettingsDetail.swift
+// SettingsDetailConfiguration.swift
 // monoTENKI
 //
 // Created by Barreloofy on 7/27/25 at 1:14 PM
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ConfigureSettingsDetail: ViewModifier {
+struct SettingsDetailConfiguration: ViewModifier {
   @Environment(\.colorScheme) private var colorScheme
   @Environment(\.dismiss) private var dismiss
 
@@ -30,6 +30,6 @@ struct ConfigureSettingsDetail: ViewModifier {
 
 extension View {
   func configureSettingsDetail() -> some View {
-    modifier(ConfigureSettingsDetail())
+    modifier(SettingsDetailConfiguration())
   }
 }

@@ -21,14 +21,15 @@ struct HTTPClient {
   /// - Parameters:
   ///   - url: The URL to retrieve data from.
   ///   - decoder: The decoder to use for decoding the response, `JSONDecoder()` is the default.
+  ///   - session: The `URLSession` to use for network tasks, `shared` is the default.
   init(url: URL, decoder: JSONDecoder = JSONDecoder(), session: URLSession = .shared) {
     self.url = url
     self.decoder = decoder
     self.session = session
   }
 
-  /// Fetches data from `url`, converts response to an instance of `T`,
-  /// where `T` must be a type conforming to `Decodable`.
+  /// Fetches the contents of a URL
+  /// and decodes the data into the type of `T`.
   /// - Returns: An instance of `T`.
   func fetch<T: Decodable>() async throws -> T {
     do {
