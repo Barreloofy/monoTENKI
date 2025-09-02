@@ -55,7 +55,7 @@ struct SpeedFormatTests {
     let formatter = SpeedFormat(measurementSystem: .metric, width: .abbreviated)
 
     // Act & assert
-    #expect(formatter.format(speed) != expected)
+    #expect(formatter.format(speed) != expected, "Base unit is kph, thus output and expected should not match")
   }
 
   @Test("Validate width option")
