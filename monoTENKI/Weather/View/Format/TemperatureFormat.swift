@@ -32,6 +32,8 @@ struct TemperatureFormat: FormatStyle {
 
 extension FormatStyle where Self == TemperatureFormat {
   /// Formats Double to temperature unit.
+  ///
+  /// > Important: `TemperatureFormat` base unit is `celsius`.
   /// - Parameters:
   ///   - measurementSystem: The measurementSystem to use.
   ///   - width: The width — such as full names or abbreviations — with which to present units.
