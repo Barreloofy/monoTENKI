@@ -35,12 +35,12 @@ struct SFSymbolsFormat: FormatStyle {
       return "cloud.fog.fill"
     case let condition where condition.contains(rainDrizzle):
       return "cloud.rain.fill"
-    case let condition where condition.contains(snow):
+    case let condition where condition.contains(snow) && !condition.contains("blowing snow"):
       return "cloud.snow.fill"
     case let condition where condition.contains(sleet):
       return "cloud.sleet.fill"
     case let condition where condition.contains(freezing):
-      return "cloud.hail.fill"
+      return "snowflake"
     case let condition where condition.contains(thunder):
       return "cloud.bolt.rain.fill"
     case let condition where condition.contains(blizzard):
