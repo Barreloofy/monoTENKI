@@ -12,6 +12,8 @@ struct SpeedFormat: FormatStyle {
   let width: Measurement<UnitSpeed>.FormatStyle.UnitWidth
 
   func format(_ value: Double) -> String {
+    guard value >= 1 else { return "0" }
+
     var speed: Measurement<UnitSpeed> = .init(value: value, unit: .kilometersPerHour)
 
     if measurementSystem == .imperial { speed.convert(to: .milesPerHour) }
@@ -29,6 +31,8 @@ struct SpeedFormat: FormatStyle {
 
 extension FormatStyle where Self == SpeedFormat {
   /// Formats Double to speed unit.
+  ///
+  /// > Important: `SpeedFormat` base unit is `kilometersPerHour`.
   /// - Parameters:
   ///   - measurementSystem: The measurementSystem to use.
   ///   - width: The width — such as full names or abbreviations — with which to present units.

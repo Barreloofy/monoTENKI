@@ -55,7 +55,7 @@ struct TemperatureFormatTests {
       (50, "10°"),
       (1832, "1,000°"),
     ])
-  func validateWrongInput(fahrenheit temperature: Double, expected: String) async throws {
+  func validateIncorrectInput(fahrenheit temperature: Double, expected: String) async throws {
     // Arrange
     let formatter = TemperatureFormat(measurementSystem: .metric, width: .abbreviated, hideScaleName: true)
 

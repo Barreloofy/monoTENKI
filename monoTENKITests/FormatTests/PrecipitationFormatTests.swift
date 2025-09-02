@@ -55,7 +55,7 @@ struct PrecipitationFormatTests {
       (0.39, "10 mm"),
       (1, "25 mm"),
     ])
-  func validateWrongInput(inch precipitation: Double, expected: String) async throws {
+  func validateIncorrectInput(inch precipitation: Double, expected: String) async throws {
     // Arrange
     let formatter = PrecipitationFormat(measurementSystem: .metric, width: .abbreviated)
 
