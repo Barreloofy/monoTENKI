@@ -11,7 +11,7 @@ import Testing
 @Suite("TemperatureFormat Tests")
 struct TemperatureFormatTests {
   @Test(
-    "Validate metric formatting. TemperatureFormat expects a celsius value as its base value",
+    "Validate metric formatting",
     arguments: [
       (-1000, "-1,000°"),
       (-10.0, "-10°"),
@@ -29,7 +29,7 @@ struct TemperatureFormatTests {
   }
 
   @Test(
-    "Validate imperial formatting. TemperatureFormat expects a celsius value as its base value",
+    "Validate imperial formatting",
     arguments: [
       (-1000, "-1,768°"),
       (-10.0, "14°"),
@@ -47,7 +47,7 @@ struct TemperatureFormatTests {
   }
 
   @Test(
-    "Validate that wrong input behaves expected. TemperatureFormat expects a celsius value as its base value",
+    "Validate incorrect temperature input formatting",
     arguments: [
       (1768, "-1,000°"),
       (14, "-10°"),
@@ -56,19 +56,23 @@ struct TemperatureFormatTests {
       (1832, "1,000°"),
     ])
   func validateWrongInput(fahrenheit temperature: Double, expected: String) async throws {
+    // Arrange
     let formatter = TemperatureFormat(measurementSystem: .metric, width: .abbreviated, hideScaleName: true)
 
-    #expect(formatter.format(temperature) != expected)
+    // Act & Assert
+    #expect(formatter.format(temperature) != expected, "Base unit is celsius, thus output and expected should not match")
   }
 
   @Test("Validate width option")
   func validateWidth() async throws {
+    // Arrange
     let narrowFormatter = TemperatureFormat(measurementSystem: .metric, width: .narrow, hideScaleName: true)
     let abbreviatedFormatter = TemperatureFormat(measurementSystem: .metric, width: .abbreviated, hideScaleName: true)
     let wideFormatter = TemperatureFormat(measurementSystem: .metric, width: .wide, hideScaleName: true)
 
     let temperature = 20.0
 
+    // Act & Assert
     #expect(abbreviatedFormatter.format(temperature) == "20°")
 
     #expect(narrowFormatter.format(temperature) == "20°")
@@ -78,11 +82,13 @@ struct TemperatureFormatTests {
 
   @Test("Validate hideScaleName option")
   func validateHideScaleName() async throws {
+    // Arrange
     let hidden = TemperatureFormat(measurementSystem: .metric, width: .wide, hideScaleName: true)
     let visible = TemperatureFormat(measurementSystem: .metric, width: .wide, hideScaleName: false)
 
     let temperature = 20.0
 
+    // Act & Assert
     #expect(hidden.format(temperature) == "20 degrees")
 
     #expect(visible.format(temperature) == "20 degrees Celsius")

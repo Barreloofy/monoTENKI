@@ -49,6 +49,8 @@ struct PrecipitationFormat: FormatStyle {
 
 extension FormatStyle where Self == PrecipitationFormat {
   /// Formats Double to precipitation unit.
+  ///
+  /// > Important: `PrecipitationFormat` base unit is `millimeters`.
   /// - Parameters:
   ///   - measurementSystem: The measurementSystem to use.
   ///   - width: The width — such as full names or abbreviations — with which to present units.
