@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SourceSettings: View {
-  @AppStorage(StorageKeys.apiSourceInUse.rawValue) private var apiSourceInUse = APISource.weatherAPI
+  @AppStorage(.key(.apiSourceInUse)) private var apiSourceInUse = APISource.weatherAPI
 
   var body: some View {
     VStack(spacing: 50) {

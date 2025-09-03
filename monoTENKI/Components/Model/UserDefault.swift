@@ -36,7 +36,7 @@ struct UserDefault<Value> {
   }
 
   /// - Parameters:
-  ///   - key: The key of the value stored in `UserDefaults`.
+  ///   - key: The appropriate `StorageKeys` key.
   ///   - defaultValue: The value to use when no value corresponding to `Key` in `UserDefaults` can be found.
   ///   - container: The `UserDefaults` container to read and write to.
   init(key: StorageKeys, defaultValue: Value, container: UserDefaults = .standard) {

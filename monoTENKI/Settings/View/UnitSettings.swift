@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct UnitSettings: View {
-  @AppStorage(StorageKeys.userModifiedMeasurementSystem.rawValue) private var userModifiedMeasurementSystem = false
-  @AppStorage(StorageKeys.measurementSystemInUse.rawValue) private var measurementSystemInUse = MeasurementSystem.metric
+  @AppStorage(.key(.userModifiedMeasurementSystem)) private var userModifiedMeasurementSystem = false
+  @AppStorage(.key(.measurementSystemInUse)) private var measurementSystemInUse = MeasurementSystem.metric
 
   var body: some View {
     VStack(spacing: 50) {

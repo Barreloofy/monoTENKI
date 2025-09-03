@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Recovery: View {
-  @AppStorage(StorageKeys.apiSourceInUse.rawValue) private var apiSourceInUse = APISource.weatherAPI
+  @AppStorage(.key(.apiSourceInUse)) private var apiSourceInUse = APISource.weatherAPI
   @State private var task: Task<Void, Never>?
 
   let action: () async -> Void
