@@ -46,6 +46,5 @@ struct HourDetailPage: View {
     .scrollTargetBehavior(.paging)
     .scrollPosition(id: $id)
     .scrollIndicators(.never)
-    .onTapGesture { id = nil }
   }
 }

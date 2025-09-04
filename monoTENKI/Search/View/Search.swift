@@ -45,7 +45,7 @@ struct Search: View {
             })
         })
       .configureTopBar()
-      .enabled(!setup)
+      .visible(!setup)
 
       TextField(
         "",
@@ -83,7 +83,7 @@ struct Search: View {
           },
           label: { Label("CURRENT LOCATION", systemImage: "location.fill") })
       }
-      .enabled(!setup)
+      .visible(!setup)
 
       switch state {
       case .presenting:

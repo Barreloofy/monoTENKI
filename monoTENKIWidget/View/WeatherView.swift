@@ -23,7 +23,7 @@ struct WeatherView: View {
 
       Label(entry.weather.precipitationChance.formatted(.percent), systemImage: "drop.fill")
         .accessibilityLabel("Next hour \(entry.weather.precipitationChance.formatted(.percent)) precipitation Chance")
-        .enabled(entry.weather.precipitationChance >= 33)
+        .visible(entry.weather.precipitationChance >= 33)
     }
     .lineLimit(1)
     .minimumScaleFactor(0.5)

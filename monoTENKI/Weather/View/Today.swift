@@ -39,11 +39,11 @@ struct Today: View {
           .subheadlineFont()
           .lineLimit(nil)
       }
-      .enabled(!presentDetails)
       .padding(.vertical)
+      .visible(!presentDetails)
 
       CurrentDetailPage(weather: current)
-        .enabled(presentDetails)
+        .visible(presentDetails)
     }
     .containerRelativeFrame([.vertical, .horizontal], alignment: presentDetails ? .center : .top)
     .contentShape(Rectangle())

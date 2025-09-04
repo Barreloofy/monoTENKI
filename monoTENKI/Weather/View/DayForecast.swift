@@ -27,13 +27,14 @@ struct DayForecast: View {
         }
       }
       .padding(.horizontal)
-      .enabled(dayID == nil)
+      .presence(active: dayID == nil)
 
       DayDetailPage(id: $dayID, days: days)
-        .enabled(dayID != nil)
+        .presence(active: dayID != nil)
+        .onTapGesture { dayID = nil }
     }
     .containerRelativeFrame([.vertical, .horizontal], alignment: .top)
-    .animating(dayID, with: .easeInOut(duration: 1))
+    .animating(dayID, with: .easeIn(duration: 0.75))
     .sensoryFeedback(.impact, trigger: dayID)
   }
 }

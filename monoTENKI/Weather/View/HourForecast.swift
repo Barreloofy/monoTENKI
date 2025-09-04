@@ -27,13 +27,14 @@ struct HourForecast: View {
         Spacer()
       }
       .padding(.horizontal)
-      .enabled(hourID == nil)
+      .presence(active: hourID == nil)
 
       HourDetailPage(id: $hourID, hours: hours)
-        .enabled(hourID != nil)
+        .onTapGesture { hourID = nil }
+        .presence(active: hourID != nil)
     }
-    .containerRelativeFrame(.vertical, alignment: .top)
-    .animating(hourID, with: .easeInOut(duration: 1))
+    .containerRelativeFrame(.vertical)
+    .animating(hourID, with: .easeIn(duration: 0.75))
     .sensoryFeedback(.impact, trigger: hourID)
   }
 }
