@@ -12,17 +12,9 @@ struct AccuWeatherComposite: CreateWeather {
   let hours: [AccuWeatherHour]
 
   func create() throws -> Weather {
-    guard let current = current.first else {
-      throw DecodingError.valueNotFound(
-        [AccuWeatherCurrent].self,
-        .init(codingPath: [], debugDescription: "Nil found 'current.first'"))
-    }
+    guard let current = current.first else { throw UnwrappingError(type: [AccuWeatherCurrent].self) }
 
-    guard let nextHour = hours.first else {
-      throw DecodingError.valueNotFound(
-        [AccuWeatherHour].self,
-        .init(codingPath: [], debugDescription: "Nil found 'hours.first'"))
-    }
+    guard let nextHour = hours.first else { throw UnwrappingError(type: [AccuWeatherHour].self) }
 
     return Weather(
       condition: current.weatherText,

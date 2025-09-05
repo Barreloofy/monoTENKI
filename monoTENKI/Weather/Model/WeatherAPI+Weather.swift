@@ -9,19 +9,15 @@ import Foundation
 
 extension WeatherAPIWeather {
   func createCurrentWeather() throws -> CurrentWeather {
-    guard let today = forecast.forecastday.first else {
-      throw DecodingError.valueNotFound(
-        Forecast.ForecastDays.self,
-        .init(codingPath: [], debugDescription: "Nil found `forecast.forecastday.first`"))
-    }
+    guard
+      let today = forecast.forecastday.first
+    else { throw UnwrappingError(type: Forecast.ForecastDay.self) }
 
     let day = today.day
 
-    guard let hour = today.hour.first(where: { $0.time.compareDateComponent(.hour, with: location.localtime) }) else {
-      throw DecodingError.valueNotFound(
-        Forecast.ForecastDay.Hour.self,
-        .init(codingPath: [], debugDescription: "Nil found `forecast.forecastday.first.hour.first`"))
-    }
+    guard
+      let hour = today.hour.first(where: { $0.time.compareDateComponent(.hour, with: location.localtime) })
+    else { throw UnwrappingError(type: Forecast.ForecastDay.Hour.self) }
 
     let isDay = current.isDay == 1 ? true : false
 
@@ -70,7 +66,7 @@ extension WeatherAPIWeather {
 
         guard
           hour.time > location.localtime &&
-            hour.time <= location.localtime.addingTimeInterval(twelveHoursInSeconds)
+          hour.time <= location.localtime.addingTimeInterval(twelveHoursInSeconds)
         else { continue }
 
         let isDay = hour.isDay == 1 ? true : false
@@ -105,31 +101,30 @@ extension WeatherAPIWeather {
   }
 
   func createDayForecast() -> Days {
-    Array(
-      forecast.forecastday.dropFirst().map { forecast in
-        let day = forecast.day
+    forecast.forecastday.dropFirst().map { forecast in
+      let day = forecast.day
 
-        let chance = determinePrecipitationChance(day.dailyChanceOfRain, day.dailyChanceOfSnow)
-        let type = determinePrecipitationType(day.totalprecipMm, day.totalsnowCm)
-        let totalSnowMillimeter = day.totalsnowCm * 10
-        let total = day.totalprecipMm + totalSnowMillimeter
+      let chance = determinePrecipitationChance(day.dailyChanceOfRain, day.dailyChanceOfSnow)
+      let type = determinePrecipitationType(day.totalprecipMm, day.totalsnowCm)
+      let totalSnowMillimeter = day.totalsnowCm * 10
+      let total = day.totalprecipMm + totalSnowMillimeter
 
-        let temperatures = Day.Temperatures(
-          celsiusAverage: day.avgtempC,
-          celsiusLow: day.mintempC,
-          celsiusHigh: day.maxtempC)
+      let temperatures = Day.Temperatures(
+        celsiusAverage: day.avgtempC,
+        celsiusLow: day.mintempC,
+        celsiusHigh: day.maxtempC)
 
-        let precipitation = Day.Precipitation(
-          chance: chance,
-          totalMillimeter: total,
-          type: type)
+      let precipitation = Day.Precipitation(
+        chance: chance,
+        totalMillimeter: total,
+        type: type)
 
-        return Day(
-          date: forecast.date,
-          condition: day.condition.text,
-          temperatures: temperatures,
-          precipitation: precipitation)
-      })
+      return Day(
+        date: forecast.date,
+        condition: day.condition.text,
+        temperatures: temperatures,
+        precipitation: precipitation)
+    }
   }
 }
 

@@ -15,11 +15,7 @@ extension WeatherAPIWeather {
     guard
       let today = forecast.forecastday.first,
       let hour = today.hour.first(where: { $0.time.compareDateComponent(.hour, with: nextHour) })
-    else {
-      throw DecodingError.valueNotFound(
-        WeatherAPIWeather.Forecast.self,
-        .init(codingPath: [], debugDescription: "Nil found while unwrapping"))
-    }
+    else { throw UnwrappingError(type: WeatherAPIWeather.Forecast.self) }
 
     let isDay = current.isDay == 1 ? true : false
     let chance = hour.chanceOfRain > hour.chanceOfSnow ? hour.chanceOfRain : hour.chanceOfSnow

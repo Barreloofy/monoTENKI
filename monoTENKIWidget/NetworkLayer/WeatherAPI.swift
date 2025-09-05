@@ -27,11 +27,7 @@ enum WeatherAPI {
     let client = try HTTPClient(url: Service.geo(query: query).provideURL())
     let locations: WeatherAPILocations = try await client.fetch()
 
-    guard let location = locations.first else {
-      throw DecodingError.valueNotFound(
-        WeatherAPILocations.self,
-        .init(codingPath: [], debugDescription: "Nil found 'locations.first'"))
-    }
+    guard let location = locations.first else { throw UnwrappingError(type: WeatherAPILocations.self) }
 
     return "id:\(location.id)"
   }

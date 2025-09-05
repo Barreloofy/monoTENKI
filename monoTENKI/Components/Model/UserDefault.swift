@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// A custom "wrapper" for `UserDefaults` that works with `@Observable`.
+/// A custom "wrapper" for `UserDefaults` that works with `@Observable` properties.
 ///
 /// Use this type's callAsFunction methods to read and write to `value`.
 /// ```swift

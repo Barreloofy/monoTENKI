@@ -21,11 +21,7 @@ extension AccuWeatherComposite {
       let current = current.first,
       let day = dayForecast.dailyForecasts.first,
       let hour = hourForecast.first
-    else {
-      throw DecodingError.valueNotFound(
-        (any Sequence).self,
-        .init(codingPath: [], debugDescription: "Nil found while accessing element"))
-    }
+    else { throw UnwrappingError(comment: "Nil found while accessing element") }
 
     let total = day.day.totalLiquid.value + day.night.totalLiquid.value
     let type = current.precipitationType ?? "--"
