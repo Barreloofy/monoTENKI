@@ -24,6 +24,7 @@ struct AccuWeatherCurrent: Decodable {
   let realFeelTemperature: AccuWeatherMetric
   let relativeHumidity: Int
   let precipitationType: String?
+  let precip1hr: AccuWeatherMetric
   let wind: Wind
   let windGust: WindGust
 

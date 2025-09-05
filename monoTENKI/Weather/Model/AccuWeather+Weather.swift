@@ -39,7 +39,7 @@ extension AccuWeatherComposite {
 
     let precipitation = CurrentWeather.Precipitation(
       chance: hour.precipitationProbability,
-      rateMillimeter: hour.totalLiquid.value,
+      rateMillimeter: current.precip1hr.metric.value,
       totalMillimeter: total,
       type: type)
 
@@ -82,33 +82,31 @@ extension AccuWeatherComposite {
   }
 
   func createDayForecast() -> Days {
-    Array(
-      dayForecast.dailyForecasts.dropFirst().map { forecast in
-        let average = (forecast.temperature.maximum.value + forecast.temperature.minimum.value) / 2
+    dayForecast.dailyForecasts.dropFirst().map { forecast in
+      let average = (forecast.temperature.maximum.value + forecast.temperature.minimum.value) / 2
 
-        let type = forecast.day.precipitationType ?? forecast.night.precipitationType ?? "--"
-        let chance = (forecast.day.precipitationProbability + forecast.night.precipitationProbability) / 2
-        let total = forecast.day.totalLiquid.value + forecast.night.totalLiquid.value
+      let type = forecast.day.precipitationType ?? forecast.night.precipitationType ?? "--"
+      let chance = (forecast.day.precipitationProbability + forecast.night.precipitationProbability) / 2
+      let total = forecast.day.totalLiquid.value + forecast.night.totalLiquid.value
 
-        let temperatures = Day.Temperatures(
-          celsiusAverage: average,
-          celsiusLow: forecast.temperature.minimum.value,
-          celsiusHigh: forecast.temperature.maximum.value)
+      let temperatures = Day.Temperatures(
+        celsiusAverage: average,
+        celsiusLow: forecast.temperature.minimum.value,
+        celsiusHigh: forecast.temperature.maximum.value)
 
-        let precipitation = Day.Precipitation(
-          chance: chance,
-          totalMillimeter: total,
-          type: type)
+      let precipitation = Day.Precipitation(
+        chance: chance,
+        totalMillimeter: total,
+        type: type)
 
-        return Day(
-          date: forecast.date,
-          condition: forecast.day.iconPhrase,
-          temperatures: temperatures,
-          precipitation: precipitation)
-      })
+      return Day(
+        date: forecast.date,
+        condition: forecast.day.iconPhrase,
+        temperatures: temperatures,
+        precipitation: precipitation)
+    }
   }
 }
-
 
 extension AccuWeatherComposite {
   static let decoder: JSONDecoder = {
