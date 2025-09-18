@@ -11,22 +11,11 @@ struct Settings: View {
   @Environment(\.dismiss) private var dismiss
   @Environment(\.apiSource) private var apiSourceInUse
   @Environment(\.measurementSystem) private var measurementSystemInUse
+  @Environment(\.colorScheme) private var colorScheme
 
   var body: some View {
     NavigationStack {
       VStack(spacing: 25) {
-        Row(
-          center: { Text("Settings") },
-          trailing: {
-            Button(
-              action: { dismiss() },
-              label: {
-                Image(systemName: "xmark")
-                  .fontWeight(.regular)
-              })
-          })
-        .configureTopBar()
-
         NavigationLink(
           destination: { SourceSettings() },
           label: {
@@ -48,8 +37,7 @@ struct Settings: View {
           })
 
         NavigationLink(
-          destination: { UnitSettings()
-          },
+          destination: { UnitSettings() },
           label: {
             LabeledContent(
               content: {
@@ -71,9 +59,21 @@ struct Settings: View {
 
         Spacer()
       }
+      .toolbarRole(.navigationStack)
+      .toolbar {
+        ToolbarItem(placement: .primaryAction) {
+          Button(
+            action: { dismiss() },
+            label: {
+              Image(systemName: "xmark")
+                .foregroundStyle(.foreground)
+            })
+        }
+      }
       .padding()
     }
     .fontWeight(.medium)
+    .tint(colorScheme.foreground)
   }
 }
 

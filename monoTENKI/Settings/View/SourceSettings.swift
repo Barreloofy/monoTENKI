@@ -11,19 +11,20 @@ struct SourceSettings: View {
   @AppStorage(.key(.apiSourceInUse)) private var apiSourceInUse = APISource.weatherAPI
 
   var body: some View {
-    VStack(spacing: 50) {
-      SettingsNavigationBar(title: "Source")
-
-      LazyVGrid(columns: .twoColumnLayout) {
-        ForEach(APISource.allCases) { source in
-          Text(source.rawValue)
-            .selectedStyle(target: source, value: $apiSourceInUse)
-            .accessibilityLabel(source.accessibilityPronunciation)
-        }
+    SettingsDetailView(
+      category: "Source",
+      icon: "antenna.radiowaves.left.and.right",
+      description: "Diffrent weather sources are more accurate in diffrent regions. To improve accuracy, try selecting a diffrent source.",
+      items: APISource.allCases,
+      match: apiSourceInUse) { value in
+        setEnvironment(.apiSourceInUse, value: value)
       }
-
-      Spacer()
-    }
-    .configureSettingsDetail()
   }
+}
+
+
+#Preview {
+  SourceSettings()
+    .environment(SettingsController())
+    .configureApp()
 }

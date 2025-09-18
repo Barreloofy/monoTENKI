@@ -12,22 +12,20 @@ struct UnitSettings: View {
   @AppStorage(.key(.measurementSystemInUse)) private var measurementSystemInUse = MeasurementSystem.metric
 
   var body: some View {
-    VStack(spacing: 50) {
-      SettingsNavigationBar(title: "Units")
-
-      LazyVGrid(columns: .twoColumnLayout) {
-        ForEach(MeasurementSystem.allCases) { system in
-          Text(system.rawValue)
-            .selectedStyle(target: system, value: $measurementSystemInUse)
-        }
+    SettingsDetailView(
+      category: "Units",
+      icon: "ruler.fill",
+      description: "Select your preferred temperature unit to align weather information with your personal preferences.",
+      items: MeasurementSystem.allCases,
+      match: measurementSystemInUse) { value in
+        setEnvironment(.measurementSystemInUse, value: value)
       }
-      .onChange(of: measurementSystemInUse) {
-        guard !userModifiedMeasurementSystem else { return }
-        userModifiedMeasurementSystem = true
-      }
-
-      Spacer()
-    }
-    .configureSettingsDetail()
   }
+}
+
+
+#Preview {
+  UnitSettings()
+    .configureApp()
+    .sheetController(SettingsController())
 }

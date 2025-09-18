@@ -9,21 +9,20 @@ import SwiftUI
 
 struct SettingsDetailConfiguration: ViewModifier {
   @Environment(\.colorScheme) private var colorScheme
-  @Environment(\.dismiss) private var dismiss
+  @Environment(SettingsController.self) private var settingsController
 
   func body(content: Content) -> some View {
     content
-      .padding()
       .background(colorScheme.background)
-      .toolbarVisibility(.hidden, for: .navigationBar)
-      .gesture(
-        DragGesture(minimumDistance: 50)
-          .onChanged { value in
-            guard value.startLocation.x < 20,
-                  value.translation.width > 60
-            else { return }
-            dismiss()
-          })
+      .toolbarRole(.navigationStack)
+      .toolbar {
+        ToolbarItem(placement: .navigation) {
+          Button(
+            action: { settingsController() },
+            label: { Image(systemName: "xmark") })
+          .foregroundStyle(colorScheme.foreground)
+        }
+      }
   }
 }
 
