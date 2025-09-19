@@ -1,5 +1,5 @@
 //
-// GlassBackground.swift
+// ApplyGlassEffectIfAvailable.swift
 // monoTENKI
 //
 // Created by Barreloofy on 9/18/25 at 5:27 PM
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct GlassBackground: ViewModifier {
+struct ApplyGlassEffectIfAvailable: ViewModifier {
   func body(content: Content) -> some View {
     if #available(iOS 26.0, *) {
       content
@@ -21,7 +21,7 @@ struct GlassBackground: ViewModifier {
 
 
 extension View {
-  func glassBackground() -> some View {
-    modifier(GlassBackground())
+  func applyGlassEffectIfAvailable() -> some View {
+    modifier(ApplyGlassEffectIfAvailable())
   }
 }

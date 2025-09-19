@@ -18,6 +18,7 @@ struct Search: View {
 
   @Environment(\.modelContext) private var modelContext
   @Environment(\.dismiss) private var dismiss
+  @Environment(\.colorScheme) private var colorScheme
   @Environment(\.apiSource) private var apiSource
   @Environment(LocationAggregate.self) private var locationAggregate
   @StyleMode private var styleMode
@@ -33,108 +34,111 @@ struct Search: View {
   }
 
   var body: some View {
-    VStack(spacing: 10) {
-      Row(
-        center: { Text("Search") },
-        trailing: {
+    NavigationStack {
+      VStack(spacing: 10) {
+        TextField(
+          "",
+          text: $text,
+          prompt: Text("Search").foregroundStyle(styleMode))
+        .textInputAutocapitalization(.characters)
+        .multilineTextAlignment(.leading)
+        .debounce(id: text) {
+          do {
+            state = .presenting
+            switch apiSource {
+            case .weatherAPI:
+              result = try await Array(WeatherAPI.fetchSearch(for: text).prefix(10))
+            case .accuWeather:
+              result = try await Array(AccuWeather.fetchSearch(for: text).prefix(10))
+            }
+          } catch URLError.cancelled {
+            return
+          } catch {
+            state = .queryFailed
+          }
+        }
+
+        AlignedHStack(alignment: .leading) {
           Button(
-            action: { dismiss() },
-            label: {
-              Image(systemName: "xmark")
-                .fontWeight(.regular)
-            })
-        })
-      .configureTopBar()
-      .visible(!setup)
-
-      TextField(
-        "",
-        text: $text,
-        prompt: Text("Search").foregroundStyle(styleMode))
-      .textInputAutocapitalization(.characters)
-      .multilineTextAlignment(.leading)
-      .debounce(id: text) {
-        do {
-          state = .presenting
-          switch apiSource {
-          case .weatherAPI:
-            result = try await Array(WeatherAPI.fetchSearch(for: text).prefix(10))
-          case .accuWeather:
-            result = try await Array(AccuWeather.fetchSearch(for: text).prefix(10))
-          }
-        } catch URLError.cancelled {
-          return
-        } catch {
-          state = .queryFailed
+            action: {
+              Task {
+                if await CLServiceSession.getAuthorizationStatus() {
+                  locationAggregate.startTracking()
+                  dismiss()
+                } else {
+                  state = .permissionDenied
+                }
+              }
+            },
+            label: { Label("CURRENT LOCATION", systemImage: "location.fill") })
         }
-      }
+        .visible(!setup)
 
-      AlignedHStack(alignment: .leading) {
-        Button(
-          action: {
-            Task {
-              if await CLServiceSession.getAuthorizationStatus() {
-                locationAggregate.startTracking()
-                dismiss()
-              } else {
-                state = .permissionDenied
+        switch state {
+        case .presenting:
+          ScrollView {
+            LazyVStack(spacing: 0) {
+              ForEach(displayedLocations) { result in
+                AlignedHStack(alignment: .leading) {
+                  Label(result.completeName, systemImage: "mappin.and.ellipse")
+                    .onTapGesture {
+                      result.accessDate = .now
+                      modelContext.insert(result)
+                      locationAggregate.stopTracking(result.coordinate.stringRepresentation)
+                      dismiss()
+                    }
+                    .accessibilityAddTraits(.isSelected)
+                }
+                .swipeToDelete(isEnabled: text.isEmpty) { modelContext.delete(result) }
               }
             }
-          },
-          label: { Label("CURRENT LOCATION", systemImage: "location.fill") })
-      }
-      .visible(!setup)
-
-      switch state {
-      case .presenting:
-        ScrollView {
-          LazyVStack(spacing: 0) {
-            ForEach(displayedLocations) { result in
-              AlignedHStack(alignment: .leading) {
-                Label(result.completeName, systemImage: "mappin.and.ellipse")
-                  .onTapGesture {
-                    result.accessDate = .now
-                    modelContext.insert(result)
-                    locationAggregate.stopTracking(result.coordinate.stringRepresentation)
-                    dismiss()
-                  }
-                  .accessibilityAddTraits(.isSelected)
-              }
-              .swipeToDelete(isEnabled: text.isEmpty) { modelContext.delete(result) }
-            }
           }
-        }
-        .scrollIndicators(.never)
+          .scrollIndicators(.never)
 
-      case .queryFailed:
-        Text("""
-        Search couldn't be completed, 
-        check connection status
-        """)
-        .configureMessage()
-
-      case .permissionDenied:
-        Group {
+        case .queryFailed:
           Text("""
-          No permission to access location, 
-          grand permission to receive the most accurate weather
+          Search couldn't be completed, 
+          check connection status
           """)
+          .configureMessage()
 
-          Link(
-            "Open Settings",
-            destination: URL(
-              string: UIApplication.openSettingsURLString)!)
-          .buttonStyle(.bordered)
+        case .permissionDenied:
+          Group {
+            Text("""
+            No permission to access location, 
+            grand permission to receive the most accurate weather
+            """)
+
+            Link(
+              "Open Settings",
+              destination: URL(
+                string: UIApplication.openSettingsURLString)!)
+            .buttonStyle(.bordered)
+          }
+          .configureMessage()
         }
-        .configureMessage()
-      }
 
-      Spacer()
+        Spacer()
+      }
+      .subtitleFont()
+      .fontWeight(.medium)
+      .padding()
+      .animating(state, with: .smooth)
+      .toolbarRole(.navigationStack)
+      .toolbar {
+        if !setup {
+          ToolbarItem(placement: .primaryAction) {
+            Button(
+              action: { dismiss() },
+              label: {
+                Image(systemName: "xmark")
+                  .fontWeight(.medium)
+                  .foregroundStyle(colorScheme.foreground)
+              })
+          }
+        }
+      }
     }
-    .subtitleFont()
-    .fontWeight(.medium)
-    .padding()
-    .animating(state, with: .smooth)
   }
 }
 

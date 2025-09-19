@@ -26,6 +26,7 @@ struct WeatherComposite: View {
             Text(currentWeather.location)
               .fontWeight(.medium)
           })
+        .applyGlassButtonStyleIfAvailable()
         .sheet(isPresented: $presentSearch) {
           Search(setup: false)
             .configureSheet()
@@ -39,6 +40,7 @@ struct WeatherComposite: View {
               .font(.title2)
               .fontWeight(.regular)
           })
+        .applyGlassButtonStyleIfAvailable()
         .sheet(isPresented: $settingsController) {
           Settings()
             .configureSheet()

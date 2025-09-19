@@ -66,7 +66,7 @@ struct Settings: View {
             action: { dismiss() },
             label: {
               Image(systemName: "xmark")
-                .foregroundStyle(.foreground)
+                .foregroundStyle(colorScheme.foreground)
             })
         }
       }

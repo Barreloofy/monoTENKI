@@ -34,7 +34,7 @@ T.Element.RawValue == String {
       }
       .lineLimit(nil)
       .padding()
-      .glassBackground()
+      .applyGlassEffectIfAvailable()
       .padding(25)
 
       List(items) { item in
