@@ -19,6 +19,8 @@
 		2913A5862E05C9BC00B4E6CE /* MeasurementSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D151712D9072D200A851E9 /* MeasurementSystem.swift */; };
 		2913A5872E05C9CC00B4E6CE /* TemperatureFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C5305C2D972EA000159C2D /* TemperatureFormat.swift */; };
 		2917DC202DAD15DA006AEED9 /* AccuWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2917DC1F2DAD15C3006AEED9 /* AccuWeather.swift */; };
+		2918FC272E7EDA4A00DB8873 /* NavigationBarConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2918FC262E7EDA4A00DB8873 /* NavigationBarConfiguration.swift */; };
+		2918FC292E7EDFC100DB8873 /* SettingsIconConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2918FC282E7EDFC100DB8873 /* SettingsIconConfiguration.swift */; };
 		291979452E6864B400019D35 /* Bool+Toggled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291979442E6864AC00019D35 /* Bool+Toggled.swift */; };
 		291979472E68665800019D35 /* String+StorageKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291979462E68664F00019D35 /* String+StorageKeys.swift */; };
 		291B5D292DAE6E770049589E /* CurrentDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291B5D282DAE6E770049589E /* CurrentDetailPage.swift */; };
@@ -192,6 +194,8 @@
 		2913A57E2E05C5B600B4E6CE /* WeatherWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherWidget.swift; sourceTree = "<group>"; };
 		2913A5802E05C5E600B4E6CE /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 		2917DC1F2DAD15C3006AEED9 /* AccuWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccuWeather.swift; sourceTree = "<group>"; };
+		2918FC262E7EDA4A00DB8873 /* NavigationBarConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarConfiguration.swift; sourceTree = "<group>"; };
+		2918FC282E7EDFC100DB8873 /* SettingsIconConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsIconConfiguration.swift; sourceTree = "<group>"; };
 		291979442E6864AC00019D35 /* Bool+Toggled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Toggled.swift"; sourceTree = "<group>"; };
 		291979462E68664F00019D35 /* String+StorageKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+StorageKeys.swift"; sourceTree = "<group>"; };
 		291B5D282DAE6E770049589E /* CurrentDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDetailPage.swift; sourceTree = "<group>"; };
@@ -529,6 +533,8 @@
 				298D98BF2E27016700846F31 /* SheetConfiguration.swift */,
 				292AF1C82E2AB1A2001A005C /* MessageConfiguration.swift */,
 				29C8889D2E60D8EC002D6A98 /* ImageConfiguration.swift */,
+				2918FC282E7EDFC100DB8873 /* SettingsIconConfiguration.swift */,
+				2918FC262E7EDA4A00DB8873 /* NavigationBarConfiguration.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -1007,6 +1013,7 @@
 				291C41F32DB285F100D6A2B1 /* AccuWeatherLocation.swift in Sources */,
 				2995AEB52D92C66D0010744B /* Search.swift in Sources */,
 				2934E3DC2D9ABAF300A229F4 /* Today.swift in Sources */,
+				2918FC272E7EDA4A00DB8873 /* NavigationBarConfiguration.swift in Sources */,
 				293AC4C02D9C180F007FCC76 /* CLServiceSession+GetAuthorization.swift in Sources */,
 				29AE96362E3A27EA001D7ED4 /* TwoColumnLayout.swift in Sources */,
 				2934E3DE2D9AD7CB00A229F4 /* SFSymbolsFormat.swift in Sources */,
@@ -1045,6 +1052,7 @@
 				29C888A02E60D98A002D6A98 /* WeatherListSymbol.swift in Sources */,
 				29326AAD2DC2C58B00D054DE /* JSONDecoder+Strategies.swift in Sources */,
 				29A13B6E2E7DB6060068CD1E /* ApplyGlassButtonStyleIfAvailable.swift in Sources */,
+				2918FC292E7EDFC100DB8873 /* SettingsIconConfiguration.swift in Sources */,
 				2917DC202DAD15DA006AEED9 /* AccuWeather.swift in Sources */,
 				2974E9932DABF78B00663B36 /* CLLocation+FailableInitializer.swift in Sources */,
 				292EDE4E2DC146AC00C8EC52 /* AccuWeather+Weather.swift in Sources */,

@@ -7,12 +7,15 @@
 
 import SwiftUI
 
-struct SettingsDetailView<T>: View where
+struct SettingsDetailView<T>:
+  View
+where
 T: RandomAccessCollection,
 T.Element: Identifiable,
 T.Element: Equatable,
 T.Element: RawRepresentable,
-T.Element.RawValue == String {
+T.Element.RawValue == String
+{
   let category: String
   let icon: String
   let description: String

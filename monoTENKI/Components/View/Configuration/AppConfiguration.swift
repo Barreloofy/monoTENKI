@@ -20,6 +20,7 @@ struct AppConfiguration: ViewModifier {
       .fontWeight(.bold)
       .textCase(.uppercase)
       .multilineTextAlignment(.center)
+      .minimumScaleFactor(0.5)
       .lineLimit(1)
       .preferredColorScheme($styleMode)
       .foregroundStyle(styleMode)

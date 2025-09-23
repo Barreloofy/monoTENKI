@@ -15,8 +15,11 @@ struct Recovery: View {
 
   var body: some View {
     VStack {
-      Text("Error, check connection status, if the error persists please try again later")
-        .configureMessage()
+      Text("""
+      Error, check connection status, 
+      if the error persists please try again later
+      """)
+      .configureMessage()
 
       Button("Try again") {
         task?.cancel()
@@ -27,13 +30,23 @@ struct Recovery: View {
       .padding(.vertical)
 
       Text("Try diffrent Source")
+        .padding(.bottom)
 
-      HStack {
-        ForEach(APISource.allCases) {
-          Text($0.rawValue)
-            .selectedStyle(target: $0, value: $apiSourceInUse)
-        }
+      List(APISource.allCases) { source in
+        Button(
+          action: { setEnvironment(.apiSourceInUse, value: source) },
+          label: {
+            Label(
+              source.rawValue,
+              systemImage: apiSourceInUse == source ? "checkmark" : "")
+            .labelStyle(.trailing)
+          })
+        .listRowBackground(Color.clear)
       }
+      .listStyle(.plain)
+      .scrollDisabled(true)
+      .containerRelativeFrame(.vertical, count: 10, span: 2, spacing: 0)
+      .containerRelativeFrame(.horizontal, count: 10, span: 5, spacing: 0)
     }
     .offset(y: -75)
     .padding(.horizontal)

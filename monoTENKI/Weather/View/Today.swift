@@ -16,35 +16,41 @@ struct Today: View {
 
   var body: some View {
     VStack {
-      VStack(spacing: horizontalSizeClass == .regular ? 75 : 50) {
+      VStack {
         WeatherSymbol(name: current.condition, isDay: current.isDay)
+          .layoutPriority(horizontalSizeClass == .regular ? 0 : -1)
 
-        TemperatureView(current.temperatures.celsius)
-          .headlineFont()
+        VStack(spacing: 50) {
+          TemperatureView(current.temperatures.celsius)
+            .headlineFont()
+            .layoutPriority(2)
 
-        HStack {
-          TemperatureView(
-            "L",
-            current.temperatures.celsiusLow,
-            accessibilityText: "Low")
+          HStack {
+            TemperatureView(
+              "L",
+              current.temperatures.celsiusLow,
+              accessibilityText: "Low")
 
-          TemperatureView(
-            "H",
-            current.temperatures.celsiusHigh,
-            accessibilityText: "High")
-        }
-        .subheadlineFont()
-
-        Text(current.condition)
+            TemperatureView(
+              "H",
+              current.temperatures.celsiusHigh,
+              accessibilityText: "High")
+          }
           .subheadlineFont()
-          .lineLimit(nil)
+          .layoutPriority(1)
+
+          Text(current.condition)
+            .subheadlineFont()
+            .lineLimit(nil)
+            .layoutPriority(1)
+        }
       }
-      .padding(.vertical)
       .visible(!presentDetails)
 
       CurrentDetailPage(weather: current)
         .visible(presentDetails)
     }
+    .padding(.bottom)
     .containerRelativeFrame([.vertical, .horizontal], alignment: presentDetails ? .center : .top)
     .contentShape(Rectangle())
     .onTapGesture { presentDetails() }

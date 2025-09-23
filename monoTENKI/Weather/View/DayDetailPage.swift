@@ -40,7 +40,6 @@ struct DayDetailPage: View {
             }
           }
           .containerRelativeFrame(.vertical)
-          .offset(y: -50)
         }
       }
       .scrollTargetLayout()

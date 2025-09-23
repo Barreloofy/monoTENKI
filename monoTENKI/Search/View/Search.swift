@@ -18,7 +18,6 @@ struct Search: View {
 
   @Environment(\.modelContext) private var modelContext
   @Environment(\.dismiss) private var dismiss
-  @Environment(\.colorScheme) private var colorScheme
   @Environment(\.apiSource) private var apiSource
   @Environment(LocationAggregate.self) private var locationAggregate
   @StyleMode private var styleMode
@@ -120,24 +119,11 @@ struct Search: View {
 
         Spacer()
       }
+      .configureNavigationBar(enabled: !setup)
       .subtitleFont()
       .fontWeight(.medium)
       .padding()
       .animating(state, with: .smooth)
-      .toolbarRole(.navigationStack)
-      .toolbar {
-        if !setup {
-          ToolbarItem(placement: .primaryAction) {
-            Button(
-              action: { dismiss() },
-              label: {
-                Image(systemName: "xmark")
-                  .fontWeight(.medium)
-                  .foregroundStyle(colorScheme.foreground)
-              })
-          }
-        }
-      }
     }
   }
 }

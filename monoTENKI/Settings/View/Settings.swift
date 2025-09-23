@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct Settings: View {
-  @Environment(\.dismiss) private var dismiss
+  @Environment(\.colorScheme) private var colorScheme
   @Environment(\.apiSource) private var apiSourceInUse
   @Environment(\.measurementSystem) private var measurementSystemInUse
-  @Environment(\.colorScheme) private var colorScheme
 
   var body: some View {
     NavigationStack {
@@ -30,8 +29,7 @@ struct Settings: View {
                   title: { Text("Source:") },
                   icon: {
                     Image(systemName: "antenna.radiowaves.left.and.right")
-                      .font(.title2)
-                      .fontWeight(.regular)
+                      .configureSettingsIcon()
                   })
               })
           })
@@ -49,8 +47,7 @@ struct Settings: View {
                   title: { Text("Units:") },
                   icon: {
                     Image(systemName: "ruler.fill")
-                      .font(.title2)
-                      .fontWeight(.regular)
+                      .configureSettingsIcon()
                   })
               })
           })
@@ -59,20 +56,10 @@ struct Settings: View {
 
         Spacer()
       }
-      .toolbarRole(.navigationStack)
-      .toolbar {
-        ToolbarItem(placement: .primaryAction) {
-          Button(
-            action: { dismiss() },
-            label: {
-              Image(systemName: "xmark")
-                .foregroundStyle(colorScheme.foreground)
-            })
-        }
-      }
+      .configureNavigationBar()
+      .fontWeight(.medium)
       .padding()
     }
-    .fontWeight(.medium)
     .tint(colorScheme.foreground)
   }
 }

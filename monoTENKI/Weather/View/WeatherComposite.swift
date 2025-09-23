@@ -37,15 +37,14 @@ struct WeatherComposite: View {
           action: { settingsController() },
           label: {
             Image(systemName: "gear")
-              .font(.title2)
-              .fontWeight(.regular)
+              .configureSettingsIcon()
           })
         .applyGlassButtonStyleIfAvailable()
         .sheet(isPresented: $settingsController) {
           Settings()
             .configureSheet()
-            .preferredColorScheme(_styleMode.sheetValue) // Fix for colorScheme not updating properly when sheet active.
             .sheetController(_settingsController())
+            .preferredColorScheme(_styleMode.sheetValue) // Fix for colorScheme not updating properly when sheet active.
         }
       })
     .padding()

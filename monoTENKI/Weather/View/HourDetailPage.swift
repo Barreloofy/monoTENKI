@@ -38,7 +38,6 @@ struct HourDetailPage: View {
             }
           }
           .containerRelativeFrame(.vertical)
-          .offset(y: -50)
         }
       }
       .scrollTargetLayout()

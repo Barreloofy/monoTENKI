@@ -20,6 +20,7 @@ struct PermissionStyle: ButtonStyle {
         .padding(8)
     }
     .contentShape(RoundedRectangle(cornerRadius: 8))
+    .sensoryFeedback(.impact, trigger: configuration.isPressed)
   }
 }
 

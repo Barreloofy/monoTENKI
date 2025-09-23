@@ -13,6 +13,7 @@ struct SheetConfiguration: ViewModifier {
   func body(content: Content) -> some View {
     content
       .presentationBackground(colorScheme.background)
+      .minimumScaleFactor(1)
       .dynamicTypeSize(...DynamicTypeSize.large)
   }
 }
