@@ -45,5 +45,8 @@ struct HourDetailPage: View {
     .scrollTargetBehavior(.paging)
     .scrollPosition(id: $id)
     .scrollIndicators(.never)
+    .applyOnInteractiveResizeChangeIfAvailable { isResizing in
+      if isResizing { id = nil }
+    }
   }
 }

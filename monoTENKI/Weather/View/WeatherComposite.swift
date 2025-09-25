@@ -7,15 +7,14 @@
 
 import SwiftUI
 
-// `verticalScrollPosition`, `horizontalScrollPosition` and their `.id()` and `.scrollPosition()` methods are need for iPadOS
-// 26.0* window resizing system, as window size changes ScrollView items may unaligne themselves when not reseting the positions.
+// `scrollPosition` and its `.scrollPosition()` methods are need for iPadOS 26.0* window resizing system,
+// as window size changes ScrollView items may unaligne themselves when not reseting the positions.
 
 struct WeatherComposite: View {
   @StyleMode private var styleMode
 
   @State private var presentSearch = false
-  @State private var verticalScrollPosition: String?
-  @State private var horizontalScrollPosition: String?
+  @State private var scrollPosition = ScrollPosition()
   @SheetController private var settingsController
 
   let currentWeather: CurrentWeather
@@ -59,34 +58,27 @@ struct WeatherComposite: View {
         ScrollView(.vertical) {
           LazyVStack(spacing: 0) {
             Today(current: currentWeather)
-              .id("Today")
 
             HourForecast(hours: hourForecast)
-              .id("HourForecast")
           }
         }
         .scrollTargetBehavior(.paging)
-        .scrollPosition(id: $verticalScrollPosition)
+        .scrollPosition($scrollPosition)
         .scrollIndicators(.never)
         .containerRelativeFrame(.horizontal)
-        .id("Vertical")
 
         DayForecast(days: dayForecast)
-          .id("DayForecast")
       }
     }
     .scrollTargetBehavior(.paging)
-    .scrollPosition(id: $horizontalScrollPosition)
+    .scrollPosition($scrollPosition)
     .scrollIndicators(.never)
     .ignoresSafeArea()
-    .onGeometryChange(
-      for: CGSize.self,
-      of: { geometry in
-        geometry.size
-      },
-      action: { _ in
-        verticalScrollPosition = "Today"
-        horizontalScrollPosition = "Vertical"
-      })
+    .applyOnInteractiveResizeChangeIfAvailable { isResizing in
+      if isResizing { scrollPosition.scrollTo(edge: .top) }
+    }
   }
 }
+
+
+
