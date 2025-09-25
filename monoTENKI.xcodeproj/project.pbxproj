@@ -503,7 +503,6 @@
 				294867302E364A4E001A2B01 /* UnitSettings.swift */,
 				29AC3F202E38D028003A9359 /* NightToggle.swift */,
 				295389222E7C4828003181B1 /* SettingsDetailView.swift */,
-				2948672A2E36413F001A2B01 /* SettingsDetailConfiguration.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -535,6 +534,7 @@
 				298D98BF2E27016700846F31 /* SheetConfiguration.swift */,
 				292AF1C82E2AB1A2001A005C /* MessageConfiguration.swift */,
 				29C8889D2E60D8EC002D6A98 /* ImageConfiguration.swift */,
+				2948672A2E36413F001A2B01 /* SettingsDetailConfiguration.swift */,
 				2918FC282E7EDFC100DB8873 /* SettingsIconConfiguration.swift */,
 				2918FC262E7EDA4A00DB8873 /* NavigationBarConfiguration.swift */,
 			);
