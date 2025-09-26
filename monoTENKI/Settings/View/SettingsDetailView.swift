@@ -53,6 +53,7 @@ T.Element.RawValue == String
       .scrollDisabled(true)
     }
     .configureSettingsDetail()
+    .sensoryFeedback(.impact, trigger: match)
   }
 }
 
