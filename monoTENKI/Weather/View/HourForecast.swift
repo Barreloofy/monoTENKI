@@ -21,7 +21,7 @@ struct HourForecast: View {
           trailing: { TemperatureView(hour.temperatureCelsius) })
         .subtitleFont()
         .contentShape(Rectangle())
-        .onTapGesture { hourID = hour.time }
+        .onTapGesture { hourID = hour.id }
         .accessibilityElement(children: .combine)
 
         Spacer()
