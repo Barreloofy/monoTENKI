@@ -16,6 +16,7 @@ struct DetailSection<Content: View>: View {
       Text(title)
         .titleFont()
         .underline()
+        .layoutPriority(1)
 
       content
         .bodyFont()

@@ -43,5 +43,7 @@ struct CurrentDetailPage: View {
         SpeedView("Gust", weather.wind.gustKilometersPerHour)
       }
     }
+    .offset(y: -50)
+    .safeAreaPadding(.top, 50)
   }
 }

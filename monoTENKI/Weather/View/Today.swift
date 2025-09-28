@@ -18,12 +18,11 @@ struct Today: View {
     VStack {
       VStack {
         WeatherSymbol(name: current.condition, isDay: current.isDay)
-          .layoutPriority(horizontalSizeClass == .regular ? 0 : -1)
+          .layoutPriority(horizontalSizeClass == .regular ? 1 : 0)
 
         VStack(spacing: 50) {
           TemperatureView(current.temperatures.celsius)
             .headlineFont()
-            .layoutPriority(2)
 
           HStack {
             TemperatureView(
@@ -37,13 +36,12 @@ struct Today: View {
               accessibilityText: "High")
           }
           .subheadlineFont()
-          .layoutPriority(1)
 
           Text(current.condition)
             .subheadlineFont()
             .lineLimit(nil)
-            .layoutPriority(1)
         }
+        .layoutPriority(1)
       }
       .visible(!presentDetails)
 
@@ -57,4 +55,30 @@ struct Today: View {
     .animating(presentDetails, with: .easeInOut(duration: 1))
     .sensoryFeedback(.impact, trigger: presentDetails)
   }
+}
+
+
+#Preview {
+  let current = CurrentWeather(
+    location: "London",
+    isDay: true,
+    condition: "Clear",
+    temperatures: .init(
+      celsius: 16,
+      celsiusLow: 9,
+      celsiusHigh: 21,
+      feelsLikeCelsius: 15,
+      humidity: 62),
+    precipitation: .init(
+      chance: 10,
+      rateMillimeter: 1,
+      totalMillimeter: 1,
+      type: "Rain"),
+    wind: .init(
+      direction: "NSW",
+      speedKilometersPerHour: 14,
+      gustKilometersPerHour: 27))
+
+  Today(current: current)
+    .configureApp()
 }

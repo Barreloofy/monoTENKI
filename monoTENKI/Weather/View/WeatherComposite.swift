@@ -79,6 +79,3 @@ struct WeatherComposite: View {
     }
   }
 }
-
-
-

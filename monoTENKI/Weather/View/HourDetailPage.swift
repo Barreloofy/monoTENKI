@@ -37,6 +37,8 @@ struct HourDetailPage: View {
               SpeedView("Gust", hour.wind.gustKilometersPerHour)
             }
           }
+          .offset(y: -50)
+          .safeAreaPadding(.top, 50)
           .containerRelativeFrame(.vertical)
         }
       }
