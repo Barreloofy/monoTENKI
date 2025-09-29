@@ -42,6 +42,7 @@ struct Recovery: View {
             .labelStyle(.trailing)
           })
         .listRowBackground(Color.clear)
+        .sensoryFeedback(.impact, trigger: apiSourceInUse)
       }
       .listStyle(.plain)
       .scrollDisabled(true)
