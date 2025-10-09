@@ -39,8 +39,8 @@ struct DayDetailPage: View {
               Text("Type \(day.precipitation.type)")
             }
           }
-          .offset(y: -50)
-          .safeAreaPadding(.top, 50)
+          .offset(y: -100)
+          .safeAreaPadding(.top, 100)
           .containerRelativeFrame(.vertical)
         }
       }
