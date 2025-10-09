@@ -10,11 +10,11 @@ import SwiftUI
 struct SettingsDetailView<T>:
   View
 where
-T: RandomAccessCollection,
-T.Element: Identifiable,
-T.Element: Equatable,
-T.Element: RawRepresentable,
-T.Element.RawValue == String
+  T: RandomAccessCollection,
+  T.Element: Identifiable,
+  T.Element: Equatable,
+  T.Element: RawRepresentable,
+  T.Element.RawValue == String
 {
   let category: String
   let icon: String
@@ -65,7 +65,7 @@ T.Element.RawValue == String
     description: "Select your preferred temperature unit to align weather information with your personal preferences.",
     items: MeasurementSystem.allCases,
     match: MeasurementSystem.metric,
-    action: { _ in print("Hello, World!")})
+    action: { _ in print("Hello, World!") })
   .configureApp()
   .sheetController(SettingsController())
 }
