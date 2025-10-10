@@ -9,7 +9,7 @@ import SwiftUI
 
 @MainActor
 @Observable
-class SettingsController {
+final class SettingsController {
   var present = false
 
   func callAsFunction() { present() }

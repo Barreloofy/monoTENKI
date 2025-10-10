@@ -11,7 +11,7 @@ import CoreLocation
 /// Location aggregate model.
 @MainActor
 @Observable
-class LocationAggregate {
+final class LocationAggregate {
   private var locationStorage = UserDefault(key: .location, defaultValue: "")
   var location: String {
     get { locationStorage() }

@@ -10,7 +10,7 @@ import Foundation
 /// Weather aggregate model.
 @MainActor
 @Observable
-class WeatherAggregate {
+final class WeatherAggregate {
   enum State: Equatable {
     case loading
     case loaded(currentWeather: CurrentWeather, hourForecast: Hours, dayForecast: Days)

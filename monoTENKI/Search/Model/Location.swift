@@ -11,7 +11,7 @@ import SwiftData
 typealias Locations = [Location]
 
 @Model
-class Location {
+final class Location {
   #Unique<Location>([\.name, \.country], [\.area])
 
   var accessDate = Date()

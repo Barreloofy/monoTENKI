@@ -9,7 +9,7 @@ import AsyncAlgorithms
 import CoreLocation
 
 @MainActor
-class LocationManager: NSObject, @preconcurrency CLLocationManagerDelegate {
+final class LocationManager: NSObject, @preconcurrency CLLocationManagerDelegate {
   private let manager = CLLocationManager()
   private let channel = AsyncChannel<CLLocation?>()
 
