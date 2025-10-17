@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 /// Concrete interface for WeatherAPI.com.
 @MainActor
@@ -15,7 +16,7 @@ enum WeatherAPI {
     case search(query: String)
   }
 
-  static func fetchWeather(for query: String) async throws -> WeatherAPIWeather {
+  static func fetchWeather(for query: CLLocationCoordinate2D) async throws -> WeatherAPIWeather {
     let location = try await fetchPosition(for: query)
 
     let client = try HTTPClient(
@@ -37,8 +38,8 @@ enum WeatherAPI {
     }
   }
 
-  private static func fetchPosition(for query: String) async throws -> String {
-    let client = try HTTPClient(url: Service.search(query: query).provideURL())
+  private static func fetchPosition(for query: CLLocationCoordinate2D) async throws -> String {
+    let client = try HTTPClient(url: Service.search(query: query.stringRepresentation).provideURL())
     let locations: WeatherAPILocations = try await client.fetch()
 
     guard let location = locations.first else { throw UnwrappingError(type: WeatherAPILocations.self) }

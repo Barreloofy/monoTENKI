@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 /// Concrete interface for AccuWeather.
 @MainActor
@@ -22,7 +23,7 @@ enum AccuWeather {
     static let geoKey = "searchGeo"
   }
 
-  static func fetchWeather(for query: String) async throws -> AccuWeatherComposite {
+  static func fetchWeather(for query: CLLocationCoordinate2D) async throws -> AccuWeatherComposite {
     let location = try await AccuWeather.fetchGeo(for: query)
     let urlDictionary = try Service.weather.provideURLs(query: location.key)
 
@@ -71,9 +72,9 @@ enum AccuWeather {
     }
   }
 
-  static func fetchGeo(for query: String) async throws -> AccuWeatherLocation {
+  static func fetchGeo(for query: CLLocationCoordinate2D) async throws -> AccuWeatherLocation {
     let client = try HTTPClient(
-      url: Service.geo(query: query).provideURL(),
+      url: Service.geo(query: query.stringRepresentation).provideURL(),
       decoder: AccuWeatherLocation.decoder)
 
     return try await client.fetch()

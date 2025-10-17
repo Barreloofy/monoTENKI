@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 /// Weather aggregate model.
 @MainActor
@@ -16,10 +17,17 @@ final class WeatherAggregate {
     case loaded(currentWeather: CurrentWeather, hourForecast: Hours, dayForecast: Days)
     case error
   }
+  
+  /// The current state of the aggregate.
+  private(set) var state = State.loading
 
-  var state = State.loading
+  /// Update the aggregate based on `location` and `source`.
+  /// - Parameters:
+  ///   - location: <#location description#>
+  ///   - source: <#source description#>
+  func getWeather(for location: CLLocationCoordinate2D, from source: APISource) async {
+    print(location)
 
-  func getWeather(for location: String, from source: APISource) async {
     do {
       let weather: any Weather
 

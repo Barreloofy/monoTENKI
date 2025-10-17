@@ -12,11 +12,12 @@ import CoreLocation
 @MainActor
 @Observable
 final class LocationAggregate {
-  private var locationStorage = UserDefault(key: .location, defaultValue: "")
-  var location: String {
+  private var locationStorage = UserDefault(key: .location, defaultValue: CLLocationCoordinate2D())
+  var location: CLLocationCoordinate2D {
     get { locationStorage() }
     set { locationStorage(newValue) }
   }
+
   private var trackLocationStorage = UserDefault(key: .trackLocation, defaultValue: false)
   var trackLocation: Bool {
     get { trackLocationStorage() }
@@ -35,11 +36,11 @@ final class LocationAggregate {
     trackLocation = true
   }
 
-  /// Stop location tracking and optionally sets a new location.
-  func stopTracking(_ location: String? = nil) {
+  /// Stop location tracking and optionally set a new location.
+  func stopTracking(_ newLocation: CLLocationCoordinate2D? = nil) {
     defer { trackLocation = false }
-    guard let location = location else { return }
-    self.location = location
+    guard let newLocation else { return }
+    location = newLocation
   }
 
   /// Resumes location tracking if active, but was previously suspended.
@@ -67,18 +68,14 @@ final class LocationAggregate {
 
   private func startLocationTracking() {
     locationStream = Task {
-      var previousLocation = CLLocation(from: location)
+      var previousLocation = CLLocation.init(
+        latitude: location.latitude,
+        longitude: location.longitude)
 
-      let distanceThresholdMeters = 250.0
-      let filterByDistance: @MainActor (CLLocationUpdate) -> Bool = { update in
-        guard let location = update.location else { return false }
+      let distanceThresholdInMeters = 250.0
 
-        guard let unwrappedPreviousLocation = previousLocation else {
-          previousLocation = location
-          return true
-        }
-
-        if location.distance(from: unwrappedPreviousLocation) > distanceThresholdMeters {
+      let filterByDistance: @UpdateProcessor (CLLocation) -> Bool = { location in
+        if location.distance(from: previousLocation) > distanceThresholdInMeters {
           previousLocation = location
           return true
         } else {
@@ -86,10 +83,11 @@ final class LocationAggregate {
         }
       }
 
-      for try await update in CLLocationUpdate.liveUpdates().filter({ await filterByDistance($0) }) {
-        guard let newLocation = update.location?.coordinate.stringRepresentation else { continue }
-
-        location = newLocation
+      for try await update in CLLocationUpdate.liveUpdates()
+        .compactMap(\.location)
+        .filter(filterByDistance)
+      {
+        location = update.coordinate
       }
     }
   }

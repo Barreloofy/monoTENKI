@@ -17,12 +17,12 @@ import Foundation
 ///
 /// location(getLocation())
 /// ```
-struct UserDefault<Value> {
+struct UserDefault<Value: Codable> {
   let key: String
   let defaultValue: Value
   let container: UserDefaults
 
-  var value: Value { didSet { container.set(value, forKey: key) } }
+  var value: Value { didSet { container.set(try? JSONEncoder().encode(value), forKey: key) } }
 
   /// - Parameters:
   ///   - key: The key of the value stored in `UserDefaults`.
@@ -43,7 +43,9 @@ struct UserDefault<Value> {
     self.key = key.rawValue
     self.defaultValue = defaultValue
     self.container = container
-    self.value = container.object(forKey: key.rawValue) as? Value ?? defaultValue
+
+    let data = container.object(forKey: key.rawValue) as! Data
+    self.value = try! JSONDecoder().decode(Value.self, from: data)
   }
 
   func callAsFunction() -> Value {

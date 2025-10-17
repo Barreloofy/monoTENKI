@@ -13,7 +13,7 @@ import SwiftData
 ///   - key: The appropriate `StorageKeys` key.
 ///   - value: The value `key` references.
 ///   - store: The user defaults store to read and write to. A value of nil will use the user default store from the environment.
-func setEnvironment(_ key: StorageKeys, value: Bool, store: UserDefaults? = nil) {
+func setEnvironment(_ key: StorageKeys, value: Bool?, store: UserDefaults? = nil) {
   let defaults = store ?? .standard
   defaults.set(value, forKey: key.rawValue)
 }
@@ -23,7 +23,7 @@ func setEnvironment(_ key: StorageKeys, value: Bool, store: UserDefaults? = nil)
 ///   - key: The appropriate `StorageKeys` key.
 ///   - value: The value `key` references.
 ///   - store: The user defaults store to read and write to. A value of nil will use the user default store from the environment.
-func setEnvironment(_ key: StorageKeys, value: Data, store: UserDefaults? = nil) {
+func setEnvironment(_ key: StorageKeys, value: Data?, store: UserDefaults? = nil) {
   let defaults = store ?? .standard
   defaults.set(value, forKey: key.rawValue)
 }
@@ -33,7 +33,7 @@ func setEnvironment(_ key: StorageKeys, value: Data, store: UserDefaults? = nil)
 ///   - key: The appropriate `StorageKeys` key.
 ///   - value: The value `key` references.
 ///   - store: The user defaults store to read and write to. A value of nil will use the user default store from the environment.
-func setEnvironment(_ key: StorageKeys, value: Date, store: UserDefaults? = nil) {
+func setEnvironment(_ key: StorageKeys, value: Date?, store: UserDefaults? = nil) {
   let defaults = store ?? .standard
   defaults.set(value, forKey: key.rawValue)
 }
@@ -43,7 +43,7 @@ func setEnvironment(_ key: StorageKeys, value: Date, store: UserDefaults? = nil)
 ///   - key: The appropriate `StorageKeys` key.
 ///   - value: The value `key` references.
 ///   - store: The user defaults store to read and write to. A value of nil will use the user default store from the environment.
-func setEnvironment(_ key: StorageKeys, value: Double, store: UserDefaults? = nil) {
+func setEnvironment(_ key: StorageKeys, value: Double?, store: UserDefaults? = nil) {
   let defaults = store ?? .standard
   defaults.set(value, forKey: key.rawValue)
 }
@@ -53,7 +53,7 @@ func setEnvironment(_ key: StorageKeys, value: Double, store: UserDefaults? = ni
 ///   - key: The appropriate `StorageKeys` key.
 ///   - value: The value `key` references.
 ///   - store: The user defaults store to read and write to. A value of nil will use the user default store from the environment.
-func setEnvironment(_ key: StorageKeys, value: Int, store: UserDefaults? = nil) {
+func setEnvironment(_ key: StorageKeys, value: Int?, store: UserDefaults? = nil) {
   let defaults = store ?? .standard
   defaults.set(value, forKey: key.rawValue)
 }
@@ -63,7 +63,7 @@ func setEnvironment(_ key: StorageKeys, value: Int, store: UserDefaults? = nil) 
 ///   - key: The appropriate `StorageKeys` key.
 ///   - value: The value `key` references.
 ///   - store: The user defaults store to read and write to. A value of nil will use the user default store from the environment.
-func setEnvironment(_ key: StorageKeys, value: PersistentIdentifier, store: UserDefaults? = nil) {
+func setEnvironment(_ key: StorageKeys, value: PersistentIdentifier?, store: UserDefaults? = nil) {
   let defaults = store ?? .standard
   defaults.set(value, forKey: key.rawValue)
 }
@@ -73,7 +73,7 @@ func setEnvironment(_ key: StorageKeys, value: PersistentIdentifier, store: User
 ///   - key: The appropriate `StorageKeys` key.
 ///   - value: The value `key` references.
 ///   - store: The user defaults store to read and write to. A value of nil will use the user default store from the environment.
-func setEnvironment(_ key: StorageKeys, value: String, store: UserDefaults? = nil) {
+func setEnvironment(_ key: StorageKeys, value: String?, store: UserDefaults? = nil) {
   let defaults = store ?? .standard
   defaults.set(value, forKey: key.rawValue)
 }
@@ -83,7 +83,7 @@ func setEnvironment(_ key: StorageKeys, value: String, store: UserDefaults? = ni
 ///   - key: The appropriate `StorageKeys` key.
 ///   - value: The value `key` references.
 ///   - store: The user defaults store to read and write to. A value of nil will use the user default store from the environment.
-func setEnvironment(_ key: StorageKeys, value: URL, store: UserDefaults? = nil) {
+func setEnvironment(_ key: StorageKeys, value: URL?, store: UserDefaults? = nil) {
   let defaults = store ?? .standard
   defaults.set(value, forKey: key.rawValue)
 }

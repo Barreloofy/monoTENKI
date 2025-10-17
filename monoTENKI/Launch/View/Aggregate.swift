@@ -7,17 +7,16 @@
 
 import SwiftUI
 import AsyncAlgorithms
+import CoreLocation
 
 struct Aggregate: View {
-  @Environment(\.apiSource) private var apiSource
   @Environment(LocationAggregate.self) private var locationAggregate
 
   @State private var weatherAggregate = WeatherAggregate()
   @State private var refreshDate = Date.nextRefreshDate
-  @State private var apiSourceInUse = APISource.weatherAPI
 
   var body: some View {
-    VStack {
+    Group {
       switch weatherAggregate.state {
       case .loading:
         Loading()
@@ -29,28 +28,73 @@ struct Aggregate: View {
           dayForecast: dayForecast)
 
       case .error:
-        Recovery() {
-          weatherAggregate.state = .loading
-          await weatherAggregate.getWeather(for: locationAggregate.location, from: apiSourceInUse)
-          refreshDate = .nextRefreshDate
-        }
+        Recovery() {}
       }
     }
-    .onChange(of: apiSource, initial: true) { apiSourceInUse = apiSource }
     .task(id: locationAggregate.location) {
-      await weatherAggregate.getWeather(for: locationAggregate.location, from: apiSourceInUse)
-      refreshDate = .nextRefreshDate
-    }
-    .task {
-      for await _ in AsyncTimerSequence(interval: .seconds(900), clock: .continuous) where Date() > refreshDate {
-        await weatherAggregate.getWeather(for: locationAggregate.location, from: apiSourceInUse)
-        refreshDate = .nextRefreshDate
-      }
-    }
-    .asyncOnChange(id: apiSource) {
-      guard weatherAggregate.state != .error else { return }
-      await weatherAggregate.getWeather(for: locationAggregate.location, from: apiSourceInUse)
-      refreshDate = .nextRefreshDate
+      await weatherAggregate.getWeather(for: locationAggregate.location, from: .weatherAPI)
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ @Environment(\.apiSource) private var apiSource
+
+ @State private var apiSourceInUse = APISource.weatherAPI
+
+ private let refreshTimer = AsyncTimerSequence(interval: .seconds(900), clock: .continuous)
+
+ {
+   weatherAggregate.state = .loading
+   await weatherAggregate.getWeather(for: locationAggregate.location, from: apiSourceInUse)
+   refreshDate = .nextRefreshDate
+ }
+
+ .onChange(of: apiSource, initial: true) { apiSourceInUse = apiSource }
+ .task(id: locationAggregate.location) {
+   await weatherAggregate.getWeather(for: locationAggregate.location, from: apiSourceInUse)
+   refreshDate = .nextRefreshDate
+ }
+ .task {
+   for await _ in updateTimer where Date() > refreshDate {
+     await weatherAggregate.getWeather(for: locationAggregate.location, from: apiSourceInUse)
+     refreshDate = .nextRefreshDate
+   }
+ }
+ .asyncOnChange(id: apiSource) {
+   guard weatherAggregate.state != .error else { return }
+   await weatherAggregate.getWeather(for: locationAggregate.location, from: apiSourceInUse)
+   refreshDate = .nextRefreshDate
+ }
+ */
