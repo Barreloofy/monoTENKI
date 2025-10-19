@@ -20,7 +20,7 @@ struct UnwrappingError: LocalizedError {
     self.comment = comment
   }
 
-  var errorDescription: String? {
+  var errorDescription: String {
     if let type = type, let comment = comment {
       "Failed to unwrap optional value of type: '\(type)' with comment: \(comment)"
     } else if let type = type, comment == nil {

@@ -38,7 +38,7 @@ enum WeatherAPI {
   }
 
   private static func fetchPosition(for query: Coordinate) async throws -> String {
-    let client = try HTTPClient(url: Service.search(query: query.stringRepresentation).provideURL())
+    let client = try HTTPClient(url: Service.search(query: query.description).provideURL())
     let locations: WeatherAPILocations = try await client.fetch()
 
     guard let location = locations.first else { throw UnwrappingError(type: WeatherAPILocations.self) }

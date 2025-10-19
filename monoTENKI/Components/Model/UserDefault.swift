@@ -22,7 +22,7 @@ struct UserDefault<Value: Codable> {
   let defaultValue: Value
   let container: UserDefaults
 
-  var value: Value { didSet { container.set(try? JSONEncoder().encode(value), forKey: key) } }
+  private var value: Value { didSet { container.set(try? JSONEncoder().encode(value), forKey: key) } }
 
   /// - Parameters:
   ///   - key: The key of the value stored in `UserDefaults`.
@@ -60,7 +60,7 @@ extension UserDefault {
   private static func retrieveValue(
     key: String,
     defaultValue: Value,
-    container: UserDefaults = .standard) -> Value {
+    container: UserDefaults) -> Value {
       guard
         let data = container.data(forKey: key),
         let value = try? JSONDecoder().decode(Value.self, from: data)

@@ -8,12 +8,18 @@
 import CoreLocation
 
 extension CLServiceSession {
-  /// Returns true if some level of location authorization was granted otherwise false,
-  /// if location authorization is undetermined, prompts for permission.
+  /// Queries the current authorization status.
+  ///
+  /// - Note: If location authorization is undetermined, prompts for permission.
+  ///
+  /// - Parameter session: The `CLServiceSession` to use, the default is `whenInUse`.
+  /// - Returns: A boolean indicating whether some level of authorization was granted.
   static func getAuthorizationStatus(
     session: CLServiceSession = CLServiceSession(authorization: .whenInUse)) async -> Bool {
       let authorizationStatus = try? await session.diagnostics.first { !$0.authorizationRequestInProgress }
-      guard let authorizationStatus = authorizationStatus else { return false }
+
+      guard let authorizationStatus else { return false }
+
       return !authorizationStatus.authorizationDenied
     }
 }

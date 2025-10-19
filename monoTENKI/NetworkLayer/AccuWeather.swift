@@ -73,7 +73,7 @@ enum AccuWeather {
 
   static func fetchGeo(for query: Coordinate) async throws -> AccuWeatherLocation {
     let client = try HTTPClient(
-      url: Service.geo(query: query.stringRepresentation).provideURL(),
+      url: Service.geo(query: query.description).provideURL(),
       decoder: AccuWeatherLocation.decoder)
 
     return try await client.fetch()

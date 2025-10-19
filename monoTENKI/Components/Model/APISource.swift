@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum APISource: String, CaseIterable, Identifiable {
+enum APISource: String, Identifiable, CaseIterable {
   case weatherAPI
   case accuWeather
 
