@@ -11,8 +11,8 @@ import CoreLocation
 @MainActor
 @Observable
 final class LocationAggregate {
-  private var locationStorage = UserDefault(key: .location, defaultValue: CLLocationCoordinate2D())
-  var location: CLLocationCoordinate2D {
+  private var locationStorage = UserDefault(key: .location, defaultValue: Coordinate())
+  var location: Coordinate {
     get { locationStorage() }
     set { locationStorage(newValue) }
   }
@@ -36,7 +36,10 @@ final class LocationAggregate {
   }
 
   /// Stop location tracking and optionally set a new location.
-  func stopTracking(_ newLocation: CLLocationCoordinate2D? = nil) {
+  /// - Parameter newLocation:
+  /// The location to set `LocationAggregate` to,
+  /// If `nil` is passed, the current value of `LocationAggregate` remains active.
+  func stopTracking(_ newLocation: Coordinate? = nil) {
     defer { trackLocation = false }
     guard let newLocation else { return }
     location = newLocation

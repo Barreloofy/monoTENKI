@@ -18,14 +18,14 @@ final class Location {
   var name: String
   var country: String
   var area: String?
-  var coordinate: CLLocationCoordinate2D
+  var coordinate: Coordinate
 
   var completeName: String {
-    guard let area = area, area != name else { return "\(name) \(country)" }
+    guard let area, area != name else { return "\(name) \(country)" }
     return "\(area) \(name) \(country)"
   }
 
-  init(name: String, country: String, area: String? = nil, coordinate: CLLocationCoordinate2D) {
+  init(name: String, country: String, area: String? = nil, coordinate: Coordinate) {
     self.name = name
     self.country = country
     self.area = area

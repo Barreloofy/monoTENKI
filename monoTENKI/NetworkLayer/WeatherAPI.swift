@@ -15,7 +15,7 @@ enum WeatherAPI {
     case search(query: String)
   }
 
-  static func fetchWeather(for query: CLLocationCoordinate2D) async throws -> WeatherAPIWeather {
+  static func fetchWeather(for query: Coordinate) async throws -> WeatherAPIWeather {
     let location = try await fetchPosition(for: query)
 
     let client = try HTTPClient(
@@ -37,7 +37,7 @@ enum WeatherAPI {
     }
   }
 
-  private static func fetchPosition(for query: CLLocationCoordinate2D) async throws -> String {
+  private static func fetchPosition(for query: Coordinate) async throws -> String {
     let client = try HTTPClient(url: Service.search(query: query.stringRepresentation).provideURL())
     let locations: WeatherAPILocations = try await client.fetch()
 

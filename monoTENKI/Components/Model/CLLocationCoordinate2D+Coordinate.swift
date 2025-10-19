@@ -59,3 +59,6 @@ extension CLLocationCoordinate2D: @retroactive Codable {
     try container.encode(longitude, forKey: .longitude)
   }
 }
+
+
+typealias Coordinate = CLLocationCoordinate2D
