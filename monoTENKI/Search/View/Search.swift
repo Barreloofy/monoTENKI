@@ -16,10 +16,10 @@ struct Search: View {
 
   @Query(Location.descriptor, animation: .smooth(duration: 1)) private var history: Locations
 
+  @Environment(LocationAggregate.self) private var locationAggregate
   @Environment(\.modelContext) private var modelContext
   @Environment(\.dismiss) private var dismiss
   @Environment(\.apiSource) private var apiSource
-  @Environment(LocationAggregate.self) private var locationAggregate
   @StyleMode private var styleMode
 
   @State private var state = SearchState.presenting

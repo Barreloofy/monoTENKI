@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct SettingsDetailConfiguration: ViewModifier {
-  @Environment(\.colorScheme) private var colorScheme
   @Environment(SettingsController.self) private var settingsController
+  @Environment(\.colorScheme) private var colorScheme
 
   func body(content: Content) -> some View {
     content
