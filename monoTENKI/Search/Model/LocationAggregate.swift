@@ -5,7 +5,6 @@
 //  Created by Barreloofy on 3/19/25 at 8:11 PM.
 //
 
-import Foundation
 import CoreLocation
 
 /// Location aggregate model.

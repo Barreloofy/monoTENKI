@@ -5,7 +5,6 @@
 //  Created by Barreloofy on 3/18/25 at 5:44 PM.
 //
 
-import Foundation
 import CoreLocation
 
 /// Concrete interface for WeatherAPI.com.

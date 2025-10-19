@@ -5,7 +5,6 @@
 //  Created by Barreloofy on 4/14/25 at 12:07 PM.
 //
 
-import Foundation
 import CoreLocation
 
 /// Concrete interface for AccuWeather.

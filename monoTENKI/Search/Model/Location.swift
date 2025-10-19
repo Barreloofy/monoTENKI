@@ -5,7 +5,7 @@
 //  Created by Barreloofy on 4/20/25 at 3:37 PM.
 //
 
-import Foundation
+import CoreLocation
 import SwiftData
 
 typealias Locations = [Location]
@@ -18,27 +18,18 @@ final class Location {
   var name: String
   var country: String
   var area: String?
-  var coordinate: Coordinate
+  var coordinate: CLLocationCoordinate2D
 
   var completeName: String {
     guard let area = area, area != name else { return "\(name) \(country)" }
     return "\(area) \(name) \(country)"
   }
 
-  init(name: String, country: String, area: String? = nil, coordinate: Coordinate) {
+  init(name: String, country: String, area: String? = nil, coordinate: CLLocationCoordinate2D) {
     self.name = name
     self.country = country
     self.area = area
     self.coordinate = coordinate
-  }
-
-  struct Coordinate: Codable {
-    let latitude: Double
-    let longitude: Double
-
-    var stringRepresentation: String {
-      "\(latitude), \(longitude)"
-    }
   }
 }
 

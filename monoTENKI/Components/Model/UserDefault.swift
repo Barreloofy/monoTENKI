@@ -32,7 +32,7 @@ struct UserDefault<Value: Codable> {
     self.key = key
     self.defaultValue = defaultValue
     self.container = container
-    self.value = container.object(forKey: key) as? Value ?? defaultValue
+    self.value = Self.retrieveValue(key: key, defaultValue: defaultValue, container: container)
   }
 
   /// - Parameters:
@@ -43,9 +43,7 @@ struct UserDefault<Value: Codable> {
     self.key = key.rawValue
     self.defaultValue = defaultValue
     self.container = container
-
-    let data = container.object(forKey: key.rawValue) as! Data
-    self.value = try! JSONDecoder().decode(Value.self, from: data)
+    self.value = Self.retrieveValue(key: key.rawValue, defaultValue: defaultValue, container: container)
   }
 
   func callAsFunction() -> Value {
@@ -55,4 +53,19 @@ struct UserDefault<Value: Codable> {
   mutating func callAsFunction(_ newValue: Value) {
     value = newValue
   }
+}
+
+
+extension UserDefault {
+  private static func retrieveValue(
+    key: String,
+    defaultValue: Value,
+    container: UserDefaults = .standard) -> Value {
+      guard
+        let data = container.data(forKey: key),
+        let value = try? JSONDecoder().decode(Value.self, from: data)
+      else { return defaultValue }
+
+      return value
+    }
 }

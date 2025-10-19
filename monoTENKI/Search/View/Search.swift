@@ -83,10 +83,7 @@ struct Search: View {
                     .onTapGesture {
                       result.accessDate = .now
                       modelContext.insert(result)
-                      locationAggregate.stopTracking(
-                        CLLocationCoordinate2D(
-                          latitude: result.coordinate.latitude,
-                          longitude: result.coordinate.longitude))
+                      locationAggregate.stopTracking(result.coordinate)
                       dismiss()
                     }
                     .accessibilityAddTraits(.isSelected)

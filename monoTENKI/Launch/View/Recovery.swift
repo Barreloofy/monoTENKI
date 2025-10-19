@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct Recovery: View {
-  @AppStorage(.key(.apiSourceInUse)) private var apiSourceInUse = APISource.weatherAPI
+  @Environment(\.apiSource) private var apiSource
+
   @State private var task: Task<Void, Never>?
 
   let action: () async -> Void
@@ -38,16 +39,21 @@ struct Recovery: View {
           label: {
             Label(
               source.rawValue,
-              systemImage: apiSourceInUse == source ? "checkmark" : "")
+              systemImage: apiSource == source ? "checkmark" : "")
             .labelStyle(.trailing)
           })
         .listRowBackground(Color.clear)
-        .sensoryFeedback(.impact, trigger: apiSourceInUse)
+        .sensoryFeedback(.impact, trigger: apiSource)
       }
       .listStyle(.plain)
       .scrollDisabled(true)
-      .containerRelativeFrame(.vertical, count: 10, span: 2, spacing: 0)
-      .containerRelativeFrame(.horizontal, count: 10, span: 5, spacing: 0)
+      .containerRelativeFrame([.vertical, .horizontal]) { length, axis in
+        if axis == .vertical {
+          length * 0.2
+        } else {
+          length * 0.5
+        }
+      }
     }
     .offset(y: -75)
     .padding(.horizontal)
