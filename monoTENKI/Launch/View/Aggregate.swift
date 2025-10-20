@@ -30,10 +30,10 @@ struct Aggregate: View {
         let currentWeather,
         let hourForecast,
         let dayForecast):
-          WeatherComposite(
-            currentWeather: currentWeather,
-            hourForecast: hourForecast,
-            dayForecast: dayForecast)
+        WeatherComposite(
+          currentWeather: currentWeather,
+          hourForecast: hourForecast,
+          dayForecast: dayForecast)
 
       case .error:
         Recovery() {
