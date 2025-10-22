@@ -83,7 +83,9 @@ struct Search: View {
                     .onTapGesture {
                       result.accessDate = .now
                       modelContext.insert(result)
-                      locationAggregate.stopTracking(result.coordinate)
+                      locationAggregate.stopTracking()
+                      locationAggregate.setLocation(result.coordinate)
+                      //locationAggregate.stopTracking(result.coordinate)
                       dismiss()
                     }
                     .accessibilityAddTraits(.isSelected)

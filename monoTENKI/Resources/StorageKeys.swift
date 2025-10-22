@@ -14,4 +14,5 @@ enum StorageKeys: String {
   case nightVision
   case location
   case trackLocation
+  case locationAggregateState
 }

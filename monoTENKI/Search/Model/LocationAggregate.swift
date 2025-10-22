@@ -7,90 +7,129 @@
 
 import CoreLocation
 
-/// Location aggregate model.
 @MainActor
 @Observable
 final class LocationAggregate {
-  private var locationStorage = UserDefault(key: .location, defaultValue: Coordinate())
-  var location: Coordinate {
-    get { locationStorage() }
-    set { locationStorage(newValue) }
+  enum State: Codable {
+    case manual, automatic
   }
 
-  private var trackLocationStorage = UserDefault(key: .trackLocation, defaultValue: false)
-  var trackLocation: Bool {
-    get { trackLocationStorage() }
+  enum Event {
+    case automate, manualize, suspend, resume, set(Coordinate)
+  }
+
+  private var stream: Task<Void, any Error>?
+
+  private var state: State {
+    get {
+      UserDefaults.standard.codableType(
+        for: .locationAggregateState,
+        defaultValue: .manual)
+    }
     set {
-      trackLocationStorage(newValue)
-      updateTrackLocation()
+      UserDefaults.standard.set(
+        newValue,
+        for: .locationAggregateState)
     }
   }
 
-  private var locationStream: Task<Void, any Error>?
-
-  init() { updateTrackLocation() }
-
-  /// Enable location tracking.
-  func startTracking() {
-    trackLocation = true
-  }
-
-  /// Stop location tracking and optionally set a new location.
-  /// - Parameter newLocation:
-  /// The location to set `LocationAggregate` to,
-  /// If `nil` is passed, the current value of `LocationAggregate` remains active.
-  func stopTracking(_ newLocation: Coordinate? = nil) {
-    defer { trackLocation = false }
-    guard let newLocation else { return }
-    location = newLocation
-  }
-
-  /// Resumes location tracking if active, but was previously suspended.
-  func resume() {
-    guard trackLocation && locationStream == nil else { return }
-    startLocationTracking()
-  }
-
-  /// Pauses location tracking if active.
-  func suspend() {
-    guard trackLocation && locationStream != nil else { return }
-    locationStream?.cancel()
-    locationStream = nil
-  }
-
-  private func updateTrackLocation() {
-    if trackLocation {
-      guard locationStream == nil else { return }
-      startLocationTracking()
-    } else {
-      locationStream?.cancel()
-      locationStream = nil
+  private(set) var location: Coordinate {
+    get {
+      access(keyPath: \.location)
+      return UserDefaults.standard.codableType(
+        for: .location,
+        defaultValue: Coordinate())
+    }
+    set {
+      withMutation(keyPath: \.location) {
+        UserDefaults.standard.set(
+          newValue,
+          for: .location)
+      }
     }
   }
 
-  private func startLocationTracking() {
-    locationStream = Task {
-      var previousLocation = CLLocation.init(
+  init() {
+    process(event: .resume)
+  }
+
+  private func process(event: Event) {
+    switch state {
+    case .manual:
+      switch event {
+      case .automate:
+        state = .automatic
+        stream = getLocationStream()
+      case let .set(newLocation):
+        location = newLocation
+      default: return
+      }
+    case .automatic:
+      switch event {
+      case .manualize:
+        state = .manual
+        stream?.cancel()
+      case .suspend:
+        stream?.cancel()
+      case .resume:
+        if stream?.isCancelled ?? true { stream = getLocationStream() }
+      default: return
+      }
+    }
+  }
+
+  private func getLocationStream() -> Task<Void, any Error> {
+    Task {
+      var previousLocation = CLLocation(
         latitude: location.latitude,
         longitude: location.longitude)
 
       let distanceThresholdInMeters = 250.0
 
       let filterByDistance: @UpdateProcessor (CLLocation) -> Bool = { location in
-        if location.distance(from: previousLocation) > distanceThresholdInMeters {
-          previousLocation = location
-          return true
-        } else {
-          return false
-        }
+        guard
+          location.distance(from: previousLocation) > distanceThresholdInMeters
+        else { return false }
+
+        previousLocation = location
+
+        return true
       }
 
-      for try await update in CLLocationUpdate.liveUpdates()
+      try await CLLocationUpdate.liveUpdates()
         .compactMap(\.location)
         .filter(filterByDistance)
-      {
-        location = update.coordinate
-      }
+        .forEach { location = $0.coordinate }
     }
   }
 }
+
+
+extension LocationAggregate {
+  func startTracking() {
+    process(event: .automate)
+  }
+
+  func stopTracking() {
+    process(event: .manualize)
+  }
+
+  func suspend() {
+    process(event: .suspend)
+  }
+
+  func resume() {
+    process(event: .resume)
+  }
+
+  func setLocation(_ newLocation: Coordinate) {
+    process(event: .set(newLocation))
+  }
+}
+
+
+// Change with effect
+// idle > tracking
+// tracking > idle
+// tracking > suspend
+// suspend > tracking
