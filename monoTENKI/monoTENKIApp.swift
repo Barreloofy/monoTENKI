@@ -18,6 +18,7 @@ struct monoTENKIApp: App {
   @AppStorage(.key(.apiSourceInUse)) private var apiSourceInUse = APISource.weatherAPI
   @AppStorage(.key(.nightVision)) private var nightVision = false
   @State private var locationAggregate = LocationAggregate()
+  @State private var weatherAggregate = WeatherAggregate()
 
   var body: some Scene {
     WindowGroup {
@@ -45,6 +46,7 @@ struct monoTENKIApp: App {
       }
     }
     .environment(locationAggregate)
+    .environment(weatherAggregate)
     .apiSource(apiSourceInUse)
     .measurementSystem(measurementSystemInUse)
     .nightVision(nightVision)

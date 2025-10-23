@@ -10,9 +10,9 @@ import AsyncAlgorithms
 
 struct Aggregate: View {
   @Environment(LocationAggregate.self) private var locationAggregate
+  @Environment(WeatherAggregate.self) private var weatherAggregate
   @Environment(\.apiSource) private var apiSource
 
-  @State private var weatherAggregate = WeatherAggregate()
   @State private var apiSourceInUse = APISource.weatherAPI
   @State private var refreshDate = Date.nextRefreshDate
 
@@ -48,7 +48,7 @@ struct Aggregate: View {
     .onChange(of: apiSource, initial: true) {
       apiSourceInUse = apiSource
     }
-    .task(id: apiSourceInUse) {
+    .asyncOnChange(id: apiSourceInUse) {
       guard weatherAggregate() != .error else { return }
       await weatherAggregate.getWeather(
         for: locationAggregate.location,

@@ -30,8 +30,8 @@ extension View {
   /// signals cancellation of the previous action.
   ///
   /// - Parameters:
-  ///   - id: The value to observe for changes, must conform to Equatable.
-  ///   - action: An asynchronous closure that is called after the value of `id` has changed.
+  ///   - id: The value to observe for changes.
+  ///   - action: An asynchronous closure to run when the value changes.
   func asyncOnChange(id: some Equatable, _ action: @escaping () async -> Void) -> some View {
     modifier(AsyncOnChange(id: id, action: action))
   }
