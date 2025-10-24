@@ -7,6 +7,11 @@
 
 import CoreLocation
 
+/// An aggregate that manages locaion as a finite state machine.
+///
+/// The aggregate is in either state:
+///   - manual, update aggregate directly.
+///   - automatic, the aggregate continuously updates itself.
 @MainActor
 @Observable
 final class LocationAggregate {

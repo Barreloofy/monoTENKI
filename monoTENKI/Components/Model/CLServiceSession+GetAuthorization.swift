@@ -16,10 +16,12 @@ extension CLServiceSession {
   /// - Returns: A boolean indicating whether some level of authorization was granted.
   static func getAuthorizationStatus(
     session: CLServiceSession = CLServiceSession(authorization: .whenInUse)) async -> Bool {
-      let authorizationStatus = try? await session.diagnostics.first { !$0.authorizationRequestInProgress }
+      guard
+        let authorized = try? await session.diagnostics
+          .first(where: { !$0.authorizationRequestInProgress })
+          .map({ !$0.authorizationDenied })
+      else { return false }
 
-      guard let authorizationStatus else { return false }
-
-      return !authorizationStatus.authorizationDenied
+      return authorized
     }
 }
