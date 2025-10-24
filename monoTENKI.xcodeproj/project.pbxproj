@@ -404,6 +404,9 @@
 			children = (
 				29D134012E0865F1002FBB32 /* UserDefault.swift */,
 				29426D262DC923B40071D997 /* APISource.swift */,
+				2960B6482E6B16C60029FB82 /* UnwrappingError.swift */,
+				2916629B2EA9665B00DA35F2 /* AsyncSequence+ForEach.swift */,
+				2916629D2EA9669400DA35F2 /* UserDefaults+Codable.swift */,
 				2974E9942DABF7EB00663B36 /* CLLocationCoordinate2D+.swift */,
 				293AC4BF2D9C1806007FCC76 /* CLServiceSession+GetAuthorization.swift */,
 				29326AAC2DC2C57600D054DE /* JSONDecoder+Strategies.swift */,
@@ -412,9 +415,6 @@
 				291979442E6864AC00019D35 /* Bool+Toggled.swift */,
 				29E566442E6754C700722CA6 /* SetEnvironment.swift */,
 				291979462E68664F00019D35 /* String+StorageKeys.swift */,
-				2960B6482E6B16C60029FB82 /* UnwrappingError.swift */,
-				2916629B2EA9665B00DA35F2 /* AsyncSequence+ForEach.swift */,
-				2916629D2EA9669400DA35F2 /* UserDefaults+Codable.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -517,9 +517,9 @@
 			children = (
 				294004082DB5302E00C23CA1 /* Location.swift */,
 				2964DC9F2D8B4E35009C259B /* LocationAggregate.swift */,
-				2990FDA92EA2DF6B00246B3D /* UpdateProcessor.swift */,
 				2947E0BA2D88EC0C00746BA4 /* WeatherAPILocation.swift */,
 				291C41F22DB285E400D6A2B1 /* AccuWeatherLocation.swift */,
+				2990FDA92EA2DF6B00246B3D /* UpdateProcessor.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
