@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct UnitSettings: View {
-  @AppStorage(.key(.userModifiedMeasurementSystem)) private var userModifiedMeasurementSystem = false
-  @AppStorage(.key(.measurementSystemInUse)) private var measurementSystemInUse = MeasurementSystem.metric
+  @AppStorage(\.userModifiedMeasurementSystem) private var userModifiedMeasurementSystem = false
+  @AppStorage(\.measurementSystemInUse) private var measurementSystemInUse = MeasurementSystem.metric
 
   var body: some View {
     SettingsDetailView(
@@ -18,7 +18,7 @@ struct UnitSettings: View {
       description: "Select your preferred temperature unit to align weather information with your personal preferences.",
       items: MeasurementSystem.allCases,
       match: measurementSystemInUse) { value in
-        setEnvironment(.measurementSystemInUse, value: value)
+        setEnvironment(\.measurementSystemInUse, value: value)
       }
   }
 }

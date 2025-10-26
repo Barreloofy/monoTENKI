@@ -28,13 +28,13 @@ final class LocationAggregate {
   private var state: State {
     get {
       UserDefaults.standard.codableType(
-        for: .locationAggregateState,
-        defaultValue: .manual)
+        \.locationAggregateState,
+         defaultValue: .manual)
     }
     set {
       UserDefaults.standard.set(
-        newValue,
-        for: .locationAggregateState)
+        \.locationAggregateState,
+         newValue)
     }
   }
 
@@ -42,14 +42,14 @@ final class LocationAggregate {
     get {
       access(keyPath: \.location)
       return UserDefaults.standard.codableType(
-        for: .location,
-        defaultValue: Coordinate())
+        \.location,
+         defaultValue: Coordinate())
     }
     set {
       withMutation(keyPath: \.location) {
         UserDefaults.standard.set(
-          newValue,
-          for: .location)
+          \.location,
+           newValue)
       }
     }
   }
@@ -79,7 +79,7 @@ final class LocationAggregate {
       case .suspend:
         stream?.cancel()
       case .resume:
-        stream = stream?.isCancelled == true ? startLocationStream() : nil
+        stream = stream?.isCancelled == true || stream == nil ? startLocationStream() : nil
       default: return
       }
     }

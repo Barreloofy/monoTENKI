@@ -125,6 +125,9 @@
 		29B0B8742DB7D66F00F93E1B /* Debounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B0B8732DB7D64C00F93E1B /* Debounce.swift */; };
 		29C10C9E2DCD21D000BCCF27 /* Aggregate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C10C9D2DCD21C100BCCF27 /* Aggregate.swift */; };
 		29C10CA02DCD443C00BCCF27 /* Recovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C10C9F2DCD442A00BCCF27 /* Recovery.swift */; };
+		29C1977E2EAD09FE001205B1 /* String+KeyPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C1977D2EAD09FE001205B1 /* String+KeyPath.swift */; };
+		29C197802EAD0A1D001205B1 /* AppStorage+KeyPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C1977F2EAD0A1D001205B1 /* AppStorage+KeyPath.swift */; };
+		29C197822EAD0A41001205B1 /* AppStorageKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C197812EAD0A41001205B1 /* AppStorageKeys.swift */; };
 		29C39A182E65E67D0045C28C /* TemperatureFormatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C39A172E65E67D0045C28C /* TemperatureFormatTests.swift */; };
 		29C530402D96E6B700159C2D /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C5303F2D96E6A400159C2D /* Settings.swift */; };
 		29C5304A2D9713E100159C2D /* SelectedStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C530492D9713DF00159C2D /* SelectedStyle.swift */; };
@@ -293,6 +296,9 @@
 		29B0B8732DB7D64C00F93E1B /* Debounce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debounce.swift; sourceTree = "<group>"; };
 		29C10C9D2DCD21C100BCCF27 /* Aggregate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aggregate.swift; sourceTree = "<group>"; };
 		29C10C9F2DCD442A00BCCF27 /* Recovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recovery.swift; sourceTree = "<group>"; };
+		29C1977D2EAD09FE001205B1 /* String+KeyPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+KeyPath.swift"; sourceTree = "<group>"; };
+		29C1977F2EAD0A1D001205B1 /* AppStorage+KeyPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStorage+KeyPath.swift"; sourceTree = "<group>"; };
+		29C197812EAD0A41001205B1 /* AppStorageKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorageKeys.swift; sourceTree = "<group>"; };
 		29C39A172E65E67D0045C28C /* TemperatureFormatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureFormatTests.swift; sourceTree = "<group>"; };
 		29C5303F2D96E6A400159C2D /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		29C530492D9713DF00159C2D /* SelectedStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedStyle.swift; sourceTree = "<group>"; };
@@ -778,6 +784,9 @@
 			isa = PBXGroup;
 			children = (
 				29FF918C2D875F3100B9DAD3 /* monoTENKIApp.swift */,
+				29C1977D2EAD09FE001205B1 /* String+KeyPath.swift */,
+				29C1977F2EAD0A1D001205B1 /* AppStorage+KeyPath.swift */,
+				29C197812EAD0A41001205B1 /* AppStorageKeys.swift */,
 				29C5305E2D972EA000159C2D /* Components */,
 				297131D22D91785000316379 /* Launch */,
 				296550862D8886300073D3E9 /* Weather */,
@@ -1041,6 +1050,7 @@
 				29C657012DC6A4D1000A89FC /* SwipeToDelete.swift in Sources */,
 				29D151722D90730100A851E9 /* MeasurementSystem.swift in Sources */,
 				29C530622D972EA000159C2D /* AlignedHStack.swift in Sources */,
+				29C197802EAD0A1D001205B1 /* AppStorage+KeyPath.swift in Sources */,
 				2916629E2EA9669400DA35F2 /* UserDefaults+Codable.swift in Sources */,
 				29947D4E2D99CFD7000E3CB5 /* WeatherComposite.swift in Sources */,
 				294004072DB5209E00C23CA1 /* WeatherAPI+URLProvider.swift in Sources */,
@@ -1088,6 +1098,7 @@
 				297131D42D91788100316379 /* Setup.swift in Sources */,
 				29D46DD72E29899000B1BD80 /* TitleFont.swift in Sources */,
 				29D1C0682DA1DF4100F27F77 /* SpeedFormat.swift in Sources */,
+				29C1977E2EAD09FE001205B1 /* String+KeyPath.swift in Sources */,
 				29AC3F212E38D02F003A9359 /* NightToggle.swift in Sources */,
 				296F0F232E69AAE200862B6A /* Enabled.swift in Sources */,
 				292AF1C92E2AB1AB001A005C /* MessageConfiguration.swift in Sources */,
@@ -1099,6 +1110,7 @@
 				291979452E6864B400019D35 /* Bool+Toggled.swift in Sources */,
 				29D46DD52E29339600B1BD80 /* SubheadlineFont.swift in Sources */,
 				298D98C02E27018100846F31 /* SheetConfiguration.swift in Sources */,
+				29C197822EAD0A41001205B1 /* AppStorageKeys.swift in Sources */,
 				294004092DB5303400C23CA1 /* Location.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

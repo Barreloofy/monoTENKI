@@ -35,7 +35,7 @@ struct Recovery: View {
 
       List(APISource.allCases) { source in
         Button(
-          action: { setEnvironment(.apiSourceInUse, value: source) },
+          action: { setEnvironment(\.apiSourceInUse, value: source) },
           label: {
             Label(
               source.rawValue,

@@ -11,7 +11,7 @@ import CoreLocation
 struct Setup: View {
   @Environment(LocationAggregate.self) private var locationAggregate
 
-  @AppStorage(.key(.presentSearch)) private var presentSearch = false
+  @AppStorage(\.presentSearch) private var presentSearch = false
 
   @Binding var setupCompleted: Bool
 

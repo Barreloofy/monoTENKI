@@ -28,7 +28,7 @@ struct NightToggle: View {
             in: RoundedRectangle(cornerRadius: 8))
           .animating(nightVision, with: .easeOut)
           .sensoryFeedback(.impact, trigger: nightVision)
-          .onTapGesture { setEnvironment(.nightVision, value: nightVision.toggled()) }
+          .onTapGesture { setEnvironment(\.nightVision, value: nightVision.toggled()) }
       },
       label: {
         Label("Night Vision", systemImage: "lightswitch.on")
