@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SourceSettings: View {
-  @AppStorage(\.apiSourceInUse) private var apiSourceInUse = APISource.weatherAPI
+  @Environment(\.apiSourceInUse) private var apiSourceInUse
 
   var body: some View {
     SettingsDetailView(
@@ -17,7 +17,7 @@ struct SourceSettings: View {
       description: "Diffrent weather sources are more accurate in diffrent regions. To improve accuracy, try selecting a diffrent source.",
       items: APISource.allCases,
       match: apiSourceInUse) { value in
-        setEnvironment(\.apiSourceInUse, value: value)
+        UserDefaults.standard.setRawRepresentable(\.apiSourceInUse, value: value)
       }
   }
 }

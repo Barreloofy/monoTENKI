@@ -1,8 +1,8 @@
 //
-//  ColorScheme+Setup.swift
-//  monoTENKI
+// ColorScheme+Setup.swift
+// monoTENKI
 //
-//  Created by Barreloofy on 3/31/25 at 6:22 PM.
+// Created by Barreloofy on 3/31/25 at 6:22 PM.
 //
 
 import SwiftUI

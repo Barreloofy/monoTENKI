@@ -9,8 +9,8 @@ import SwiftUI
 
 struct Settings: View {
   @Environment(\.colorScheme) private var colorScheme
-  @Environment(\.apiSource) private var apiSourceInUse
-  @Environment(\.measurementSystem) private var measurementSystemInUse
+  @Environment(\.apiSourceInUse) private var apiSourceInUse
+  @Environment(\.measurementSystemInUse) private var measurementSystemInUse
 
   var body: some View {
     NavigationStack {

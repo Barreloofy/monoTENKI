@@ -23,19 +23,19 @@ enum APISource: String, Identifiable, CaseIterable {
 
 
 extension EnvironmentValues {
-  @Entry var apiSource = APISource.weatherAPI
+  @Entry var apiSourceInUse = APISource.weatherAPI
 }
 
 
 extension View {
   func apiSource(_ apiSource: APISource) -> some View {
-    environment(\.apiSource, apiSource)
+    environment(\.apiSourceInUse, apiSource)
   }
 }
 
 
 extension Scene {
   func apiSource(_ apiSource: APISource) -> some Scene {
-    environment(\.apiSource, apiSource)
+    environment(\.apiSourceInUse, apiSource)
   }
 }

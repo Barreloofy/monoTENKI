@@ -9,7 +9,6 @@ import SwiftUI
 
 struct NavigationBarConfiguration: ViewModifier {
   @Environment(\.dismiss) private var dismiss
-  @Environment(\.colorScheme) private var colorScheme
 
   let enabled: Bool
 
@@ -19,13 +18,7 @@ struct NavigationBarConfiguration: ViewModifier {
         .toolbarRole(.navigationStack)
         .toolbar {
           ToolbarItem(placement: .primaryAction) {
-            Button(
-              action: { dismiss() },
-              label: {
-                Image(systemName: "xmark")
-                  .fontWeight(.medium)
-                  .foregroundStyle(colorScheme.foreground)
-              })
+            Close(action: dismiss())
           }
         }
     } else {

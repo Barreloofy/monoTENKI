@@ -19,7 +19,7 @@ struct Search: View {
   @Environment(LocationAggregate.self) private var locationAggregate
   @Environment(\.modelContext) private var modelContext
   @Environment(\.dismiss) private var dismiss
-  @Environment(\.apiSource) private var apiSource
+  @Environment(\.apiSourceInUse) private var apiSource
   @StyleMode private var styleMode
 
   @State private var state = SearchState.presenting
@@ -58,18 +58,18 @@ struct Search: View {
         }
 
         AlignedHStack(alignment: .leading) {
-          Button(
-            action: {
-              Task {
-                if await CLServiceSession.getAuthorizationStatus() {
-                  locationAggregate.startTracking()
-                  dismiss()
-                } else {
-                  state = .permissionDenied
-                }
+          Button {
+            Task {
+              if try await CLLocationUpdate.getAuthorization() {
+                locationAggregate.startTracking()
+                dismiss()
+              } else {
+                state = .permissionDenied
               }
-            },
-            label: { Label("CURRENT LOCATION", systemImage: "location.fill") })
+            }
+          } label: {
+            Label("CURRENT LOCATION", systemImage: "location.fill")
+          }
         }
         .visible(!setup)
 
@@ -85,7 +85,6 @@ struct Search: View {
                       modelContext.insert(result)
                       locationAggregate.stopTracking()
                       locationAggregate.setLocation(result.coordinate)
-                      //locationAggregate.stopTracking(result.coordinate)
                       dismiss()
                     }
                     .accessibilityAddTraits(.isSelected)

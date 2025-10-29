@@ -27,7 +27,7 @@ struct WeatherView: View {
     }
     .lineLimit(1)
     .minimumScaleFactor(0.5)
-    .transformEnvironment(\.measurementSystem) { measurementSystem in
+    .transformEnvironment(\.measurementSystemInUse) { measurementSystem in
       switch locale.measurementSystem {
       case .metric: measurementSystem = .metric
       default: measurementSystem = .imperial

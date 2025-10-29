@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SpeedView: View {
-  @Environment(\.measurementSystem) private var measurementSystem
+  @Environment(\.measurementSystemInUse) private var measurementSystem
 
   let speed: Double
   let text: String

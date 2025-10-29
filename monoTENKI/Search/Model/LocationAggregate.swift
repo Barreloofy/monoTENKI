@@ -27,29 +27,21 @@ final class LocationAggregate {
 
   private var state: State {
     get {
-      UserDefaults.standard.codableType(
-        \.locationAggregateState,
-         defaultValue: .manual)
+      UserDefaults.standard.codableType(\.locationAggregateState)
     }
     set {
-      UserDefaults.standard.set(
-        \.locationAggregateState,
-         newValue)
+      UserDefaults.standard.setCodable(\.locationAggregateState, value: newValue)
     }
   }
 
   private(set) var location: Coordinate {
     get {
       access(keyPath: \.location)
-      return UserDefaults.standard.codableType(
-        \.location,
-         defaultValue: Coordinate())
+      return UserDefaults.standard.codableType(\.location)
     }
     set {
       withMutation(keyPath: \.location) {
-        UserDefaults.standard.set(
-          \.location,
-           newValue)
+        UserDefaults.standard.setCodable(\.location, value: newValue)
       }
     }
   }
@@ -57,7 +49,7 @@ final class LocationAggregate {
   init() {
     process(event: .resume)
   }
-  
+
   /// Process event requests and respond with possible state transition.
   /// - Parameter event: The event to respond to.
   private func process(event: Event) {
@@ -66,7 +58,7 @@ final class LocationAggregate {
       switch event {
       case .automate:
         state = .automatic
-        stream = startLocationStream()
+        startStream()
       case let .set(newLocation):
         location = newLocation
       default: return
@@ -79,16 +71,17 @@ final class LocationAggregate {
       case .suspend:
         stream?.cancel()
       case .resume:
-        stream = stream?.isCancelled == true || stream == nil ? startLocationStream() : nil
+        startStream()
       default: return
       }
     }
   }
-  
+
   /// Begins a new location stream, updating the aggregate when new locations arrive.
-  /// - Returns: The task in which the location stream is running.
-  private func startLocationStream() -> Task<Void, any Error> {
-    Task {
+  private func startStream() {
+    guard stream?.isCancelled == true || stream == nil else { return }
+
+    stream = Task {
       var previousLocation = CLLocation(
         latitude: location.latitude,
         longitude: location.longitude)
@@ -106,7 +99,7 @@ final class LocationAggregate {
       }
 
       guard
-        await CLServiceSession.getAuthorizationStatus()
+        try await CLLocationUpdate.getAuthorization()
       else { return process(event: .manualize) }
 
       try await CLLocationUpdate.liveUpdates()
@@ -123,22 +116,22 @@ extension LocationAggregate {
   func startTracking() {
     process(event: .automate)
   }
-  
+
   /// Ends location tracking, this method has no effect when no location tracking is occurring.
   func stopTracking() {
     process(event: .manualize)
   }
-  
+
   /// Suspends location tracking, this method has no effect when no location tracking is occurring.
   func suspend() {
     process(event: .suspend)
   }
-  
+
   /// Resumes location tracking, this method has no effect when no location tracking is occurring.
   func resume() {
     process(event: .resume)
   }
-  
+
   /// Sets the aggregate to a new location, this method has no effect when location tracking is occurring.
   /// - Parameter newLocation: The location to set the aggregate to.
   func setLocation(_ newLocation: Coordinate) {

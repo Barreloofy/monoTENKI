@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TemperatureView: View {
-  @Environment(\.measurementSystem) private var measurementSystem
+  @Environment(\.measurementSystemInUse) private var measurementSystem
 
   let temperature: Double
   let text: String

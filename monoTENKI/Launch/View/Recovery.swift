@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Recovery: View {
-  @Environment(\.apiSource) private var apiSource
+  @Environment(\.apiSourceInUse) private var apiSourceInUse
 
   @State private var task: Task<Void, Never>?
 
@@ -35,15 +35,15 @@ struct Recovery: View {
 
       List(APISource.allCases) { source in
         Button(
-          action: { setEnvironment(\.apiSourceInUse, value: source) },
+          action: { UserDefaults.standard.setRawRepresentable(\.apiSourceInUse, value: source) },
           label: {
             Label(
               source.rawValue,
-              systemImage: apiSource == source ? "checkmark" : "")
+              systemImage: apiSourceInUse == source ? "checkmark" : "")
             .labelStyle(.trailing)
           })
         .listRowBackground(Color.clear)
-        .sensoryFeedback(.impact, trigger: apiSource)
+        .sensoryFeedback(.impact, trigger: apiSourceInUse)
       }
       .listStyle(.plain)
       .scrollDisabled(true)

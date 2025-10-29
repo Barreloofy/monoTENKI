@@ -11,7 +11,7 @@ import AsyncAlgorithms
 struct Aggregate: View {
   @Environment(LocationAggregate.self) private var locationAggregate
   @Environment(WeatherAggregate.self) private var weatherAggregate
-  @Environment(\.apiSource) private var apiSource
+  @Environment(\.apiSourceInUse) private var apiSource
 
   @State private var apiSourceInUse = APISource.weatherAPI
   @State private var refreshDate = Date.nextRefreshDate

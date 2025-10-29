@@ -1,13 +1,13 @@
 //
-//  MeasurementSystem.swift
-//  monoTENKI
+// MeasurementSystem.swift
+// monoTENKI
 //
-//  Created by Barreloofy on 3/23/25 at 5:49 PM.
+// Created by Barreloofy on 3/23/25 at 5:49 PM.
 //
 
 import SwiftUI
 
-enum MeasurementSystem: String, Codable, Identifiable, CaseIterable, Equatable {
+enum MeasurementSystem: String, Codable, Identifiable, CaseIterable {
   case metric
   case imperial
 
@@ -16,19 +16,19 @@ enum MeasurementSystem: String, Codable, Identifiable, CaseIterable, Equatable {
 
 
 extension EnvironmentValues {
-  @Entry var measurementSystem = MeasurementSystem.metric
+  @Entry var measurementSystemInUse = MeasurementSystem.metric
 }
 
 
 extension View {
   func measurementSystem(_ measurementSystem: MeasurementSystem) -> some View {
-    environment(\.measurementSystem, measurementSystem)
+    environment(\.measurementSystemInUse, measurementSystem)
   }
 }
 
 
 extension Scene {
   func measurementSystem(_ measurementSystem: MeasurementSystem) -> some Scene {
-    environment(\.measurementSystem, measurementSystem)
+    environment(\.measurementSystemInUse, measurementSystem)
   }
 }

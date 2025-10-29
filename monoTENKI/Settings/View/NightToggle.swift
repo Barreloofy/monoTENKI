@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct NightToggle: View {
   @Environment(\.colorScheme) private var colorScheme
@@ -28,7 +27,9 @@ struct NightToggle: View {
             in: RoundedRectangle(cornerRadius: 8))
           .animating(nightVision, with: .easeOut)
           .sensoryFeedback(.impact, trigger: nightVision)
-          .onTapGesture { setEnvironment(\.nightVision, value: nightVision.toggled()) }
+          .onTapGesture {
+            UserDefaults.standard.set(nightVision.toggled(), forKey: StorageValues.nightVision.key)
+          }
       },
       label: {
         Label("Night Vision", systemImage: "lightswitch.on")

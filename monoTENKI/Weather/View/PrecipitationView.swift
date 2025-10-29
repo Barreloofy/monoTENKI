@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PrecipitationView: View {
-  @Environment(\.measurementSystem) private var measurementSystem
+  @Environment(\.measurementSystemInUse) private var measurementSystem
 
   let precipitation: Double
   let text: String

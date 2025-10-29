@@ -12,11 +12,11 @@ struct monoTENKIApp: App {
   @Environment(\.locale) private var locale
   @Environment(\.scenePhase) private var scenePhase
 
-  @AppStorage(\.setupCompleted) private var setupCompleted = false
-  @AppStorage(\.userModifiedMeasurementSystem) private var userModifiedMeasurementSystem = false
-  @AppStorage(\.measurementSystemInUse) private var measurementSystemInUse = MeasurementSystem.metric
-  @AppStorage(\.apiSourceInUse) private var apiSourceInUse = APISource.weatherAPI
-  @AppStorage(\.nightVision) private var nightVision = false
+  @AppStorage(\.setupCompleted) private var setupCompleted
+  @AppStorage(\.userModifiedMeasurementSystem) private var userModifiedMeasurementSystem
+  @AppStorage(\.measurementSystemInUse) private var measurementSystemInUse
+  @AppStorage(\.apiSourceInUse) private var apiSourceInUse
+  @AppStorage(\.nightVision) private var nightVision
 
   @State private var locationAggregate = LocationAggregate()
   @State private var weatherAggregate = WeatherAggregate()
@@ -43,7 +43,7 @@ struct monoTENKIApp: App {
       switch scenePhase {
       case .active: locationAggregate.resume()
       case .background: locationAggregate.suspend()
-      default: break
+      default: return
       }
     }
     .environment(locationAggregate)
@@ -51,5 +51,6 @@ struct monoTENKIApp: App {
     .apiSource(apiSourceInUse)
     .measurementSystem(measurementSystemInUse)
     .nightVision(nightVision)
+    .modifiedMeasurementSystem(userModifiedMeasurementSystem)
   }
 }

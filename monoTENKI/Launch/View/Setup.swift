@@ -11,7 +11,7 @@ import CoreLocation
 struct Setup: View {
   @Environment(LocationAggregate.self) private var locationAggregate
 
-  @AppStorage(\.presentSearch) private var presentSearch = false
+  @AppStorage(\.presentSearch) private var presentSearch
 
   @Binding var setupCompleted: Bool
 
@@ -32,7 +32,7 @@ struct Setup: View {
       VStack {
         Button("Grand access") {
           Task {
-            if await CLServiceSession.getAuthorizationStatus() {
+            if try await CLLocationUpdate.getAuthorization() {
               locationAggregate.startTracking()
             } else {
               presentSearch = true

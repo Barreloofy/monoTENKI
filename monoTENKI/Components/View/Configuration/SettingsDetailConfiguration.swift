@@ -16,12 +16,7 @@ struct SettingsDetailConfiguration: ViewModifier {
       .background(colorScheme.background)
       .toolbarRole(.navigationStack)
       .toolbar {
-        ToolbarItem(placement: .navigation) {
-          Button(
-            action: { settingsController() },
-            label: { Image(systemName: "xmark") })
-          .foregroundStyle(colorScheme.foreground)
-        }
+        Close(action: settingsController())
       }
   }
 }
