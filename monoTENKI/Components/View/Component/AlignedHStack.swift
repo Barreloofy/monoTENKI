@@ -16,9 +16,13 @@ struct AlignedHStack<Content: View>: View {
       if alignment == .leading {
         content
         Spacer()
+      } else if alignment == .trailing {
+        Spacer()
+        content
       } else {
         Spacer()
         content
+        Spacer()
       }
     }
   }

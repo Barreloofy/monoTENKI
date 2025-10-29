@@ -31,32 +31,26 @@ struct Recovery: View {
       .padding(.vertical)
 
       Text("Try diffrent Source")
-        .padding(.bottom)
 
       List(APISource.allCases) { source in
-        Button(
-          action: { UserDefaults.standard.setRawRepresentable(\.apiSourceInUse, value: source) },
-          label: {
-            Label(
-              source.rawValue,
-              systemImage: apiSourceInUse == source ? "checkmark" : "")
-            .labelStyle(.trailing)
-          })
+        Button {
+          UserDefaults.standard.setRawRepresentable(
+            \.apiSourceInUse,
+             value: source)
+        } label: {
+          Label(
+            source.rawValue,
+            systemImage: apiSourceInUse == source ? "checkmark" : "")
+          .labelStyle(.trailing)
+        }
         .listRowBackground(Color.clear)
         .sensoryFeedback(.impact, trigger: apiSourceInUse)
       }
       .listStyle(.plain)
       .scrollDisabled(true)
-      .containerRelativeFrame([.vertical, .horizontal]) { length, axis in
-        if axis == .vertical {
-          length * 0.2
-        } else {
-          length * 0.5
-        }
-      }
+      .containerRelativeFrame([.vertical, .horizontal], count: 2, spacing: 0)
     }
-    .offset(y: -75)
-    .padding(.horizontal)
+    .offset(y: 75)
   }
 }
 
