@@ -16,7 +16,9 @@ struct SettingsDetailConfiguration: ViewModifier {
       .background(colorScheme.background)
       .toolbarRole(.navigationStack)
       .toolbar {
-        Close(action: sheetController.present.wrappedValue.toggle())
+        ToolbarItem(placement: .primaryAction) {
+          Close(action: sheetController.present.wrappedValue.toggle())
+        }
       }
   }
 }
