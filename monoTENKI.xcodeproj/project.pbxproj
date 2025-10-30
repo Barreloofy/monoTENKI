@@ -55,7 +55,7 @@
 		2948672B2E364199001A2B01 /* SettingsDetailConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2948672A2E36413F001A2B01 /* SettingsDetailConfiguration.swift */; };
 		2948672F2E364A46001A2B01 /* SourceSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2948672E2E364A46001A2B01 /* SourceSettings.swift */; };
 		294867312E364A4E001A2B01 /* UnitSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294867302E364A4E001A2B01 /* UnitSettings.swift */; };
-		294867392E367E6F001A2B01 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294867382E367E6F001A2B01 /* SettingsController.swift */; };
+		294867392E367E6F001A2B01 /* SheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294867382E367E6F001A2B01 /* SheetController.swift */; };
 		29519ACA2E85537B000AACDB /* ApplyOnInteractiveResizeChangeIfAvailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29519AC92E85537B000AACDB /* ApplyOnInteractiveResizeChangeIfAvailable.swift */; };
 		295389212E7C0761003181B1 /* TrailingLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295389202E7C0761003181B1 /* TrailingLabelStyle.swift */; };
 		295389232E7C4828003181B1 /* SettingsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295389222E7C4828003181B1 /* SettingsDetailView.swift */; };
@@ -232,7 +232,7 @@
 		2948672A2E36413F001A2B01 /* SettingsDetailConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailConfiguration.swift; sourceTree = "<group>"; };
 		2948672E2E364A46001A2B01 /* SourceSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceSettings.swift; sourceTree = "<group>"; };
 		294867302E364A4E001A2B01 /* UnitSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitSettings.swift; sourceTree = "<group>"; };
-		294867382E367E6F001A2B01 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		294867382E367E6F001A2B01 /* SheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetController.swift; sourceTree = "<group>"; };
 		29519AC92E85537B000AACDB /* ApplyOnInteractiveResizeChangeIfAvailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyOnInteractiveResizeChangeIfAvailable.swift; sourceTree = "<group>"; };
 		295389202E7C0761003181B1 /* TrailingLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailingLabelStyle.swift; sourceTree = "<group>"; };
 		295389222E7C4828003181B1 /* SettingsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailView.swift; sourceTree = "<group>"; };
@@ -423,7 +423,7 @@
 		294867372E367E12001A2B01 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				294867382E367E6F001A2B01 /* SettingsController.swift */,
+				294867382E367E6F001A2B01 /* SheetController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1094,7 +1094,7 @@
 				297AF2EB2DBBFB4F00676A98 /* DayForecast.swift in Sources */,
 				2948672B2E364199001A2B01 /* SettingsDetailConfiguration.swift in Sources */,
 				295389212E7C0761003181B1 /* TrailingLabelStyle.swift in Sources */,
-				294867392E367E6F001A2B01 /* SettingsController.swift in Sources */,
+				294867392E367E6F001A2B01 /* SheetController.swift in Sources */,
 				291979452E6864B400019D35 /* Bool+Toggled.swift in Sources */,
 				29D46DD52E29339600B1BD80 /* SubheadlineFont.swift in Sources */,
 				2944A8362EAECD76001F01CE /* Close.swift in Sources */,

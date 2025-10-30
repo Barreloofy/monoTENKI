@@ -67,5 +67,5 @@ where
     match: MeasurementSystem.metric,
     action: { _ in print("Hello, World!") })
   .configureApp()
-  .sheetController(SettingsController())
+  //.sheetController(SheetController())
 }

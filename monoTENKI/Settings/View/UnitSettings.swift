@@ -30,5 +30,5 @@ struct UnitSettings: View {
 #Preview {
   UnitSettings()
     .configureApp()
-    .sheetController(SettingsController())
+    .environment(SheetController(present: .constant(true)))
 }

@@ -14,43 +14,41 @@ struct WeatherComposite: View {
   @StyleMode private var styleMode
 
   @State private var presentSearch = false
+  @State private var presentSettings = false
   @State private var scrollPosition = ScrollPosition()
-  @SheetController private var settingsController
 
   let currentWeather: CurrentWeather
   let hourForecast: Hours
   let dayForecast: Days
 
   var body: some View {
-    Row(
-      center: {
-        Button(
-          action: { presentSearch = true },
-          label: {
-            Text(currentWeather.location)
-              .fontWeight(.medium)
-          })
-        .applyGlassButtonStyleIfAvailable()
-        .sheet(isPresented: $presentSearch) {
-          Search(setup: false)
-            .configureSheet()
-        }
-      },
-      trailing: {
-        Button(
-          action: { settingsController() },
-          label: {
-            Image(systemName: "gear")
-              .configureSettingsIcon()
-          })
-        .applyGlassButtonStyleIfAvailable()
-        .sheet(isPresented: $settingsController) {
-          Settings()
-            .configureSheet()
-            .sheetController(_settingsController())
-            .preferredColorScheme(_styleMode.sheetValue) // Fix for colorScheme not updating properly when sheet active.
-        }
-      })
+    Row {
+      Button {
+        presentSearch.toggle()
+      } label: {
+        Text(currentWeather.location)
+          .fontWeight(.medium)
+      }
+      .applyGlassButtonStyleIfAvailable()
+      .sheet(isPresented: $presentSearch) {
+        Search(setup: false)
+          .configureSheet()
+      }
+    } trailing: {
+      Button {
+        presentSettings.toggle()
+      } label: {
+        Image(systemName: "gear")
+          .configureSettingsIcon()
+      }
+      .applyGlassButtonStyleIfAvailable()
+      .sheet(isPresented: $presentSettings) {
+        Settings()
+          .configureSheet($presentSettings)
+          .preferredColorScheme(_styleMode.sheetValue)
+        // Fix for colorScheme not updating properly when sheet active.
+      }
+    }
     .padding()
 
     ScrollView(.horizontal) {

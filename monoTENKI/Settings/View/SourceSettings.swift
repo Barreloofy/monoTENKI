@@ -25,6 +25,6 @@ struct SourceSettings: View {
 
 #Preview {
   SourceSettings()
-    .environment(SettingsController())
     .configureApp()
+    .environment(SheetController(present: .constant(true)))
 }

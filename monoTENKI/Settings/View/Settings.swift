@@ -68,5 +68,5 @@ struct Settings: View {
 #Preview {
   Settings()
     .configureApp()
-    .sheetController(SettingsController())
+    .environment(SheetController(present: .constant(true)))
 }
