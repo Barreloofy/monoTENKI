@@ -15,6 +15,6 @@ struct WeatherListSymbol: View {
     Image(systemName: name.formatted(.sfSymbols(isDay: isDay)))
       .configure()
       .aspectRatio(1, contentMode: .fit)
-      .containerRelativeFrame(.vertical, count: 24, span: 1, spacing: 0)
+      .containerRelativeFrame(.vertical, count: 24, spacing: 0)
   }
 }
