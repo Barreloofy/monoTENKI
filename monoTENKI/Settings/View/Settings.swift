@@ -15,42 +15,30 @@ struct Settings: View {
   var body: some View {
     NavigationStack {
       VStack(spacing: 25) {
-        NavigationLink(
-          destination: { SourceSettings() },
-          label: {
-            LabeledContent(
-              content: {
-                Text(apiSourceInUse.rawValue)
-                  .selectedStyle()
-                  .accessibilityLabel(apiSourceInUse.accessibilityPronunciation)
-              },
-              label: {
-                Label(
-                  title: { Text("Source:") },
-                  icon: {
-                    Image(systemName: "antenna.radiowaves.left.and.right")
-                      .configureSettingsIcon()
-                  })
-              })
-          })
+        NavigationLink(destination: SourceSettings()) {
+          SettingsRow {
+            Text("Source:")
+          } icon: {
+            Image(systemName: "antenna.radiowaves.left.and.right")
+              .configureSettingsIcon()
+          } content: {
+            Text(apiSourceInUse.rawValue)
+              .selectedStyle()
+              .accessibilityLabel(apiSourceInUse.accessibilityPronunciation)
+          }
+        }
 
-        NavigationLink(
-          destination: { UnitSettings() },
-          label: {
-            LabeledContent(
-              content: {
-                Text(measurementSystemInUse.rawValue)
-                  .selectedStyle()
-              },
-              label: {
-                Label(
-                  title: { Text("Units:") },
-                  icon: {
-                    Image(systemName: "ruler.fill")
-                      .configureSettingsIcon()
-                  })
-              })
-          })
+        NavigationLink(destination: UnitSettings()) {
+          SettingsRow {
+            Text("Units:")
+          } icon: {
+            Image(systemName: "ruler.fill")
+              .configureSettingsIcon()
+          } content: {
+            Text(measurementSystemInUse.rawValue)
+              .selectedStyle()
+          }
+        }
 
         NightToggle()
 
