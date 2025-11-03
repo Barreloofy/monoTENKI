@@ -8,21 +8,48 @@
 import SwiftUI
 
 struct Debounce<ID: Equatable>: ViewModifier {
-  @State private var initialID: ID?
-
+  @State private var oldID: ID?
+  
   let id: ID
   let duration: TimeInterval
   let action: () async -> Void
-
+  
+  private var delay: Bool {
+    get async {
+      do {
+        try await Task.sleep(for: .seconds(duration))
+        return true
+      } catch {
+        return false
+      }
+    }
+  }
+  
   func body(content: Content) -> some View {
     content
-      .onAppear { initialID = id }
       .task(id: id) {
-        guard id != initialID else { return }
-
-        guard (try? await Task.sleep(for: .seconds(duration))) != nil else { return }
-
+        defer { oldID = id }
+        
+        guard
+          let oldID,
+          oldID != id
+        else { return }
+        
+        guard await delay else { return }
+        
         await action()
+      }
+  }
+}
+
+
+#Preview {
+  @Previewable @State var text = ""
+  
+  Form {
+    TextField("Enter Text Here...", text: $text)
+      .debounce(id: text, duration: 1) {
+        print("Value: \(text)")
       }
   }
 }
@@ -35,11 +62,8 @@ extension View {
   /// once the suspension period has elapsed, executes the asynchronous closure.
   /// If the specified value changes, restarts the suspension period and cancels the current task.
   ///
-  /// > Important:
-  /// `id`'s value must not be equal to its initial value to trigger debounce.
-  ///
   /// - Parameters:
-  ///   - id: The value to observe for changes, must conform to Equatable.
+  ///   - id: The value to observe for changes.
   ///   - duration: The length of the suspension period.
   ///   - action: An async closure that is called after the suspension period has elapsed.
   /// - Returns: A view that executes an action when `id` changes after a certain time has elapsed.
