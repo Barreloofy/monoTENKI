@@ -31,7 +31,7 @@ struct WeatherComposite: View {
       }
       .applyGlassButtonStyleIfAvailable()
       .sheet(isPresented: $presentSearch) {
-        Search(setup: false)
+        Search()
           .configureSheet()
       }
     } trailing: {

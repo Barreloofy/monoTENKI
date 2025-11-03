@@ -1,8 +1,8 @@
 //
-//  Location.swift
-//  monoTENKI
+// Location.swift
+// monoTENKI
 //
-//  Created by Barreloofy on 4/20/25 at 3:37 PM.
+// Created by Barreloofy on 4/20/25 at 3:37 PM.
 //
 
 import CoreLocation
@@ -37,7 +37,7 @@ final class Location {
 extension Location {
   static let descriptor: FetchDescriptor<Location> = {
     var descriptor = FetchDescriptor<Location>(
-      sortBy: [.init(\.accessDate, order: .reverse)])
+      sortBy: [SortDescriptor(\.accessDate, order: .reverse)])
 
     descriptor.fetchLimit = 25
 

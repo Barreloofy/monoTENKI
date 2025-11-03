@@ -13,7 +13,7 @@ struct Setup: View {
 
   @AppStorage(\.presentSearch) private var presentSearch
 
-  @Binding var setupCompleted: Bool
+  @Binding var completed: Bool
 
   var body: some View {
     VStack {
@@ -42,7 +42,7 @@ struct Setup: View {
 
         Button("Deny access") { presentSearch = true }
           .sheet(isPresented: $presentSearch) {
-            Search(setup: true)
+            Search()
               .configureSheet()
               .interactiveDismissDisabled()
           }
@@ -50,13 +50,13 @@ struct Setup: View {
       .buttonStyle(.permission)
       .fixedSize()
     }
-    .onChange(of: locationAggregate.location) { setupCompleted = true }
+    .onChange(of: locationAggregate.location) { completed = true }
   }
 }
 
 
 #Preview {
-  Setup(setupCompleted: .constant(false))
+  Setup(completed: .constant(false))
     .environment(LocationAggregate())
     .configureApp()
 }

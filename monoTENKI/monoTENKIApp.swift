@@ -27,7 +27,7 @@ struct monoTENKIApp: App {
         if setupCompleted {
           Aggregate()
         } else {
-          Setup(setupCompleted: $setupCompleted)
+          Setup(completed: $setupCompleted)
         }
       }
       .configureApp()
@@ -48,9 +48,10 @@ struct monoTENKIApp: App {
     }
     .environment(locationAggregate)
     .environment(weatherAggregate)
-    .apiSource(apiSourceInUse)
-    .measurementSystem(measurementSystemInUse)
-    .nightVision(nightVision)
+    .setupCompleted(setupCompleted)
     .modifiedMeasurementSystem(userModifiedMeasurementSystem)
+    .measurementSystem(measurementSystemInUse)
+    .apiSource(apiSourceInUse)
+    .nightVision(nightVision)
   }
 }

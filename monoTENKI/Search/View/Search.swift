@@ -1,99 +1,36 @@
 //
-//  Search.swift
-//  monoTENKI
+// Search.swift
+// monoTENKI
 //
-//  Created by Barreloofy on 3/25/25 at 12:09 PM.
+// Created by Barreloofy on 3/25/25 at 12:09 PM.
 //
 
 import SwiftUI
-import SwiftData
-import CoreLocation
 
 struct Search: View {
   enum SearchState {
     case presenting, queryFailed, permissionDenied
   }
 
-  @Query(Location.descriptor, animation: .smooth(duration: 1)) private var history: Locations
-
-  @Environment(LocationAggregate.self) private var locationAggregate
-  @Environment(\.modelContext) private var modelContext
-  @Environment(\.dismiss) private var dismiss
-  @Environment(\.apiSourceInUse) private var apiSource
-  @StyleMode private var styleMode
-
   @State private var state = SearchState.presenting
-  @State private var text = ""
+  @State private var query = ""
   @State private var result = Locations()
-
-  let setup: Bool
-
-  private var displayedLocations: Locations {
-    text.isEmpty ? history : result
-  }
 
   var body: some View {
     NavigationStack {
       VStack(spacing: 10) {
-        TextField(
-          "",
-          text: $text,
-          prompt: Text("Search").foregroundStyle(styleMode))
-        .textInputAutocapitalization(.characters)
-        .multilineTextAlignment(.leading)
-        .debounce(id: text) {
-          do {
-            state = .presenting
-            switch apiSource {
-            case .weatherAPI:
-              result = try await Array(WeatherAPI.fetchSearch(for: text).prefix(10))
-            case .accuWeather:
-              result = try await Array(AccuWeather.fetchSearch(for: text).prefix(10))
-            }
-          } catch URLError.cancelled {
-            return
-          } catch {
-            state = .queryFailed
-          }
-        }
+        SearchBox(
+          query: $query,
+          state: $state,
+          result: $result)
 
-        AlignedHStack(alignment: .leading) {
-          Button {
-            Task {
-              if try await CLLocationUpdate.getAuthorization() {
-                locationAggregate.startTracking()
-                dismiss()
-              } else {
-                state = .permissionDenied
-              }
-            }
-          } label: {
-            Label("CURRENT LOCATION", systemImage: "location.fill")
-          }
-        }
-        .visible(!setup)
+        TrackLocationBox(state: $state)
 
         switch state {
         case .presenting:
-          ScrollView {
-            LazyVStack(spacing: 0) {
-              ForEach(displayedLocations) { result in
-                AlignedHStack(alignment: .leading) {
-                  Label(result.completeName, systemImage: "mappin.and.ellipse")
-                    .onTapGesture {
-                      result.accessDate = .now
-                      modelContext.insert(result)
-                      locationAggregate.stopTracking()
-                      locationAggregate.setLocation(result.coordinate)
-                      dismiss()
-                    }
-                    .accessibilityAddTraits(.isSelected)
-                }
-                .swipeToDelete(isEnabled: text.isEmpty) { modelContext.delete(result) }
-              }
-            }
-          }
-          .scrollIndicators(.never)
+          ResultBox(
+            result: result,
+            searchIsEmpty: query.isEmpty)
 
         case .queryFailed:
           Text("""
@@ -120,7 +57,7 @@ struct Search: View {
 
         Spacer()
       }
-      .configureNavigationBar(enabled: !setup)
+      .configureNavigationBar()
       .subtitleFont()
       .fontWeight(.medium)
       .padding()
@@ -131,7 +68,7 @@ struct Search: View {
 
 
 #Preview {
-  Search(setup: false)
+  Search()
     .configureApp()
     .environment(LocationAggregate())
 }

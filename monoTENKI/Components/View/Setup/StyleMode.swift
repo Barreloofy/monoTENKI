@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// A property wrapper through which you retrieve the current foreground style and scheme.
+/// A property wrapper through which to retrieve the current foreground style and scheme.
 @propertyWrapper struct StyleMode: DynamicProperty {
   @Environment(\.colorScheme) private var colorScheme
   @Environment(\.nightVision) private var nightVision

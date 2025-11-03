@@ -1,8 +1,8 @@
 //
-//  FormatStyle+ShortenedAndTimeZoneNeutral.swift
-//  monoTENKI
+// FormatStyle+ShortenedAndTimeZoneNeutral.swift
+// monoTENKI
 //
-//  Created by Barreloofy on 4/4/25 at 2:03 AM.
+// Created by Barreloofy on 4/4/25 at 2:03 AM.
 //
 
 import Foundation

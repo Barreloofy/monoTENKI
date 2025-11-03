@@ -1,8 +1,8 @@
 //
-//  WeatherAPILocation.swift
-//  monoTENKI
+// WeatherAPILocation.swift
+// monoTENKI
 //
-//  Created by Barreloofy on 3/18/25 at 12:47 AM.
+// Created by Barreloofy on 3/18/25 at 12:47 AM.
 //
 
 typealias WeatherAPILocations = [WeatherAPILocation]

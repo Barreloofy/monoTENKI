@@ -1,8 +1,8 @@
 //
-//  AccuWeatherLocation.swift
-//  monoTENKI
+// AccuWeatherLocation.swift
+// monoTENKI
 //
-//  Created by Barreloofy on 4/18/25 at 3:06 PM.
+// Created by Barreloofy on 4/18/25 at 3:06 PM.
 //
 
 import Foundation

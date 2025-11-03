@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct NavigationBarConfiguration: ViewModifier {
+  @Environment(\.setupCompleted) private var setupCompleted
   @Environment(\.dismiss) private var dismiss
 
-  let enabled: Bool
-
   func body(content: Content) -> some View {
-    if enabled {
+    if setupCompleted {
       content
         .toolbarRole(.navigationStack)
         .toolbar {
@@ -29,7 +28,7 @@ struct NavigationBarConfiguration: ViewModifier {
 
 
 extension View {
-  func configureNavigationBar(enabled: Bool = true) -> some View {
-    modifier(NavigationBarConfiguration(enabled: enabled))
+  func configureNavigationBar() -> some View {
+    modifier(NavigationBarConfiguration())
   }
 }

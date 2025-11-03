@@ -11,9 +11,14 @@ extension LabeledContent where Label: View, Content: View {
   init<Title, Icon>(
     @ViewBuilder content: () -> Content,
     @ViewBuilder title: () -> Title,
-    @ViewBuilder icon: () -> Icon) where Title: View, Icon: View, Label == SwiftUI.Label<Title, Icon> {
-      self.init(content: content) {
-        Label(title: title, icon: icon)
-      }
+    @ViewBuilder icon: () -> Icon)
+  where
+    Title: View,
+    Icon: View,
+    Label == SwiftUI.Label<Title, Icon>
+  {
+    self.init(content: content) {
+      Label(title: title, icon: icon)
     }
+  }
 }

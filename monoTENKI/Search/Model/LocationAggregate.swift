@@ -1,8 +1,8 @@
 //
-//  LocationAggregate.swift
-//  monoTENKI
+// LocationAggregate.swift
+// monoTENKI
 //
-//  Created by Barreloofy on 3/19/25 at 8:11 PM.
+// Created by Barreloofy on 3/19/25 at 8:11 PM.
 //
 
 import CoreLocation
