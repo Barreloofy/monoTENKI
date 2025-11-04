@@ -688,6 +688,7 @@
 				2944A8352EAECD66001F01CE /* Close.swift */,
 				29C530492D9713DF00159C2D /* SelectedStyle.swift */,
 				299A55DA2D945E540089C312 /* PermissionButtonStyle.swift */,
+				29393DD72EB7FF7300737A99 /* SwipeableButtonStyle.swift */,
 				295389202E7C0761003181B1 /* TrailingLabelStyle.swift */,
 				297EF7A22E0EC8C5008A28B4 /* AsyncOnChange.swift */,
 				29B0B8732DB7D64C00F93E1B /* Debounce.swift */,
@@ -696,7 +697,6 @@
 				29C656FE2DC68054000A89FC /* Visible.swift */,
 				296F0F242E69ED0900862B6A /* Presence.swift */,
 				2930AC5B2EB548D90041EF99 /* LabeledContent.swift */,
-				29393DD72EB7FF7300737A99 /* SwipeableButtonStyle.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
