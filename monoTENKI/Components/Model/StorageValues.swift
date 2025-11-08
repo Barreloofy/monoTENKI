@@ -16,9 +16,6 @@ extension StorageValues where Value == Bool {
   static let setupCompleted = StorageValues(key: "setupCompleted", defaultValue: false)
 
   nonisolated(unsafe)
-  static let userModifiedMeasurementSystem = StorageValues(key: "userModifiedMeasurementSystem", defaultValue: false)
-
-  nonisolated(unsafe)
   static let nightVision = StorageValues(key: "nightVision", defaultValue: false)
 
   nonisolated(unsafe)

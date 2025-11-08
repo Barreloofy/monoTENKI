@@ -13,7 +13,6 @@ struct monoTENKIApp: App {
   @Environment(\.scenePhase) private var scenePhase
 
   @AppStorage(\.setupCompleted) private var setupCompleted
-  @AppStorage(\.userModifiedMeasurementSystem) private var userModifiedMeasurementSystem
   @AppStorage(\.measurementSystemInUse) private var measurementSystemInUse
   @AppStorage(\.apiSourceInUse) private var apiSourceInUse
   @AppStorage(\.nightVision) private var nightVision
@@ -32,13 +31,6 @@ struct monoTENKIApp: App {
       }
       .configureApp()
     }
-    .onChange(of: locale.measurementSystem, initial: true) {
-      guard !userModifiedMeasurementSystem else { return }
-      switch locale.measurementSystem {
-      case .metric: measurementSystemInUse = .metric
-      default: measurementSystemInUse = .imperial
-      }
-    }
     .onChange(of: scenePhase) {
       switch scenePhase {
       case .active: locationAggregate.resume()
@@ -49,7 +41,6 @@ struct monoTENKIApp: App {
     .environment(locationAggregate)
     .environment(weatherAggregate)
     .setupCompleted(setupCompleted)
-    .modifiedMeasurementSystem(userModifiedMeasurementSystem)
     .measurementSystem(measurementSystemInUse)
     .apiSource(apiSourceInUse)
     .nightVision(nightVision)
