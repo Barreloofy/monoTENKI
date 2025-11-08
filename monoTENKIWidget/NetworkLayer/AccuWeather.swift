@@ -9,14 +9,14 @@ import Foundation
 
 enum AccuWeather {
   enum Service: URLProvider {
-    case geo(query: String)
+    case geo(query: Coordinate)
     case weather
 
     static let currentKey = "current"
     static let hourKey = "hour"
   }
 
-  static func fetchWeather(for query: String) async throws -> AccuWeatherComposite {
+  static func fetchWeather(for query: Coordinate) async throws -> AccuWeatherComposite {
     let location = try await fetchPosition(for: query)
     let urlDictionary = try Service.weather.provideURLs(query: location)
 
@@ -28,20 +28,23 @@ enum AccuWeather {
     let currentClient = HTTPClient(
       url: currentURL,
       decoder: AccuWeatherComposite.decoder)
-    async let currentWeather: [AccuWeatherCurrent] = try await currentClient.fetch()
+    async let currentWeather: [AccuWeatherCurrent] = currentClient.fetch()
 
     let hourClient = HTTPClient(
       url: hourURL,
       decoder: AccuWeatherComposite.decoder)
-    async let hourWeather: [AccuWeatherHour] = try await hourClient.fetch()
+    async let hourWeather: [AccuWeatherHour] = hourClient.fetch()
 
-    return try await AccuWeatherComposite.init(current: currentWeather, hours: hourWeather)
+    return try await AccuWeatherComposite(
+      current: currentWeather,
+      hours: hourWeather)
   }
 
-  private static func fetchPosition(for query: String) async throws -> String {
+  private static func fetchPosition(for query: Coordinate) async throws -> String {
     let client = try HTTPClient(
       url: Service.geo(query: query).provideURL(),
       decoder: AccuWeatherComposite.decoder)
+
     let location: AccuWeatherLocation = try await client.fetch()
 
     return location.key
@@ -62,16 +65,19 @@ extension AccuWeather.Service {
         path: "/locations/v1/cities/geoposition",
         queryItems: [
           "apikey": apiKey,
-          "q": query,
+          "q": query.description,
         ])
-    case .weather: throw URLError(.badURL)
+
+    case .weather:
+      throw URLError(.badURL)
     }
   }
 
-  func provideURLs(query: String = "") throws -> [String : URL] {
+  func provideURLs(query: String) throws -> [String : URL] {
     switch self {
     case .geo:
       throw URLError(.badURL)
+
     case .weather:
       let currentURL = try constructURL(
         host: "dataservice.accuweather.com",

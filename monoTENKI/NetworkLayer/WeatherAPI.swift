@@ -11,8 +11,8 @@ import CoreLocation
 @MainActor
 enum WeatherAPI {
   enum Service: URLProvider {
-    case weather(query: String)
     case search(query: String)
+    case weather(query: String)
   }
 
   static func fetchWeather(for query: Coordinate) async throws -> WeatherAPIWeather {
@@ -33,7 +33,9 @@ enum WeatherAPI {
       Location(
         name: location.name,
         country: location.country,
-        coordinate: .init(latitude: location.lat, longitude: location.lon))
+        coordinate: .init(
+          latitude: location.lat,
+          longitude: location.lon))
     }
   }
 
@@ -41,7 +43,9 @@ enum WeatherAPI {
     let client = try HTTPClient(url: Service.search(query: query.description).provideURL())
     let locations: WeatherAPILocations = try await client.fetch()
 
-    guard let location = locations.first else { throw UnwrappingError(type: WeatherAPILocations.self) }
+    guard
+      let location = locations.first
+    else { throw UnwrappingError(type: WeatherAPILocations.self) }
 
     return "id:\(location.id)"
   }

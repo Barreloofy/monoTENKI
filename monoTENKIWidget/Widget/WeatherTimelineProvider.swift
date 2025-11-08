@@ -6,37 +6,30 @@
 //
 
 import WidgetKit
+import CoreLocation
 
 struct WeatherTimelineProvider: TimelineProvider {
   typealias Entry = WeatherEntry
 
   func placeholder(in context: Context) -> Entry {
-    WeatherEntry.placeholder
+    .placeholder
   }
 
   func getSnapshot(in context: Context, completion: @escaping @Sendable (Entry) -> Void) {
-    if context.isPreview {
-      completion(WeatherEntry.placeholder)
-    } else {
-      Task {
-        let location = try await LocationManager.requestLocation().coordinate.description
-        let weather = try await WeatherAggregate.weatherAPI.fetchWeather(for: location)
-
-        completion(WeatherEntry(date: .now, weather: weather))
-      }
-    }
+    completion(.preview)
   }
 
   func getTimeline(in context: Context, completion: @escaping @Sendable (Timeline<Entry>) -> Void) {
     Task {
-      let location = try await LocationManager.requestLocation().coordinate.description
-      let weather = try await WeatherAggregate.weatherAPI.fetchWeather(for: location)
+      do {
+        let location = try await CLLocationUpdate.currentLocation()
 
-      let entry = WeatherEntry(date: .now, weather: weather)
-      let nextDate = Calendar.current.date(byAdding: .minute, value: 15, to: .now)!
+        let weather = try await WeatherAPI.fetchWeather(for: location.coordinate).create()
 
-      let timeline = Timeline(entries: [entry], policy: .after(nextDate))
-      completion(timeline)
+        completion(Timeline(entries: [WeatherEntry(weather: weather)], policy: .atEnd))
+      } catch {
+        completion(Timeline(entries: [.placeholder], policy: .atEnd))
+      }
     }
   }
 }

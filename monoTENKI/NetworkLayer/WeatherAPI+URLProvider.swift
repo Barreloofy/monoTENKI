@@ -17,11 +17,12 @@ extension WeatherAPI.Service {
     let query: String
 
     switch self {
-    case .weather(let value):
-      service = "forecast"
-      query = value
     case .search(let value):
       service = "search"
+      query = value.description
+
+    case .weather(let value):
+      service = "forecast"
       query = value
     }
 

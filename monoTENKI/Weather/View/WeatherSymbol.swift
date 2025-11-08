@@ -19,8 +19,12 @@ struct WeatherSymbol: View {
   private let regularSizeFraction = 0.5
   private let compactSizeFraction = 0.75
 
+  private var formattedName: String {
+    name.formatted(.sfSymbols(isDay: isDay))
+  }
+
   var body: some View {
-    Image(systemName: name.formatted(.sfSymbols(isDay: isDay)))
+    Image(systemName: formattedName)
       .configure()
       .containerRelativeFrame(.horizontal, alignment: .top) { length, _ in
         if length > largeSizeThreshold {

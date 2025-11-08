@@ -11,9 +11,9 @@ import CoreLocation
 @MainActor
 enum AccuWeather {
   enum Service: URLProvider {
-    case weather
     case search(query: String)
-    case geo(query: String)
+    case geo(query: Coordinate)
+    case weather
 
     static let currentKey = "current"
     static let hourlyKey = "hourly"
@@ -73,7 +73,7 @@ enum AccuWeather {
 
   static func fetchGeo(for query: Coordinate) async throws -> AccuWeatherLocation {
     let client = try HTTPClient(
-      url: Service.geo(query: query.description).provideURL(),
+      url: Service.geo(query: query).provideURL(),
       decoder: AccuWeatherLocation.decoder)
 
     return try await client.fetch()

@@ -2,21 +2,24 @@
 // WeatherEntry.swift
 // monoTENKI
 //
-// Created by Barreloofy on 6/20/25 at 6:18 PM
+// Created by Barreloofy on 11/5/25 at 8:46 PM
 //
 
 import WidgetKit
 
 struct WeatherEntry: TimelineEntry {
-  let date: Date
-  let weather: Weather
+  let date = Date.now.addingTimeInterval(900)
+  let weather: Weather?
 }
 
 
 extension WeatherEntry {
-  static let placeholder = WeatherEntry(
-    date: .now,
-    weather: Weather(
+  /// Provides an empty entry, with no weather values.
+  static let placeholder = WeatherEntry(weather: nil)
+  
+  /// Provides a preview entry, with preview values.
+  static let preview = WeatherEntry(
+    weather: .init(
       condition: "Clear",
       isDay: true,
       temperatureCelsius: 22,

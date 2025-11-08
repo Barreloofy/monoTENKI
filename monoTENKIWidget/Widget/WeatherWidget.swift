@@ -12,13 +12,11 @@ import SwiftUI
 struct WeatherWidget: Widget {
   var body: some WidgetConfiguration {
     StaticConfiguration(
-      kind: "WeatherWidget",
+      kind: "com.monoTENKI.current-location",
       provider: WeatherTimelineProvider()) { entry in
-        WeatherView(entry: entry)
-          .containerBackground(.background, for: .widget)
-          .dynamicTypeSize(...DynamicTypeSize.large)
+        Aggregate(entry: entry)
       }
-      .configurationDisplayName("Current Weather overview")
+      .configurationDisplayName("Current Weather Overview")
       .description("Sleek, minimalist widget providing a quick overview of current weather conditions.")
       .supportedFamilies([.systemSmall])
   }

@@ -12,9 +12,13 @@ struct AccuWeatherComposite: CreateWeather {
   let hours: [AccuWeatherHour]
 
   func create() throws -> Weather {
-    guard let current = current.first else { throw UnwrappingError(type: [AccuWeatherCurrent].self) }
+    guard
+      let current = current.first
+    else { throw UnwrappingError(type: [AccuWeatherCurrent].self) }
 
-    guard let nextHour = hours.first else { throw UnwrappingError(type: [AccuWeatherHour].self) }
+    guard
+      let nextHour = hours.first
+    else { throw UnwrappingError(type: [AccuWeatherHour].self) }
 
     return Weather(
       condition: current.weatherText,

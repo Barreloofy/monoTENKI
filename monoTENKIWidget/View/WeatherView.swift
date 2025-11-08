@@ -10,27 +10,32 @@ import SwiftUI
 struct WeatherView: View {
   @Environment(\.locale) private var locale
 
-  let entry: WeatherEntry
+  let weather: Weather
 
   var body: some View {
     VStack {
       HStack {
-        Image(systemName: entry.weather.condition.formatted(.sfSymbols(isDay: entry.weather.isDay)))
+        WeatherSymbol(
+          name: weather.condition,
+          isDay: weather.isDay)
 
-        TemperatureView(entry.weather.temperatureCelsius, accessibilityText: "Now")
+        TemperatureView(
+          weather.temperatureCelsius,
+          accessibilityText: "Now")
       }
-      .font(.system(.largeTitle, design: .monospaced, weight: .bold))
+      .font(.largeTitle)
 
-      Label(entry.weather.precipitationChance.formatted(.percent), systemImage: "drop.fill")
-        .accessibilityLabel("Next hour \(entry.weather.precipitationChance.formatted(.percent)) precipitation Chance")
-        .visible(entry.weather.precipitationChance >= 33)
+      RainView(
+        precipitationChance: weather.precipitationChance)
     }
-    .lineLimit(1)
-    .minimumScaleFactor(0.5)
     .transformEnvironment(\.measurementSystemInUse) { measurementSystem in
       switch locale.measurementSystem {
-      case .metric: measurementSystem = .metric
-      default: measurementSystem = .imperial
+      case .metric:
+        measurementSystem = .metric
+      case .us, .uk:
+        measurementSystem = .imperial
+      default:
+        measurementSystem = .metric
       }
     }
   }

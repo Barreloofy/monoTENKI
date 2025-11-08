@@ -14,9 +14,6 @@ extension AccuWeather.Service {
 
   func provideURL() throws -> URL {
     switch self {
-    case .weather:
-      throw URLError(.badURL)
-
     case .search(let query):
       try constructURL(
         host: "dataservice.accuweather.com",
@@ -32,8 +29,11 @@ extension AccuWeather.Service {
         path: "/locations/v1/cities/geoposition",
         queryItems: [
           "apikey": apiKey,
-          "q": query,
+          "q": query.description,
         ])
+
+    case .weather:
+      throw URLError(.badURL)
     }
   }
 
@@ -69,23 +69,8 @@ extension AccuWeather.Service {
           "metric": "true",
         ])
 
-    case .search(let query):
-      try urlDictionary[Self.searchKey] = constructURL(
-        host: "dataservice.accuweather.com",
-        path: "/locations/v1/cities/autocomplete",
-        queryItems: [
-          "apikey": apiKey,
-          "q": query,
-        ])
-
-    case .geo(let query):
-      try urlDictionary[Self.geoKey] = constructURL(
-        host: "dataservice.accuweather.com",
-        path: "/locations/v1/cities/geoposition",
-        queryItems: [
-          "apikey": apiKey,
-          "q": query,
-        ])
+    default:
+      throw URLError(.badURL)
     }
 
     return urlDictionary
