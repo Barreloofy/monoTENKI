@@ -9,7 +9,6 @@ import SwiftUI
 
 @main
 struct monoTENKIApp: App {
-  @Environment(\.locale) private var locale
   @Environment(\.scenePhase) private var scenePhase
 
   @AppStorage(\.setupCompleted) private var setupCompleted
