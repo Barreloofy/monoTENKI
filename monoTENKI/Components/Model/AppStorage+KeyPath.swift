@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-extension AppStorage where Value: RawRepresentable, Value.RawValue == Int {
+extension AppStorage where Value: RawRepresentable, Value.RawValue == Int, Value: Sendable {
   /// Creates a property that can read and write to an `Int` user default, transforming that to `RawRepresentable` data type.
   /// - Parameter keyPath: The key path to the `StorageValues` instance.
   init(_ keyPath: KeyPath<StorageValues<Value>.Type, StorageValues<Value>>) {
@@ -18,7 +18,7 @@ extension AppStorage where Value: RawRepresentable, Value.RawValue == Int {
 }
 
 
-extension AppStorage where Value: RawRepresentable, Value.RawValue == String {
+extension AppStorage where Value: RawRepresentable, Value.RawValue == String, Value: Sendable {
   /// Creates a property that can read and write to a `String` user default, transforming that to `RawRepresentable` data type.
   /// - Parameter keyPath: The key path to the `StorageValues` instance.
   init(_ keyPath: KeyPath<StorageValues<Value>.Type, StorageValues<Value>>) {
