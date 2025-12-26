@@ -8,52 +8,43 @@
 import Foundation
 
 extension JSONDecoder.DateDecodingStrategy {
-  /// Converts a JSON String date: "yyyy-MM-dd HH:mm", "yyyy-MM-dd" to `Date` type.
-  ///
-  /// > Important:
-  /// Date components are `ISO 8601` but the format itself, here, is not compliant.
-  ///
-  /// > Important:
-  /// Date-decoder uses a dateFormatter with the `timeZone` property set to UTC.
+  /// The strategy that formats dates according to the "yyyy-MM-dd HH:mm" or "yyyy-MM-dd" format.
   static let weatherAPIDateStrategy: Self = {
     .custom { decoder in
       let container = try decoder.singleValueContainer()
-      let stringDate = try container.decode(String.self)
+      var dateAsString = try container.decode(String.self)
+      dateAsString.append(":00")
 
-      let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-      dateFormatter.timeZone = TimeZone(identifier: "UTC")
-
-      if let date = dateFormatter.date(from: stringDate) { return date }
-      dateFormatter.dateFormat = "yyyy-MM-dd"
-      if let date = dateFormatter.date(from: stringDate) { return date }
-
-      throw DecodingError.dataCorruptedError(
-        in: container,
-        debugDescription: "Date string does not match format expected by formatter")
+      do {
+        return try Date(dateAsString, strategy: .iso8601
+          .year()
+          .month()
+          .day()
+          .dateTimeSeparator(.space)
+          .time(includingFractionalSeconds: false))
+      } catch {
+        return try Date(dateAsString, strategy: .iso8601
+          .year()
+          .month()
+          .day())
+      }
     }
   }()
 }
 
 
 extension JSONDecoder.DateDecodingStrategy {
-  /// Converts a JSON string date following the `ISO 8601` standard into `Date` type, with timeZone set to UTC.
+  /// The strategy that formats dates according to the ISO 8601 standard, dropping the `timeZone` part.
   static let iso8601UTC: Self = {
     .custom { decoder in
       let container = try decoder.singleValueContainer()
-      let stringDate = try String(container.decode(String.self).dropLast(6))
+      let dateAsString = try container.decode(String.self)
 
-      let dateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-      dateFormatter.timeZone = TimeZone(identifier: "UTC")
-
-      guard let date = dateFormatter.date(from: stringDate) else {
-        throw DecodingError.dataCorruptedError(
-          in: container,
-          debugDescription: "Date string does not match format expected by formatter")
-      }
-
-      return date
+      return try Date(dateAsString, strategy: .iso8601
+        .year()
+        .month()
+        .day()
+        .time(includingFractionalSeconds: false))
     }
   }()
 }

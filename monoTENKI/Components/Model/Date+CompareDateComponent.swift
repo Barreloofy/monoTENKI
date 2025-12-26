@@ -10,8 +10,7 @@ import Foundation
 extension Date {
   func compareDateComponent(_ component: Calendar.Component, with date: Date) -> Bool {
     var calendar = Calendar.current
-
-    calendar.timeZone = .init(abbreviation: "UTC")!
+    calendar.timeZone = .gmt
 
     return calendar.component(component, from: self) == calendar.component(component, from: date)
   }
