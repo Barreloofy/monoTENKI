@@ -24,7 +24,7 @@ struct WeatherTimelineProvider: TimelineProvider {
       do {
         let location = try await CLLocationUpdate.currentLocation()
 
-        let weather = try await WeatherAPI.fetchWeather(for: location.coordinate).create()
+        let weather = try await WeatherAPI.fetchWeather(for: location.makeCoordinate()).create()
 
         completion(Timeline(entries: [WeatherEntry(weather: weather)], policy: .atEnd))
       } catch {

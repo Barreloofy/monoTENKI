@@ -105,7 +105,7 @@ final class LocationAggregate {
       try await CLLocationUpdate.liveUpdates()
         .compactMap(\.location)
         .filter(filterByDistance)
-        .forEach { location = $0.coordinate }
+        .forEach { location = $0.makeCoordinate() }
     }
   }
 }
