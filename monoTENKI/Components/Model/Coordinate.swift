@@ -7,6 +7,7 @@
 
 import CoreLocation
 
+nonisolated
 struct Coordinate: Equatable, Codable, CustomStringConvertible {
   var latitude: Double
   var longitude: Double
@@ -19,6 +20,7 @@ struct Coordinate: Equatable, Codable, CustomStringConvertible {
 
 extension Coordinate {
   /// Creates a new instance of `Coordinate` with `latitude` and `longitude` set to `0`.
+  nonisolated
   init() {
     self.init(
       latitude: .zero,

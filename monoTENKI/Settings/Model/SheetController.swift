@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@MainActor
 @Observable
 final class SheetController {
   var present: Binding<Bool>

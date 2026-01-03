@@ -13,11 +13,12 @@ extension CLLocationUpdate {
   /// - Note: If location authorization is undetermined, prompts for permission.
   ///
   /// - Returns: A boolean indicating whether some level of authorization was granted.
+  nonisolated
   static func getAuthorization() async throws -> Bool {
     let updates = CLLocationUpdate.liveUpdates()
-      .filter{ !$0.authorizationRequestInProgress }
-      .map{ !$0.authorizationDenied }
+      .filter { !$0.authorizationRequestInProgress }
+      .map { !$0.authorizationDenied }
 
-    return try await updates.first { _ in true } ?? false
+    return try await updates.first { $0 } ?? false
   }
 }

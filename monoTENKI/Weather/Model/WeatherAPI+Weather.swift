@@ -66,7 +66,7 @@ extension WeatherAPIWeather {
 
         guard
           hour.time > location.localtime &&
-          hour.time <= location.localtime.addingTimeInterval(twelveHoursInSeconds)
+            hour.time <= location.localtime.addingTimeInterval(twelveHoursInSeconds)
         else { continue }
 
         let isDay = hour.isDay == 1 ? true : false

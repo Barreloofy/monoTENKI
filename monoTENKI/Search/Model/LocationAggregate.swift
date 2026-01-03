@@ -12,9 +12,9 @@ import CoreLocation
 /// The aggregate is in either state:
 ///   - manual, update aggregate directly.
 ///   - automatic, the aggregate continuously updates itself.
-@MainActor
 @Observable
 final class LocationAggregate {
+  nonisolated
   enum State: Codable {
     case manual, automatic
   }

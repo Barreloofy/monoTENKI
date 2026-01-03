@@ -37,7 +37,7 @@ struct Aggregate: View {
 
       case .error:
         Recovery() {
-          await weatherAggregate.getWeather(
+          await weatherAggregate.weather(
             for: locationAggregate.location,
             from: apiSourceInUse,
             resetState: true)
@@ -50,20 +50,20 @@ struct Aggregate: View {
     }
     .asyncOnChange(id: apiSourceInUse) {
       guard weatherAggregate() != .error else { return }
-      await weatherAggregate.getWeather(
+      await weatherAggregate.weather(
         for: locationAggregate.location,
         from: apiSourceInUse)
       refreshDate = .nextRefreshDate
     }
     .task(id: locationAggregate.location) {
-      await weatherAggregate.getWeather(
+      await weatherAggregate.weather(
         for: locationAggregate.location,
         from: apiSourceInUse)
       refreshDate = .nextRefreshDate
     }
     .task {
       for await _ in updateTimer where Date() > refreshDate {
-        await weatherAggregate.getWeather(
+        await weatherAggregate.weather(
           for: locationAggregate.location,
           from: apiSourceInUse)
         refreshDate = .nextRefreshDate

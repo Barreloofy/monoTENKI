@@ -7,6 +7,7 @@
 
 import Foundation
 
+nonisolated
 protocol Weather: Sendable, Decodable {
   func createCurrentWeather() throws -> CurrentWeather
   func createHourForecast() throws -> Hours

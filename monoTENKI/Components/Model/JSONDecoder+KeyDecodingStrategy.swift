@@ -8,6 +8,7 @@
 import Foundation
 
 extension JSONDecoder.KeyDecodingStrategy {
+  nonisolated
   struct PascalCaseCodingKey: CodingKey {
     let stringValue: String
     let intValue: Int?
@@ -21,6 +22,7 @@ extension JSONDecoder.KeyDecodingStrategy {
   }
 
   /// Converts JSON key from PascalCase to camelCase.
+  nonisolated
   static let convertFromPascalCase: Self = {
     .custom { keys in
       let key = keys.last!.stringValue

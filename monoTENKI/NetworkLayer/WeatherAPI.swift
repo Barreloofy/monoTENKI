@@ -8,7 +8,6 @@
 import CoreLocation
 
 /// Concrete interface for WeatherAPI.com.
-@MainActor
 enum WeatherAPI {
   enum Service: URLProvider {
     case search(query: String)

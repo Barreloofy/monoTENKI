@@ -8,6 +8,7 @@
 import Foundation
 
 extension Date {
+  nonisolated
   func compareDateComponent(_ component: Calendar.Component, with date: Date) -> Bool {
     var calendar = Calendar.current
     calendar.timeZone = .gmt

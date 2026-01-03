@@ -8,7 +8,6 @@
 import CoreLocation
 
 /// Concrete interface for AccuWeather.
-@MainActor
 enum AccuWeather {
   enum Service: URLProvider {
     case search(query: String)

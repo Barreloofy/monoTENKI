@@ -38,7 +38,7 @@ final class WeatherAggregate {
   ///   - location: The location as **WGS 84** coordinate to query the weather for.
   ///   - source: The Weather Service to use for the query.
   ///   - resetState: Pass `true` to go through a complete cycle, on `false` transition from Initial state to final state.
-  func getWeather(for location: Coordinate, from source: APISource, resetState: Bool = false) async {
+  func weather(for location: Coordinate, from source: APISource, resetState: Bool = false) async {
     do {
       if resetState { state = .loading }
 

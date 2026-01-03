@@ -9,6 +9,7 @@ import Foundation
 
 extension JSONDecoder.DateDecodingStrategy {
   /// The strategy that formats dates according to the "yyyy-MM-dd HH:mm" or "yyyy-MM-dd" format.
+  nonisolated
   static let weatherAPIDateStrategy: Self = {
     .custom { decoder in
       let container = try decoder.singleValueContainer()
@@ -35,6 +36,7 @@ extension JSONDecoder.DateDecodingStrategy {
 
 extension JSONDecoder.DateDecodingStrategy {
   /// The strategy that formats dates according to the ISO 8601 standard, dropping the `timeZone` part.
+  nonisolated
   static let iso8601UTC: Self = {
     .custom { decoder in
       let container = try decoder.singleValueContainer()

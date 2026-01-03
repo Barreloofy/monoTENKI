@@ -28,6 +28,7 @@ struct MockResponse {
   let body: Data
 }
 
+nonisolated
 final class MockURLProtocol: URLProtocol {
   static func register(for url: URL, with response: MockResponse, requestValidator: @escaping (URLRequest) -> Bool) {
     self.requestURL = url

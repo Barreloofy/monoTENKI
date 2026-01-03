@@ -7,12 +7,11 @@
 
 import CoreLocation
 
-@MainActor
 final class LocationServiceInterface: NSObject, CLLocationManagerDelegate {
   private let manager = CLLocationManager()
 
   var success: ((CLLocation) -> Void)?
-  var failure: ((CLError) -> Void)?
+  var failure: ((any Error) -> Void)?
 
   override init() {
     super.init()
@@ -26,7 +25,7 @@ final class LocationServiceInterface: NSObject, CLLocationManagerDelegate {
 
   func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
     guard let failure else { fatalError("No failure handler assigned") }
-    failure(error as! CLError)
+    failure(error)
   }
 }
 
@@ -58,7 +57,6 @@ extension CLLocationUpdate {
   ///
   /// - Throws: When location can't be determined.
   /// - Returns: The current location.
-  @MainActor
   static func currentLocation() async throws -> CLLocation {
     let serviceInterface = LocationServiceInterface()
 

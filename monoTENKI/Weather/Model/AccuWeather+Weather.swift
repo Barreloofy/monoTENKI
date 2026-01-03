@@ -104,6 +104,7 @@ extension AccuWeatherComposite {
   }
 }
 
+
 extension AccuWeatherComposite {
   static let decoder: JSONDecoder = {
     let decoder = JSONDecoder()
